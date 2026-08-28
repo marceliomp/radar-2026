@@ -1,0 +1,158 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/*
+  Alvo BR tokens — surface-deep (dashboard).
+  Fonte: /root/alvo-design-system (docs/DESIGN-SYSTEM-FULL.md)
+*/
+@theme {
+  --color-bg: #0f1f1e;
+  --color-surface: #1b2e2c;
+  --color-surface-2: #23403d;
+  --color-fg: #f3eee6;
+  --color-muted: #c4b9a8;
+  --color-border: #2c4a47;
+  --color-primary: #2a9582;
+  --color-primary-fg: #faf6ef;
+  --color-lula: #db2525;
+  --color-flavio: #3d8ec4;
+  --color-renan: #b8a88e;
+  --color-accent: #2a9582;
+  --color-danger: #db2525;
+  --color-gold: #b8a88e;
+  --color-cream: #faf6ef;
+  --color-ink: #13171f;
+  --color-ring: #2a9582;
+  --color-chart-grid: #2a4542;
+  --color-chart-axis: #c4b9a8;
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --shadow-card: 0 12px 32px -12px hsl(178 50% 6% / 0.45),
+    0 2px 6px hsl(178 50% 6% / 0.12);
+  --shadow-glow-amber: 0 0 0 1px hsl(36 22% 62% / 0.28),
+    0 12px 36px -16px hsl(36 22% 62% / 0.22);
+  --shadow-glow-lula: 0 0 0 1px hsl(0 72% 50% / 0.28),
+    0 12px 36px -14px hsl(0 72% 50% / 0.22);
+  --shadow-glow-flavio: 0 0 0 1px hsl(205 55% 48% / 0.28),
+    0 12px 36px -14px hsl(205 55% 48% / 0.22);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    color-scheme: dark;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100dvh;
+    background-color: var(--color-bg);
+    background-image:
+      radial-gradient(
+        ellipse 90% 60% at 0% -10%,
+        hsl(168 56% 38% / 0.16),
+        transparent 52%
+      ),
+      radial-gradient(
+        ellipse 70% 50% at 100% 0%,
+        hsl(205 55% 18% / 0.35),
+        transparent 50%
+      ),
+      linear-gradient(180deg, hsl(178 42% 10%) 0%, hsl(178 50% 7%) 100%);
+    background-attachment: fixed;
+    color: var(--color-fg);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.55;
+    font-feature-settings: "ss01", "cv11";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  small,
+  .text-xs {
+    font-weight: 500;
+    letter-spacing: 0.01em;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--color-primary) 40%, transparent);
+    color: var(--color-cream);
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .card-elevated {
+    box-shadow: var(--shadow-card);
+  }
+
+  .glow-primary {
+    box-shadow: var(--shadow-glow-amber);
+  }
+
+  .glow-lula {
+    box-shadow: var(--shadow-glow-lula);
+  }
+
+  .glow-flavio {
+    box-shadow: var(--shadow-glow-flavio);
+  }
+
+  .hairline {
+    border-color: color-mix(in oklab, var(--color-border) 70%, white 12%);
+  }
+
+  .num-lula {
+    color: var(--color-lula);
+    font-weight: 700;
+  }
+
+  .num-flavio {
+    color: var(--color-flavio);
+    font-weight: 700;
+  }
+
+  .num-accent {
+    color: var(--color-accent);
+    font-weight: 700;
+  }
+
+  .prob-track {
+    background: #0a1615;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.45);
+  }
+
+  .eyebrow {
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
