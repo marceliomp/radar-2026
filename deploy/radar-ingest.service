@@ -1,0 +1,9 @@
+[Unit]
+Description=Radar 2026 poll pipeline (TSE discover + allowlist process)
+
+[Service]
+Type=oneshot
+WorkingDirectory=/root/radar-2026
+Environment=TSE_ZIP=/tmp/pesquisa_eleitoral_2026.zip
+ExecStart=/usr/bin/node /root/radar-2026/scripts/pipeline.mjs
+Nice=10

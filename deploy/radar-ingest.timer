@@ -1,0 +1,11 @@
+[Unit]
+Description=Radar 2026 ingest twice daily (11:00 and 19:00 America/Sao_Paulo)
+
+[Timer]
+OnCalendar=*-*-* 14:00:00
+OnCalendar=*-*-* 22:00:00
+Persistent=true
+AccuracySec=5min
+
+[Install]
+WantedBy=timers.target

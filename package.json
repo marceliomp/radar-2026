@@ -13,9 +13,12 @@
     "build:dev": "vite build --mode development",
     "preview": "vite preview --host 0.0.0.0 --port 8080",
     "typecheck": "tsc --noEmit",
-    "test": "node --test 'scripts/**/*.test.mjs'",
+    "test": "node --experimental-strip-types --test 'scripts/**/*.test.mjs'",
     "lint": "eslint .",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "polls:ingest": "node scripts/ingest-polls.mjs",
+    "polls:process": "node scripts/process-pending.mjs",
+    "polls:pipeline": "node scripts/pipeline.mjs"
   },
   "dependencies": {
     "@electric-sql/pglite": "^0.5.4",
