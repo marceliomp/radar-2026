@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { Link } from "@tanstack/react-router";
 import {
   Area,
   AreaChart,
@@ -17,38 +18,48 @@ import {
   YAxis,
 } from "recharts";
 import {
-  Beaker,
   CalendarClock,
   CalendarDays,
   Info,
   MapPin,
   Medal,
   Radio,
-  Scale,
   Settings2,
-  Sparkles,
   TrendingDown,
   TrendingUp,
 } from "lucide-react";
+import { useAsOf } from "@/lib/as-of";
+import { useHalfLife } from "@/lib/half-life";
+import { HalfLifeControl, HalfLifeSlider } from "@/components/half-life-control";
 import { polls, CANDIDATE_META } from "@/data/polls";
 import { CALENDAR, UF_META } from "@/data/calendar";
-import { BrazilMap } from "@/components/brazil-map";
+import {
+  BrazilMap,
+  MapLayerToggle,
+  type MapLayer,
+} from "@/components/brazil-map";
 import {
   DEFAULT_CONFIG,
+  housesInAverage,
   runForecast,
+  type CandidateKey,
   type EngineConfig,
+  type ForecastPoll,
 } from "@/lib/forecast/engine";
+import { buildRunoffScenarios } from "@/lib/forecast/runoff-scenarios";
+import { bottomUpNational } from "@/lib/forecast/states";
 import {
   buildNationalTrend,
   rollingAverage,
   sameHouseDeltas,
   windowMomentum,
 } from "@/lib/forecast/trends";
-import { fmtDelta, fmtMult, fmtNum, fmtPct, fmtProb } from "@/lib/format";
+import { fmtDelta, fmtMult, fmtNum, fmtPct, fmtProb, isShownTie, shownGap } from "@/lib/format";
 import {
   ELECTION_2022_2T,
   TRACK_2022,
   TRACK_RANKING_DISPLAY,
+  resolveInstitute,
   trackQuality,
 } from "@/lib/forecast/track-record";
 import { Badge } from "@/components/ui/badge";
@@ -61,19 +72,41 @@ import {
 } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
-import { CHART, tipStyle } from "@/lib/chart-theme";
+import { ChartTip } from "@/components/chart-tooltip";
+import { CHART } from "@/lib/chart-theme";
 import { ShareBar } from "@/components/share-bar";
+import { SiteNav } from "@/components/site-nav";
+import { TightRaces } from "@/components/tight-races";
 
-function pollTipLabel(payload: unknown): string {
-  const row = Array.isArray(payload)
-    ? (payload[0] as { payload?: { institute?: string; published?: string; fieldEnd?: string } } | undefined)
-        ?.payload
-    : undefined;
-  if (!row?.institute) return "";
-  const pub = row.published?.slice(8) + "/" + row.published?.slice(5, 7);
-  const field = row.fieldEnd?.slice(8) + "/" + row.fieldEnd?.slice(5, 7);
-  return `${row.institute} · ${pub} (campo ${field})`;
+function fmtDateBr(iso: string) {
+  return `${iso.slice(8)}/${iso.slice(5, 7)}/${iso.slice(0, 4)}`;
 }
+
+function gapPlain(
+  tie: boolean | undefined,
+  a: number | undefined,
+  b: number | undefined,
+  se?: number,
+) {
+  if (a == null || b == null) return "Ainda poucas pesquisas perguntaram o 2º.";
+  const gap = shownGap(a, b);
+  const pts = fmtNum(Math.abs(gap));
+  const honest = se != null ? isShownTie(a, b, se) : Boolean(tie) && Math.abs(gap) <= 3;
+  if (honest) {
+    return `Empate técnico: ${pts} pontos de diferença, cabe na margem.`;
+  }
+  const who = gap > 0 ? "Lula" : "Flávio";
+  return `${who} à frente por ${pts} pontos de intenção.`;
+}
+
+function nextUpcoming(asOf: string) {
+  const future = CALENDAR.filter(
+    (i) =>
+      (i.kind === "previsto" || i.kind === "campo") && i.date >= asOf,
+  ).sort((a, b) => a.date.localeCompare(b.date));
+  return future[0] ?? null;
+}
+
 
 const POLL_XAXIS = {
   dataKey: "label" as const,
@@ -81,7 +114,7 @@ const POLL_XAXIS = {
   angle: -40,
   textAnchor: "end" as const,
   height: 70,
-  tick: { fill: CHART.axis, fontSize: 10, fontWeight: 500 },
+  tick: { fill: CHART.axis, fontSize: 11, fontWeight: 500 },
   axisLine: false,
   tickLine: false,
 };
@@ -133,6 +166,232 @@ function ProbBar({
   );
 }
 
+const FIRST_KEYS = ["lula", "flavio", "renan", "caiado", "zema", "cury"] as const;
+
+function FirstRoundField({
+  first,
+  zeroLabel,
+}: {
+  first: {
+    lula: { mean: number; nPolls?: number };
+    flavio: { mean: number; nPolls?: number };
+    renan: { mean: number; nPolls?: number };
+    caiado: { mean: number; nPolls?: number };
+    zema: { mean: number; nPolls?: number };
+    cury: { mean: number; nPolls?: number };
+  };
+  zeroLabel?: string;
+}) {
+  const rows = FIRST_KEYS.map((key) => ({
+    key,
+    name: CANDIDATE_META[key].name,
+    party: CANDIDATE_META[key].party,
+    color: CANDIDATE_META[key].color,
+    value: first[key].mean,
+    nPolls: first[key].nPolls ?? 0,
+  }))
+    .filter((r) => r.key === "lula" || r.key === "flavio" || (r.nPolls > 0 && r.value > 0))
+    .sort((a, b) => b.value - a.value);
+  return (
+    <ol className="mt-2">
+      {rows.map((r, i) => (
+        <li key={r.key} className="score-row">
+          <span className="min-w-0 truncate">
+            <span className="mr-2 font-mono text-xs text-cream/55">
+              {i + 1}
+            </span>
+            <span className="font-semibold" style={{ color: r.color }}>
+              {r.name}
+            </span>
+            <span className="ml-1.5 font-mono text-[11px] uppercase tracking-[0.08em] text-cream">
+              {r.party}
+            </span>
+          </span>
+          <span
+            className={cn(
+              "shrink-0 font-mono tabular-nums",
+              i === 0 ? "text-xl font-semibold sm:text-2xl" : "text-sm font-semibold",
+            )}
+            style={{ color: r.color }}
+          >
+            {zeroLabel && r.value === 0 ? zeroLabel : fmtPct(r.value)}
+          </span>
+        </li>
+      ))}
+    </ol>
+  );
+}
+
+function pollFirstRoundRows(poll: {
+  firstRound: Partial<Record<(typeof FIRST_KEYS)[number], number>>;
+}) {
+  return pollFieldRows(poll.firstRound);
+}
+
+function pollFieldRows(
+  round: Partial<Record<(typeof FIRST_KEYS)[number], number>> | undefined,
+) {
+  return FIRST_KEYS.map((key) => ({
+    key,
+    name: CANDIDATE_META[key].name,
+    color: CANDIDATE_META[key].color,
+    value: round?.[key] ?? 0,
+    asked: round?.[key] != null,
+  })).sort((a, b) => {
+    if (a.asked !== b.asked) return a.asked ? -1 : 1;
+    return b.value - a.value;
+  });
+}
+
+
+type FieldKey = (typeof FIRST_KEYS)[number];
+
+function isFieldKey(k: CandidateKey): k is FieldKey {
+  return (FIRST_KEYS as readonly string[]).includes(k);
+}
+
+function pollAskedPairs(poll: Pick<ForecastPoll, "secondRound" | "secondPairs">) {
+  const pairs: { a: FieldKey; b: FieldKey; aPct: number; bPct: number }[] = [];
+  const sr = poll.secondRound;
+  if (sr?.lula != null && sr?.flavio != null) {
+    pairs.push({ a: "lula", b: "flavio", aPct: sr.lula, bPct: sr.flavio });
+  }
+  for (const row of poll.secondPairs ?? []) {
+    if (!isFieldKey(row.a) || !isFieldKey(row.b)) continue;
+    pairs.push({ a: row.a, b: row.b, aPct: row.aPct, bPct: row.bPct });
+  }
+  return pairs;
+}
+
+function pairChance(p: number) {
+  if (p >= 0.995) return ">99%";
+  if (p < 0.005) return "<1%";
+  return fmtProb(p);
+}
+
+function SecondRoundScenarios({
+  first,
+  second,
+  pollsForPairs,
+}: {
+  first: {
+    lula: { mean: number; se: number; nPolls: number };
+    flavio: { mean: number; se: number; nPolls: number };
+    renan: { mean: number; se: number; nPolls: number };
+    caiado: { mean: number; se: number; nPolls: number };
+    zema: { mean: number; se: number; nPolls: number };
+    cury: { mean: number; se: number; nPolls: number };
+  };
+  second: {
+    lula: { mean: number; se: number; nPolls: number };
+    flavio: { mean: number; se: number; nPolls: number };
+    renan: { mean: number; se: number; nPolls: number };
+    caiado: { mean: number; se: number; nPolls: number };
+    zema: { mean: number; se: number; nPolls: number };
+    cury: { mean: number; se: number; nPolls: number };
+  } | null;
+  pollsForPairs: (Pick<ForecastPoll, "secondRound" | "secondPairs"> & { weight?: number })[];
+}) {
+  const scenarios = useMemo(
+    () =>
+      buildRunoffScenarios({
+        first,
+        second,
+        polls: pollsForPairs,
+      }),
+    [first, second, pollsForPairs],
+  );
+  const hero =
+    scenarios.find((s) => s.pairKey === "flavio|lula" && s.asked) ??
+    scenarios.find((s) => s.asked) ??
+    null;
+  const rest = scenarios.filter((s) => s.pairKey !== hero?.pairKey && s.asked);
+  if (!hero && rest.length === 0) {
+    return (
+      <p className="mt-2 text-sm font-medium text-fg">
+        Ainda poucas pesquisas perguntaram o 2º.
+      </p>
+    );
+  }
+  const left = hero ? CANDIDATE_META[hero.a] : null;
+  const right = hero ? CANDIDATE_META[hero.b] : null;
+  return (
+    <div className="mt-2">
+      {hero && left && right && hero.a2 != null && hero.b2 != null ? (
+        <div className="matchup">
+          <div>
+            <p className="text-sm font-semibold" style={{ color: left.color }}>
+              {left.name}
+            </p>
+            <p className="font-mono text-[11px] uppercase tracking-[0.1em] text-cream">
+              {left.party}
+            </p>
+            <p className="matchup-num mt-1" style={{ color: left.color }}>
+              {fmtPct(hero.a2)}
+            </p>
+          </div>
+          <p className="pb-3 font-mono text-xs text-cream/40">×</p>
+          <div className="text-right">
+            <p className="text-sm font-semibold" style={{ color: right.color }}>
+              {right.name}
+            </p>
+            <p className="font-mono text-[11px] uppercase tracking-[0.1em] text-cream">
+              {right.party}
+            </p>
+            <p className="matchup-num mt-1" style={{ color: right.color }}>
+              {fmtPct(hero.b2)}
+            </p>
+          </div>
+        </div>
+      ) : null}
+      {hero ? (
+        <p className="mt-2 font-mono text-[11px] uppercase tracking-[0.1em] text-cream/85">
+          {hero.nAsked} pesquisas · par {pairChance(hero.pPair)} no 1º
+        </p>
+      ) : null}
+      {rest.length > 0 ? (
+        <ol className="mt-3">
+          {rest.map((s) => {
+            const a = CANDIDATE_META[s.a];
+            const b = CANDIDATE_META[s.b];
+            const measured = s.asked && s.a2 != null && s.b2 != null;
+            return (
+              <li key={s.pairKey} className="score-row">
+                <span className="min-w-0 text-sm">
+                  <span style={{ color: a.color }}>{a.name}</span>
+                  <span className="text-cream/40"> × </span>
+                  <span style={{ color: b.color }}>{b.name}</span>
+                </span>
+                <span className="shrink-0 text-right font-mono text-xs tabular-nums">
+                  {measured ? (
+                    <span>
+                      <span style={{ color: a.color }}>{fmtPct(s.a2!)}</span>
+                      <span className="text-cream/40"> × </span>
+                      <span style={{ color: b.color }}>{fmtPct(s.b2!)}</span>
+                      <span className="ml-2 text-cream/50">
+                        {s.nAsked} · par {pairChance(s.pPair)}
+                      </span>
+                    </span>
+                  ) : null}
+                </span>
+              </li>
+            );
+          })}
+        </ol>
+      ) : null}
+    </div>
+  );
+}
+
+const EMPTY_FIELD = {
+  lula: { mean: 0 },
+  flavio: { mean: 0 },
+  renan: { mean: 0 },
+  caiado: { mean: 0 },
+  zema: { mean: 0 },
+  cury: { mean: 0 },
+};
+
 function Toggle({
   checked,
   onChange,
@@ -157,7 +416,7 @@ function Toggle({
       >
         <span
           className={cn(
-            "absolute top-0.5 left-0.5 size-6 rounded-full bg-primary-fg shadow transition-transform",
+            "absolute top-0.5 left-0.5 size-6 rounded-full bg-cream shadow transition-transform",
             checked && "translate-x-5",
           )}
         />
@@ -194,18 +453,22 @@ function DeltaPill({
   );
 }
 
-export function ForecastDashboard() {
-  const [halfLife, setHalfLife] = useState(14);
+export function ForecastDashboard({ variant = "public" }: { variant?: "public" | "lab" }) {
+  const [asOf] = useAsOf();
+  const [halfLife, setHalfLife] = useHalfLife();
   const [includeOnline, setIncludeOnline] = useState(true);
   const [includeRemoto, setIncludeRemoto] = useState(true);
   const [includeModelo, setIncludeModelo] = useState(false);
-  const [houseOn, setHouseOn] = useState(true);
+  const [houseOn, setHouseOn] = useState(false);
   const [useTrackRecord, setUseTrackRecord] = useState(true);
-  const [useTrackHouse, setUseTrackHouse] = useState(true);
+  const [useTrackHouse, setUseTrackHouse] = useState(false);
+  const [mapLayer, setMapLayer] = useState<MapLayer>("agg2026");
 
-  const config: EngineConfig = useMemo(
-    () => ({
+  const config: EngineConfig = useMemo(() => {
+    const base: EngineConfig = {
       ...DEFAULT_CONFIG,
+      asOf,
+      extraVarPp: 1.15,
       halfLifeDays: halfLife,
       includeOnline,
       includeRemoto,
@@ -213,39 +476,38 @@ export function ForecastDashboard() {
       houseEffects: houseOn ? DEFAULT_CONFIG.houseEffects : {},
       useTrackRecord,
       useTrackHouse: houseOn && useTrackHouse,
-    }),
-    [
-      halfLife,
-      includeOnline,
-      includeRemoto,
-      includeModelo,
-      houseOn,
-      useTrackRecord,
-      useTrackHouse,
-    ],
-  );
+    };
+    const draft = runForecast(polls, { ...base, simulations: 400 });
+    const bu = bottomUpNational(base);
+    const disagree =
+      bu.weight1 > 0 && Math.abs(bu.lula1 - draft.first.lula.mean) > 2;
+    return { ...base, extraVarPp: disagree ? 1.8 : 1.15 };
+  }, [
+    halfLife,
+    includeOnline,
+    includeRemoto,
+    includeModelo,
+    houseOn,
+    asOf,
+    useTrackRecord,
+    useTrackHouse,
+  ]);
 
   const forecast = useMemo(() => runForecast(polls, config), [config]);
-  const baseline = useMemo(
-    () =>
-      runForecast(polls, {
-        ...config,
-        useTrackRecord: false,
-        useTrackHouse: false,
-        houseEffects: houseOn ? DEFAULT_CONFIG.houseEffects : {},
-      }),
-    [config, houseOn],
-  );
   const { first, second, probs, rows } = forecast;
 
-  const trend = useMemo(() => buildNationalTrend(polls), []);
+  const visiblePolls = useMemo(
+    () => polls.filter((p) => p.date <= asOf && p.fieldEnd <= asOf),
+    [asOf],
+  );
+  const trend = useMemo(() => buildNationalTrend(visiblePolls), [visiblePolls]);
   const smooth = useMemo(() => rollingAverage(trend, 3), [trend]);
-  const deltas = useMemo(() => sameHouseDeltas(polls), []);
+  const deltas = useMemo(() => sameHouseDeltas(visiblePolls), [visiblePolls]);
   const mom = useMemo(() => windowMomentum(trend), [trend]);
 
   const qualityBars = useMemo(() => {
     const names = [
-      ...new Set(polls.filter((p) => p.national).map((p) => p.institute)),
+      ...new Set(visiblePolls.filter((p) => p.national).map((p) => p.institute)),
     ];
     return names
       .map((name) => ({
@@ -254,25 +516,18 @@ export function ForecastDashboard() {
         quality: trackQuality(name),
       }))
       .sort((a, b) => b.quality - a.quality);
-  }, []);
+  }, [visiblePolls]);
 
-  const barData = [
-    {
-      name: "Lula",
-      value: first.lula.mean,
-      fill: CANDIDATE_META.lula.color,
-    },
-    {
-      name: "Flávio",
-      value: first.flavio.mean,
-      fill: CANDIDATE_META.flavio.color,
-    },
-    {
-      name: "Renan",
-      value: first.renan.mean,
-      fill: CANDIDATE_META.renan.color,
-    },
-  ];
+  const barData = FIRST_KEYS.filter(
+    (key) =>
+      key === "lula" ||
+      key === "flavio" ||
+      (first[key].nPolls > 0 && first[key].mean > 0),
+  ).map((key) => ({
+    name: CANDIDATE_META[key].name,
+    value: first[key].mean,
+    fill: CANDIDATE_META[key].color,
+  })).sort((a, b) => b.value - a.value);
 
   const gap1Chart = smooth.map((p) => ({
     label: p.label,
@@ -324,254 +579,331 @@ export function ForecastDashboard() {
     "Δ gap (L−F)": d.dGap1,
   }));
 
-  const statePolls = polls.filter((p) => !p.national);
+  const statePolls = visiblePolls.filter((p) => !p.national);
 
   const latestNational = useMemo(
     () =>
-      polls
+      visiblePolls
         .filter((p) => p.national)
         .slice()
         .sort((a, b) => b.date.localeCompare(a.date) || b.fieldEnd.localeCompare(a.fieldEnd))[0],
-    [],
+    [visiblePolls],
   );
 
-  const dLula1 =
-    first.lula.mean - baseline.first.lula.mean;
-  const dFlavio1 =
-    first.flavio.mean - baseline.first.flavio.mean;
-  const dP2 =
-    probs.lulaWinsSecond - baseline.probs.lulaWinsSecond;
+  const upcoming = nextUpcoming(config.asOf);
+  const daysLeft = upcoming
+    ? Math.max(
+        0,
+        Math.round(
+          (Date.parse(`${upcoming.date}T12:00:00-03:00`) - Date.now()) /
+            86_400_000,
+        ),
+      )
+    : null;
+
+  const pL = fmtProb(probs.lulaWinsElection).replace("%", "");
+  const pF = fmtProb(probs.flavioWinsElection).replace("%", "");
 
   return (
-    <div className="mx-auto max-w-6xl px-4 pb-16 pt-[calc(var(--grok-banner-h,0px)+1.25rem)] sm:px-6">
-      <header className="mb-8 space-y-5">
-        <p className="eyebrow">Alvo BR · eleição 2026</p>
-        <h1 className="font-display text-4xl font-semibold tracking-tight text-balance sm:text-5xl">
-          Radar 2026
-        </h1>
-        <p className="max-w-2xl text-base font-medium leading-relaxed text-muted">
-          Não é uma pesquisa. É o agregador: recência, amostra, presencial vs
-          telefone, house effect e Monte Carlo. Feito pra ser compartilhado —
-          não pra virar print de uma casa só.
+    <div className="pb-[max(4rem,env(safe-area-inset-bottom))]">
+      {variant === "public" && (
+      <section className="relative grid min-h-[42dvh] grid-cols-1 border-b border-border md:min-h-[52dvh] md:grid-cols-2">
+        <div className="absolute inset-x-0 top-0 z-10 flex min-w-0 flex-col gap-2 px-4 py-3 text-cream md:px-6">
+          <div className="flex min-w-0 items-start justify-between gap-3">
+            <SiteNav className="min-w-0 flex-1" />
+            <span className="shrink-0 border border-primary/50 px-2 py-1 font-mono text-xs font-semibold uppercase tracking-[0.12em] text-primary">
+              Não é pesquisa
+            </span>
+          </div>
+          <div className="hl-strip">
+            <HalfLifeControl />
+          </div>
+        </div>
+        <div className="flex min-h-[36dvh] min-w-0 flex-col justify-end overflow-hidden border-b border-border bg-[#161010] px-4 pb-24 pt-44 md:min-h-[52dvh] md:border-b-0 md:border-r md:border-border md:px-8 md:pb-20 md:pt-36">
+          <p className="font-mono text-[11px] uppercase tracking-[0.22em]" style={{ color: CHART.lula }}>
+            Lula · presidente
+          </p>
+          <p
+            className="mt-2 font-black leading-[0.82] tracking-[-0.06em]"
+            style={{ fontFamily: '"Archivo Black", "DM Sans", sans-serif', fontSize: "clamp(4.5rem, 18vw, 11rem)", color: CHART.lula }}
+          >
+            {pL}
+          </p>
+        </div>
+        <div className="flex min-h-[36dvh] min-w-0 flex-col justify-end overflow-hidden bg-[#0d151c] px-4 pb-24 pt-8 md:min-h-[52dvh] md:px-8 md:pb-20 md:pt-36">
+          <p className="font-mono text-[11px] uppercase tracking-[0.22em]" style={{ color: CHART.flavio }}>
+            Flávio · presidente
+          </p>
+          <p
+            className="mt-2 font-black leading-[0.82] tracking-[-0.06em]"
+            style={{ fontFamily: '"Archivo Black", "DM Sans", sans-serif', fontSize: "clamp(4.5rem, 18vw, 11rem)", color: CHART.flavio }}
+          >
+            {pF}
+          </p>
+        </div>
+        <p className="absolute bottom-12 left-0 right-0 z-10 px-4 text-center font-mono text-[10px] uppercase tracking-[0.14em] text-cream/70 md:bottom-14 md:px-8">
+          1º + 2º nos pares que as casas perguntaram
         </p>
-        <div className="grid gap-3 sm:grid-cols-2">
-          <div className="rounded-[var(--radius-lg)] border border-border bg-surface p-4">
-            <p className="text-xs font-semibold uppercase tracking-wide text-gold">
-              1º turno
+        <div className="hook-rail absolute bottom-0 left-0 right-0 z-10">
+          <a href="#mapa" className="hook-link">
+            E no seu estado?
+          </a>
+          <a href="#pares" className="hook-link">
+            Os pares do 2º
+          </a>
+          <button
+            type="button"
+            className="hook-link"
+            onClick={() => setHalfLife(halfLife <= 5 ? 40 : 5)}
+          >
+            {halfLife <= 5 ? "E com memória longa?" : "E se o half-life for 5 dias?"}
+          </button>
+        </div>
+      </section>
+      )}
+
+    <div className="mx-auto min-w-0 max-w-6xl overflow-x-clip px-4 pt-8 sm:px-6">
+      {variant === "lab" && (
+        <p className="mb-4 font-mono text-[11px] uppercase tracking-[0.16em] text-gold">
+          Laboratorio · <a href="/" className="underline">voltar ao Radar</a>
+        </p>
+      )}
+      <header className="mb-6 space-y-4">
+        <div className="board-split">
+          <div className="board-card border-0 sm:border-r sm:border-border">
+            <p className="kicker">1º turno</p>
+            <FirstRoundField first={first} />
+            <p className="mt-3 text-xs font-medium leading-relaxed text-cream/85">
+              {gapPlain(first.technicalTie, first.lula.mean, first.flavio.mean, first.seGap)}
+              {" · "}
+              Lula à frente em {fmtProb(probs.lulaLeadsFirst)} das simulações
             </p>
-            <p className="mt-2 flex items-baseline justify-between gap-3 font-display text-3xl font-semibold tabular-nums">
-              <span className="num-lula">{fmtPct(first.lula.mean)}</span>
-              <span className="text-sm font-medium text-muted">Lula × Flávio</span>
-              <span className="num-flavio">{fmtPct(first.flavio.mean)}</span>
+            <p className="mt-3">
+              <a href="#pares" className="hook-link">
+                E no 2º turno?
+              </a>
             </p>
           </div>
-          <div className="rounded-[var(--radius-lg)] border border-border bg-surface p-4">
-            <p className="text-xs font-semibold uppercase tracking-wide text-gold">
-              2º turno · {second?.technicalTie ? "empate técnico" : "liderança"}
-            </p>
-            <p className="mt-2 flex items-baseline justify-between gap-3 font-display text-3xl font-semibold tabular-nums">
-              <span className="num-lula">{fmtPct(second?.lula.mean ?? 0)}</span>
-              <span className="text-sm font-medium text-muted">Lula × Flávio</span>
-              <span className="num-flavio">{fmtPct(second?.flavio.mean ?? 0)}</span>
+          <div className="board-card border-0 border-t border-border sm:border-t-0">
+            <p className="kicker" id="pares">2º turno</p>
+            <SecondRoundScenarios
+              first={first}
+              second={second}
+              pollsForPairs={rows.map((r) => ({ ...r.poll, weight: r.weight }))}
+            />
+            <p className="mt-3">
+              <a href="#mapa" className="hook-link">
+                E no seu estado?
+              </a>
             </p>
           </div>
         </div>
-        <ShareBar
-          lula1={first.lula.mean}
-          flavio1={first.flavio.mean}
-          lula2={second?.lula.mean ?? 0}
-          flavio2={second?.flavio.mean ?? 0}
-        />
-        <div className="flex flex-wrap gap-3 text-xs text-muted sm:text-sm">
-          <span className="inline-flex items-center gap-1.5">
-            <CalendarDays className="size-4 text-primary" />
-            as-of 28 ago 2026
-          </span>
-          <span className="inline-flex items-center gap-1.5">
-            <Radio className="size-4 text-primary" />
-            varredura 9h e 18h BRT
-          </span>
-          <span className="inline-flex items-center gap-1.5">
-            <Beaker className="size-4 text-primary" />
-            {rows.length} polls nacionais
-          </span>
+        <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm font-medium text-fg">
+            <span className="inline-flex items-center gap-1.5">
+              <CalendarDays className="size-4 shrink-0 text-primary" />
+              Atualizado {fmtDateBr(config.asOf)}
+            </span>
+            <span className="inline-flex items-center gap-1.5">
+              <Radio className="size-4 shrink-0 text-primary" />
+              {rows.length} pesquisas nacionais
+            </span>
+          </div>
+          <ShareBar
+            asOf={fmtDateBr(config.asOf)}
+            lula1={first.lula.mean}
+            flavio1={first.flavio.mean}
+            lula2={second?.lula.mean ?? 0}
+            flavio2={second?.flavio.mean ?? 0}
+            pLula={probs.lulaWinsElection}
+            pFlavio={probs.flavioWinsElection}
+          />
+        </div>
+        <div className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:flex-wrap sm:px-0">
+          {housesInAverage(rows).slice(0, 6).map((r, i) => (
+            <span
+              key={r.institute}
+              className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-border bg-surface px-3 py-1.5 text-xs font-semibold text-fg"
+            >
+              <span className="text-gold">{i + 1}.</span>
+              {r.institute}
+              <span className="tabular-nums text-cream/80">
+                {fmtPct(r.share * 100, 0)} do peso
+              </span>
+              <span className="tabular-nums text-primary">
+                ×{fmtMult(r.quality)}
+              </span>
+            </span>
+          ))}
         </div>
       </header>
 
       {latestNational && (
         <section className="mb-6">
-          <Card className="border-primary/40 bg-gradient-to-br from-surface via-surface to-primary/10">
-            <CardContent className="flex flex-col gap-4 pt-5 sm:flex-row sm:items-end sm:justify-between">
+          <div className="board-card">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
               <div className="space-y-1.5">
                 <p className="eyebrow">Nova pesquisa</p>
                 <p className="font-display text-xl font-semibold">
                   {latestNational.institute}
                 </p>
-                <p className="text-sm font-medium text-muted">
+                <p className="text-sm font-medium text-gold">
                   {latestNational.date.slice(8)}/
                   {latestNational.date.slice(5, 7)} · {latestNational.mode} · n=
                   {latestNational.sample.toLocaleString("pt-BR")} · ±
                   {fmtNum(latestNational.moe)} pp
                 </p>
                 {latestNational.notes && (
-                  <p className="max-w-xl text-xs font-medium leading-relaxed text-muted">
+                  <p className="max-w-xl text-xs font-medium leading-relaxed text-fg">
                     {latestNational.notes}
                   </p>
                 )}
               </div>
-              <div className="grid grid-cols-2 gap-6">
+              <div className="grid gap-6 sm:grid-cols-[minmax(0,16rem)_minmax(0,1fr)]">
                 <div>
-                  <p className="text-xs font-medium text-muted">1º turno</p>
-                  <p className="mt-1 text-lg font-semibold tabular-nums">
-                    <span className="num-lula">
-                      {fmtPct(latestNational.firstRound.lula ?? 0)}
-                    </span>
-                    <span className="text-muted"> × </span>
-                    <span className="num-flavio">
-                      {fmtPct(latestNational.firstRound.flavio ?? 0)}
-                    </span>
-                  </p>
+                  <p className="text-xs font-medium text-gold">1º turno</p>
+                  <ul className="mt-1 space-y-0.5 text-sm font-semibold tabular-nums">
+                    {pollFirstRoundRows(latestNational)
+                      .filter((r) => r.asked)
+                      .map((r) => (
+                      <li key={r.key} className="flex justify-between gap-3">
+                        <span style={{ color: r.color }}>{r.name}</span>
+                        <span style={{ color: r.color }}>{fmtPct(r.value)}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
                 <div>
-                  <p className="text-xs font-medium text-muted">2º turno</p>
-                  <p className="mt-1 text-lg font-semibold tabular-nums">
-                    {latestNational.secondRound ? (
-                      <>
-                        <span className="num-lula">
-                          {fmtPct(latestNational.secondRound.lula)}
-                        </span>
-                        <span className="text-muted"> × </span>
-                        <span className="num-flavio">
-                          {fmtPct(latestNational.secondRound.flavio)}
-                        </span>
-                      </>
-                    ) : (
-                      "—"
-                    )}
+                  <p className="text-xs font-medium text-gold">2º turno</p>
+                  {pollAskedPairs(latestNational).length ? (
+                    <ul className="mt-1">
+                      {pollAskedPairs(latestNational).map((pair) => {
+                        const a = CANDIDATE_META[pair.a];
+                        const b = CANDIDATE_META[pair.b];
+                        return (
+                          <li key={`${pair.a}|${pair.b}`} className="score-row py-1">
+                            <span className="min-w-0 text-sm">
+                              <span style={{ color: a.color }}>{a.name}</span>
+                              <span className="text-cream/40"> × </span>
+                              <span style={{ color: b.color }}>{b.name}</span>
+                            </span>
+                            <span className="shrink-0 font-mono text-xs tabular-nums">
+                              <span style={{ color: a.color }}>{fmtPct(pair.aPct)}</span>
+                              <span className="text-cream/40"> × </span>
+                              <span style={{ color: b.color }}>{fmtPct(pair.bPct)}</span>
+                            </span>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  ) : (
+                    <p className="mt-1 text-sm font-medium text-cream/70">sem 2º</p>
+                  )}
+                  <p className="mt-3">
+                    <a href="#pares" className="hook-link">
+                      E no agregado dos pares?
+                    </a>
                   </p>
                 </div>
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         </section>
       )}
 
+      {variant === "lab" && (
       <section className="mb-6 grid gap-3 sm:grid-cols-3">
         <Card className="border-flavio/35 glow-flavio bg-gradient-to-br from-surface to-flavio/5">
           <CardContent className="pt-4">
-            <p className="text-xs font-medium text-muted">Flávio 1º (cedo → tarde)</p>
+            <p className="text-xs font-medium text-gold">
+              Flávio no 1º, pesquisas antigas → recentes
+            </p>
             <p className="num-flavio mt-1 font-display text-2xl font-semibold tabular-nums">
               {fmtDelta(mom.dFlavio1)} pp
             </p>
-            <p className="text-xs font-medium text-muted">
+            <p className="text-xs font-medium text-fg">
               {fmtNum(mom.earlyFlavio1)}% → {fmtNum(mom.lateFlavio1)}%
             </p>
           </CardContent>
         </Card>
         <Card className="border-lula/35 glow-lula bg-gradient-to-br from-surface to-lula/5">
           <CardContent className="pt-4">
-            <p className="text-xs font-medium text-muted">Lula 1º (cedo → tarde)</p>
+            <p className="text-xs font-medium text-gold">
+              Lula no 1º, pesquisas antigas → recentes
+            </p>
             <p className="num-lula mt-1 font-display text-2xl font-semibold tabular-nums">
               {fmtDelta(mom.dLula1)} pp
             </p>
-            <p className="text-xs font-medium text-muted">
+            <p className="text-xs font-medium text-fg">
               {fmtNum(mom.earlyLula1)}% → {fmtNum(mom.lateLula1)}%
             </p>
           </CardContent>
         </Card>
         <Card className="border-accent/35 bg-gradient-to-br from-surface to-accent/5">
           <CardContent className="pt-4">
-            <p className="text-xs font-medium text-muted">Gap 1º (↓ = mais colado)</p>
+            <p className="text-xs font-medium text-gold">
+              Diferença no 1º (caiu = mais colado)
+            </p>
             <p className="num-accent mt-1 font-display text-2xl font-semibold tabular-nums">
               {fmtDelta(mom.dGap1)} pp
             </p>
-            <p className="text-xs font-medium text-muted">
+            <p className="text-xs font-medium text-fg">
               {fmtNum(mom.earlyGap1)} → {fmtNum(mom.lateGap1)} pp
             </p>
           </CardContent>
         </Card>
       </section>
+      )}
 
-      <section className="mb-6 grid gap-4 lg:grid-cols-2">
-        <Card className="glow-primary border-primary/35 bg-gradient-to-br from-surface via-surface to-primary/5">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Scale className="size-4 text-primary" />
-              P(vitória no 2º turno)
-            </CardTitle>
-            <CardDescription>
-              Com track 2022: {fmtProb(probs.lulaWinsSecond)} Lula · sem track:{" "}
-              {fmtProb(baseline.probs.lulaWinsSecond)}
-              {useTrackRecord && Math.abs(dP2) >= 0.005
-                ? ` · efeito track ${fmtDelta(dP2 * 100, 1)} pp na prob`
-                : ""}
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <ProbBar
-              leftLabel="Lula"
-              rightLabel="Flávio"
-              leftPct={probs.lulaWinsSecond}
-              leftColor={CANDIDATE_META.lula.color}
-              rightColor={CANDIDATE_META.flavio.color}
-            />
-            <p className="text-xs font-medium text-muted">
-              {second
-                ? `2º: Lula ${fmtPct(second.lula.mean)} · Flávio ${fmtPct(second.flavio.mean)}${second.technicalTie ? " · empate técnico" : ""}`
-                : "Sem 2º elegível."}
-            </p>
-          </CardContent>
-        </Card>
+      {variant === "public" && (
+        <>
+        <TightRaces />
+        <section id="mapa" className="space-y-3 scroll-mt-24">
+          <p className="kicker">Mapa</p>
+          <p className="text-sm font-medium text-cream/85">
+            Clique no estado. Abre governadores.
+          </p>
+          <MapLayerToggle layer={mapLayer} onChange={setMapLayer} />
+          <BrazilMap config={config} layer={mapLayer} />
+          <p className="tight-next">
+            <Link to="/lab" className="hook-link">
+              Metodo, pesos e acerto historico
+            </Link>
+            <span className="text-cream/35"> · </span>
+            <Link
+              to="/candidatos"
+              search={(prev) => ({
+                uf: "SP",
+                cargo: "governador" as const,
+                ...(typeof (prev as { asOf?: string }).asOf === "string"
+                  ? { asOf: (prev as { asOf: string }).asOf }
+                  : {}),
+                ...(typeof (prev as { hl?: number }).hl === "number"
+                  ? { hl: (prev as { hl: number }).hl }
+                  : {}),
+              })}
+              className="hook-link"
+            >
+              SP tem 2 casas. Compara.
+            </Link>
+          </p>
+        </section>
+        </>
+      )}
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Agregado 1º (ajustado)</CardTitle>
-            <CardDescription>
-              Gap {first.gap >= 0 ? "+" : ""}
-              {fmtNum(first.gap)} pp
-              {useTrackRecord
-                ? ` · vs sem-track L ${fmtDelta(dLula1)} / F ${fmtDelta(dFlavio1)}`
-                : ""}
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="mb-4 grid grid-cols-2 gap-3">
-              <div>
-                <p className="text-xs font-medium text-muted">Lula</p>
-                <p className="num-lula font-display text-3xl font-semibold tabular-nums">
-                  {fmtPct(first.lula.mean)}
-                </p>
-              </div>
-              <div className="text-right">
-                <p className="text-xs font-medium text-muted">Flávio</p>
-                <p className="num-flavio font-display text-3xl font-semibold tabular-nums">
-                  {fmtPct(first.flavio.mean)}
-                </p>
-              </div>
-            </div>
-            <ProbBar
-              leftLabel="P(Lula lidera 1º)"
-              rightLabel="P(Flávio lidera)"
-              leftPct={probs.lulaLeadsFirst}
-              leftColor={CANDIDATE_META.lula.color}
-              rightColor={CANDIDATE_META.flavio.color}
-            />
-          </CardContent>
-        </Card>
-      </section>
-
+      {variant === "lab" && (
       <Tabs defaultValue="mapa" className="w-full">
-        <div className="overflow-x-auto pb-1">
-          <TabsList className="inline-flex h-auto min-h-11 w-max min-w-full flex-wrap sm:min-w-0">
+        <div className="-mx-4 overflow-x-auto px-4 pb-1 sm:mx-0 sm:px-0">
+          <TabsList className="inline-flex h-auto min-h-11 w-max min-w-0 flex-nowrap">
             <TabsTrigger value="mapa">Mapa</TabsTrigger>
             <TabsTrigger value="agenda">Agenda</TabsTrigger>
-            <TabsTrigger value="track">Track 2022</TabsTrigger>
-            <TabsTrigger value="crescimento">Crescimento</TabsTrigger>
+            <TabsTrigger value="track">Acerto</TabsTrigger>
+            <TabsTrigger value="crescimento">Curva</TabsTrigger>
             <TabsTrigger value="segundo">2º turno</TabsTrigger>
-            <TabsTrigger value="melhora">Melhora</TabsTrigger>
-            <TabsTrigger value="modelo">Modelo</TabsTrigger>
+            <TabsTrigger value="melhora">Casas</TabsTrigger>
+            <TabsTrigger value="modelo">Método</TabsTrigger>
             <TabsTrigger value="weights">Pesos</TabsTrigger>
-            <TabsTrigger value="controls">Controles</TabsTrigger>
+            <TabsTrigger value="controls">Ajustes</TabsTrigger>
           </TabsList>
         </div>
 
@@ -583,13 +915,13 @@ export function ForecastDashboard() {
                 Mapa agregador
               </CardTitle>
               <CardDescription>
-                Mesmo motor do nacional, UF a UF: recência, √n, house, track
-                2022, Monte Carlo. 2º imputado em válidos se o instituto não
-                perguntou.
+                2026 agregado: pesquisas por UF. 2022 urna: como cada colégio
+                (UF) votou em Lula e Bolsonaro. Cor do modo 2022 = margem do 2º.
               </CardDescription>
             </CardHeader>
-            <CardContent>
-              <BrazilMap config={config} />
+            <CardContent className="space-y-3">
+              <MapLayerToggle layer={mapLayer} onChange={setMapLayer} />
+              <BrazilMap config={config} layer={mapLayer} />
             </CardContent>
           </Card>
         </TabsContent>
@@ -603,35 +935,41 @@ export function ForecastDashboard() {
                 Próximo marco
               </CardTitle>
               <CardDescription>
-                Datafolha em campo 18–20/08 · divulgação prevista sexta 21
+                {upcoming
+                  ? `${upcoming.title} · ${fmtDateBr(upcoming.date)}`
+                  : "Nenhum marco futuro cadastrado. Veja o que já saiu abaixo."}
               </CardDescription>
             </CardHeader>
             <CardContent className="grid gap-4 sm:grid-cols-3">
               <div>
-                <p className="text-xs font-medium text-muted">Faltam</p>
+                <p className="text-xs font-medium text-gold">Quando</p>
                 <p className="mt-1 font-display text-3xl font-semibold tabular-nums text-primary">
-                  {Math.max(
-                    0,
-                    Math.round(
-                      (Date.parse("2026-08-21T12:00:00-03:00") - Date.now()) /
-                        86_400_000,
-                    ),
-                  )}{" "}
-                  <span className="text-lg font-medium text-muted">dias</span>
+                  {upcoming
+                    ? daysLeft === 0
+                      ? "Hoje"
+                      : daysLeft
+                    : "n/d"}
+                  {upcoming && daysLeft !== 0 ? (
+                    <span className="text-lg font-medium text-gold">
+                      {" "}
+                      {daysLeft === 1 ? "dia" : "dias"}
+                    </span>
+                  ) : null}
                 </p>
               </div>
               <div>
-                <p className="text-xs font-medium text-muted">Por que pesa</p>
-                <p className="mt-1 text-sm font-medium leading-relaxed">
-                  Única presencial de grande mídia depois da propaganda. Track
-                  2022 alto. Mexe o agregador de verdade.
+                <p className="text-xs font-medium text-gold">O que é</p>
+                <p className="mt-1 text-sm font-medium leading-relaxed text-fg">
+                  {upcoming?.detail ??
+                    "Linha do tempo com o que já saiu."}
                 </p>
               </div>
               <div>
-                <p className="text-xs font-medium text-muted">O que olhar</p>
-                <p className="mt-1 text-sm font-medium leading-relaxed">
-                  Gap 2º vs 48×43 de julho. Se cair p/ 3 pp, confirma Quaest.
-                  Se abrir, o empate técnico esfria.
+                <p className="text-xs font-medium text-gold">Por que entra</p>
+                <p className="mt-1 text-sm font-medium leading-relaxed text-fg">
+                  {upcoming?.institute
+                    ? `${upcoming.institute} entra no agregador na próxima ingestão.`
+                    : "Pesquisas nacionais pesam mais que estaduais."}
                 </p>
               </div>
             </CardContent>
@@ -644,7 +982,7 @@ export function ForecastDashboard() {
                 Linha do tempo
               </CardTitle>
               <CardDescription>
-                O que saiu e o que ainda vem — sem misturar estadual com nacional
+                O que saiu e o que ainda vem. Estadual separado do nacional.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-2">
@@ -693,13 +1031,12 @@ export function ForecastDashboard() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Medal className="size-4 text-primary" />
-                Ranking 2º turno 2022 (priors do motor)
+                Quem mais acertou o 2º (2018 e 2022)
               </CardTitle>
               <CardDescription>
-                Urna: Lula {fmtPct(ELECTION_2022_2T.lula)} × Bolsonaro{" "}
-                {fmtPct(ELECTION_2022_2T.bolsonaro)} · erro ≈ |poll − urna| na última
-                rodada. Fonte do ranking viral (Paraná / Gerp / Datafolha /
-                Veritá) + priors extras.
+                Urna 2022: Lula {fmtPct(ELECTION_2022_2T.lula)} × Bolsonaro{" "}
+                {fmtPct(ELECTION_2022_2T.bolsonaro)}. Erro = diferença da
+                última pesquisa para a urna. Casas com menos erro pesam mais.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-3">
@@ -711,24 +1048,20 @@ export function ForecastDashboard() {
                   >
                     <div>
                       <p className="font-medium">
-                        {r.medal} {r.institute}
+                        {r.rank}. {r.institute}
                       </p>
-                      <p className="text-xs font-medium text-muted">
-                        erro ~{r.mae} · quality{" "}
-                        ×{fmtMult(trackQuality(r.institute))}
+                      <p className="text-xs font-medium text-gold">
+                        erro ~{r.mae} · peso ×
+                        {fmtMult(trackQuality(r.institute))}
                       </p>
                     </div>
                     <Badge variant="default">peso ↑</Badge>
                   </div>
                 ))}
               </div>
-              <p className="text-xs font-medium text-muted">
-                Fórmula do peso:{" "}
-                <code className="text-fg">
-                  recência × √n × modo × quality_2022
-                </code>
-                . House effects: blend 60% tilt histórico + 40% prior manual.
-                Uma eleição ≠ destino — desligue nos Controles se quiser.
+              <p className="text-xs font-medium text-gold">
+                Peso = recência × tamanho da amostra × modo × acerto vs urna.
+                Sem puxar para um lado. Acerto = 1,55 / (0,55 + erro vs urna).
               </p>
             </CardContent>
           </Card>
@@ -768,10 +1101,7 @@ export function ForecastDashboard() {
                       axisLine={false}
                       tickLine={false}
                     />
-                    <Tooltip
-                      contentStyle={tipStyle}
-                      formatter={(v) => fmtNum(Number(v))}
-                    />
+                    <Tooltip content={ChartTip} cursor={false} />
                     <Bar dataKey="quality" name="quality" radius={[0, 6, 6, 0]}>
                       {qualityBars.map((e) => (
                         <Cell
@@ -799,7 +1129,11 @@ export function ForecastDashboard() {
             <CardContent className="space-y-2">
               {Object.values(TRACK_2022)
                 .filter((t) =>
-                  polls.some((p) => p.institute === t.institute && p.national),
+                  polls.some(
+                    (p) =>
+                      p.national &&
+                      resolveInstitute(p.institute) === t.institute,
+                  ),
                 )
                 .map((t) => (
                   <div
@@ -809,7 +1143,7 @@ export function ForecastDashboard() {
                     <div className="flex flex-wrap items-center justify-between gap-2">
                       <span className="font-medium">{t.institute}</span>
                       <span className="tabular-nums text-primary">
-                        ×{fmtMult(t.quality)}
+                        ×{fmtMult(trackQuality(t.institute))}
                       </span>
                     </div>
                     <p className="mt-0.5 text-xs font-medium text-muted">{t.note}</p>
@@ -823,7 +1157,7 @@ export function ForecastDashboard() {
         <TabsContent value="crescimento" className="mt-4 space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>Curva 1º turno — Lula × Flávio</CardTitle>
+              <CardTitle>Curva 1º turno, Lula × Flávio</CardTitle>
               <CardDescription>
                 Eixo = divulgação · ordem = fim de campo · linhas = média 3
               </CardDescription>
@@ -845,12 +1179,8 @@ export function ForecastDashboard() {
                       axisLine={false}
                       tickLine={false}
                     />
-                    <Tooltip
-                      contentStyle={tipStyle}
-                      formatter={(v) => fmtNum(Number(v))}
-                      labelFormatter={(_, payload) => pollTipLabel(payload)}
-                    />
-                    <Legend />
+                    <Tooltip content={ChartTip} cursor={false} />
+                    <Legend wrapperStyle={{ color: CHART.fg, fontSize: 12 }} />
                     <Line
                       type="monotone"
                       dataKey="Lula"
@@ -920,11 +1250,7 @@ export function ForecastDashboard() {
                       axisLine={false}
                       tickLine={false}
                     />
-                    <Tooltip
-                      contentStyle={tipStyle}
-                      formatter={(v) => fmtNum(Number(v))}
-                      labelFormatter={(_, payload) => pollTipLabel(payload)}
-                    />
+                    <Tooltip content={ChartTip} cursor={false} />
                     <ReferenceLine
                       y={0}
                       stroke={CHART.muted}
@@ -959,7 +1285,9 @@ export function ForecastDashboard() {
           <div className="grid gap-3 sm:grid-cols-3">
             <Card>
               <CardContent className="pt-4">
-                <p className="text-xs font-medium text-muted">Δ Flávio 2º (janela)</p>
+                <p className="text-xs font-medium text-gold">
+                  Flávio no 2º, antigas → recentes
+                </p>
                 <p className="num-flavio mt-1 font-display text-2xl font-semibold tabular-nums">
                   {fmtDelta(mom.dFlavio2)} pp
                 </p>
@@ -967,7 +1295,9 @@ export function ForecastDashboard() {
             </Card>
             <Card>
               <CardContent className="pt-4">
-                <p className="text-xs font-medium text-muted">Δ gap 2º</p>
+                <p className="text-xs font-medium text-gold">
+                  Diferença no 2º
+                </p>
                 <p className="num-accent mt-1 font-display text-2xl font-semibold tabular-nums">
                   {fmtDelta(mom.dGap2)} pp
                 </p>
@@ -975,7 +1305,9 @@ export function ForecastDashboard() {
             </Card>
             <Card>
               <CardContent className="pt-4">
-                <p className="text-xs font-medium text-muted">P(Lula 2º) c/ track</p>
+                <p className="text-xs font-medium text-gold">
+                  Chance de Lula no 2º
+                </p>
                 <p className="mt-1 font-display text-2xl font-semibold tabular-nums">
                   {fmtProb(probs.lulaWinsSecond)}
                 </p>
@@ -1000,12 +1332,8 @@ export function ForecastDashboard() {
                       axisLine={false}
                       tickLine={false}
                     />
-                    <Tooltip
-                      contentStyle={tipStyle}
-                      formatter={(v) => fmtNum(Number(v))}
-                      labelFormatter={(_, payload) => pollTipLabel(payload)}
-                    />
-                    <Legend />
+                    <Tooltip content={ChartTip} cursor={false} />
+                    <Legend wrapperStyle={{ color: CHART.fg, fontSize: 12 }} />
                     <Line
                       type="monotone"
                       dataKey="Lula"
@@ -1043,11 +1371,7 @@ export function ForecastDashboard() {
                       axisLine={false}
                       tickLine={false}
                     />
-                    <Tooltip
-                      contentStyle={tipStyle}
-                      formatter={(v) => fmtNum(Number(v))}
-                      labelFormatter={(_, payload) => pollTipLabel(payload)}
-                    />
+                    <Tooltip content={ChartTip} cursor={false} />
                     <ReferenceLine y={0} stroke={CHART.muted} strokeDasharray="4 4" />
                     <Bar dataKey="gap" name="Gap poll" fill={CHART.flavio} opacity={0.55} />
                     <Line
@@ -1069,9 +1393,10 @@ export function ForecastDashboard() {
         <TabsContent value="melhora" className="mt-4 space-y-4">
           <Card className="border-accent/25">
             <CardHeader>
-              <CardTitle>Same-house: quem melhorou?</CardTitle>
+              <CardTitle>Mesma casa: quem subiu?</CardTitle>
               <CardDescription>
-                Δ gap negativo = Flávio encurtou
+                Compara a rodada nova com a anterior da mesma casa. Número
+                negativo na diferença = Flávio encurtou.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-3">
@@ -1103,23 +1428,23 @@ export function ForecastDashboard() {
                   </div>
                   <div className="mt-3 grid grid-cols-2 gap-2 text-sm sm:grid-cols-4">
                     <div>
-                      <p className="text-xs font-medium text-muted">Δ Flávio 1º</p>
+                      <p className="text-xs font-medium text-gold">Flávio 1º</p>
                       <DeltaPill value={d.dFlavio1} />
                     </div>
                     <div>
-                      <p className="text-xs font-medium text-muted">Δ Lula 1º</p>
+                      <p className="text-xs font-medium text-gold">Lula 1º</p>
                       <DeltaPill value={d.dLula1} />
                     </div>
                     <div>
-                      <p className="text-xs font-medium text-muted">Δ gap 1º</p>
+                      <p className="text-xs font-medium text-gold">Diferença 1º</p>
                       <DeltaPill value={d.dGap1} invert />
                     </div>
                     <div>
-                      <p className="text-xs font-medium text-muted">Δ gap 2º</p>
+                      <p className="text-xs font-medium text-gold">Diferença 2º</p>
                       {d.dGap2 != null ? (
                         <DeltaPill value={d.dGap2} invert />
                       ) : (
-                        <span className="text-xs font-medium text-muted">—</span>
+                        <span className="text-xs font-medium text-muted">n/d</span>
                       )}
                     </div>
                   </div>
@@ -1156,11 +1481,8 @@ export function ForecastDashboard() {
                       axisLine={false}
                       tickLine={false}
                     />
-                    <Tooltip
-                      contentStyle={tipStyle}
-                      formatter={(v) => fmtNum(Number(v))}
-                    />
-                    <Legend />
+                    <Tooltip content={ChartTip} cursor={false} />
+                    <Legend wrapperStyle={{ color: CHART.fg, fontSize: 12 }} />
                     <ReferenceLine y={0} stroke={CHART.muted} />
                     <Bar dataKey="Δ Flávio 1º" fill={CHART.flavio} />
                     <Bar dataKey="Δ Lula 1º" fill={CHART.lula} />
@@ -1177,7 +1499,7 @@ export function ForecastDashboard() {
           <div className="grid gap-4 lg:grid-cols-2">
             <Card>
               <CardHeader>
-                <CardTitle>1º turno — ponto central</CardTitle>
+                <CardTitle>1º turno, campo completo</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="h-64 w-full min-w-0">
@@ -1199,15 +1521,12 @@ export function ForecastDashboard() {
                       <YAxis
                         type="category"
                         dataKey="name"
-                        width={56}
+                        width={88}
                         tick={{ fill: CHART.fg, fontSize: 12, fontWeight: 600 }}
                         axisLine={false}
                         tickLine={false}
                       />
-                      <Tooltip
-                      contentStyle={tipStyle}
-                      formatter={(v) => fmtNum(Number(v))}
-                    />
+                      <Tooltip content={ChartTip} cursor={false} />
                       <Bar dataKey="value" radius={[0, 6, 6, 0]} barSize={22}>
                         {barData.map((e) => (
                           <Cell key={e.name} fill={e.fill} />
@@ -1259,13 +1578,13 @@ export function ForecastDashboard() {
                           <span className="text-muted"> × </span>
                           <span className="num-flavio">{fmtPct(f1)}</span>
                           <span className="ml-2 text-xs font-medium text-muted">
-                            {leader} +{fmtNum(Math.abs(f1 - l1))}
+                            {leader} +{fmtNum(Math.abs(shownGap(f1, l1)))}
                           </span>
                         </p>
                         {p.secondRound && (
                           <p className="text-xs font-medium text-muted">
-                            2º · L {fmtPct(p.secondRound.lula)} × F{" "}
-                            {fmtPct(p.secondRound.flavio)}
+                            2º · L {fmtPct(p.secondRound.lula ?? 0)} × F{" "}
+                            {fmtPct(p.secondRound.flavio ?? 0)}
                           </p>
                         )}
                         {p.notes && (
@@ -1287,7 +1606,7 @@ export function ForecastDashboard() {
             <CardHeader>
               <CardTitle>Decomposição de pesos</CardTitle>
               <CardDescription>
-                recência × √n × modo × track_2022
+                recência × √n × modo × acerto 2018/2022
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -1348,8 +1667,8 @@ export function ForecastDashboard() {
               </div>
               <p className="mt-3 flex gap-2 text-xs text-muted">
                 <Info className="mt-0.5 size-3.5 shrink-0 text-primary" />
-                Gerp/Datafolha sobem no ranking de peso quando track está ON;
-                Palver online cai.
+                Gerp/Datafolha/Paraná sobem no peso quando o track está ON.
+                Palver online cai. Sem correção de lado.
               </p>
             </CardContent>
           </Card>
@@ -1365,22 +1684,7 @@ export function ForecastDashboard() {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-5">
-              <div>
-                <div className="mb-2 flex justify-between text-sm">
-                  <span>Half-life</span>
-                  <span className="tabular-nums text-primary">
-                    {halfLife} dias
-                  </span>
-                </div>
-                <input
-                  type="range"
-                  min={5}
-                  max={40}
-                  value={halfLife}
-                  onChange={(e) => setHalfLife(Number(e.target.value))}
-                  className="h-2 w-full cursor-pointer appearance-none rounded-full bg-surface-2 accent-primary"
-                />
-              </div>
+              <HalfLifeSlider id="lab-half-life" />
               <div className="grid gap-2 sm:grid-cols-2">
                 <Toggle
                   checked={includeOnline}
@@ -1400,27 +1704,30 @@ export function ForecastDashboard() {
                 <Toggle
                   checked={houseOn}
                   onChange={setHouseOn}
-                  label="House effects"
+                  label="Ajuste por casa (fica desligado)"
                 />
                 <Toggle
                   checked={useTrackRecord}
                   onChange={setUseTrackRecord}
-                  label="Peso track record 2022"
+                  label="Peso por acerto 2014/2018/2022"
                 />
                 <Toggle
                   checked={useTrackHouse}
                   onChange={setUseTrackHouse}
-                  label="Blend house × 2022"
+                  label="Ajuste extra por casa (não usado)"
                 />
               </div>
             </CardContent>
           </Card>
         </TabsContent>
       </Tabs>
+      )}
+
 
       <footer className="mt-10 border-t border-border pt-6 text-center text-xs font-medium text-muted">
-        v2 · track 2022 no peso · demo educativa · não é instituto oficial
+        v3 · portal independente · peso 2014, 2018 e 2022 · não é instituto oficial
       </footer>
+    </div>
     </div>
   );
 }

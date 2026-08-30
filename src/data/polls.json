@@ -32,13 +32,34 @@
       "flavio": 35,
       "caiado": 4,
       "renan": 4,
-      "zema": 2
+      "zema": 2,
+      "cury": 4
     },
     "secondRound": {
       "lula": 45,
       "flavio": 44
     },
-    "notes": "Poder360 27/08 · URA 23–26/08 · n=2.400 · TSE BR-04974/2026. vs 13/08: 1º 41×35 → 38×35 (empate técnico, menor gap desde maio). 2º 46×45 → 45×44. Marçal 3%. Rejeição 49×49. Gov 42×50."
+    "notes": "Poder360 27/08 · URA 23–26/08 · n=2.400 · TSE BR-04974/2026. vs 13/08: 1º 41×35 → 38×35 (empate técnico, menor gap desde maio). 2º 46×45 → 45×44. Marçal 3%. Rejeição 49×49. Gov 42×50. Cury 4% na tabela (nao omitir como 0). 2T tambem: Zema 44x43, Caiado 43x44, Renan 44x37 (Poder360/CNN).",
+    "secondPairs": [
+      {
+        "a": "lula",
+        "b": "zema",
+        "aPct": 44,
+        "bPct": 43
+      },
+      {
+        "a": "lula",
+        "b": "caiado",
+        "aPct": 43,
+        "bPct": 44
+      },
+      {
+        "a": "lula",
+        "b": "renan",
+        "aPct": 44,
+        "bPct": 37
+      }
+    ]
   },
   {
     "id": "quaest-ba-08-27",
@@ -98,6 +119,30 @@
       "flavio": 42
     },
     "notes": "Poder360 · 2º Lula 46×42. 1º mais Lula que Quaest 25/08."
+  },
+  {
+    "id": "datafolha-sp-08-22",
+    "institute": "Datafolha",
+    "date": "2026-08-22",
+    "fieldEnd": "2026-08-19",
+    "sample": 1610,
+    "moe": 2,
+    "mode": "presencial",
+    "national": false,
+    "uf": "SP",
+    "firstRound": {
+      "flavio": 37,
+      "lula": 33,
+      "renan": 5,
+      "caiado": 4,
+      "zema": 3,
+      "cury": 3
+    },
+    "secondRound": {
+      "flavio": 47,
+      "lula": 42
+    },
+    "notes": "G1 22/08 · TSE SP-01806/2026 BR-07185/2026 · n=1610 presencial 18-19/08 · cenario sem Marcal (G1 principal). Cenario com Marcal: Flavio 35, Lula 34, Marcal 4. Nao inventado."
   },
   {
     "id": "quaest-go-jul",
@@ -287,13 +332,14 @@
       "flavio": 37,
       "caiado": 5,
       "renan": 3,
-      "zema": 3
+      "zema": 3,
+      "cury": 2
     },
     "secondRound": {
       "lula": 46,
       "flavio": 45
     },
-    "notes": "UOL 24/08 · telefone. vs 17/08: 1º 41×36 → 41×37; 2º 47×44 → 46×45. Empate técnico no 2º (1 pp, ±2). Pós-início de campanha."
+    "notes": "UOL 24/08 · telefone. vs 17/08: 1º 41×36 → 41×37; 2º 47×44 → 46×45. Empate técnico no 2º (1 pp, ±2). Pós-início de campanha. Cury 2% na tabela (nao omitir como 0)."
   },
   {
     "id": "quaest-sp-08-25",
@@ -432,13 +478,34 @@
       "flavio": 33,
       "caiado": 5,
       "renan": 4,
-      "zema": 3
+      "zema": 3,
+      "cury": 2
     },
     "secondRound": {
       "lula": 47,
       "flavio": 43
     },
-    "notes": "TSE BR-04496/2026 · Globo/Folha · presencial 18–20/08 · n=2.058. 1ª após propaganda. vs jul: 1º 40×32 → 39×33; 2º 48×43 → 47×43. Com Marçal: F 32 / Marçal 2. Rejeição F 46 / L 45. Gov 47×50. 2º no limite do empate técnico (±2)."
+    "notes": "TSE BR-04496/2026 · Globo/Folha · presencial 18–20/08 · n=2.058. 1ª após propaganda. vs jul: 1º 40×32 → 39×33; 2º 48×43 → 47×43. Com Marçal: F 32 / Marçal 2. Rejeição F 46 / L 45. Gov 47×50. 2º no limite do empate técnico (±2). 2T extra: pares Lula×Caiado/Renan/Zema das tabelas da casa. Cury 2% na tabela (nao omitir como 0).",
+    "secondPairs": [
+      {
+        "a": "lula",
+        "b": "caiado",
+        "aPct": 47,
+        "bPct": 40
+      },
+      {
+        "a": "lula",
+        "b": "zema",
+        "aPct": 48,
+        "bPct": 38
+      },
+      {
+        "a": "lula",
+        "b": "renan",
+        "aPct": 47,
+        "bPct": 37
+      }
+    ]
   },
   {
     "id": "verita-08-21",
@@ -538,13 +605,34 @@
       "flavio": 31,
       "caiado": 4,
       "renan": 4,
-      "zema": 2
+      "zema": 2,
+      "cury": 2
     },
     "secondRound": {
       "lula": 43,
       "flavio": 40
     },
-    "notes": "TSE BR-06773/2026 · presencial 10–13/08 (Globo). vs 5/08: 1º 39×30 → 38×31; 2º 44×39 → 43×40. Rejeição F 54% / L 52%. Gov 46×48."
+    "notes": "TSE BR-06773/2026 · presencial 10–13/08 (Globo). vs 5/08: 1º 39×30 → 38×31; 2º 44×39 → 43×40. Rejeição F 54% / L 52%. Gov 46×48. 2T extra: pares Lula×Caiado/Renan/Zema das tabelas da casa. Cury 2% na tabela (nao omitir como 0).",
+    "secondPairs": [
+      {
+        "a": "lula",
+        "b": "caiado",
+        "aPct": 44,
+        "bPct": 37
+      },
+      {
+        "a": "lula",
+        "b": "renan",
+        "aPct": 44,
+        "bPct": 36
+      },
+      {
+        "a": "lula",
+        "b": "zema",
+        "aPct": 45,
+        "bPct": 34
+      }
+    ]
   },
   {
     "id": "american-analytics-sp-08-13",
@@ -758,12 +846,34 @@
       "flavio": 30,
       "renan": 4,
       "caiado": 4,
-      "zema": 2
+      "zema": 2,
+      "cury": 1
     },
     "secondRound": {
       "lula": 44,
       "flavio": 39
-    }
+    },
+    "secondPairs": [
+      {
+        "a": "lula",
+        "b": "caiado",
+        "aPct": 45,
+        "bPct": 37
+      },
+      {
+        "a": "lula",
+        "b": "renan",
+        "aPct": 45,
+        "bPct": 35
+      },
+      {
+        "a": "lula",
+        "b": "zema",
+        "aPct": 46,
+        "bPct": 34
+      }
+    ],
+    "notes": "2T extra: pares Lula×Caiado/Renan/Zema das tabelas da casa. Cury 1% na tabela (nao omitir como 0)."
   },
   {
     "id": "meio-ideia-08",
@@ -849,7 +959,28 @@
     "secondRound": {
       "lula": 45,
       "flavio": 37
-    }
+    },
+    "secondPairs": [
+      {
+        "a": "lula",
+        "b": "caiado",
+        "aPct": 45,
+        "bPct": 36
+      },
+      {
+        "a": "lula",
+        "b": "renan",
+        "aPct": 45,
+        "bPct": 33
+      },
+      {
+        "a": "lula",
+        "b": "zema",
+        "aPct": 45,
+        "bPct": 35
+      }
+    ],
+    "notes": "2T extra: pares Lula×Caiado/Renan/Zema das tabelas da casa."
   },
   {
     "id": "rtbd-07-21",
@@ -950,25 +1081,6 @@
     }
   },
   {
-    "id": "gerp-08-10-08045",
-    "institute": "Gerp",
-    "date": "2026-08-10",
-    "fieldEnd": "2026-08-10",
-    "sample": 2400,
-    "moe": 2,
-    "mode": "telefone",
-    "national": true,
-    "firstRound": {
-      "lula": 38,
-      "flavio": 38
-    },
-    "notes": "TSE BR-08045/2026. 2400 entrevistas. Allowlist gerp.",
-    "secondRound": {
-      "lula": 43,
-      "flavio": 45
-    }
-  },
-  {
     "id": "datafolha-06-19-09956",
     "institute": "Datafolha",
     "date": "2026-06-19",
@@ -1003,10 +1115,24 @@
       "zema": 3,
       "renan": 3
     },
-    "notes": "TSE BR-01166/2026. 2004 entrevistas. Allowlist datafolha.",
+    "notes": "TSE BR-01166/2026. 2004 entrevistas. Allowlist datafolha. 2T extra: pares Lula×Caiado/Renan/Zema das tabelas da casa.",
     "secondRound": {
       "lula": 48,
       "flavio": 43
-    }
+    },
+    "secondPairs": [
+      {
+        "a": "lula",
+        "b": "caiado",
+        "aPct": 47,
+        "bPct": 40
+      },
+      {
+        "a": "lula",
+        "b": "zema",
+        "aPct": 48,
+        "bPct": 40
+      }
+    ]
   }
 ]

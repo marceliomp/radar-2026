@@ -2,42 +2,54 @@
 @import "tw-animate-css";
 
 /*
-  Alvo BR tokens — surface-deep (dashboard).
-  Fonte: /root/alvo-design-system (docs/DESIGN-SYSTEM-FULL.md)
+  Radar 2026: um sistema (Refero: ritmo/anatomia de portal de dados).
+  Ofício: forecast eleitoral. Tokens petro / cream / teal.
+  Tipo: DM Sans (corpo) + Archivo Black (marca e número). Zero serifa.
 */
 @theme {
-  --color-bg: #0f1f1e;
-  --color-surface: #1b2e2c;
-  --color-surface-2: #23403d;
-  --color-fg: #f3eee6;
-  --color-muted: #c4b9a8;
-  --color-border: #2c4a47;
-  --color-primary: #2a9582;
-  --color-primary-fg: #faf6ef;
-  --color-lula: #db2525;
-  --color-flavio: #3d8ec4;
-  --color-renan: #b8a88e;
-  --color-accent: #2a9582;
-  --color-danger: #db2525;
-  --color-gold: #b8a88e;
-  --color-cream: #faf6ef;
-  --color-ink: #13171f;
-  --color-ring: #2a9582;
-  --color-chart-grid: #2a4542;
-  --color-chart-axis: #c4b9a8;
-  --radius-sm: 0.25rem;
-  --radius-md: 0.5rem;
-  --radius-lg: 0.75rem;
+  --color-bg: #0c1817;
+  --color-surface: #152623;
+  --color-surface-2: #1c322e;
+  --color-fg: #f7f4ef;
+  --color-muted: #e4d9c8;
+  --color-border: #3d5c57;
+  --color-primary: #6ed4c0;
+  --color-primary-fg: #0c1817;
+  --color-lula: #ff6b6b;
+  --color-flavio: #7ec8f0;
+  --color-renan: #d4c4a8;
+  --color-accent: #6ed4c0;
+  --color-danger: #ff6b6b;
+  --color-gold: #f0e6d2;
+  --color-cream: #f7f4ef;
+  --color-ink: #0c1817;
+  --color-ring: #6ed4c0;
+  --color-chart-grid: #3d5c57;
+  --color-chart-axis: #e4d9c8;
+  --radius-sm: 0.125rem;
+  --radius-md: 0.25rem;
+  --radius-lg: 0.375rem;
   --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "DM Sans", ui-sans-serif, system-ui, sans-serif;
-  --shadow-card: 0 12px 32px -12px hsl(178 50% 6% / 0.45),
-    0 2px 6px hsl(178 50% 6% / 0.12);
-  --shadow-glow-amber: 0 0 0 1px hsl(36 22% 62% / 0.28),
-    0 12px 36px -16px hsl(36 22% 62% / 0.22);
-  --shadow-glow-lula: 0 0 0 1px hsl(0 72% 50% / 0.28),
-    0 12px 36px -14px hsl(0 72% 50% / 0.22);
-  --shadow-glow-flavio: 0 0 0 1px hsl(205 55% 48% / 0.28),
-    0 12px 36px -14px hsl(205 55% 48% / 0.22);
+  --font-display: "Archivo Black", "DM Sans", ui-sans-serif, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --shadow-card: 0 10px 28px -16px hsl(178 50% 6% / 0.5);
+  --shadow-glow-amber: 0 8px 28px -16px hsl(36 22% 62% / 0.18);
+  --shadow-glow-lula: 0 8px 28px -16px hsl(0 72% 50% / 0.18);
+  --shadow-glow-flavio: 0 8px 28px -16px hsl(205 55% 48% / 0.18);
+  --page-max: 72rem;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --text-kicker: 0.75rem;
+  --text-caption: 0.75rem;
+  --text-ui: 0.8125rem;
+  --text-body: 0.9375rem;
+  --text-title: 1.125rem;
+  --text-display: clamp(2.25rem, 6vw, 3.5rem);
 }
 
 @layer base {
@@ -47,30 +59,28 @@
 
   html {
     color-scheme: dark;
+    overflow-x: clip;
   }
 
   body {
     margin: 0;
     min-height: 100dvh;
+    overflow-x: clip;
     background-color: var(--color-bg);
     background-image:
       radial-gradient(
-        ellipse 90% 60% at 0% -10%,
-        hsl(168 56% 38% / 0.16),
-        transparent 52%
-      ),
-      radial-gradient(
-        ellipse 70% 50% at 100% 0%,
-        hsl(205 55% 18% / 0.35),
+        ellipse 90% 55% at 0% -8%,
+        hsl(168 56% 38% / 0.12),
         transparent 50%
       ),
       linear-gradient(180deg, hsl(178 42% 10%) 0%, hsl(178 50% 7%) 100%);
     background-attachment: fixed;
     color: var(--color-fg);
     font-family: var(--font-sans);
-    font-size: 16px;
+    font-size: var(--text-body);
     line-height: 1.55;
     font-feature-settings: "ss01", "cv11";
+    font-variant-numeric: tabular-nums;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -86,9 +96,506 @@
     cursor: pointer;
   }
 
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
   ::selection {
     background: color-mix(in oklab, var(--color-primary) 40%, transparent);
     color: var(--color-cream);
+  }
+}
+
+@layer components {
+  .page-wrap {
+    width: min(100%, var(--page-max));
+    margin-inline: auto;
+    padding-inline: var(--space-4);
+  }
+
+  @media (min-width: 640px) {
+    .page-wrap {
+      padding-inline: var(--space-6);
+    }
+  }
+
+  /* Masthead: marca + seções. Reseta mono 10px do overlay do hero. */
+  .mast {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--space-2) var(--space-6);
+    font-family: var(--font-sans);
+    font-size: var(--text-ui);
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 1.2;
+    text-transform: none;
+    color: var(--color-cream);
+  }
+
+  .mast-mark {
+    font-family: var(--font-display);
+    font-size: 1.0625rem;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    color: var(--color-cream);
+    text-decoration: none;
+    text-transform: none;
+  }
+
+  .mast-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+  }
+
+  .mast-link {
+    border-bottom: 1px solid transparent;
+    padding-bottom: 0.125rem;
+    color: color-mix(in oklab, var(--color-cream) 68%, transparent);
+    text-decoration: none;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+
+  .mast-link:hover {
+    color: var(--color-cream);
+  }
+
+  .mast-link-active {
+    border-bottom-color: var(--color-primary);
+    color: var(--color-cream);
+  }
+
+  .mast-link-idle {
+    border-bottom-color: transparent;
+  }
+
+  /* Refero/538: ticker de proximo clique, nao CTA de landing. */
+  .hook-rail {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.35rem 1.25rem;
+    padding: 0.7rem 1rem 0.8rem;
+    border-top: 1px solid var(--color-border);
+    background: color-mix(in oklab, var(--color-bg) 88%, transparent);
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+  }
+
+  @media (min-width: 768px) {
+    .hook-rail {
+      padding-inline: 1.5rem;
+    }
+  }
+
+  .hook-link {
+    color: var(--color-primary);
+    text-decoration: none;
+    border-bottom: 1px solid color-mix(in oklab, var(--color-primary) 45%, transparent);
+    padding-bottom: 0.05rem;
+    background: none;
+    font: inherit;
+    cursor: pointer;
+  }
+
+  .hook-link:hover {
+    color: var(--color-cream);
+    border-bottom-color: var(--color-cream);
+  }
+
+  .tight-block {
+    margin: 0 0 1.75rem;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    padding: 1rem 1.125rem 1.15rem;
+  }
+
+  .tight-title {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 1.125rem;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    color: var(--color-cream);
+  }
+
+  .tight-lede {
+    margin: 0.35rem 0 0.85rem;
+    font-size: var(--text-caption);
+    font-weight: 500;
+    line-height: 1.45;
+    color: color-mix(in oklab, var(--color-cream) 78%, transparent);
+  }
+
+  .tight-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .tight-row {
+    display: grid;
+    grid-template-columns: 2.5rem minmax(0, 1fr) auto;
+    grid-template-areas:
+      "uf names score"
+      "uf meta score";
+    gap: 0.1rem 0.75rem;
+    align-items: baseline;
+    padding: 0.55rem 0;
+    border-top: 1px solid color-mix(in oklab, var(--color-border) 70%, transparent);
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .tight-row:first-child,
+  .tight-list > li:first-child .tight-row {
+    border-top: 0;
+    padding-top: 0.15rem;
+  }
+
+  .tight-uf {
+    grid-area: uf;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--color-primary);
+  }
+
+  .tight-names {
+    grid-area: names;
+    min-width: 0;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-cream);
+  }
+
+  .tight-score {
+    grid-area: score;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    color: var(--color-cream);
+  }
+
+  .tight-meta {
+    grid-area: meta;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: color-mix(in oklab, var(--color-cream) 55%, transparent);
+  }
+
+  .tight-next {
+    margin: 0.85rem 0 0;
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    font-weight: 500;
+  }
+
+  .mast-asof {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-left: auto;
+    min-width: 0;
+    font-family: var(--font-sans);
+    font-size: var(--text-ui);
+    font-weight: 500;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--color-cream);
+  }
+
+  .mast-asof-label {
+    flex-shrink: 0;
+    color: color-mix(in oklab, var(--color-cream) 72%, transparent);
+  }
+
+  .mast-asof-input {
+    box-sizing: border-box;
+    min-height: 2.25rem;
+    max-width: 10.25rem;
+    width: 10.25rem;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    color: var(--color-cream);
+    font-family: var(--font-mono);
+    font-size: var(--text-ui);
+    font-weight: 500;
+    letter-spacing: 0;
+    padding: 0 0.45rem;
+    color-scheme: dark;
+  }
+
+  .mast-asof-input:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  .hl-strip {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 0.75rem;
+    width: 100%;
+  }
+
+  .mast-hl {
+    flex: 1 1 12rem;
+    max-width: 20rem;
+    min-width: 12rem;
+    margin-left: auto;
+  }
+
+  @media (max-width: 639px) {
+    .mast-hl {
+      flex: 1 1 100%;
+      max-width: none;
+      margin-left: 0;
+    }
+  }
+
+  .hl-card {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-bg);
+    padding: 0.6rem 0.8rem 0.7rem;
+  }
+
+  .hl-card-title {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin: 0 0 0.5rem;
+    font-family: var(--font-sans);
+    font-size: var(--text-ui);
+    font-weight: 700;
+    color: var(--color-cream);
+  }
+
+  .hl-meta {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-bottom: 0.3rem;
+    font-family: var(--font-sans);
+    font-size: var(--text-ui);
+    font-weight: 500;
+    color: var(--color-cream);
+  }
+
+  .hl-val {
+    font-variant-numeric: tabular-nums;
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+
+  .hl-copy {
+    margin: 0 0 0.45rem;
+    font-family: var(--font-sans);
+    font-size: var(--text-caption);
+    font-weight: 500;
+    line-height: 1.35;
+    color: color-mix(in oklab, var(--color-cream) 78%, transparent);
+  }
+
+  .hl-ends {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.3rem;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: color-mix(in oklab, var(--color-cream) 55%, transparent);
+  }
+
+  .hl-range {
+    display: block;
+    width: 100%;
+    height: 1.15rem;
+    margin: 0;
+    appearance: none;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .hl-range:focus-visible {
+    outline: none;
+  }
+
+  .hl-range::-webkit-slider-runnable-track {
+    height: 0.28rem;
+    border-radius: 999px;
+    background: linear-gradient(
+      to right,
+      var(--color-primary) 0%,
+      var(--color-primary) var(--hl-pct, 26%),
+      var(--color-surface-2) var(--hl-pct, 26%),
+      var(--color-surface-2) 100%
+    );
+  }
+
+  .hl-range::-webkit-slider-thumb {
+    appearance: none;
+    width: 1.15rem;
+    height: 0.7rem;
+    margin-top: -0.21rem;
+    border: 0;
+    border-radius: 999px;
+    background: var(--color-cream);
+  }
+
+  .hl-range:focus-visible::-webkit-slider-thumb {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  .hl-range::-moz-range-track {
+    height: 0.28rem;
+    border-radius: 999px;
+    background: var(--color-surface-2);
+  }
+
+  .hl-range::-moz-range-progress {
+    height: 0.28rem;
+    border-radius: 999px;
+    background: var(--color-primary);
+  }
+
+  .hl-range::-moz-range-thumb {
+    width: 1.15rem;
+    height: 0.7rem;
+    border: 0;
+    border-radius: 999px;
+    background: var(--color-cream);
+  }
+
+  /* Camada de mapa: ano como dado, não CTA. */
+  .seg {
+    display: inline-flex;
+    flex-wrap: wrap;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+  }
+
+  .seg-btn {
+    display: flex;
+    min-height: 2.75rem;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.05rem;
+    border-right: 1px solid var(--color-border);
+    padding: 0.35rem 1rem;
+    font-family: var(--font-sans);
+    font-size: var(--text-ui);
+    font-weight: 600;
+    line-height: 1.1;
+    color: color-mix(in oklab, var(--color-cream) 72%, transparent);
+    background: transparent;
+  }
+
+  .seg-btn:last-child {
+    border-right: 0;
+  }
+
+  .seg-btn[aria-pressed="true"] {
+    background: var(--color-cream);
+    color: var(--color-ink);
+  }
+
+  .seg-btn:hover:not([aria-pressed="true"]) {
+    color: var(--color-cream);
+    background: color-mix(in oklab, var(--color-surface-2) 80%, white 6%);
+  }
+
+  .seg-label {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+  }
+
+  .seg-meta {
+    font-family: var(--font-sans);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    opacity: 0.88;
+  }
+
+  .map-tooltip {
+    pointer-events: none;
+    position: absolute;
+    z-index: 4;
+    max-width: 16.5rem;
+    padding: 0.5rem 0.7rem 0.55rem;
+    border: 1px solid color-mix(in oklab, var(--color-cream) 55%, var(--color-border));
+    background: var(--color-surface-2);
+    color: var(--color-cream);
+    font-family: var(--font-sans);
+    font-size: var(--text-caption);
+    font-weight: 500;
+    line-height: 1.4;
+    box-shadow: var(--shadow-card);
+  }
+
+  .map-tally {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 1rem;
+    font-size: var(--text-ui);
+    font-weight: 600;
+  }
+
+  .map-legend {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.35rem 0.85rem;
+    padding-inline: 0.15rem;
+    font-size: var(--text-caption);
+    font-weight: 500;
+    color: var(--color-muted);
+  }
+
+  .dossier {
+    border-top: 1px solid var(--color-border);
+    padding-top: var(--space-3);
+  }
+
+  .dossier-name {
+    font-family: var(--font-display);
+    font-size: var(--text-title);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+
+  /* Split board: 1T | 2T. Nao empilhar como cards soltos a partir de 32rem. */
+  .board-split {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    border: 1px solid color-mix(in oklab, var(--color-cream) 24%, var(--color-border));
+    background: var(--color-surface);
+  }
+
+  @media (min-width: 32rem) {
+    .board-split {
+      grid-template-columns: 1fr 1fr;
+    }
   }
 }
 
@@ -114,7 +621,7 @@
   }
 
   .hairline {
-    border-color: color-mix(in oklab, var(--color-border) 70%, white 12%);
+    border-color: color-mix(in oklab, var(--color-cream) 28%, var(--color-border));
   }
 
   .num-lula {
@@ -137,14 +644,131 @@
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.45);
   }
 
+  .kicker,
   .eyebrow {
     font-family: var(--font-sans);
-    font-size: 0.7rem;
-    font-weight: 500;
-    letter-spacing: 0.22em;
+    font-size: var(--text-kicker);
+    font-weight: 600;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--color-primary);
+    color: var(--color-cream);
   }
+
+  .board-card,
+  .panel {
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    padding: var(--space-4) 1.125rem var(--space-5);
+  }
+
+  .score-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: baseline;
+    gap: 0.75rem;
+    padding: 0.45rem 0;
+    border-top: 1px solid color-mix(in oklab, var(--color-border) 70%, transparent);
+    font-size: 0.875rem;
+  }
+
+  .score-row:first-child {
+    border-top: 0;
+    padding-top: 0.15rem;
+  }
+
+  .matchup {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: end;
+    gap: 0.5rem 0.75rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .matchup-num {
+    font-family: var(--font-display);
+    font-size: var(--text-display);
+    line-height: 0.88;
+    letter-spacing: -0.04em;
+    font-weight: 400;
+  }
+
+  .cand-head {
+    display: none;
+  }
+
+  .cand-row {
+    display: grid;
+    grid-template-columns: 2.75rem minmax(0, 1fr) auto;
+    grid-template-areas:
+      "uf cargo cargo"
+      "name name name"
+      "party party num";
+    gap: 0.2rem 0.85rem;
+    padding: 0.85rem 0;
+  }
+
+  .cand-row > :nth-child(1) {
+    grid-area: uf;
+  }
+  .cand-row > :nth-child(2) {
+    grid-area: cargo;
+  }
+  .cand-row > :nth-child(3) {
+    grid-area: name;
+  }
+  .cand-row > :nth-child(4) {
+    grid-area: party;
+  }
+  .cand-row > :nth-child(5) {
+    grid-area: num;
+  }
+
+  @media (min-width: 640px) {
+    .cand-head {
+      display: grid;
+      grid-template-columns: 2.75rem 7.5rem minmax(0, 1fr) 7rem 3.25rem;
+      gap: 0.85rem;
+      padding: 0.4rem 0;
+      font-family: var(--font-sans);
+      font-size: var(--text-kicker);
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-muted);
+    }
+
+    .cand-row {
+      grid-template-columns: 2.75rem 7.5rem minmax(0, 1fr) 7rem 3.25rem;
+      grid-template-areas: "uf cargo name party num";
+      align-items: baseline;
+    }
+  }
+}
+
+/* Cream on petro: Recharts pinta item em preto. Fundo distinto do mapa. */
+.recharts-default-tooltip {
+  background: var(--color-surface-2) !important;
+  background-color: var(--color-surface-2) !important;
+  border: 1px solid color-mix(in oklab, var(--color-cream) 45%, var(--color-border)) !important;
+  color: var(--color-cream) !important;
+}
+
+.recharts-default-tooltip,
+.recharts-tooltip-label,
+.recharts-tooltip-item,
+.recharts-tooltip-item-name,
+.recharts-tooltip-item-value,
+.recharts-tooltip-item-separator {
+  color: var(--color-cream) !important;
+  fill: var(--color-cream) !important;
+}
+
+.recharts-legend-wrapper,
+.recharts-legend-item,
+.recharts-legend-item-text {
+  color: var(--color-cream) !important;
+  fill: var(--color-cream) !important;
 }
 
 @media (prefers-reduced-motion: reduce) {

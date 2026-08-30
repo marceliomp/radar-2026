@@ -16,6 +16,27 @@ export function fmtNum(n: number, digits = 1): string {
   });
 }
 
+/** Diferença a partir dos % já arredondados na tela. 39,64−34,99 → 4,6, não 4,7. */
+export function shownGap(a: number, b: number, digits = 1): number {
+  return round(round(a, digits) - round(b, digits), digits);
+}
+
+/** Teto da margem que o leitor entende (pesquisa, nao o SE inflado do modelo). */
+export const TECHNICAL_TIE_CAP_PP = 3;
+
+/** Empate tecnico: gap da tela cabe na margem E nao passa do teto de pesquisa. */
+export function isShownTie(
+  a: number,
+  b: number,
+  se: number,
+  digits = 1,
+  capPp = TECHNICAL_TIE_CAP_PP,
+): boolean {
+  const gap = Math.abs(shownGap(a, b, digits));
+  if (gap > capPp) return false;
+  return gap <= round(1.96 * se, digits);
+}
+
 /** 40.2 → "40,2%" */
 export function fmtPct(n: number, digits = 1): string {
   return `${fmtNum(n, digits)}%`;

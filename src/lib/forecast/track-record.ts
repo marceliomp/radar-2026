@@ -1,213 +1,223 @@
 /**
- * Historical accuracy priors (2022 2º turno + notes on 1º).
- * Used as multiplicative weight and soft house-effect tilt — not destiny for 2026.
+ * Peso por acerto histórico no 2º turno (2018 + 2022).
+ * Só erro absoluto vs urna. Sem tilt “esquerda/direita”.
  *
- * Urna 2º 2022 (válidos): Lula 50.90% · Bolsonaro 49.10%
+ * Urna 2º 2018 (válidos): Bolsonaro 55,13 · Haddad 44,87
+ * Urna 2º 2022 (válidos): Lula 50,90 · Bolsonaro 49,10
  */
 
 export type TrackRecord = {
   institute: string;
-  /** Absolute error on winner share or mean |poll−urna| (pp), last 2T poll 2022. */
+  /** Erro |poll−urna| no 2º 2014 (Dilma 51,64 × Aécio 48,36). */
+  mae2t2014: number | null;
+  mae2t2018: number | null;
   mae2t2022: number | null;
-  /** Rank by 2T closeness (lower better); null if unknown / no final poll. */
   rank2t: number | null;
-  /**
-   * Multiplicative quality from track record.
-   * ~1.0 average; higher = more weight in aggregator.
-   */
-  quality: number;
-  /**
-   * Soft bias correction for 2026 right-wing candidate (Flávio):
-   * positive = institute historically over-read left / under-read right in 1T.
-   * Applied as house effect on flavio (subtract from raw → lower flavio if overestimate).
-   * Convention matches engine houseEffects: positive = overestimates that cand.
-   */
-  houseTilt: { lula: number; flavio: number };
   note: string;
 };
 
-/** Map by exact institute key used in polls.ts */
-export const TRACK_2022: Record<string, TrackRecord> = {
+/** Chave canônica = nome após resolveInstitute. */
+export const TRACK: Record<string, TrackRecord> = {
   "Paraná Pesquisas": {
     institute: "Paraná Pesquisas",
+    mae2t2014: null,
+    mae2t2018: 0.9,
     mae2t2022: 0.5,
     rank2t: 1,
-    quality: 1.35,
-    houseTilt: { lula: 0, flavio: 0 },
-    note: "Melhor 2º 2022 (~0,5 pp). Ouro no fechamento.",
-  },
-  Gerp: {
-    institute: "Gerp",
-    mae2t2022: 1.1,
-    rank2t: 2,
-    quality: 1.28,
-    // 2022 2T was tight — Gerp often reads closer; mild correction vs “too hot” Flávio online
-    houseTilt: { lula: -0.8, flavio: 1.2 },
-    note: "Top 2 no 2º 2022 (~1,1 pp). Forte no cenário colado.",
+    note: "Melhor 2º 2022 (~0,5 pp). 2018 no grupo curto. Sem MAE 2014 no arquivo.",
   },
   Datafolha: {
     institute: "Datafolha",
+    mae2t2014: 0.4,
+    mae2t2018: 0.2,
     mae2t2022: 1.1,
     rank2t: 2,
-    quality: 1.28,
-    // Classic 1T under-read of Bolsonaro base → mild flavio underestimation historically
-    houseTilt: { lula: 0.3, flavio: -0.8 },
-    note: "Top 2 no 2º 2022. 1º costuma ser mais ‘frio’ na direita.",
-  },
-  Veritá: {
-    institute: "Veritá",
-    mae2t2022: 1.9,
-    rank2t: 4,
-    quality: 1.12,
-    houseTilt: { lula: -0.5, flavio: 0.8 },
-    note: "~1,9 pp no 2º 2022; às vezes puxa mais à direita.",
-  },
-  "Genial/Quaest": {
-    institute: "Genial/Quaest",
-    mae2t2022: 1.1,
-    rank2t: 3,
-    quality: 1.18,
-    houseTilt: { lula: 0.4, flavio: -1.0 },
-    note: "2º 2022 dentro da margem; 1º costuma abrir mais gap p/ Lula.",
-  },
-  "Nexus/BTG": {
-    institute: "Nexus/BTG",
-    mae2t2022: null,
-    rank2t: null,
-    quality: 1.1,
-    houseTilt: { lula: 0.2, flavio: 0.2 },
-    note: "Série BTG/Nexus sólida; sem rank viral 2022 no post.",
-  },
-  "Futura/Apex": {
-    institute: "Futura/Apex",
-    mae2t2022: 2.5,
-    rank2t: null,
-    // 2022 Futura/Modal flertou com Bolsonaro na frente no 2º — quality um pouco abaixo
-    quality: 0.95,
-    houseTilt: { lula: -0.3, flavio: 0.5 },
-    note: "2022: casas Futura/Modal oscilaram no 2º; peso neutro-baixo.",
-  },
-  "Meio/Ideia": {
-    institute: "Meio/Ideia",
-    mae2t2022: null,
-    rank2t: null,
-    quality: 1.0,
-    houseTilt: { lula: 0.5, flavio: 0 },
-    note: "Sem rank 2º 2022 destacado; peso neutro.",
-  },
-  "Real Time Big Data": {
-    institute: "Real Time Big Data",
-    mae2t2022: null,
-    rank2t: null,
-    quality: 1.0,
-    houseTilt: { lula: 0.3, flavio: 0 },
-    note: "Peso neutro; bom volume estadual em 2026.",
-  },
-  Palver: {
-    institute: "Palver",
-    mae2t2022: null,
-    rank2t: null,
-    quality: 0.72,
-    houseTilt: { lula: 0.8, flavio: 2.0 },
-    note: "Online 2026: amostra grande, viés de painel — qualidade ↓.",
+    note: "Cravou 2014 (~0,4 pp) e 2018 (~0,2 pp). 2022 dentro da margem (~1,1 pp).",
   },
   "CNT/MDA": {
     institute: "CNT/MDA",
+    mae2t2014: null,
+    mae2t2018: 1.4,
     mae2t2022: 0.2,
     rank2t: 2,
-    quality: 1.22,
-    houseTilt: { lula: 0.6, flavio: -0.8 },
-    note: "MDA cravou Lula no 2º 2022; 1º subestimou Bolsonaro (~3,5 pp).",
+    note: "MDA cravou o 2º 2022 (~0,2 pp). 2018 um pouco pior.",
+  },
+  Gerp: {
+    institute: "Gerp",
+    mae2t2014: null,
+    mae2t2018: null,
+    mae2t2022: 1.1,
+    rank2t: 2,
+    note: "Top do 2º 2022 (~1,1 pp). Sem série 2014/2018 comparável.",
+  },
+  Quaest: {
+    institute: "Quaest",
+    mae2t2014: null,
+    mae2t2018: null,
+    mae2t2022: 1.1,
+    rank2t: 3,
+    note: "2º 2022 dentro da margem. Genial/Globo entram como Quaest.",
+  },
+  Veritá: {
+    institute: "Veritá",
+    mae2t2014: null,
+    mae2t2018: 1.6,
+    mae2t2022: 1.9,
+    rank2t: 4,
+    note: "Erro ~1,6–1,9 pp nos 2º 2018 e 2022. Peso abaixo das casas curtas.",
+  },
+  Ipec: {
+    institute: "Ipec",
+    mae2t2014: 1.4,
+    mae2t2018: 1.1,
+    mae2t2022: 1.4,
+    rank2t: null,
+    note: "Ibope 2014/2018 + Ipec 2022. Série presencial longa, erro ~1,1–1,4 pp.",
+  },
+  "Nexus/BTG": {
+    institute: "Nexus/BTG",
+    mae2t2014: null,
+    mae2t2018: null,
+    mae2t2022: null,
+    rank2t: null,
+    note: "Sem MAE de fechamento 2014/2018/2022 no arquivo. Peso neutro.",
+  },
+  "Futura/Apex": {
+    institute: "Futura/Apex",
+    mae2t2014: null,
+    mae2t2018: 2.2,
+    mae2t2022: 2.5,
+    rank2t: null,
+    note: "Oscilou no 2º nas eleições com urna no arquivo. Peso baixo.",
+  },
+  "Meio/Ideia": {
+    institute: "Meio/Ideia",
+    mae2t2014: null,
+    mae2t2018: null,
+    mae2t2022: null,
+    rank2t: null,
+    note: "Sem rank de fechamento. Neutro.",
+  },
+  "Real Time Big Data": {
+    institute: "Real Time Big Data",
+    mae2t2014: null,
+    mae2t2018: null,
+    mae2t2022: null,
+    rank2t: null,
+    note: "Volume estadual 2026. Sem MAE nacional de urna.",
+  },
+  Palver: {
+    institute: "Palver",
+    mae2t2014: null,
+    mae2t2018: null,
+    mae2t2022: null,
+    rank2t: null,
+    note: "Online, sem urna 2014/2018/2022. Peso baixo (modo já desconta).",
   },
   "PoderData/Aya": {
     institute: "PoderData/Aya",
+    mae2t2014: null,
+    mae2t2018: null,
     mae2t2022: null,
     rank2t: null,
-    quality: 0.98,
-    houseTilt: { lula: 0.2, flavio: 0.4 },
-    note: "Telefone/URA. 2º 2026 costuma medir mais colado.",
-  },
-  "Ideia (SP)": {
-    institute: "Ideia (SP)",
-    mae2t2022: null,
-    rank2t: null,
-    quality: 1.0,
-    houseTilt: { lula: 0, flavio: 0 },
-    note: "Estadual — fora do nacional.",
+    note: "URA/telefone. Sem MAE de 2º 2014/2018/2022.",
   },
 };
 
-export const TRACK_RANKING_DISPLAY = [
-  {
-    rank: 1,
-    institute: "Paraná Pesquisas",
-    mae: "0,50 pp",
-    medal: "🥇",
-  },
-  {
-    rank: 2,
-    institute: "Gerp",
-    mae: "1,10 pp",
-    medal: "🥈",
-  },
-  {
-    rank: 2,
-    institute: "Datafolha",
-    mae: "1,10 pp",
-    medal: "🥈",
-  },
-  {
-    rank: 3,
-    institute: "Veritá",
-    mae: "1,90 pp",
-    medal: "🥉",
-  },
-] as const;
+const FIRST_ALIAS: Record<string, string> = {
+  Quaest: "Quaest",
+  Genial: "Quaest",
+  "Real Time": "Real Time Big Data",
+  PoderData: "PoderData/Aya",
+  Ideia: "Meio/Ideia",
+  Ibope: "Ipec",
+  Ipec: "Ipec",
+  AtlasIntel: "AtlasIntel",
+};
+
+export function resolveInstitute(name: string): string {
+  const raw = name.trim();
+  if (TRACK[raw]) return raw;
+  const first = raw.split("/")[0] ?? raw;
+  if (TRACK[first]) return first;
+  return FIRST_ALIAS[first] ?? raw;
+}
+
+/** 0,3 pp → ~1,45 · 1,1 pp → ~1,18 · 2,5 pp → ~0,82 · sem urna → 0,88 */
+export function qualityFromMae(mae: number): number {
+  const q = 1.55 / (0.55 + Math.max(mae, 0));
+  return Math.min(1.55, Math.max(0.55, q));
+}
+
+export function blendedMae(t: TrackRecord): number | null {
+  const parts: { mae: number; w: number }[] = [];
+  if (t.mae2t2022 != null) parts.push({ mae: t.mae2t2022, w: 0.55 });
+  if (t.mae2t2018 != null) parts.push({ mae: t.mae2t2018, w: 0.3 });
+  if (t.mae2t2014 != null) parts.push({ mae: t.mae2t2014, w: 0.15 });
+  if (!parts.length) return null;
+  const w = parts.reduce((s, p) => s + p.w, 0);
+  return parts.reduce((s, p) => s + p.mae * p.w, 0) / w;
+}
+
+export function trackQuality(institute: string): number {
+  const t = TRACK[resolveInstitute(institute)];
+  if (!t) return 0.88;
+  const mae = blendedMae(t);
+  if (mae == null) {
+    if (t.institute === "Palver") return 0.72;
+    return 0.88;
+  }
+  return qualityFromMae(mae);
+}
+
+export function trackNote(institute: string): string {
+  return (
+    TRACK[resolveInstitute(institute)]?.note ??
+    "Sem urna 2018/2022. Peso neutro 0,88."
+  );
+}
+
+export const TRACK_RANKING_DISPLAY = (
+  [
+    "Paraná Pesquisas",
+    "CNT/MDA",
+    "Datafolha",
+    "Gerp",
+    "Quaest",
+    "Ipec",
+    "Veritá",
+  ] as const
+)
+  .map((institute) => {
+    const t = TRACK[institute]!;
+    const mae = blendedMae(t);
+    return {
+      institute,
+      mae: mae == null ? "n/d" : `${mae.toFixed(2).replace(".", ",")} pp`,
+      quality: trackQuality(institute),
+    };
+  })
+  .sort((a, b) => b.quality - a.quality)
+  .map((row, i) => ({ ...row, rank: i + 1 }));
 
 export const ELECTION_2022_2T = {
   lula: 50.9,
   bolsonaro: 49.1,
 } as const;
 
-export function trackQuality(institute: string): number {
-  return TRACK_2022[institute]?.quality ?? 0.9;
-}
+/** @deprecated alias: o portal não aplica tilt de lado. */
+export const TRACK_2022 = TRACK;
 
-export function trackHouseTilt(institute: string): {
+export function trackHouseTilt(_institute: string): {
   lula: number;
   flavio: number;
 } {
-  return TRACK_2022[institute]?.houseTilt ?? { lula: 0, flavio: 0 };
+  return { lula: 0, flavio: 0 };
 }
 
-export function trackNote(institute: string): string {
-  return TRACK_2022[institute]?.note ?? "Sem prior 2022 — qualidade default 0,9.";
-}
-
-/** Blend manual house effects with track-record tilts. */
 export function blendHouseEffects(
   manual: Record<string, Partial<Record<"lula" | "flavio", number>>>,
-  useTrack: boolean,
+  _useTrack: boolean,
 ): Record<string, Partial<Record<"lula" | "flavio", number>>> {
-  if (!useTrack) return manual;
-  const keys = new Set([
-    ...Object.keys(manual),
-    ...Object.keys(TRACK_2022),
-  ]);
-  const out: Record<string, Partial<Record<"lula" | "flavio", number>>> = {};
-  for (const k of keys) {
-    const m = manual[k] ?? {};
-    const t = trackHouseTilt(k);
-    // 60% track tilt + 40% manual prior (or full track if no manual)
-    const hasManual = k in manual;
-    out[k] = {
-      lula: hasManual
-        ? 0.4 * (m.lula ?? 0) + 0.6 * t.lula
-        : t.lula,
-      flavio: hasManual
-        ? 0.4 * (m.flavio ?? 0) + 0.6 * t.flavio
-        : t.flavio,
-    };
-  }
-  return out;
+  return manual;
 }

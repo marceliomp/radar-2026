@@ -1,0 +1,1843 @@
+{
+  "source": "G1, Folha, Poder360, CNN, O Globo, Ipsos, Gazeta do Povo. Rodada Quaest/Globo 24-27/08 + ondas anteriores: Genial/Quaest jul (10 UFs, PA ja estava), Datafolha SP 01-03/07, Genial/Quaest SP abr, Parana Pesquisas PR jul/ago. Quaest PA 29/08 ainda sem tabela.",
+  "asOf": "2026-08-29",
+  "polls": [
+    {
+      "id": "quaest-sp-gov-04-29",
+      "office": "governor",
+      "uf": "SP",
+      "institute": "Genial/Quaest",
+      "date": "2026-04-29",
+      "fieldEnd": "2026-04-27",
+      "sample": 1650,
+      "moe": 2,
+      "mode": "presencial",
+      "firstRound": {
+        "tarcisio": 38,
+        "fernandohaddad": 26
+      },
+      "secondRound": {
+        "tarcisio": 49,
+        "fernandohaddad": 32
+      },
+      "notes": "Folha 29/04 cenario amplo. TSE SP-03583/2026. Kim Kataguiri (Missao) 5% e Paulo Serra (PSDB) 5% fora do catalogo TSE 2026."
+    },
+    {
+      "id": "datafolha-sp-gov-07-05",
+      "office": "governor",
+      "uf": "SP",
+      "institute": "Datafolha",
+      "date": "2026-07-05",
+      "fieldEnd": "2026-07-03",
+      "sample": 1608,
+      "moe": 2,
+      "mode": "presencial",
+      "firstRound": {
+        "tarcisio": 46,
+        "fernandohaddad": 30,
+        "vera": 5,
+        "carlosmachado": 4,
+        "vivianmendes": 4
+      },
+      "secondRound": {
+        "tarcisio": 53,
+        "fernandohaddad": 37
+      },
+      "notes": "Poder360/Folha/Datafolha 05/07. Campo 01-03/07 n=1608. TSE SP-01703/2026 BR-06481/2026."
+    },
+    {
+      "id": "parana-pr-gov-07-07",
+      "office": "governor",
+      "uf": "PR",
+      "institute": "Paraná Pesquisas",
+      "date": "2026-07-07",
+      "fieldEnd": "2026-07-06",
+      "sample": 1500,
+      "moe": 2.6,
+      "mode": "presencial",
+      "firstRound": {
+        "sergiomoro": 39.9,
+        "requiaofilho": 21.1,
+        "sandroalex": 10.4,
+        "luizfranca10": 1.7
+      },
+      "notes": "Banda B/VEJA 07/07 cenario 1. Campo 03-06/07. TSE PR-01166/2026. Rafael Greca (MDB) 14,5% e Tony Garcia (DC) 1,5% fora do catalogo TSE 2026."
+    },
+    {
+      "id": "quaest-pa-gov-07-27",
+      "office": "governor",
+      "uf": "PA",
+      "institute": "Genial/Quaest",
+      "date": "2026-07-27",
+      "fieldEnd": "2026-07-25",
+      "sample": 900,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "hana": 24,
+        "drdaniel": 20,
+        "araceli": 2,
+        "cleberrabelo": 2
+      },
+      "secondRound": {
+        "hana": 36,
+        "drdaniel": 35
+      },
+      "notes": "G1 27/07 · cenario 1 estimulado · TSE PA-04548/2026. Mario Couto 11% (DC) fora do espelho TSE atual. Rodada Quaest/Globo PA 29/08 (PA-07718/2026) ainda sem tabela publicada."
+    },
+    {
+      "id": "quaest-pr-gov-07-27",
+      "office": "governor",
+      "uf": "PR",
+      "institute": "Genial/Quaest",
+      "date": "2026-07-27",
+      "fieldEnd": "2026-07-25",
+      "sample": 1104,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "sergiomoro": 39,
+        "requiaofilho": 18,
+        "sandroalex": 7,
+        "luizfranca10": 1
+      },
+      "secondRound": {
+        "sergiomoro": 48,
+        "requiaofilho": 29
+      },
+      "notes": "G1 27/07 cenario 1. TSE PR-04818/2026 BR-03445/2026. Rafael Greca (MDB) 12% e Tony Garcia (DC) 1% fora do catalogo TSE 2026."
+    },
+    {
+      "id": "quaest-rj-gov-07-27",
+      "office": "governor",
+      "uf": "RJ",
+      "institute": "Genial/Quaest",
+      "date": "2026-07-27",
+      "fieldEnd": "2026-07-25",
+      "sample": 1200,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "eduardopaes": 38,
+        "garotinho": 10,
+        "douglasruas": 10,
+        "williamsiri": 2,
+        "andremarinho": 1,
+        "coronelbusnello": 1,
+        "cyrogarcia": 1,
+        "julietepantoja": 1,
+        "luanmonteiro": 0
+      },
+      "secondRound": {
+        "eduardopaes": 48,
+        "garotinho": 18
+      },
+      "notes": "G1 27/07 cenario 1 (com Garotinho). TSE RJ-02671/2026 BR-07670/2026. Wilson Witzel (DC) 1% sem slug TSE 2026. 2o vs Ruas 52x16."
+    },
+    {
+      "id": "quaest-pa-sen-07-27",
+      "office": "senator",
+      "uf": "PA",
+      "institute": "Genial/Quaest",
+      "date": "2026-07-27",
+      "fieldEnd": "2026-07-25",
+      "sample": 900,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "helder": 21,
+        "delegadoedermauro": 14,
+        "zequinhamarinho": 7,
+        "celsosabino": 5,
+        "chicao": 3,
+        "brenoguimaraes": 1,
+        "gizellebancadaamazonidas": 1,
+        "livianoronha": 1,
+        "conti2": 0
+      },
+      "notes": "O Povo/G1 27/07 · soma 1a+2a cenario 1 · TSE PA-04548/2026. Paulo Rocha e Passarinho na tabela, sem slug TSE 2026. Nao inventado."
+    },
+    {
+      "id": "quaest-pr-sen-07-27",
+      "office": "senator",
+      "uf": "PR",
+      "institute": "Genial/Quaest",
+      "date": "2026-07-27",
+      "fieldEnd": "2026-07-25",
+      "sample": 1104,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "alexandrecuri": 10,
+        "deltandallagnol": 10,
+        "gleisi": 10,
+        "filipebarros": 8,
+        "cristinagraeml": 4,
+        "drrosinha": 4
+      },
+      "notes": "G1 27/07 cenario 1. TSE PR-04818/2026. Alvaro Dias (MDB) 20% e Luiz Carlos Hauly (Podemos) 1% fora do catalogo TSE 2026 (Alvaro desistiu)."
+    },
+    {
+      "id": "quaest-mg-gov-07-28",
+      "office": "governor",
+      "uf": "MG",
+      "institute": "Genial/Quaest",
+      "date": "2026-07-28",
+      "fieldEnd": "2026-07-26",
+      "sample": 1482,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "cleitinho": 35,
+        "kalil": 12,
+        "patrusananias": 10,
+        "mateussimoesmg": 6,
+        "gabriel": 4,
+        "benmendes": 2,
+        "flavioroscoe": 2,
+        "rafaelduda": 0,
+        "professortuliolopes": 0
+      },
+      "secondRound": {
+        "cleitinho": 44,
+        "kalil": 29
+      },
+      "notes": "G1 28/07 cenario 1 (com Cleitinho). TSE MG-03490/2026 BR-09333/2026. Maria da Consolacao (PSOL) 1% e Jarbas Soares (PSB) 0% sem slug TSE 2026."
+    },
+    {
+      "id": "quaest-pe-gov-07-28",
+      "office": "governor",
+      "uf": "PE",
+      "institute": "Genial/Quaest",
+      "date": "2026-07-28",
+      "fieldEnd": "2026-07-26",
+      "sample": 900,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "raquellyra": 43,
+        "joaocampos": 37,
+        "professoracamila7": 1,
+        "ivanmoraes": 1,
+        "renan45": 1
+      },
+      "secondRound": {
+        "raquellyra": 45,
+        "joaocampos": 39
+      },
+      "notes": "G1 28/07 estimulado. TSE PE-09649/2026 BR-03810/2026. Camila Falcao mapeada para Professora Camila (UP)."
+    },
+    {
+      "id": "quaest-pe-sen-07-28",
+      "office": "senator",
+      "uf": "PE",
+      "institute": "Genial/Quaest",
+      "date": "2026-07-28",
+      "fieldEnd": "2026-07-26",
+      "sample": 900,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "mariliaarraes": 19,
+        "humbertocosta2": 12,
+        "mendonafilho": 8,
+        "eduardodafonte": 6,
+        "tuliogadelha": 4,
+        "carlossantanna": 0,
+        "paulorubem": 0
+      },
+      "notes": "G1 28/07 cenario 1. TSE PE-09649/2026. Miguel Coelho (Uniao) 6%, Silvio Nascimento (PL) 2% e Fernando Dueire (PSD) 0% sem slug TSE 2026."
+    },
+    {
+      "id": "quaest-ba-gov-07-29",
+      "office": "governor",
+      "uf": "BA",
+      "institute": "Genial/Quaest",
+      "date": "2026-07-29",
+      "fieldEnd": "2026-07-27",
+      "sample": 1200,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "acmneto": 39,
+        "jeronimo": 38,
+        "profaroldofelix": 1,
+        "ronaldomansur": 1
+      },
+      "secondRound": {
+        "acmneto": 43,
+        "jeronimo": 39
+      },
+      "notes": "G1 29/07 cenario 1 estimulado. TSE BA-02331/2026 BR-05856/2026. Jose Estevao (DC) 0% sem slug TSE 2026."
+    },
+    {
+      "id": "quaest-sp-gov-07-29",
+      "office": "governor",
+      "uf": "SP",
+      "institute": "Genial/Quaest",
+      "date": "2026-07-29",
+      "fieldEnd": "2026-07-27",
+      "sample": 1650,
+      "moe": 2,
+      "mode": "presencial",
+      "firstRound": {
+        "tarcisio": 41,
+        "fernandohaddad": 26,
+        "vera": 3,
+        "carlosmachado": 1,
+        "vivianmendes": 1
+      },
+      "secondRound": {
+        "tarcisio": 48,
+        "fernandohaddad": 32
+      },
+      "notes": "G1 29/07 estimulado. TSE SP-04846/2026 BR-09998/2026."
+    },
+    {
+      "id": "quaest-ba-sen-07-29",
+      "office": "senator",
+      "uf": "BA",
+      "institute": "Genial/Quaest",
+      "date": "2026-07-29",
+      "fieldEnd": "2026-07-27",
+      "sample": 1200,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "ruicosta2": 22,
+        "jaqueswagner": 16,
+        "joaoroma": 6,
+        "angelocoronel": 6,
+        "dellianaenois": 3,
+        "marcelosantana2": 1,
+        "gregoriogould": 0
+      },
+      "notes": "G1 29/07 cenario 1 estimulado. TSE BA-02331/2026. Percentuais como publicados (nao renormalizados)."
+    },
+    {
+      "id": "quaest-sp-sen-07-29",
+      "office": "senator",
+      "uf": "SP",
+      "institute": "Genial/Quaest",
+      "date": "2026-07-29",
+      "fieldEnd": "2026-07-27",
+      "sample": 1650,
+      "moe": 2,
+      "mode": "presencial",
+      "firstRound": {
+        "marinasilva": 14,
+        "simonetebet": 12,
+        "capitaoderrite": 7,
+        "andredoprado": 5,
+        "ricardosalles": 4
+      },
+      "notes": "G1 29/07 cenario com Jose Anibal. TSE SP-04846/2026. Pablo Marcal 9%, Paulinho da Forca 4%, Robson Tuma 3% e Jose Anibal 1% sem slug TSE 2026."
+    },
+    {
+      "id": "quaest-ce-gov-07-30",
+      "office": "governor",
+      "uf": "CE",
+      "institute": "Genial/Quaest",
+      "date": "2026-07-30",
+      "fieldEnd": "2026-07-28",
+      "sample": 1002,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "cirogomes": 43,
+        "elmanodefreitas": 33,
+        "delegadohuggo": 0,
+        "serleyleal": 0,
+        "zebatista": 0
+      },
+      "secondRound": {
+        "cirogomes": 48,
+        "elmanodefreitas": 35
+      },
+      "notes": "G1 30/07 estimulado 7 nomes. TSE CE-09277/2026 BR-03238/2026. Eduardo Girao (Novo) 3% e Jarir Pereira (PSOL) 1% sem slug TSE desta cadeira."
+    },
+    {
+      "id": "quaest-go-gov-07-30",
+      "office": "governor",
+      "uf": "GO",
+      "institute": "Genial/Quaest",
+      "date": "2026-07-30",
+      "fieldEnd": "2026-07-28",
+      "sample": 1104,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "danielvilela": 37,
+        "marconiperillo": 21,
+        "wildermorais": 11,
+        "luiscesarbueno": 3,
+        "lucianaamorim2": 0
+      },
+      "secondRound": {
+        "danielvilela": 52,
+        "marconiperillo": 28
+      },
+      "notes": "G1 30/07 estimulado. TSE GO-01701/2026 BR-08063/2026. Cintia Dias 1% (PSOL) na tabela gov, slug so no Senado. 2o vs Wilder 54x16."
+    },
+    {
+      "id": "quaest-rs-gov-07-30",
+      "office": "governor",
+      "uf": "RS",
+      "institute": "Genial/Quaest",
+      "date": "2026-07-30",
+      "fieldEnd": "2026-07-28",
+      "sample": 1104,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "julianabrizola": 24,
+        "tenentecoronelzucco": 22,
+        "gabrielsouza": 6,
+        "marcelomaranata": 3,
+        "cesarpontes2": 1,
+        "rejanedeoliveira": 1
+      },
+      "notes": "G1 30/07 estimulado. TSE RS-04790/2026 BR-01871/2026. Tabela de 2o turno nao transcrita na materia (so 1o)."
+    },
+    {
+      "id": "quaest-ce-sen-07-30",
+      "office": "senator",
+      "uf": "CE",
+      "institute": "Genial/Quaest",
+      "date": "2026-07-30",
+      "fieldEnd": "2026-07-28",
+      "sample": 1002,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "cidgomes": 23,
+        "capitaowagner": 16,
+        "luiziannelins": 9,
+        "pralcidesfernandes": 3,
+        "generaltheophilo": 0
+      },
+      "notes": "G1 30/07 cenario 1. TSE CE-09277/2026. Eunicio Oliveira (MDB) 8%, Domingos Filho (PSD) 2%, Anna Karina (PSOL) 1%, Chiquinho Feitosa 1% sem slug TSE 2026."
+    },
+    {
+      "id": "quaest-go-sen-07-30",
+      "office": "senator",
+      "uf": "GO",
+      "institute": "Genial/Quaest",
+      "date": "2026-07-30",
+      "fieldEnd": "2026-07-28",
+      "sample": 1104,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "gracinhacaiado": 20,
+        "vanderlanvieiracardoso": 10,
+        "drzachariascalil": 9,
+        "gustavogayer": 9,
+        "gustavomendanha": 6,
+        "iurecastro": 0
+      },
+      "notes": "G1 30/07 estimulado. TSE GO-01701/2026. Aldo Arantes, Humberto Chaves, Marcelo Moreira, Carlos Mundim e Ricardo Dias na tabela, sem slug TSE 2026."
+    },
+    {
+      "id": "quaest-rs-sen-07-30",
+      "office": "senator",
+      "uf": "RS",
+      "institute": "Genial/Quaest",
+      "date": "2026-07-30",
+      "fieldEnd": "2026-07-28",
+      "sample": 1104,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "manueladavila": 12,
+        "germanorigotto": 9,
+        "paulopimenta": 9,
+        "marcelvanhattem": 7,
+        "sanderson": 6,
+        "fredericoantunes": 1,
+        "lucianodomlb": 1,
+        "taniaperes2": 1,
+        "danielamulheressocialistas": 0,
+        "miltoncardoso3": 0,
+        "regisethur": 0,
+        "renatojaguarao": 0
+      },
+      "notes": "G1 30/07 estimulado. TSE RS-04790/2026. Percentuais como publicados."
+    },
+    {
+      "id": "parana-pr-gov-08-17",
+      "office": "governor",
+      "uf": "PR",
+      "institute": "Paraná Pesquisas",
+      "date": "2026-08-17",
+      "fieldEnd": "2026-08-16",
+      "sample": 1520,
+      "moe": 2.6,
+      "mode": "presencial",
+      "firstRound": {
+        "sergiomoro": 46.1,
+        "requiaofilho": 23.4,
+        "sandroalex": 16.5,
+        "luizfranca10": 0.9,
+        "taynamiessa": 0.6,
+        "alexandresalomao": 0.4,
+        "samueldemattos": 0.1,
+        "adrianoteixeira": 0.0
+      },
+      "notes": "Gazeta do Povo 17/08 estimulado pos-registro. Campo 13-16/08. TSE PR-09048/2026. Contratada pelo PL. Anterior a rodada Quaest/Globo 20-23/08."
+    },
+    {
+      "id": "ipsos-ce-gov-08-20",
+      "office": "governor",
+      "uf": "CE",
+      "institute": "Ipsos-Ipec",
+      "date": "2026-08-20",
+      "fieldEnd": "2026-08-17",
+      "sample": 800,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "cirogomes": 43,
+        "elmanodefreitas": 35,
+        "delegadohuggo": 3,
+        "danilosoares6": 1,
+        "zebatista": 1
+      },
+      "secondRound": {
+        "cirogomes": 50,
+        "elmanodefreitas": 41
+      },
+      "notes": "O Globo/Ipsos 20/08 · presencial 14–17/08 · n=800 · TSE BR-06231/2026. Vera Lúcia (Novo) 2% na pesquisa, nome ausente do catálogo TSE desta cadeira."
+    },
+    {
+      "id": "ipsos-ce-sen-08-20",
+      "office": "senator",
+      "uf": "CE",
+      "institute": "Ipsos-Ipec",
+      "date": "2026-08-20",
+      "fieldEnd": "2026-08-17",
+      "sample": 800,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "cidgomes": 26,
+        "capitaowagner": 19,
+        "luiziannelins": 15,
+        "pralcidesfernandes": 6,
+        "catarinamatos": 2,
+        "reginaldo50": 2,
+        "generaltheophilo": 1,
+        "linoalves": 1
+      },
+      "notes": "Ipsos/Metropoles 20/08 · soma 1a+2a vaga base 100 · TSE BR-06231/2026 CE-00195/2026. Mesmo campo do gov CE ja no arquivo."
+    },
+    {
+      "id": "datafolha-mg-gov-08-21",
+      "office": "governor",
+      "uf": "MG",
+      "institute": "Datafolha",
+      "date": "2026-08-21",
+      "fieldEnd": "2026-08-20",
+      "sample": 1204,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "cleitinho": 32,
+        "patrusananias": 12,
+        "kalil": 12,
+        "mateussimoesmg": 4,
+        "flavioroscoe": 4,
+        "gabriel": 4,
+        "professortuliolopes": 2,
+        "rafaelduda": 1,
+        "benmendes": 1,
+        "indiraxavier": 1
+      },
+      "notes": "G1 21/08 · fluxo 18–20/08 · n=1.204 · TSE MG-00446/2026."
+    },
+    {
+      "id": "datafolha-rj-gov-08-21",
+      "office": "governor",
+      "uf": "RJ",
+      "institute": "Datafolha",
+      "date": "2026-08-21",
+      "fieldEnd": "2026-08-21",
+      "sample": 1204,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "eduardopaes": 41,
+        "douglasruas": 19,
+        "garotinho": 9,
+        "coronelbusnello": 2,
+        "cyrogarcia": 2,
+        "williamsiri": 2,
+        "andremarinho": 2,
+        "julietepantoja": 2,
+        "luanmonteiro": 1
+      },
+      "notes": "G1 21/08 · fluxo 18–21/08 · n=1.204 · TSE RJ-02945/2026."
+    },
+    {
+      "id": "datafolha-sp-gov-08-21",
+      "office": "governor",
+      "uf": "SP",
+      "institute": "Datafolha",
+      "date": "2026-08-21",
+      "fieldEnd": "2026-08-19",
+      "sample": 1610,
+      "moe": 2,
+      "mode": "presencial",
+      "firstRound": {
+        "tarcisio": 45,
+        "fernandohaddad": 27,
+        "vera": 4,
+        "carlosmachado": 3,
+        "policialedjane": 3,
+        "vivianmendes": 2,
+        "izadoradias": 1
+      },
+      "secondRound": {
+        "tarcisio": 54,
+        "fernandohaddad": 35
+      },
+      "notes": "G1/Folha 21/08 · fluxo 18–19/08 · n=1.610 · TSE SP-01806/2026 e BR-07185/2026."
+    },
+    {
+      "id": "datafolha-pi-gov-08-22",
+      "office": "governor",
+      "uf": "PI",
+      "institute": "Datafolha",
+      "date": "2026-08-22",
+      "fieldEnd": "2026-08-21",
+      "sample": 826,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "rafaelfonteles": 56,
+        "joelrodrigues": 21,
+        "draluciasantos": 2,
+        "geraldocarvalho10": 2,
+        "lourdesmelo": 1,
+        "professorgisvaldo": 1,
+        "professorjurity": 1,
+        "elizeuaguiar": 1,
+        "santiagobelizario": 1,
+        "ravennacastro": 0
+      },
+      "notes": "G1 22/08 · estimulada · TSE PI-06656/2026 · n=826 presencial 18-21/08. TV Clube."
+    },
+    {
+      "id": "datafolha-pi-sen-08-22",
+      "office": "senator",
+      "uf": "PI",
+      "institute": "Datafolha",
+      "date": "2026-08-22",
+      "fieldEnd": "2026-08-21",
+      "sample": 826,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "cironogueira": 16,
+        "marcelocastro4": 16,
+        "juliocesar": 14,
+        "tiagojunqueira": 4,
+        "jorgelopes4": 2,
+        "dannielrocha": 2,
+        "antoniobarros25": 1,
+        "majorpauloroberto": 1,
+        "madalenanunes": 1,
+        "dionisiopiaui": 1,
+        "pedrolaurentino": 1,
+        "clovesjose": 1,
+        "francinaldoleao": 1,
+        "missionarioevandrocraveiro": 1,
+        "jardenyabezerra": 1,
+        "evandromarques": 1,
+        "toimdufrango": 0
+      },
+      "notes": "G1 22/08 · soma 1a+2a vaga base 100 · TSE PI-06656/2026. Antonio Jose Lira (Avante) 1% sem slug TSE. Nao inventado."
+    },
+    {
+      "id": "quaest-al-gov-08-24",
+      "office": "governor",
+      "uf": "AL",
+      "institute": "Quaest/Globo",
+      "date": "2026-08-24",
+      "fieldEnd": "2026-08-24",
+      "sample": 804,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "renanfilho": 42,
+        "jhc": 40,
+        "lenildaluna": 1,
+        "marciojambo": 0
+      },
+      "secondRound": {
+        "renanfilho": 42,
+        "jhc": 42
+      },
+      "notes": "O Globo 28/08, rodada Quaest/Globo 24–27/08. Presencial. Nao inventado: tabela estadual publicada."
+    },
+    {
+      "id": "quaest-ma-gov-08-24",
+      "office": "governor",
+      "uf": "MA",
+      "institute": "Quaest/Globo",
+      "date": "2026-08-24",
+      "fieldEnd": "2026-08-24",
+      "sample": 804,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "eduardobraide": 44,
+        "orleansbrandao": 25,
+        "felipecamarao": 6,
+        "robertorocha": 3,
+        "andreluis45": 1,
+        "dimascassimirodonascimento": 0,
+        "reginaldolima3": 0,
+        "sauloarcangeli": 0
+      },
+      "notes": "O Globo 28/08, rodada Quaest/Globo 24–27/08. Presencial. Nao inventado: tabela estadual publicada."
+    },
+    {
+      "id": "quaest-pr-gov-08-24",
+      "office": "governor",
+      "uf": "PR",
+      "institute": "Quaest/Globo",
+      "date": "2026-08-24",
+      "fieldEnd": "2026-08-23",
+      "sample": 804,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "sergiomoro": 37,
+        "requiaofilho": 21,
+        "sandroalex": 15,
+        "luizfranca10": 1,
+        "taynamiessa": 1
+      },
+      "secondRound": {
+        "sergiomoro": 51,
+        "requiaofilho": 27
+      },
+      "notes": "G1/RPC 24/08 · presencial 20–23/08 · n=804 · TSE PR-05388/2026. 2º vs Sandro Alex 48×19 (O Povo)."
+    },
+    {
+      "id": "quaest-rn-gov-08-24",
+      "office": "governor",
+      "uf": "RN",
+      "institute": "Quaest/Globo",
+      "date": "2026-08-24",
+      "fieldEnd": "2026-08-24",
+      "sample": 804,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "allyson": 25,
+        "alvarocostadias": 19,
+        "rodrigovieira": 2,
+        "professorroberiopaulino": 2,
+        "dariobarbosa": 1,
+        "arinaldadomlb": 0,
+        "carlosvendedor2": 0,
+        "henriquelyra": 0,
+        "cadudelula": 21
+      },
+      "notes": "O Globo 28/08, rodada Quaest/Globo 24–27/08. Presencial. Nao inventado: tabela estadual publicada."
+    },
+    {
+      "id": "quaest-rs-gov-08-24",
+      "office": "governor",
+      "uf": "RS",
+      "institute": "Quaest/Globo",
+      "date": "2026-08-24",
+      "fieldEnd": "2026-08-23",
+      "sample": 900,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "tenentecoronelzucco": 26,
+        "julianabrizola": 23,
+        "gabrielsouza": 9,
+        "marcelomaranata": 2,
+        "privoigtcommulheresmirabal": 1
+      },
+      "secondRound": {
+        "julianabrizola": 36,
+        "tenentecoronelzucco": 33
+      },
+      "notes": "G1/RBS 24/08 · presencial 20–23/08 · n=900 · TSE RS-06875/2026. 2º Brizola×Souza 32×24, Zucco×Souza 33×22."
+    },
+    {
+      "id": "quaest-sc-gov-08-24",
+      "office": "governor",
+      "uf": "SC",
+      "institute": "Quaest/Globo",
+      "date": "2026-08-24",
+      "fieldEnd": "2026-08-23",
+      "sample": 804,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "jorginhomello": 50,
+        "joaorodrigues": 17,
+        "gelsonmerisio": 4,
+        "marcussodre2": 2,
+        "marcelobrigadeiro": 1,
+        "laischaud": 1,
+        "brunnodias": 1
+      },
+      "secondRound": {
+        "jorginhomello": 56,
+        "joaorodrigues": 24
+      },
+      "notes": "G1/NSC 24/08 · presencial 20–23/08 · n=804 · TSE SC-00517/2026 e BR-07160/2026. 2º vs Merísio: 63×16."
+    },
+    {
+      "id": "quaest-al-sen-08-24",
+      "office": "senator",
+      "uf": "AL",
+      "institute": "Quaest/Globo",
+      "date": "2026-08-24",
+      "fieldEnd": "2026-08-24",
+      "sample": 804,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "arthurlira": 20,
+        "renan24": 18,
+        "marinajhc": 15,
+        "davidavinofilho": 10,
+        "drwanderley": 5,
+        "mariedson": 1,
+        "alexandrefleming": 0
+      },
+      "notes": "O Globo 28/08, Quaest Senado votos combinados (dois nomes). Base 100% da casa."
+    },
+    {
+      "id": "quaest-ma-sen-08-24",
+      "office": "senator",
+      "uf": "MA",
+      "institute": "Quaest/Globo",
+      "date": "2026-08-24",
+      "fieldEnd": "2026-08-24",
+      "sample": 804,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "roseanasarney": 16,
+        "weverton": 11,
+        "lahesiobonfim": 10,
+        "elizianegama": 9,
+        "andrefufuca": 9,
+        "drhilton": 5,
+        "cidoniogoncalves": 1,
+        "wilsonleite4": 1,
+        "simplicioaraujo": 1,
+        "raimundomoreira8": 1,
+        "eniltonrodrigues": 0
+      },
+      "notes": "O Globo 28/08, Quaest Senado votos combinados (dois nomes). Base 100% da casa."
+    },
+    {
+      "id": "quaest-pr-sen-08-24",
+      "office": "senator",
+      "uf": "PR",
+      "institute": "Quaest/Globo",
+      "date": "2026-08-24",
+      "fieldEnd": "2026-08-24",
+      "sample": 804,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "alexandrecuri": 15,
+        "gleisi": 11,
+        "filipebarros": 9,
+        "deltandallagnol": 9,
+        "cristinagraeml": 8,
+        "drrosinha": 6,
+        "karenguerreiro": 1,
+        "joaquimmaciel2": 0,
+        "marcelomarcelino3": 0
+      },
+      "notes": "O Globo 28/08, Quaest Senado votos combinados (dois nomes). Base 100% da casa."
+    },
+    {
+      "id": "quaest-rn-sen-08-24",
+      "office": "senator",
+      "uf": "RN",
+      "institute": "Quaest/Globo",
+      "date": "2026-08-24",
+      "fieldEnd": "2026-08-24",
+      "sample": 804,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "capitaostyvenson": 16,
+        "drzenaidemaia": 10,
+        "samanda": 8,
+        "rafaelmotta": 8,
+        "coronelheliooliveira": 5,
+        "professorguilherme20": 1,
+        "sandropimentel": 1,
+        "wendellbatista": 1,
+        "soniagodeiro": 1,
+        "rosaliafernandes": 1,
+        "terciotinoco": 1,
+        "sargentocosta52": 0,
+        "godeirolinhares": 0,
+        "lucianalima": 0
+      },
+      "notes": "O Globo 28/08, Quaest Senado votos combinados (dois nomes). Base 100% da casa."
+    },
+    {
+      "id": "quaest-rs-sen-08-24",
+      "office": "senator",
+      "uf": "RS",
+      "institute": "Quaest/Globo",
+      "date": "2026-08-24",
+      "fieldEnd": "2026-08-24",
+      "sample": 804,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "manueladavila": 12,
+        "marcelvanhattem": 9,
+        "paulopimenta": 9,
+        "germanorigotto": 8,
+        "sanderson": 8,
+        "danielamulheressocialistas": 1,
+        "fredericoantunes": 1,
+        "miltoncardoso3": 1,
+        "lucianodomlb": 0,
+        "regisethur": 0,
+        "renatojaguarao": 0,
+        "ricjones": 0,
+        "taniaperes2": 0
+      },
+      "notes": "O Globo 28/08, Quaest Senado votos combinados (dois nomes). Base 100% da casa."
+    },
+    {
+      "id": "quaest-sc-sen-08-24",
+      "office": "senator",
+      "uf": "SC",
+      "institute": "Quaest/Globo",
+      "date": "2026-08-24",
+      "fieldEnd": "2026-08-23",
+      "sample": 804,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "esperidiaoamin": 19,
+        "carlosbolsonaro2": 16,
+        "caroldetoni": 12,
+        "deciolima": 9,
+        "afranioboppre": 2,
+        "antidiolunelli": 2,
+        "tuliodeamorimpfuetzenreiter": 1,
+        "analuciadasilveiramachado": 1,
+        "joaninha84": 1,
+        "carolinesantanna": 1,
+        "marlenesoccas": 1,
+        "jefersondarocha": 1
+      },
+      "notes": "G1/NSC 24/08 · soma 1ª+2ª vaga base 100 · TSE SC-00517/2026. CNN 24/08."
+    },
+    {
+      "id": "quaest-am-gov-08-25",
+      "office": "governor",
+      "uf": "AM",
+      "institute": "Quaest/Globo",
+      "date": "2026-08-25",
+      "fieldEnd": "2026-08-25",
+      "sample": 804,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "omaraziz": 26,
+        "robertocidade": 18,
+        "professoramariadocarmo": 16,
+        "davidalmeida2": 15,
+        "benevenutodaciolo": 2,
+        "gilbertovasconcelos": 0,
+        "isaelgoncalves": 1
+      },
+      "secondRound": {
+        "omaraziz": 49,
+        "davidalmeida2": 36
+      },
+      "notes": "O Globo 28/08, rodada Quaest/Globo 24–27/08. Presencial. Nao inventado: tabela estadual publicada."
+    },
+    {
+      "id": "quaest-ap-gov-08-25",
+      "office": "governor",
+      "uf": "AP",
+      "institute": "Quaest/Globo",
+      "date": "2026-08-25",
+      "fieldEnd": "2026-08-25",
+      "sample": 804,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "drfurlan": 55,
+        "clecio": 35,
+        "jairopalheta": 1,
+        "carloscley2": 0,
+        "marcosreategui": 0
+      },
+      "secondRound": {
+        "drfurlan": 54,
+        "clecio": 36
+      },
+      "notes": "O Globo 28/08, rodada Quaest/Globo 24–27/08. Presencial. Nao inventado: tabela estadual publicada."
+    },
+    {
+      "id": "quaest-df-gov-08-25",
+      "office": "governor",
+      "uf": "DF",
+      "institute": "Quaest/Globo",
+      "date": "2026-08-25",
+      "fieldEnd": "2026-08-24",
+      "sample": 1104,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "celinaleao": 34,
+        "arruda": 20,
+        "leandrograss": 13,
+        "paulabelmonte": 3,
+        "ricardocappelli": 3,
+        "kikocaputo": 2,
+        "professorasamaramineiro": 1
+      },
+      "secondRound": {
+        "celinaleao": 42,
+        "arruda": 32
+      },
+      "notes": "G1 25/08 · presencial 21–24/08 · n=1.104 · TSE DF-06256/2026. 2º Celina×Grass 52×24, Arruda×Grass 44×26."
+    },
+    {
+      "id": "quaest-mg-gov-08-25",
+      "office": "governor",
+      "uf": "MG",
+      "institute": "Quaest/Globo",
+      "date": "2026-08-25",
+      "fieldEnd": "2026-08-24",
+      "sample": 1506,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "cleitinho": 29,
+        "patrusananias": 11,
+        "kalil": 10,
+        "mateussimoesmg": 7,
+        "gabriel": 5,
+        "flavioroscoe": 3,
+        "benmendes": 2,
+        "professortuliolopes": 1,
+        "rafaelduda": 1
+      },
+      "secondRound": {
+        "cleitinho": 51,
+        "patrusananias": 26
+      },
+      "notes": "Folha 25/08 · presencial 21–24/08 · n=1.506 · TSE MG-04060/2026. 2º vs Kalil 48×27, vs Simões 49×17."
+    },
+    {
+      "id": "quaest-ms-gov-08-25",
+      "office": "governor",
+      "uf": "MS",
+      "institute": "Quaest/Globo",
+      "date": "2026-08-25",
+      "fieldEnd": "2026-08-25",
+      "sample": 804,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "eduardoriedel": 40,
+        "fabiotrad": 13,
+        "delcidioamaral": 8,
+        "joaohenrique": 3,
+        "lucienrezende": 2,
+        "daniellemes": 1,
+        "economistarenatogomes": 1,
+        "jefersonbezerra": 1
+      },
+      "secondRound": {
+        "eduardoriedel": 54,
+        "delcidioamaral": 23
+      },
+      "notes": "O Globo 28/08, rodada Quaest/Globo 24–27/08. Presencial. Nao inventado: tabela estadual publicada."
+    },
+    {
+      "id": "quaest-mt-gov-08-25",
+      "office": "governor",
+      "uf": "MT",
+      "institute": "Quaest/Globo",
+      "date": "2026-08-25",
+      "fieldEnd": "2026-08-25",
+      "sample": 804,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "wellingtonfagundes": 27,
+        "otavianopivetta": 23,
+        "doutoranatasha": 8,
+        "sargentolaudicerio": 2,
+        "rafaellmilas": 2,
+        "mauriciocoelho4": 1
+      },
+      "secondRound": {
+        "wellingtonfagundes": 38,
+        "otavianopivetta": 29
+      },
+      "notes": "O Globo 28/08, rodada Quaest/Globo 24–27/08. Presencial. Nao inventado: tabela estadual publicada."
+    },
+    {
+      "id": "quaest-pb-gov-08-25",
+      "office": "governor",
+      "uf": "PB",
+      "institute": "Quaest/Globo",
+      "date": "2026-08-25",
+      "fieldEnd": "2026-08-25",
+      "sample": 804,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "lucasribeiro14": 38,
+        "cicerolucena": 19,
+        "efraimfilho": 18,
+        "pedrocoutinhoguerra": 2,
+        "camilosobreiraduarte": 1,
+        "yuriezequiel": 0
+      },
+      "secondRound": {
+        "lucasribeiro14": 48,
+        "cicerolucena": 29
+      },
+      "notes": "O Globo 28/08, rodada Quaest/Globo 24–27/08. Presencial. Nao inventado: tabela estadual publicada."
+    },
+    {
+      "id": "quaest-pe-gov-08-25",
+      "office": "governor",
+      "uf": "PE",
+      "institute": "Quaest/Globo",
+      "date": "2026-08-25",
+      "fieldEnd": "2026-08-24",
+      "sample": 1302,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "raquellyra": 44,
+        "joaocampos": 36,
+        "ivanmoraes": 1
+      },
+      "secondRound": {
+        "raquellyra": 47,
+        "joaocampos": 37
+      },
+      "notes": "G1/Folha 25/08 · presencial 21–24/08 · n=1.302 · TSE PE-07828/2026."
+    },
+    {
+      "id": "quaest-rj-gov-08-25",
+      "office": "governor",
+      "uf": "RJ",
+      "institute": "Quaest/Globo",
+      "date": "2026-08-25",
+      "fieldEnd": "2026-08-24",
+      "sample": 1302,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "eduardopaes": 37,
+        "douglasruas": 14,
+        "garotinho": 7,
+        "williamsiri": 3,
+        "coronelbusnello": 1,
+        "cyrogarcia": 1,
+        "julietepantoja": 1
+      },
+      "secondRound": {
+        "eduardopaes": 50,
+        "douglasruas": 20
+      },
+      "notes": "G1/Poder360 25/08 · presencial 21–24/08 · n=1.302 · TSE RJ-08748/2026. 2º vs Garotinho: 53×12."
+    },
+    {
+      "id": "quaest-ro-gov-08-25",
+      "office": "governor",
+      "uf": "RO",
+      "institute": "Quaest/Globo",
+      "date": "2026-08-25",
+      "fieldEnd": "2026-08-25",
+      "sample": 804,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "marcosrogerio": 24,
+        "furia": 21,
+        "hildonchaves": 10,
+        "expeditonetto": 10,
+        "samuelcosta": 2,
+        "pedroabib": 1
+      },
+      "secondRound": {
+        "marcosrogerio": 40,
+        "furia": 29
+      },
+      "notes": "O Globo 28/08, rodada Quaest/Globo 24–27/08. Presencial. Nao inventado: tabela estadual publicada."
+    },
+    {
+      "id": "rtbd-rs-gov-08-25",
+      "office": "governor",
+      "uf": "RS",
+      "institute": "Real Time Big Data",
+      "date": "2026-08-25",
+      "fieldEnd": "2026-08-24",
+      "sample": 1600,
+      "moe": 2,
+      "mode": "telefone",
+      "firstRound": {
+        "julianabrizola": 38,
+        "tenentecoronelzucco": 32,
+        "gabrielsouza": 19,
+        "marcelomaranata": 4
+      },
+      "secondRound": {
+        "julianabrizola": 45,
+        "tenentecoronelzucco": 41
+      },
+      "notes": "CNN/UOL 25/08 · telefone+digital 20–24/08 · n=1.600 · TSE RS-09640/2026. 2º vs Souza: Brizola 48×35, Zucco 43×38."
+    },
+    {
+      "id": "quaest-sp-gov-08-25",
+      "office": "governor",
+      "uf": "SP",
+      "institute": "Quaest/Globo",
+      "date": "2026-08-25",
+      "fieldEnd": "2026-08-24",
+      "sample": 1800,
+      "moe": 2,
+      "mode": "presencial",
+      "firstRound": {
+        "tarcisio": 40,
+        "fernandohaddad": 27,
+        "policialedjane": 2,
+        "vera": 1,
+        "carlosmachado": 1,
+        "izadoradias": 1,
+        "vivianmendes": 1
+      },
+      "secondRound": {
+        "tarcisio": 47,
+        "fernandohaddad": 30
+      },
+      "notes": "G1 25/08 · presencial 21–24/08 · n=1.800 · TSE SP-06946/2026."
+    },
+    {
+      "id": "quaest-to-gov-08-25",
+      "office": "governor",
+      "uf": "TO",
+      "institute": "Quaest/Globo",
+      "date": "2026-08-25",
+      "fieldEnd": "2026-08-25",
+      "sample": 804,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "professoradorinha": 0,
+        "vicentinhojunior": 28,
+        "laurezmoreira": 7,
+        "ataidesdeoliveira": 3,
+        "subtenenteluizcarlos2": 2,
+        "dupereira2": 0
+      },
+      "secondRound": {
+        "laurezmoreira": 30,
+        "ataidesdeoliveira": 25
+      },
+      "notes": "O Globo 28/08, rodada Quaest/Globo 24–27/08. Presencial. Nao inventado: tabela estadual publicada."
+    },
+    {
+      "id": "quaest-am-sen-08-25",
+      "office": "senator",
+      "uf": "AM",
+      "institute": "Quaest/Globo",
+      "date": "2026-08-25",
+      "fieldEnd": "2026-08-25",
+      "sample": 804,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "eduardobraga": 25,
+        "capitaoalbertoneto": 16,
+        "pliniovalerio": 13,
+        "wilsonlima": 12,
+        "profaevany": 3,
+        "miltonxuxa": 1,
+        "caciquemunguruku": 1,
+        "dailsoncorrea": 0,
+        "evandrodeoliveira": 0
+      },
+      "notes": "O Globo 28/08, Quaest Senado votos combinados (dois nomes). Base 100% da casa."
+    },
+    {
+      "id": "quaest-ap-sen-08-25",
+      "office": "senator",
+      "uf": "AP",
+      "institute": "Quaest/Globo",
+      "date": "2026-08-25",
+      "fieldEnd": "2026-08-25",
+      "sample": 804,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "rayssafurlan": 27,
+        "randolfe": 19,
+        "lucasbarreto4": 18,
+        "allinyserrao": 9,
+        "acaciofavacho": 7,
+        "heliosilva18": 0,
+        "juizajo": 0,
+        "uzianpinto": 0,
+        "capi": 4
+      },
+      "notes": "O Globo 28/08, Quaest Senado votos combinados (dois nomes). Base 100% da casa."
+    },
+    {
+      "id": "quaest-df-sen-08-25",
+      "office": "senator",
+      "uf": "DF",
+      "institute": "Quaest/Globo",
+      "date": "2026-08-25",
+      "fieldEnd": "2026-08-24",
+      "sample": 1104,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "michellebolsonaro": 25,
+        "leiladovolei": 17,
+        "erikakokay": 12,
+        "biakicis": 9,
+        "professorguilhermeamorim": 2,
+        "drsebastiao": 2,
+        "ronaldofonseca": 1,
+        "zanata7": 1,
+        "tiago43": 1
+      },
+      "notes": "G1/Metrópoles 25/08 · soma 1ª+2ª vaga base 100 · TSE DF-06256/2026."
+    },
+    {
+      "id": "quaest-mg-sen-08-25",
+      "office": "senator",
+      "uf": "MG",
+      "institute": "Quaest/Globo",
+      "date": "2026-08-25",
+      "fieldEnd": "2026-08-25",
+      "sample": 804,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "marilia": 15,
+        "carlosviana": 8,
+        "domingossavio": 8,
+        "marceloaro": 6,
+        "aureacarolina": 2,
+        "marcoantoniosuperman": 2,
+        "carlindopcdob": 2,
+        "gustavogalassi": 1,
+        "drmarceloheringer": 1,
+        "analuizadomlb": 1,
+        "manoelcarvalho4": 1,
+        "juizramonmoreira": 1,
+        "jordanometalurgico": 0,
+        "arcanjopimenta": 0,
+        "sebastiaodeoliveirapessoa": 0,
+        "victoriamellovic": 0,
+        "fidelisalcantara": 0
+      },
+      "notes": "O Globo 28/08, Quaest Senado votos combinados (dois nomes). Base 100% da casa."
+    },
+    {
+      "id": "quaest-ms-sen-08-25",
+      "office": "senator",
+      "uf": "MS",
+      "institute": "Quaest/Globo",
+      "date": "2026-08-25",
+      "fieldEnd": "2026-08-25",
+      "sample": 804,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "reinaldoazambuja": 22,
+        "capitaocontar": 15,
+        "sorayathronicke": 11,
+        "vanderloubet": 9,
+        "robertooshiro": 3,
+        "betodomst": 3,
+        "danielzinho7": 2,
+        "valterdacomagran": 1,
+        "luizlemes": 1,
+        "valderigarcia": 0
+      },
+      "notes": "O Globo 28/08, Quaest Senado votos combinados (dois nomes). Base 100% da casa."
+    },
+    {
+      "id": "quaest-mt-sen-08-25",
+      "office": "senator",
+      "uf": "MT",
+      "institute": "Quaest/Globo",
+      "date": "2026-08-25",
+      "fieldEnd": "2026-08-25",
+      "sample": 804,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "mauromendes": 24,
+        "janainariva": 18,
+        "pedrotaques": 8,
+        "josemedeiros": 6,
+        "favaro2": 5,
+        "coroneldarwin": 2,
+        "antoniogalvan": 2,
+        "professornelsonferreira2": 2,
+        "margarethbusetti": 1,
+        "benygodoy": 0
+      },
+      "notes": "O Globo 28/08, Quaest Senado votos combinados (dois nomes). Base 100% da casa."
+    },
+    {
+      "id": "quaest-pb-sen-08-25",
+      "office": "senator",
+      "uf": "PB",
+      "institute": "Quaest/Globo",
+      "date": "2026-08-25",
+      "fieldEnd": "2026-08-25",
+      "sample": 804,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "joao": 27,
+        "veneziano": 17,
+        "nabor7": 9,
+        "marceloqueiroga": 6,
+        "majorfabio": 5,
+        "andregadelha": 2,
+        "joaobatista39": 1,
+        "adrianotrajano2": 1,
+        "rinaldojunior2": 0,
+        "rosilenesantana": 0
+      },
+      "notes": "O Globo 28/08, Quaest Senado votos combinados (dois nomes). Base 100% da casa."
+    },
+    {
+      "id": "quaest-pe-sen-08-25",
+      "office": "senator",
+      "uf": "PE",
+      "institute": "Quaest/Globo",
+      "date": "2026-08-25",
+      "fieldEnd": "2026-08-24",
+      "sample": 1302,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "mariliaarraes": 16,
+        "humbertocosta2": 13,
+        "mendonafilho": 9,
+        "eduardodafonte": 6,
+        "tuliogadelha": 3,
+        "pastorgilvancosta": 1,
+        "carlossantanna": 1,
+        "paulorubem": 1
+      },
+      "notes": "CNN 25/08 · soma 1ª+2ª vaga · TSE PE-07828/2026."
+    },
+    {
+      "id": "quaest-rj-sen-08-25",
+      "office": "senator",
+      "uf": "RJ",
+      "institute": "Quaest/Globo",
+      "date": "2026-08-25",
+      "fieldEnd": "2026-08-24",
+      "sample": 1302,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "beneditadasilva": 10,
+        "carlosjordy": 7,
+        "marcelocrivella": 6,
+        "monicabenicio": 5,
+        "portinho": 5,
+        "pedropaulo": 3,
+        "waguinho75": 2,
+        "paulafalcao": 1,
+        "andremonteiro2": 1
+      },
+      "notes": "G1/O Globo 25/08 · soma 1ª+2ª vaga base 100 · TSE RJ-08748/2026."
+    },
+    {
+      "id": "quaest-ro-sen-08-25",
+      "office": "senator",
+      "uf": "RO",
+      "institute": "Quaest/Globo",
+      "date": "2026-08-25",
+      "fieldEnd": "2026-08-25",
+      "sample": 804,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "drfernandomaximo": 17,
+        "silviacristina": 11,
+        "brunobolsonaroscheid": 11,
+        "marianacarvalho": 10,
+        "acirgurgacz": 5,
+        "lucianaoliveira9": 4,
+        "engenheirothulio": 1,
+        "luisfernando53": 1,
+        "neidinhasurui": 1,
+        "airesmota": 0
+      },
+      "notes": "O Globo 28/08, Quaest Senado votos combinados (dois nomes). Base 100% da casa."
+    },
+    {
+      "id": "quaest-sp-sen-08-25",
+      "office": "senator",
+      "uf": "SP",
+      "institute": "Quaest/Globo",
+      "date": "2026-08-25",
+      "fieldEnd": "2026-08-24",
+      "sample": 1800,
+      "moe": 2,
+      "mode": "presencial",
+      "firstRound": {
+        "capitaoderrite": 12,
+        "marinasilva": 12,
+        "simonetebet": 11,
+        "andredoprado": 7,
+        "ricardosalles": 4,
+        "soninhafrancine": 2,
+        "geraldorufino": 2,
+        "mairadesouza": 1,
+        "draelianaferreira": 1,
+        "gutoschiavetto": 1,
+        "marcioalves": 1,
+        "djlu": 1
+      },
+      "notes": "G1 25/08 · soma 1ª+2ª vaga base 100 · TSE SP-06946/2026."
+    },
+    {
+      "id": "quaest-to-sen-08-25",
+      "office": "senator",
+      "uf": "TO",
+      "institute": "Quaest/Globo",
+      "date": "2026-08-25",
+      "fieldEnd": "2026-08-25",
+      "sample": 804,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "eduardogomes11": 14,
+        "carlosgaguim": 13,
+        "paulomourao": 9,
+        "alexandreguimaraes": 8,
+        "ronaldodimas": 6,
+        "vanderleiluxemburgo": 5,
+        "eliborges": 4,
+        "heliorodriguesbolsonaro": 2,
+        "profosvaldo3": 2,
+        "niltonsantos17": 1,
+        "fabioribeiro9": 1,
+        "flaviobraga42": 1,
+        "osvanyluz": 0
+      },
+      "notes": "O Globo 28/08, Quaest Senado votos combinados (dois nomes). Base 100% da casa."
+    },
+    {
+      "id": "quaest-ac-gov-08-27",
+      "office": "governor",
+      "uf": "AC",
+      "institute": "Quaest/Globo",
+      "date": "2026-08-27",
+      "fieldEnd": "2026-08-27",
+      "sample": 804,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "alanrick": 33,
+        "mailza": 24,
+        "tiaobocalom": 15,
+        "drthordantas": 2,
+        "franciscosilva6": 1,
+        "eudoraffael": 0
+      },
+      "secondRound": {
+        "alanrick": 42,
+        "mailza": 35
+      },
+      "notes": "O Globo 28/08, rodada Quaest/Globo 24–27/08. Presencial. Nao inventado: tabela estadual publicada."
+    },
+    {
+      "id": "quaest-ba-gov-08-27",
+      "office": "governor",
+      "uf": "BA",
+      "institute": "Quaest/TV Bahia",
+      "date": "2026-08-27",
+      "fieldEnd": "2026-08-26",
+      "sample": 900,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "acmneto": 39,
+        "jeronimo": 37,
+        "profaroldofelix": 1,
+        "mariabona": 1,
+        "arielcapistrano": 1,
+        "ronaldomansur": 1
+      },
+      "secondRound": {
+        "acmneto": 44,
+        "jeronimo": 41
+      },
+      "notes": "Estadão/Folha 27/08 · presencial 23–26/08 · n=900 · TSE BA-06206/2026."
+    },
+    {
+      "id": "quaest-es-gov-08-27",
+      "office": "governor",
+      "uf": "ES",
+      "institute": "Quaest/Globo",
+      "date": "2026-08-27",
+      "fieldEnd": "2026-08-27",
+      "sample": 804,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "ricardoferraco": 35,
+        "lorenzopazolini": 28,
+        "heldersalomao": 10,
+        "brenobarcelos": 2,
+        "rafaeldemuner": 1
+      },
+      "secondRound": {
+        "ricardoferraco": 45,
+        "lorenzopazolini": 35
+      },
+      "notes": "O Globo 28/08, rodada Quaest/Globo 24–27/08. Presencial. Nao inventado: tabela estadual publicada."
+    },
+    {
+      "id": "quaest-go-gov-08-27",
+      "office": "governor",
+      "uf": "GO",
+      "institute": "Quaest/Globo",
+      "date": "2026-08-27",
+      "fieldEnd": "2026-08-26",
+      "sample": 804,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "danielvilela": 37,
+        "marconiperillo": 20,
+        "wildermorais": 12,
+        "luiscesarbueno": 4
+      },
+      "secondRound": {
+        "danielvilela": 53,
+        "marconiperillo": 28
+      },
+      "notes": "G1/Anhanguera 27/08 · presencial 23–26/08 · n=804 · TSE GO-06186/2026. 2º vs Wilder 56×18 (Poder360)."
+    },
+    {
+      "id": "quaest-rr-gov-08-27",
+      "office": "governor",
+      "uf": "RR",
+      "institute": "Quaest/Globo",
+      "date": "2026-08-27",
+      "fieldEnd": "2026-08-27",
+      "sample": 804,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "arthurhenrique": 60,
+        "soldadosampaio": 27,
+        "rosiaires2": 1,
+        "clebiodezedaesp": 0,
+        "farahmesquita": 0
+      },
+      "secondRound": {
+        "arthurhenrique": 60,
+        "soldadosampaio": 28
+      },
+      "notes": "O Globo 28/08, rodada Quaest/Globo 24–27/08. Presencial. Nao inventado: tabela estadual publicada."
+    },
+    {
+      "id": "quaest-se-gov-08-27",
+      "office": "governor",
+      "uf": "SE",
+      "institute": "Quaest/Globo",
+      "date": "2026-08-27",
+      "fieldEnd": "2026-08-27",
+      "sample": 804,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "fabio": 40,
+        "valmirdefrancisquinho": 28,
+        "ricardomarques": 5,
+        "tatycristinadejesus": 1,
+        "drhelton2": 1,
+        "emanuelcacho": 1
+      },
+      "secondRound": {
+        "fabio": 47,
+        "valmirdefrancisquinho": 34
+      },
+      "notes": "O Globo 28/08, rodada Quaest/Globo 24–27/08. Presencial. Nao inventado: tabela estadual publicada."
+    },
+    {
+      "id": "quaest-ac-sen-08-27",
+      "office": "senator",
+      "uf": "AC",
+      "institute": "Quaest/Globo",
+      "date": "2026-08-27",
+      "fieldEnd": "2026-08-27",
+      "sample": 804,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "gladsoncameli": 19,
+        "marciobittar": 14,
+        "jorgeviana": 12,
+        "mararocha": 12,
+        "petecao": 8,
+        "dreduardovelloso": 5,
+        "juniorfeitosa2": 1,
+        "inaciomoreira": 1
+      },
+      "notes": "O Globo 28/08, Quaest Senado votos combinados (dois nomes). Base 100% da casa."
+    },
+    {
+      "id": "quaest-ba-sen-08-27",
+      "office": "senator",
+      "uf": "BA",
+      "institute": "Quaest/Globo",
+      "date": "2026-08-27",
+      "fieldEnd": "2026-08-27",
+      "sample": 804,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "ruicosta2": 23,
+        "jaqueswagner": 17,
+        "joaoroma": 7,
+        "angelocoronel": 5,
+        "dellianaenois": 2,
+        "marcelomillet": 1,
+        "carloseduardosodre": 1,
+        "gregoriogould": 0
+      },
+      "notes": "O Globo 28/08, Quaest Senado votos combinados (dois nomes). Base 100% da casa."
+    },
+    {
+      "id": "quaest-es-sen-08-27",
+      "office": "senator",
+      "uf": "ES",
+      "institute": "Quaest/Globo",
+      "date": "2026-08-27",
+      "fieldEnd": "2026-08-27",
+      "sample": 804,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "renatocasagrande": 28,
+        "sergiomeneguelli": 10,
+        "fabianocontarato": 9,
+        "rosedefreitas": 9,
+        "maguinhamalta": 6,
+        "evairdemelo": 5,
+        "marcosdoval": 4,
+        "rodneymiranda": 2,
+        "professorfabian": 2,
+        "leonardomonjardim": 1,
+        "callegari": 1
+      },
+      "notes": "O Globo 28/08, Quaest Senado votos combinados (dois nomes). Base 100% da casa."
+    },
+    {
+      "id": "quaest-go-sen-08-27",
+      "office": "senator",
+      "uf": "GO",
+      "institute": "Quaest/Globo",
+      "date": "2026-08-27",
+      "fieldEnd": "2026-08-27",
+      "sample": 804,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "gracinhacaiado": 21,
+        "gustavogayer": 6,
+        "vanderlanvieiracardoso": 9,
+        "drzachariascalil": 9,
+        "isauralemos": 3,
+        "oseiasvarao": 3,
+        "cintiadias": 2,
+        "ernestoroller": 1,
+        "guilhermedarques": 0,
+        "iurecastro": 0
+      },
+      "notes": "O Globo 28/08, Quaest Senado votos combinados (dois nomes). Base 100% da casa."
+    },
+    {
+      "id": "quaest-rr-sen-08-27",
+      "office": "senator",
+      "uf": "RR",
+      "institute": "Quaest/Globo",
+      "date": "2026-08-27",
+      "fieldEnd": "2026-08-27",
+      "sample": 804,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "teresasurita": 19,
+        "nicoletti": 17,
+        "helenadaasatur": 16,
+        "chicorodrigues3": 11,
+        "heliofernandobarbosalopes": 5,
+        "prisamarramalho": 3,
+        "regina39": 2,
+        "marciojunqueira3": 1,
+        "bartomacuxi": 1,
+        "hiltonxavier": 1,
+        "rogeriomiranda": 0,
+        "mariorocha32": 0,
+        "hiperion": 0
+      },
+      "notes": "O Globo 28/08, Quaest Senado votos combinados (dois nomes). Base 100% da casa."
+    },
+    {
+      "id": "quaest-se-sen-08-27",
+      "office": "senator",
+      "uf": "SE",
+      "institute": "Quaest/Globo",
+      "date": "2026-08-27",
+      "fieldEnd": "2026-08-27",
+      "sample": 804,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "delegadoalessandro": 8,
+        "rogeriocarvalho": 11,
+        "andremoura": 9,
+        "dreduardoamorim": 7,
+        "rodrigovaladares": 7,
+        "edvaldo26": 6,
+        "coronelrocha": 2,
+        "iranbarbosa": 2,
+        "renatinha39": 1,
+        "paulinhodauniaotur": 1
+      },
+      "notes": "O Globo 28/08, Quaest Senado votos combinados (dois nomes). Base 100% da casa."
+    }
+  ]
+}

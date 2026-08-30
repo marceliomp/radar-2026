@@ -1,5 +1,5 @@
 import type { ForecastPoll } from "@/lib/forecast/engine";
-import { round } from "@/lib/format";
+import { round, shownGap } from "@/lib/format";
 
 export type TrendPoint = {
   id: string;
@@ -82,11 +82,11 @@ export function buildNationalTrend(polls: ForecastPoll[]): TrendPoint[] {
       mode: p.mode,
       lula1: round(lula1, 1),
       flavio1: round(flavio1, 1),
-      gap1: round(lula1 - flavio1, 1),
+      gap1: shownGap(lula1, flavio1),
       lula2: lula2 != null ? round(lula2, 1) : null,
       flavio2: flavio2 != null ? round(flavio2, 1) : null,
       gap2:
-        lula2 != null && flavio2 != null ? round(lula2 - flavio2, 1) : null,
+        lula2 != null && flavio2 != null ? shownGap(lula2, flavio2) : null,
     };
   });
 }
@@ -158,12 +158,15 @@ export function sameHouseDeltas(polls: ForecastPoll[]): HouseDelta[] {
       let dFlavio2: number | null = null;
       let dGap2: number | null = null;
       if (a.secondRound && b.secondRound) {
-        dLula2 = round(b.secondRound.lula - a.secondRound.lula, 1);
-        dFlavio2 = round(b.secondRound.flavio - a.secondRound.flavio, 1);
+        dLula2 = round((b.secondRound.lula ?? 0) - (a.secondRound.lula ?? 0), 1);
+        dFlavio2 = round(
+          (b.secondRound.flavio ?? 0) - (a.secondRound.flavio ?? 0),
+          1,
+        );
         dGap2 = round(
-          b.secondRound.lula -
-            b.secondRound.flavio -
-            (a.secondRound.lula - a.secondRound.flavio),
+          (b.secondRound.lula ?? 0) -
+            (b.secondRound.flavio ?? 0) -
+            ((a.secondRound.lula ?? 0) - (a.secondRound.flavio ?? 0)),
           1,
         );
       }

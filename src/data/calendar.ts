@@ -7,13 +7,13 @@ export type CalendarItem = {
   institute?: string;
 };
 
-/** Agenda pública — campo e divulgação esperados. */
+/** Agenda pública: campo e divulgação esperados. */
 export const CALENDAR: CalendarItem[] = [
   {
     id: "quaest-ba-27",
     kind: "saiu",
     date: "2026-08-27",
-    title: "Quaest — Bahia presidente",
+    title: "Quaest: Bahia presidente",
     detail:
       "1º Lula 50 × Flávio 17. n=900 · ±3 · 23–26/08. Governo aprovado 59%.",
     institute: "Quaest/TV Bahia",
@@ -40,7 +40,7 @@ export const CALENDAR: CalendarItem[] = [
     id: "quaest-sudeste-25",
     kind: "saiu",
     date: "2026-08-25",
-    title: "Quaest/Globo — SP, MG, RJ",
+    title: "Quaest/Globo: SP, MG, RJ",
     detail:
       "Empate técnico nos 3 maiores colégios. SP 30×29 · MG 31×30 · RJ 31×29 (Flávio numérico). Indecisos altos (até 17% em MG).",
     institute: "Quaest",
@@ -49,7 +49,7 @@ export const CALENDAR: CalendarItem[] = [
     id: "rtbd-rs-25",
     kind: "saiu",
     date: "2026-08-25",
-    title: "Real Time — Rio Grande do Sul",
+    title: "Real Time: Rio Grande do Sul",
     detail:
       "1º Flávio 40 × Lula 39 (empate) · 2º 52×42. n=1.600 · ±2 · TSE BR-02823/2026. Marçal 5%.",
     institute: "Real Time Big Data",
@@ -58,7 +58,7 @@ export const CALENDAR: CalendarItem[] = [
     id: "quaest-estados-24",
     kind: "saiu",
     date: "2026-08-24",
-    title: "Quaest/Globo — 6 estados",
+    title: "Quaest/Globo: 6 estados",
     detail:
       "Sul: SC 45×20 · PR 41×23 · RS 34×28 (Flávio). Nordeste: MA 58×20 · RN 54×20 · AL 44×29 (Lula). Campo 20–23/08. ±3.",
     institute: "Quaest",
@@ -87,14 +87,14 @@ export const CALENDAR: CalendarItem[] = [
     date: "2026-08-21",
     title: "Veritá nacional",
     detail:
-      "1º 39,3×39,1 (Marçal 5,2%) · 2º Flávio 47,3 × Lula 42,0. n=3.840 · ±2. Casa historicamente mais alta em Flávio — cruzar com Datafolha.",
+      "1º 39,3×39,1 (Marçal 5,2%) · 2º Flávio 47,3 × Lula 42,0. n=3.840 · ±2. Casa historicamente mais alta em Flávio. Cruzar com Datafolha.",
     institute: "Veritá",
   },
   {
     id: "rtbd-pr-18",
     kind: "saiu",
     date: "2026-08-18",
-    title: "Real Time Big Data — Paraná",
+    title: "Real Time Big Data: Paraná",
     detail: "1º 44×31 Flávio · 2º 52×35. Rejeição Lula 56% / Flávio 38%. Gov 35×62.",
     institute: "Real Time Big Data",
   },
@@ -110,13 +110,13 @@ export const CALENDAR: CalendarItem[] = [
     id: "quaest-nacional-prox",
     kind: "previsto",
     date: "2026-08-28",
-    title: "Quaest nacional — próxima rodada",
+    title: "Quaest nacional: próxima rodada",
     detail: "Série Globo costuma fechar a semana. Estados já saíram; nacional ainda não.",
     institute: "Quaest",
   },
 ];
 
-/** Eleitorado aproximado (mi) — TSE 2024/2026. */
+/** Eleitorado aproximado (mi). TSE 2024/2026. */
 export const UF_META: Record<string, { name: string; electorateM: number }> = {
   SP: { name: "São Paulo", electorateM: 34.7 },
   MG: { name: "Minas Gerais", electorateM: 16.3 },
