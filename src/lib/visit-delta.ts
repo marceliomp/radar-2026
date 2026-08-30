@@ -88,7 +88,7 @@ export function visitView(
   if (prev.hl !== now.hl && moved) {
     return {
       kind: "hl",
-      line: `Half-life ${now.hl} dias: ${chanceLine(dLula)} vs a visita anterior.`,
+      line: `Período ${now.hl} dias: ${chanceLine(dLula)} vs a visita anterior.`,
       dLula,
       dFlavio,
       hours,

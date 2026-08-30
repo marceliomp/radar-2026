@@ -66,7 +66,7 @@ test("new poll in the file is the hook", async () => {
   assert.match(v.line, /Lula \+2,4/);
 });
 
-test("half-life change is named as memory, not as a new poll", async () => {
+test("periodo change is named as memory, not as a new poll", async () => {
   const { visitView } = await load();
   const prev = {
     at: 1,
@@ -83,6 +83,6 @@ test("half-life change is named as memory, not as a new poll", async () => {
     nowMs: 1 + 60_000,
   });
   assert.equal(v.kind, "hl");
-  assert.match(v.line, /Half-life 5/);
+  assert.match(v.line, /Período 5/);
   assert.doesNotMatch(v.line, /Pesquisa nova/);
 });

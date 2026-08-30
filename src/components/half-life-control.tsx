@@ -7,10 +7,10 @@ export function HalfLifeSlider({ id }: { id?: string }) {
   return (
     <div>
       <div className="hl-meta">
-        <label htmlFor={id}>Half-life</label>
+        <label htmlFor={id}>Período</label>
         <span className="hl-val">{halfLife} dias</span>
       </div>
-      <p className="hl-copy">Mais recente vs memória longa</p>
+      <p className="hl-copy">Pesquisas novas pesam mais na média</p>
       <input
         id={id}
         type="range"
@@ -23,11 +23,11 @@ export function HalfLifeSlider({ id }: { id?: string }) {
         aria-valuemin={HL_MIN}
         aria-valuemax={HL_MAX}
         aria-valuenow={halfLife}
-        aria-valuetext={`${halfLife} dias`}
+        aria-valuetext={`período de ${halfLife} dias`}
       />
       <div className="hl-ends">
-        <span>{HL_MIN}d recente</span>
-        <span>{HL_MAX}d longa</span>
+        <span>{HL_MIN}d só o novo</span>
+        <span>{HL_MAX}d tudo entra</span>
       </div>
     </div>
   );

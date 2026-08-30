@@ -668,7 +668,7 @@ export function ForecastDashboard({ variant = "public" }: { variant?: "public" |
             className="hook-link"
             onClick={() => setHalfLife(halfLife <= 5 ? 40 : 5)}
           >
-            {halfLife <= 5 ? "Memória longa" : "Half-life 5 dias"}
+            {halfLife <= 5 ? "Período longo" : "Só o recente"}
           </button>
         </div>
       </section>
