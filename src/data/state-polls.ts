@@ -56,21 +56,28 @@ export function scores(
   if (s.lula2 != null && s.flavio2 != null) {
     return { lula: s.lula2, flavio: s.flavio2, polled: true };
   }
-  const tot = s.lula1 + s.flavio1;
-  if (tot <= 0) return { lula: 0, flavio: 0, polled: false };
-  const lula = Math.round((s.lula1 / tot) * 1000) / 10;
-  return { lula, flavio: Math.round((100 - lula) * 10) / 10, polled: false };
+  return { lula: 0, flavio: 0, polled: false };
+}
+
+/** Margem do card do mapa: ±1.96 × SE do agregado (não o SE do gap do motor). */
+export function cardMarginPp(se: number): number {
+  return 1.96 * se;
+}
+
+/** Empate só se |gap| cabe na margem realmente exibida no card. */
+export function isCardTie(gap: number, se: number): boolean {
+  return Math.abs(gap) <= cardMarginPp(se);
 }
 
 export function stateFillFromGap(gap: number, moe: number): string {
-  if (Math.abs(gap) <= moe) return "#6b7c5e";
+  if (Math.abs(gap) <= moe) return "#5f7358";
   if (gap > 0) {
-    if (gap >= 20) return "#1d6ea3";
-    if (gap >= 10) return "#2f84bb";
-    return "#4a9bc9";
+    if (gap >= 20) return "#256fa3";
+    if (gap >= 10) return "#3489c0";
+    return "#3d96cc";
   }
   const g = -gap;
-  if (g >= 20) return "#b51c1c";
-  if (g >= 10) return "#d03434";
-  return "#e05555";
+  if (g >= 20) return "#c62828";
+  if (g >= 10) return "#dc3d3d";
+  return "#ee5a5a";
 }
