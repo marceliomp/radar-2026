@@ -208,6 +208,206 @@
     border-bottom-color: var(--color-cream);
   }
 
+  /* Capa: no telefone é placar numa faixa, não dois heróis empilhados. */
+  .hero-mast {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid var(--color-border);
+    background: var(--color-bg);
+  }
+
+  .hero-chrome {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 0.55rem;
+    padding: 0.7rem 1rem 0.15rem;
+    color: var(--color-cream);
+  }
+
+  .hero-badge {
+    flex-shrink: 0;
+    border: 1px solid color-mix(in oklab, var(--color-primary) 50%, transparent);
+    padding: 0.28rem 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    line-height: 1.2;
+    max-width: 5.6rem;
+    text-align: center;
+  }
+
+  .hero-score {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-width: 0;
+  }
+
+  .hero-col {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0.85rem 1rem 0.95rem;
+  }
+
+  .hero-col-l {
+    background: #161010;
+    border-right: 1px solid var(--color-border);
+  }
+
+  .hero-col-f {
+    background: #0d151c;
+  }
+
+  .hero-kicker {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .hero-num {
+    margin: 0.2rem 0 0;
+    font-family: var(--font-display);
+    font-size: clamp(2.55rem, 15vw, 3.6rem);
+    font-weight: 400;
+    line-height: 0.86;
+    letter-spacing: -0.05em;
+  }
+
+  .hero-method {
+    margin: 0;
+    padding: 0.45rem 1rem 0.15rem;
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-align: center;
+    color: color-mix(in oklab, var(--color-cream) 70%, transparent);
+  }
+
+  .hero-mast .hook-rail {
+    position: static;
+    padding: 0.55rem 1rem 0.75rem;
+    gap: 0.45rem 0.95rem;
+    font-size: 0.75rem;
+  }
+
+  @media (max-width: 767px) {
+    .hl-card {
+      padding: 0.4rem 0.65rem 0.45rem;
+      background: color-mix(in oklab, var(--color-bg) 55%, transparent);
+    }
+
+    .hl-copy,
+    .hl-ends {
+      display: none;
+    }
+
+    .hl-meta {
+      margin-bottom: 0.1rem;
+      font-size: 0.75rem;
+    }
+
+    .mast {
+      gap: 0.35rem 0.85rem;
+      font-size: 0.8125rem;
+    }
+
+    .mast-links {
+      gap: 0.65rem;
+    }
+
+    .mast-mark {
+      font-size: 0.95rem;
+    }
+
+    .chip-row {
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .chip-row > * {
+      scroll-snap-align: start;
+    }
+
+    .map-phone {
+      min-height: 16.5rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .hero-mast {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 52dvh;
+    }
+
+    .hero-chrome {
+      position: absolute;
+      inset: 0 0 auto;
+      z-index: 10;
+      padding: 0.85rem 1.5rem 0;
+    }
+
+    .hero-badge {
+      max-width: none;
+      font-size: 0.75rem;
+      padding: 0.25rem 0.5rem;
+    }
+
+    .hero-score {
+      display: contents;
+    }
+
+    .hero-col {
+      min-height: 52dvh;
+      padding: 9rem 2rem 5.5rem;
+    }
+
+    .hero-col-l {
+      border-right: 1px solid var(--color-border);
+    }
+
+    .hero-num {
+      margin-top: 0.5rem;
+      font-size: clamp(4.5rem, 18vw, 11rem);
+      line-height: 0.82;
+    }
+
+    .hero-kicker {
+      font-size: 0.6875rem;
+      letter-spacing: 0.22em;
+    }
+
+    .hero-method {
+      position: absolute;
+      right: 0;
+      bottom: 3.15rem;
+      left: 0;
+      z-index: 10;
+      padding-inline: 2rem;
+      font-size: 0.6875rem;
+    }
+
+    .hero-mast .hook-rail {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 10;
+      padding-inline: 1.5rem;
+    }
+  }
+
   .tight-block {
     margin: 0 0 1.75rem;
     border: 1px solid var(--color-border);

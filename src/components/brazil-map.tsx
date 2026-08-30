@@ -278,7 +278,7 @@ export function BrazilMap({
             </button>
           </SegGroup>
           <span className="self-center text-[11px] font-medium text-gold">
-            clique no estado · abre governadores
+            estado · abre governadores
           </span>
         </div>
       )}
@@ -298,7 +298,7 @@ export function BrazilMap({
       <div className="grid gap-4 lg:grid-cols-[1fr_17.5rem]">
         <div
           ref={wrapRef}
-          className="relative order-2 min-w-0 overflow-x-auto border border-border bg-surface/60 p-2 sm:p-3 lg:order-1"
+          className="map-phone relative min-w-0 overflow-x-auto border border-border bg-surface/60 p-2 sm:p-3"
         >
           <svg
             viewBox={`0 0 ${BR_VIEW.w} ${BR_VIEW.h}`}
@@ -389,7 +389,7 @@ export function BrazilMap({
           </div>
         </div>
 
-        <div className="order-1 space-y-3 lg:order-2">
+        <div className="space-y-3">
           {is2022 ? (
             <>
               <p className="map-tally">

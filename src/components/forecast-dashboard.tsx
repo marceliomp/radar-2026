@@ -607,11 +607,11 @@ export function ForecastDashboard({ variant = "public" }: { variant?: "public" |
   return (
     <div className="pb-[max(4rem,env(safe-area-inset-bottom))]">
       {variant === "public" && (
-      <section className="relative grid min-h-[42dvh] grid-cols-1 border-b border-border md:min-h-[52dvh] md:grid-cols-2">
-        <div className="absolute inset-x-0 top-0 z-10 flex min-w-0 flex-col gap-2 px-4 py-3 text-cream md:px-6">
+      <section className="hero-mast">
+        <div className="hero-chrome">
           <div className="flex min-w-0 items-start justify-between gap-3">
             <SiteNav className="min-w-0 flex-1" />
-            <span className="shrink-0 border border-primary/50 px-2 py-1 font-mono text-xs font-semibold uppercase tracking-[0.12em] text-primary">
+            <span className="hero-badge">
               Não é pesquisa
             </span>
           </div>
@@ -619,32 +619,28 @@ export function ForecastDashboard({ variant = "public" }: { variant?: "public" |
             <HalfLifeControl />
           </div>
         </div>
-        <div className="flex min-h-[36dvh] min-w-0 flex-col justify-end overflow-hidden border-b border-border bg-[#161010] px-4 pb-24 pt-44 md:min-h-[52dvh] md:border-b-0 md:border-r md:border-border md:px-8 md:pb-20 md:pt-36">
-          <p className="font-mono text-[11px] uppercase tracking-[0.22em]" style={{ color: CHART.lula }}>
-            Lula · presidente
-          </p>
-          <p
-            className="mt-2 font-black leading-[0.82] tracking-[-0.06em]"
-            style={{ fontFamily: '"Archivo Black", "DM Sans", sans-serif', fontSize: "clamp(4.5rem, 18vw, 11rem)", color: CHART.lula }}
-          >
-            {pL}
-          </p>
+        <div className="hero-score">
+          <div className="hero-col hero-col-l">
+            <p className="hero-kicker" style={{ color: CHART.lula }}>
+              Lula
+            </p>
+            <p className="hero-num" style={{ color: CHART.lula }}>
+              {pL}
+            </p>
+          </div>
+          <div className="hero-col hero-col-f">
+            <p className="hero-kicker" style={{ color: CHART.flavio }}>
+              Flávio
+            </p>
+            <p className="hero-num" style={{ color: CHART.flavio }}>
+              {pF}
+            </p>
+          </div>
         </div>
-        <div className="flex min-h-[36dvh] min-w-0 flex-col justify-end overflow-hidden bg-[#0d151c] px-4 pb-24 pt-8 md:min-h-[52dvh] md:px-8 md:pb-20 md:pt-36">
-          <p className="font-mono text-[11px] uppercase tracking-[0.22em]" style={{ color: CHART.flavio }}>
-            Flávio · presidente
-          </p>
-          <p
-            className="mt-2 font-black leading-[0.82] tracking-[-0.06em]"
-            style={{ fontFamily: '"Archivo Black", "DM Sans", sans-serif', fontSize: "clamp(4.5rem, 18vw, 11rem)", color: CHART.flavio }}
-          >
-            {pF}
-          </p>
-        </div>
-        <p className="absolute bottom-12 left-0 right-0 z-10 px-4 text-center font-mono text-[10px] uppercase tracking-[0.14em] text-cream/70 md:bottom-14 md:px-8">
+        <p className="hero-method">
           1º + 2º nos pares que as casas perguntaram
         </p>
-        <div className="hook-rail absolute bottom-0 left-0 right-0 z-10">
+        <div className="hook-rail">
           <a href="#mapa" className="hook-link">
             E no seu estado?
           </a>
@@ -656,13 +652,13 @@ export function ForecastDashboard({ variant = "public" }: { variant?: "public" |
             className="hook-link"
             onClick={() => setHalfLife(halfLife <= 5 ? 40 : 5)}
           >
-            {halfLife <= 5 ? "E com memória longa?" : "E se o half-life for 5 dias?"}
+            {halfLife <= 5 ? "Memória longa" : "Half-life 5 dias"}
           </button>
         </div>
       </section>
       )}
 
-    <div className="mx-auto min-w-0 max-w-6xl overflow-x-clip px-4 pt-8 sm:px-6">
+    <div className="page-body mx-auto min-w-0 max-w-6xl overflow-x-clip px-4 pt-5 sm:px-6 sm:pt-8">
       {variant === "lab" && (
         <p className="mb-4 font-mono text-[11px] uppercase tracking-[0.16em] text-gold">
           Laboratorio · <a href="/" className="underline">voltar ao Radar</a>
@@ -719,7 +715,7 @@ export function ForecastDashboard({ variant = "public" }: { variant?: "public" |
             pFlavio={probs.flavioWinsElection}
           />
         </div>
-        <div className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:flex-wrap sm:px-0">
+        <div className="chip-row -mx-4 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:flex-wrap sm:px-0">
           {housesInAverage(rows).slice(0, 6).map((r, i) => (
             <span
               key={r.institute}
