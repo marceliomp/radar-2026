@@ -293,6 +293,23 @@
     color: color-mix(in oklab, var(--color-cream) 70%, transparent);
   }
 
+  .hero-fresh,
+  .hero-pulse {
+    margin: 0;
+    padding: 0.15rem 1rem 0.2rem;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    text-align: center;
+    color: color-mix(in oklab, var(--color-cream) 82%, transparent);
+  }
+
+  .hero-pulse {
+    color: var(--color-primary);
+    padding-bottom: 0.35rem;
+  }
+
   .hero-mast .hook-rail {
     position: static;
     padding: 0.55rem 1rem 0.75rem;
@@ -370,7 +387,7 @@
 
     .hero-col {
       min-height: 52dvh;
-      padding: 9rem 2rem 5.5rem;
+      padding: 9rem 2rem 7.25rem;
     }
 
     .hero-col-l {
@@ -391,11 +408,29 @@
     .hero-method {
       position: absolute;
       right: 0;
-      bottom: 3.15rem;
+      bottom: 5.35rem;
       left: 0;
       z-index: 10;
       padding-inline: 2rem;
       font-size: 0.6875rem;
+    }
+
+    .hero-fresh {
+      position: absolute;
+      right: 0;
+      bottom: 4.15rem;
+      left: 0;
+      z-index: 10;
+      padding-inline: 2rem;
+    }
+
+    .hero-pulse {
+      position: absolute;
+      right: 0;
+      bottom: 2.55rem;
+      left: 0;
+      z-index: 10;
+      padding-inline: 2rem;
     }
 
     .hero-mast .hook-rail {

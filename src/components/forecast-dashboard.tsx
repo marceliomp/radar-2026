@@ -77,6 +77,8 @@ import { CHART } from "@/lib/chart-theme";
 import { ShareBar } from "@/components/share-bar";
 import { SiteNav } from "@/components/site-nav";
 import { TightRaces } from "@/components/tight-races";
+import { VisitHook } from "@/components/visit-hook";
+import { fileStamp } from "@/lib/visit-delta";
 
 function fmtDateBr(iso: string) {
   return `${iso.slice(8)}/${iso.slice(5, 7)}/${iso.slice(0, 4)}`;
@@ -603,6 +605,8 @@ export function ForecastDashboard({ variant = "public" }: { variant?: "public" |
 
   const pL = fmtProb(probs.lulaWinsElection).replace("%", "");
   const pF = fmtProb(probs.flavioWinsElection).replace("%", "");
+  const pLulaPts = Math.round(probs.lulaWinsElection * 1000) / 10;
+  const pFlavioPts = Math.round(probs.flavioWinsElection * 1000) / 10;
 
   return (
     <div className="pb-[max(4rem,env(safe-area-inset-bottom))]">
@@ -640,7 +644,19 @@ export function ForecastDashboard({ variant = "public" }: { variant?: "public" |
         <p className="hero-method">
           1º + 2º nos pares que as casas perguntaram
         </p>
+        <p className="hero-fresh">{fileStamp(latestNational ?? null)}</p>
+        {variant === "public" ? (
+          <VisitHook
+            pLula={pLulaPts}
+            pFlavio={pFlavioPts}
+            hl={halfLife}
+            newestId={latestNational?.id ?? ""}
+          />
+        ) : null}
         <div className="hook-rail">
+          <a href="#novo" className="hook-link">
+            O que entrou
+          </a>
           <a href="#mapa" className="hook-link">
             E no seu estado?
           </a>
@@ -735,7 +751,7 @@ export function ForecastDashboard({ variant = "public" }: { variant?: "public" |
       </header>
 
       {latestNational && (
-        <section className="mb-6">
+        <section id="novo" className="mb-6">
           <div className="board-card">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
               <div className="space-y-1.5">

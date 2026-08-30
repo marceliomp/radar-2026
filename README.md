@@ -39,4 +39,4 @@ node scripts/process-pending.mjs --offline
 node scripts/process-pending.mjs
 ```
 
-Timer 11h/19h BRT roda `node scripts/pipeline.mjs` (ingest + process). Sem número parseado, o protocolo fica no inbox. O agregador não lê o inbox.
+Timer 11h/19h BRT roda `node scripts/pipeline.mjs` (ingest + process). Sem número parseado, o protocolo fica no inbox. O agregador não lê o inbox. Mesmo com merge, o site em https://radar-2026.vercel.app só muda depois de commit de `src/data/polls.json` + deploy. O timer sozinho não atualiza a média pública.
