@@ -25,9 +25,9 @@ test("public forecast routes do not import PGLite or server SQL", () => {
 test("CDN cache middleware covers capa, lab and candidatos", () => {
   const text = readFileSync("server/middleware/public-cache.ts", "utf8");
   assert.match(text, /s-maxage/);
-  assert.match(text, '"/"');
-  assert.match(text, '"/lab"');
-  assert.match(text, '"/candidatos"');
+  assert.match(text, /"\/"/);
+  assert.match(text, /"\/lab"/);
+  assert.match(text, /"\/candidatos"/);
 });
 
 test("root shell mounts Vercel Analytics", () => {
