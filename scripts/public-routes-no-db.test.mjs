@@ -34,4 +34,5 @@ test("root shell mounts Vercel Analytics", () => {
   const text = readFileSync("src/routes/__root.tsx", "utf8");
   assert.match(text, /@vercel\/analytics\/react/);
   assert.match(text, /<Analytics/);
+  assert.match(text, /\/_vercel\/insights\/script\.js/);
 });

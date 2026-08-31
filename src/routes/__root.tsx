@@ -59,6 +59,7 @@ function RootDocument() {
     <html lang="pt-BR" suppressHydrationWarning>
       <head>
         <HeadContent />
+        <script defer src="/_vercel/insights/script.js" />
         <meta property="og:image" content="https://radar-2026.vercel.app/og.jpg" />
         <meta name="twitter:image" content="https://radar-2026.vercel.app/og.jpg" />
       </head>
