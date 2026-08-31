@@ -10,33 +10,53 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CandidatosRouteImport } from './routes/candidatos'
+import { Route as LabRouteImport } from './routes/lab'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CandidatosRoute = CandidatosRouteImport.update({
+  id: '/candidatos',
+  path: '/candidatos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LabRoute = LabRouteImport.update({
+  id: '/lab',
+  path: '/lab',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/candidatos': typeof CandidatosRoute
+  '/lab': typeof LabRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/candidatos': typeof CandidatosRoute
+  '/lab': typeof LabRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/candidatos': typeof CandidatosRoute
+  '/lab': typeof LabRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/candidatos' | '/lab'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/candidatos' | '/lab'
+  id: '__root__' | '/' | '/candidatos' | '/lab'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CandidatosRoute: typeof CandidatosRoute
+  LabRoute: typeof LabRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +68,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/candidatos': {
+      id: '/candidatos'
+      path: '/candidatos'
+      fullPath: '/candidatos'
+      preLoaderRoute: typeof CandidatosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/lab': {
+      id: '/lab'
+      path: '/lab'
+      fullPath: '/lab'
+      preLoaderRoute: typeof LabRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CandidatosRoute: CandidatosRoute,
+  LabRoute: LabRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

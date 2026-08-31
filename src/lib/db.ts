@@ -216,20 +216,25 @@ export async function getPglite(): Promise<import("@electric-sql/pglite").PGlite
  *   `migrations/*.sql`. Idempotent — concurrent callers share one promise.
  * - **Neon**: no-op (pool is created lazily on first query).
  *
- * Vite `configureServer` awaits this at dev startup; production imports of this
- * module kick it off immediately (see bottom of file).
+ * Vite `configureServer` awaits this at dev startup. On Vercel, do NOT boot
+ * PGLite at module load: the public forecast is JSON in memory, and each
+ * serverless isolate paying WASM Postgres is the viral-traffic cliff.
+ * `getSql()` / `getPglite()` still init lazily if auth actually needs a DB.
  */
 export function ensureDbReady(): Promise<void> {
   if (dbSource !== "pglite") return Promise.resolve();
   return getSql().then(() => undefined);
 }
 
-// Server-only eager start: kick PGLite bootstrap as soon as this module loads in
-// Node. Client bundles never hit this path (`getSql` throws in the browser).
+// Preview/dev only: kick PGLite as soon as this module loads in Node.
+// Client bundles never hit this path (`getSql` throws in the browser).
 const globalBoot = globalThis as typeof globalThis & {
   __pgBootstrapPromise__?: Promise<void>;
 };
-if (typeof window === "undefined" && dbSource === "pglite") {
+const onVercel = Boolean(
+  typeof process !== "undefined" && process.env.VERCEL,
+);
+if (typeof window === "undefined" && dbSource === "pglite" && !onVercel) {
   globalBoot.__pgBootstrapPromise__ ??= ensureDbReady().catch((err) => {
     globalBoot.__pgBootstrapPromise__ = undefined;
     console.error("[db] PGLite bootstrap failed:", err);

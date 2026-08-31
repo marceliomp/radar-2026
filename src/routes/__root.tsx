@@ -5,6 +5,7 @@ import {
   Scripts,
   retainSearchParams,
 } from "@tanstack/react-router";
+import { Analytics } from "@vercel/analytics/react";
 import { AuthProvider } from "@/lib/auth/provider";
 import { parseAsOfSearch } from "@/lib/as-of";
 import appCss from "../styles.css?url";
@@ -65,6 +66,7 @@ function RootDocument() {
         <AuthProvider>
           <Outlet />
         </AuthProvider>
+        <Analytics />
         <Scripts />
       </body>
     </html>

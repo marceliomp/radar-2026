@@ -1,0 +1,5142 @@
+{
+  "source": "TSE registro 2026 (espelho HubPolitico)",
+  "asOf": "2026-08-29",
+  "note": "Lista de urna. Situacao pode mudar por decisao da Justica Eleitoral.",
+  "counts": {
+    "governor": 194,
+    "senator": 314,
+    "president": 5
+  },
+  "candidates": [
+    {
+      "office": "senator",
+      "uf": "AC",
+      "name": "Mara Rocha",
+      "party": "REPUBLICANOS",
+      "number": "100",
+      "slug": "mararocha",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "AC",
+      "name": "Jorge Viana",
+      "party": "PT",
+      "number": "131",
+      "slug": "jorgeviana",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "AC",
+      "name": "Eduardo Velloso",
+      "party": "SOLIDARIEDADE",
+      "number": "777",
+      "slug": "dreduardovelloso",
+      "gender": "MASCULINO",
+      "currentOffice": "Deputado Federal"
+    },
+    {
+      "office": "senator",
+      "uf": "AC",
+      "name": "Marcio Bittar",
+      "party": "PL",
+      "number": "222",
+      "slug": "marciobittar",
+      "gender": "MASCULINO",
+      "currentOffice": "Senador"
+    },
+    {
+      "office": "senator",
+      "uf": "AC",
+      "name": "Gladson Camelí",
+      "party": "PP",
+      "number": "111",
+      "slug": "gladsoncameli",
+      "gender": "MASCULINO",
+      "currentOffice": "Candidato ao Senado"
+    },
+    {
+      "office": "senator",
+      "uf": "AC",
+      "name": "Petecão",
+      "party": "PSD",
+      "number": "555",
+      "slug": "petecao",
+      "gender": "MASCULINO",
+      "currentOffice": "Senador"
+    },
+    {
+      "office": "senator",
+      "uf": "AC",
+      "name": "Professor Inacio Moreira",
+      "party": "PSOL",
+      "number": "500",
+      "slug": "inaciomoreira",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "AC",
+      "name": "Dr. Junior Feitosa",
+      "party": "DC",
+      "number": "277",
+      "slug": "juniorfeitosa2",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "AL",
+      "name": "Lenilda Luna",
+      "party": "UP",
+      "number": "80",
+      "slug": "lenildaluna",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "AL",
+      "name": "Jhc",
+      "party": "PSDB",
+      "number": "45",
+      "slug": "jhc",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "AL",
+      "name": "Renan Filho",
+      "party": "MDB",
+      "number": "15",
+      "slug": "renanfilho",
+      "gender": "MASCULINO",
+      "currentOffice": "Senador"
+    },
+    {
+      "office": "governor",
+      "uf": "AL",
+      "name": "Márcio Jambo",
+      "party": "O DEMOCRATA",
+      "number": "35",
+      "slug": "marciojambo",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "AL",
+      "name": "Arthur Lira",
+      "party": "PP",
+      "number": "111",
+      "slug": "arthurlira",
+      "gender": "MASCULINO",
+      "currentOffice": "Deputado Federal"
+    },
+    {
+      "office": "senator",
+      "uf": "AL",
+      "name": "Davi Davino Filho",
+      "party": "REPUBLICANOS",
+      "number": "100",
+      "slug": "davidavinofilho",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "AL",
+      "name": "Alexandre Fleming",
+      "party": "UP",
+      "number": "800",
+      "slug": "alexandrefleming",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "AL",
+      "name": "Renan",
+      "party": "MDB",
+      "number": "151",
+      "slug": "renan24",
+      "gender": "MASCULINO",
+      "currentOffice": "Senador"
+    },
+    {
+      "office": "senator",
+      "uf": "AL",
+      "name": "Marina Jhc",
+      "party": "PSDB",
+      "number": "456",
+      "slug": "marinajhc",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "AL",
+      "name": "Dr. Wanderley",
+      "party": "MDB",
+      "number": "156",
+      "slug": "drwanderley",
+      "gender": "MASCULINO",
+      "currentOffice": "Deputado Estadual"
+    },
+    {
+      "office": "senator",
+      "uf": "AL",
+      "name": "Mariedson",
+      "party": "O DEMOCRATA",
+      "number": "355",
+      "slug": "mariedson",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "AC",
+      "name": "Alan Rick",
+      "party": "REPUBLICANOS",
+      "number": "10",
+      "slug": "alanrick",
+      "gender": "MASCULINO",
+      "currentOffice": "Senador"
+    },
+    {
+      "office": "governor",
+      "uf": "AC",
+      "name": "Mailza Assis",
+      "party": "PP",
+      "number": "11",
+      "slug": "mailza",
+      "gender": "FEMININO",
+      "currentOffice": "Pré-candidato ao Governo do AC"
+    },
+    {
+      "office": "governor",
+      "uf": "AC",
+      "name": "Tião Bocalom",
+      "party": "PSDB",
+      "number": "45",
+      "slug": "tiaobocalom",
+      "gender": "MASCULINO",
+      "currentOffice": "Pré-candidato ao Governo do AC"
+    },
+    {
+      "office": "governor",
+      "uf": "AC",
+      "name": "Dr.luisinho",
+      "party": "AGIR",
+      "number": "36",
+      "slug": "franciscosilva6",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "AC",
+      "name": "Eudo Raffael",
+      "party": "PCB",
+      "number": "21",
+      "slug": "eudoraffael",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "AC",
+      "name": "Thor Dantas",
+      "party": "PSB",
+      "number": "40",
+      "slug": "drthordantas",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "AP",
+      "name": "Randolfe",
+      "party": "PT",
+      "number": "130",
+      "slug": "randolfe",
+      "gender": "MASCULINO",
+      "currentOffice": "Senador"
+    },
+    {
+      "office": "senator",
+      "uf": "AP",
+      "name": "Rayssa Furlan",
+      "party": "PODE",
+      "number": "200",
+      "slug": "rayssafurlan",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "AP",
+      "name": "Acácio Favacho",
+      "party": "MDB",
+      "number": "151",
+      "slug": "acaciofavacho",
+      "gender": "MASCULINO",
+      "currentOffice": "Deputado Federal"
+    },
+    {
+      "office": "senator",
+      "uf": "AP",
+      "name": "Alliny Serrão",
+      "party": "UNIÃO",
+      "number": "444",
+      "slug": "allinyserrao",
+      "gender": "FEMININO",
+      "currentOffice": "Deputado Estadual"
+    },
+    {
+      "office": "senator",
+      "uf": "AP",
+      "name": "Capi",
+      "party": "PSB",
+      "number": "401",
+      "slug": "capi",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "AP",
+      "name": "Lucas Barreto",
+      "party": "PSD",
+      "number": "555",
+      "slug": "lucasbarreto4",
+      "gender": "MASCULINO",
+      "currentOffice": "Senador"
+    },
+    {
+      "office": "senator",
+      "uf": "AP",
+      "name": "Juíza Jô",
+      "party": "DC",
+      "number": "277",
+      "slug": "juizajo",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "AP",
+      "name": "Helio Silva",
+      "party": "PCO",
+      "number": "290",
+      "slug": "heliosilva18",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "AP",
+      "name": "Professor Uzian Pinto",
+      "party": "DC",
+      "number": "272",
+      "slug": "uzianpinto",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "AP",
+      "name": "Clécio",
+      "party": "UNIÃO",
+      "number": "44",
+      "slug": "clecio",
+      "gender": "MASCULINO",
+      "currentOffice": "Governador"
+    },
+    {
+      "office": "governor",
+      "uf": "AP",
+      "name": "Dr. Furlan",
+      "party": "PSD",
+      "number": "55",
+      "slug": "drfurlan",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "AP",
+      "name": "Marcos Reategui",
+      "party": "DC",
+      "number": "27",
+      "slug": "marcosreategui",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "AP",
+      "name": "Carlos Cley",
+      "party": "PSTU",
+      "number": "16",
+      "slug": "carloscley2",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "AP",
+      "name": "Jairo Palheta",
+      "party": "PCO",
+      "number": "29",
+      "slug": "jairopalheta",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "AM",
+      "name": "Cabo Daciolo",
+      "party": "PMN",
+      "number": "33",
+      "slug": "benevenutodaciolo",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "AM",
+      "name": "Professora Maria do Carmo",
+      "party": "PL",
+      "number": "22",
+      "slug": "professoramariadocarmo",
+      "gender": "FEMININO",
+      "currentOffice": "Pré-candidato ao Governo do AM"
+    },
+    {
+      "office": "governor",
+      "uf": "AM",
+      "name": "Omar Aziz",
+      "party": "PSD",
+      "number": "55",
+      "slug": "omaraziz",
+      "gender": "MASCULINO",
+      "currentOffice": "Senador"
+    },
+    {
+      "office": "governor",
+      "uf": "AM",
+      "name": "David Almeida",
+      "party": "AVANTE",
+      "number": "70",
+      "slug": "davidalmeida2",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "AM",
+      "name": "Roberto Cidade",
+      "party": "UNIÃO",
+      "number": "44",
+      "slug": "robertocidade",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "AM",
+      "name": "Isael Munduruku",
+      "party": "REDE",
+      "number": "18",
+      "slug": "isaelgoncalves",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "AM",
+      "name": "Gilberto Vasconcelos",
+      "party": "PSTU",
+      "number": "16",
+      "slug": "gilbertovasconcelos",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "AM",
+      "name": "Eduardo Braga",
+      "party": "MDB",
+      "number": "155",
+      "slug": "eduardobraga",
+      "gender": "MASCULINO",
+      "currentOffice": "Senador"
+    },
+    {
+      "office": "senator",
+      "uf": "AM",
+      "name": "Xuxa do Amazonas",
+      "party": "PMN",
+      "number": "333",
+      "slug": "miltonxuxa",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "AM",
+      "name": "Plinio Valério",
+      "party": "PSDB",
+      "number": "455",
+      "slug": "pliniovalerio",
+      "gender": "MASCULINO",
+      "currentOffice": "Senador"
+    },
+    {
+      "office": "senator",
+      "uf": "AM",
+      "name": "Capitão Alberto Neto",
+      "party": "PL",
+      "number": "222",
+      "slug": "capitaoalbertoneto",
+      "gender": "MASCULINO",
+      "currentOffice": "Deputado Federal"
+    },
+    {
+      "office": "senator",
+      "uf": "AM",
+      "name": "Professora Evany",
+      "party": "PSOL",
+      "number": "500",
+      "slug": "profaevany",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "AM",
+      "name": "Wilson Lima",
+      "party": "UNIÃO",
+      "number": "444",
+      "slug": "wilsonlima",
+      "gender": "MASCULINO",
+      "currentOffice": "Candidato ao Senado"
+    },
+    {
+      "office": "senator",
+      "uf": "AM",
+      "name": "Ismael Munduruku",
+      "party": "REDE",
+      "number": "181",
+      "slug": "caciquemunguruku",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "AM",
+      "name": "Dailson Corrêa",
+      "party": "DC",
+      "number": "277",
+      "slug": "dailsoncorrea",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "AM",
+      "name": "Evandro de Oliveira",
+      "party": "PSTU",
+      "number": "161",
+      "slug": "evandrodeoliveira",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "BA",
+      "name": "Acm Neto",
+      "party": "UNIÃO",
+      "number": "44",
+      "slug": "acmneto",
+      "gender": "MASCULINO",
+      "currentOffice": "Candidato ao Governo da Bahia"
+    },
+    {
+      "office": "governor",
+      "uf": "BA",
+      "name": "Jerônimo Rodrigues",
+      "party": "PT",
+      "number": "13",
+      "slug": "jeronimo",
+      "gender": "MASCULINO",
+      "currentOffice": "Governador"
+    },
+    {
+      "office": "governor",
+      "uf": "BA",
+      "name": "Ariel Capistrano",
+      "party": "DC",
+      "number": "27",
+      "slug": "arielcapistrano",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "BA",
+      "name": "Aroldo Felix",
+      "party": "UP",
+      "number": "80",
+      "slug": "profaroldofelix",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "BA",
+      "name": "Ronaldo Mansur",
+      "party": "PSOL",
+      "number": "50",
+      "slug": "ronaldomansur",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "BA",
+      "name": "Maria Bona",
+      "party": "PCO",
+      "number": "29",
+      "slug": "mariabona",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "CE",
+      "name": "Luizianne",
+      "party": "REDE",
+      "number": "180",
+      "slug": "luiziannelins",
+      "gender": "FEMININO",
+      "currentOffice": "Deputado Federal"
+    },
+    {
+      "office": "senator",
+      "uf": "CE",
+      "name": "Cid Gomes",
+      "party": "PSB",
+      "number": "400",
+      "slug": "cidgomes",
+      "gender": "MASCULINO",
+      "currentOffice": "Senador"
+    },
+    {
+      "office": "senator",
+      "uf": "CE",
+      "name": "Capitão Wagner",
+      "party": "UNIÃO",
+      "number": "445",
+      "slug": "capitaowagner",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "CE",
+      "name": "Catarina Matos",
+      "party": "UP",
+      "number": "800",
+      "slug": "catarinamatos",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "CE",
+      "name": "Alcides Fernandes",
+      "party": "PL",
+      "number": "222",
+      "slug": "pralcidesfernandes",
+      "gender": "MASCULINO",
+      "currentOffice": "Deputado Estadual"
+    },
+    {
+      "office": "senator",
+      "uf": "CE",
+      "name": "Guilherme Theophilo",
+      "party": "NOVO",
+      "number": "300",
+      "slug": "generaltheophilo",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "CE",
+      "name": "Reginaldo",
+      "party": "PSTU",
+      "number": "162",
+      "slug": "reginaldo50",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "CE",
+      "name": "Lino Alves",
+      "party": "PCO",
+      "number": "290",
+      "slug": "linoalves",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "DF",
+      "name": "Paula Belmonte",
+      "party": "PSDB",
+      "number": "45",
+      "slug": "paulabelmonte",
+      "gender": "FEMININO",
+      "currentOffice": "Deputado Distrital"
+    },
+    {
+      "office": "governor",
+      "uf": "DF",
+      "name": "Leandro Grass",
+      "party": "PT",
+      "number": "13",
+      "slug": "leandrograss",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "DF",
+      "name": "Celina Leão",
+      "party": "PP",
+      "number": "11",
+      "slug": "celinaleao",
+      "gender": "FEMININO",
+      "currentOffice": "Governador"
+    },
+    {
+      "office": "governor",
+      "uf": "DF",
+      "name": "Arruda",
+      "party": "PSD",
+      "number": "55",
+      "slug": "arruda",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "DF",
+      "name": "Kiko Caputo",
+      "party": "NOVO",
+      "number": "30",
+      "slug": "kikocaputo",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "DF",
+      "name": "Cappelli",
+      "party": "PSB",
+      "number": "40",
+      "slug": "ricardocappelli",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "DF",
+      "name": "Professora Samara Mineiro",
+      "party": "UP",
+      "number": "80",
+      "slug": "professorasamaramineiro",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "DF",
+      "name": "Expedito Mendonça",
+      "party": "PCO",
+      "number": "29",
+      "slug": "expeditomendonca",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "DF",
+      "name": "Professor Robson",
+      "party": "PSTU",
+      "number": "16",
+      "slug": "robson4",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "DF",
+      "name": "Elisson",
+      "party": "AGIR",
+      "number": "36",
+      "slug": "elisson6",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "DF",
+      "name": "Rico Pinheiro",
+      "party": "PRTB",
+      "number": "28",
+      "slug": "aldericopinheiro",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "ES",
+      "name": "Breno Barcelos",
+      "party": "MISSÃO",
+      "number": "14",
+      "slug": "brenobarcelos",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "ES",
+      "name": "Helder Salomão",
+      "party": "PT",
+      "number": "13",
+      "slug": "heldersalomao",
+      "gender": "MASCULINO",
+      "currentOffice": "Deputado Federal"
+    },
+    {
+      "office": "governor",
+      "uf": "ES",
+      "name": "Ricardo Ferraço",
+      "party": "MDB",
+      "number": "15",
+      "slug": "ricardoferraco",
+      "gender": "MASCULINO",
+      "currentOffice": "Governador"
+    },
+    {
+      "office": "governor",
+      "uf": "ES",
+      "name": "Lorenzo Pazolini",
+      "party": "REPUBLICANOS",
+      "number": "10",
+      "slug": "lorenzopazolini",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "ES",
+      "name": "Rafael Demuner",
+      "party": "UP",
+      "number": "80",
+      "slug": "rafaeldemuner",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "BA",
+      "name": "Professora Delliana",
+      "party": "PSOL",
+      "number": "500",
+      "slug": "dellianaenois",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "BA",
+      "name": "João Roma",
+      "party": "PL",
+      "number": "222",
+      "slug": "joaoroma",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "BA",
+      "name": "Angelo Coronel",
+      "party": "REPUBLICANOS",
+      "number": "100",
+      "slug": "angelocoronel",
+      "gender": "MASCULINO",
+      "currentOffice": "Senador"
+    },
+    {
+      "office": "senator",
+      "uf": "BA",
+      "name": "Jaques Wagner",
+      "party": "PT",
+      "number": "130",
+      "slug": "jaqueswagner",
+      "gender": "MASCULINO",
+      "currentOffice": "Senador"
+    },
+    {
+      "office": "senator",
+      "uf": "BA",
+      "name": "Gregorio Gould",
+      "party": "UP",
+      "number": "800",
+      "slug": "gregoriogould",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "BA",
+      "name": "Marcelo Millet",
+      "party": "PCO",
+      "number": "290",
+      "slug": "marcelomillet",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "BA",
+      "name": "Marcelo Santtana",
+      "party": "DC",
+      "number": "277",
+      "slug": "marcelosantana2",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "BA",
+      "name": "Rui Costa",
+      "party": "PT",
+      "number": "133",
+      "slug": "ruicosta2",
+      "gender": "MASCULINO",
+      "currentOffice": "Ministro da Casa Civil"
+    },
+    {
+      "office": "senator",
+      "uf": "BA",
+      "name": "Carlos Sodré",
+      "party": "PMN",
+      "number": "333",
+      "slug": "carloseduardosodre",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "BA",
+      "name": "Marcelo Carvalho",
+      "party": "REDE",
+      "number": "180",
+      "slug": "marcelocarvalho",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "DF",
+      "name": "Michelle Bolsonaro",
+      "party": "PL",
+      "number": "222",
+      "slug": "michellebolsonaro",
+      "gender": "F",
+      "currentOffice": "Candidata ao Senado"
+    },
+    {
+      "office": "senator",
+      "uf": "DF",
+      "name": "Erika Kokay",
+      "party": "PT",
+      "number": "131",
+      "slug": "erikakokay",
+      "gender": "FEMININO",
+      "currentOffice": "Deputado Federal"
+    },
+    {
+      "office": "senator",
+      "uf": "DF",
+      "name": "Bia Kicis",
+      "party": "PL",
+      "number": "223",
+      "slug": "biakicis",
+      "gender": "FEMININO",
+      "currentOffice": "Deputado Federal"
+    },
+    {
+      "office": "senator",
+      "uf": "DF",
+      "name": "Professor Guilherme Amorim",
+      "party": "UP",
+      "number": "800",
+      "slug": "professorguilhermeamorim",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "DF",
+      "name": "Sebastião Coelho",
+      "party": "NOVO",
+      "number": "300",
+      "slug": "drsebastiao",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "DF",
+      "name": "Leila do Vôlei",
+      "party": "PDT",
+      "number": "123",
+      "slug": "leiladovolei",
+      "gender": "FEMININO",
+      "currentOffice": "Senador"
+    },
+    {
+      "office": "senator",
+      "uf": "DF",
+      "name": "Ronaldo Fonseca",
+      "party": "PSD",
+      "number": "555",
+      "slug": "ronaldofonseca",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "DF",
+      "name": "Tiago",
+      "party": "AGIR",
+      "number": "360",
+      "slug": "tiago43",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "DF",
+      "name": "Zanata",
+      "party": "PSTU",
+      "number": "161",
+      "slug": "zanata7",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "DF",
+      "name": "Avenir Rosa",
+      "party": "O DEMOCRATA",
+      "number": "355",
+      "slug": "avenirrosa",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "DF",
+      "name": "David Horn",
+      "party": "PCO",
+      "number": "290",
+      "slug": "davidpureza",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "DF",
+      "name": "Guto Felício dos Santos",
+      "party": "PSDB",
+      "number": "456",
+      "slug": "gutofeliciodossantos",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "DF",
+      "name": "Marley",
+      "party": "AVANTE",
+      "number": "700",
+      "slug": "marley25",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "CE",
+      "name": "Ciro Gomes",
+      "party": "PSDB",
+      "number": "45",
+      "slug": "cirogomes",
+      "gender": "MASCULINO",
+      "currentOffice": "Candidato ao Governo do Ceará"
+    },
+    {
+      "office": "governor",
+      "uf": "CE",
+      "name": "Elmano de Freitas",
+      "party": "PT",
+      "number": "13",
+      "slug": "elmanodefreitas",
+      "gender": "MASCULINO",
+      "currentOffice": "Governador"
+    },
+    {
+      "office": "governor",
+      "uf": "CE",
+      "name": "Pedro Brito",
+      "party": "NOVO",
+      "number": "30",
+      "slug": "pedrobrito",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "CE",
+      "name": "Delegado Huggo",
+      "party": "MISSÃO",
+      "number": "14",
+      "slug": "delegadohuggo",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "CE",
+      "name": "Ieri Braga",
+      "party": "PCO",
+      "number": "29",
+      "slug": "ieribraga",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "CE",
+      "name": "Serley Leal",
+      "party": "UP",
+      "number": "80",
+      "slug": "serleyleal",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "CE",
+      "name": "Danilo Soares",
+      "party": "O DEMOCRATA",
+      "number": "35",
+      "slug": "danilosoares6",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "CE",
+      "name": "Zé Batista",
+      "party": "PSTU",
+      "number": "16",
+      "slug": "zebatista",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "GO",
+      "name": "Luis Cesar Bueno",
+      "party": "PT",
+      "number": "13",
+      "slug": "luiscesarbueno",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "GO",
+      "name": "Daniel Vilela",
+      "party": "MDB",
+      "number": "15",
+      "slug": "danielvilela",
+      "gender": "MASCULINO",
+      "currentOffice": "Governador"
+    },
+    {
+      "office": "governor",
+      "uf": "GO",
+      "name": "Marconi Perillo",
+      "party": "PSDB",
+      "number": "45",
+      "slug": "marconiperillo",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "GO",
+      "name": "Luciana Amorim",
+      "party": "UP",
+      "number": "80",
+      "slug": "lucianaamorim2",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "GO",
+      "name": "Wilder Morais",
+      "party": "PL",
+      "number": "22",
+      "slug": "wildermorais",
+      "gender": "MASCULINO",
+      "currentOffice": "Senador"
+    },
+    {
+      "office": "governor",
+      "uf": "GO",
+      "name": "Danilo Pinheiro",
+      "party": "PCO",
+      "number": "29",
+      "slug": "danilopinheiro3",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "GO",
+      "name": "Cintia Dias",
+      "party": "PSOL",
+      "number": "500",
+      "slug": "cintiadias",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "GO",
+      "name": "Gustavo Gayer",
+      "party": "PL",
+      "number": "222",
+      "slug": "gustavogayer",
+      "gender": "MASCULINO",
+      "currentOffice": "Deputado Federal"
+    },
+    {
+      "office": "senator",
+      "uf": "GO",
+      "name": "Vanderlan Cardoso",
+      "party": "PSD",
+      "number": "555",
+      "slug": "vanderlanvieiracardoso",
+      "gender": "MASCULINO",
+      "currentOffice": "Senador"
+    },
+    {
+      "office": "senator",
+      "uf": "GO",
+      "name": "Guilherme Darques",
+      "party": "UP",
+      "number": "800",
+      "slug": "guilhermedarques",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "GO",
+      "name": "Gracinha Caiado",
+      "party": "UNIÃO",
+      "number": "444",
+      "slug": "gracinhacaiado",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "GO",
+      "name": "Dr. Zacharias Calil",
+      "party": "MDB",
+      "number": "155",
+      "slug": "drzachariascalil",
+      "gender": "MASCULINO",
+      "currentOffice": "Deputado Federal"
+    },
+    {
+      "office": "senator",
+      "uf": "GO",
+      "name": "Gustavo Mendanha",
+      "party": "PRD",
+      "number": "251",
+      "slug": "gustavomendanha",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "GO",
+      "name": "Isaura Lemos",
+      "party": "PSB",
+      "number": "400",
+      "slug": "isauralemos",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "GO",
+      "name": "Oséias Varão",
+      "party": "PL",
+      "number": "227",
+      "slug": "oseiasvarao",
+      "gender": "MASCULINO",
+      "currentOffice": "Vereador"
+    },
+    {
+      "office": "senator",
+      "uf": "GO",
+      "name": "Ernesto Roller",
+      "party": "PSDB",
+      "number": "456",
+      "slug": "ernestoroller",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "GO",
+      "name": "Iure Castro",
+      "party": "CIDADANIA",
+      "number": "234",
+      "slug": "iurecastro",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "ES",
+      "name": "Maguinha Malta",
+      "party": "PL",
+      "number": "222",
+      "slug": "maguinhamalta",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "ES",
+      "name": "Marcos do Val",
+      "party": "AVANTE",
+      "number": "700",
+      "slug": "marcosdoval",
+      "gender": "MASCULINO",
+      "currentOffice": "Senador"
+    },
+    {
+      "office": "senator",
+      "uf": "ES",
+      "name": "Sergio Meneguelli",
+      "party": "PSD",
+      "number": "556",
+      "slug": "sergiomeneguelli",
+      "gender": "MASCULINO",
+      "currentOffice": "Deputado Estadual"
+    },
+    {
+      "office": "senator",
+      "uf": "ES",
+      "name": "Fabiano Contarato",
+      "party": "PT",
+      "number": "133",
+      "slug": "fabianocontarato",
+      "gender": "MASCULINO",
+      "currentOffice": "Senador"
+    },
+    {
+      "office": "senator",
+      "uf": "ES",
+      "name": "Callegari",
+      "party": "DC",
+      "number": "277",
+      "slug": "callegari",
+      "gender": "MASCULINO",
+      "currentOffice": "Deputado Estadual"
+    },
+    {
+      "office": "senator",
+      "uf": "ES",
+      "name": "Evair de Melo",
+      "party": "REPUBLICANOS",
+      "number": "100",
+      "slug": "evairdemelo",
+      "gender": "MASCULINO",
+      "currentOffice": "Deputado Federal"
+    },
+    {
+      "office": "senator",
+      "uf": "ES",
+      "name": "Leonardo Monjardim",
+      "party": "NOVO",
+      "number": "300",
+      "slug": "leonardomonjardim",
+      "gender": "MASCULINO",
+      "currentOffice": "Vereador"
+    },
+    {
+      "office": "senator",
+      "uf": "ES",
+      "name": "Professor Fabian",
+      "party": "PSOL",
+      "number": "500",
+      "slug": "professorfabian",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "ES",
+      "name": "Renato Casagrande",
+      "party": "PSB",
+      "number": "400",
+      "slug": "renatocasagrande",
+      "gender": "MASCULINO",
+      "currentOffice": "Candidato ao Senado"
+    },
+    {
+      "office": "senator",
+      "uf": "ES",
+      "name": "Rodney Miranda",
+      "party": "PRTB",
+      "number": "280",
+      "slug": "rodneymiranda",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "ES",
+      "name": "Rose de Freitas",
+      "party": "MDB",
+      "number": "156",
+      "slug": "rosedefreitas",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "MT",
+      "name": "Otaviano Pivetta",
+      "party": "REPUBLICANOS",
+      "number": "10",
+      "slug": "otavianopivetta",
+      "gender": "MASCULINO",
+      "currentOffice": "Governador"
+    },
+    {
+      "office": "governor",
+      "uf": "MT",
+      "name": "Doutora Natasha",
+      "party": "PSD",
+      "number": "55",
+      "slug": "doutoranatasha",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "MT",
+      "name": "Wellington Fagundes",
+      "party": "PL",
+      "number": "22",
+      "slug": "wellingtonfagundes",
+      "gender": "MASCULINO",
+      "currentOffice": "Senador"
+    },
+    {
+      "office": "governor",
+      "uf": "MT",
+      "name": "Mauricio Coelho",
+      "party": "PMN",
+      "number": "33",
+      "slug": "mauriciocoelho4",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "MT",
+      "name": "Rafaell Milas",
+      "party": "MISSÃO",
+      "number": "14",
+      "slug": "rafaellmilas",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "MT",
+      "name": "Sargento Laudicério (lau)",
+      "party": "AGIR",
+      "number": "36",
+      "slug": "sargentolaudicerio",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "MT",
+      "name": "Mauro Mendes",
+      "party": "UNIÃO",
+      "number": "444",
+      "slug": "mauromendes",
+      "gender": "MASCULINO",
+      "currentOffice": "Candidato ao Senado"
+    },
+    {
+      "office": "senator",
+      "uf": "MT",
+      "name": "Janaina Riva",
+      "party": "MDB",
+      "number": "150",
+      "slug": "janainariva",
+      "gender": "FEMININO",
+      "currentOffice": "Deputado Estadual"
+    },
+    {
+      "office": "senator",
+      "uf": "MT",
+      "name": "Pedro Taques",
+      "party": "PSB",
+      "number": "400",
+      "slug": "pedrotaques",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "MT",
+      "name": "Fávaro",
+      "party": "PSD",
+      "number": "555",
+      "slug": "favaro2",
+      "gender": "MASCULINO",
+      "currentOffice": "Senador"
+    },
+    {
+      "office": "senator",
+      "uf": "MT",
+      "name": "Jose Medeiros",
+      "party": "PL",
+      "number": "222",
+      "slug": "josemedeiros",
+      "gender": "MASCULINO",
+      "currentOffice": "Deputado Federal"
+    },
+    {
+      "office": "senator",
+      "uf": "MT",
+      "name": "Margareth Buzetti",
+      "party": "PP",
+      "number": "111",
+      "slug": "margarethbusetti",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "MT",
+      "name": "Galvan",
+      "party": "AVANTE",
+      "number": "700",
+      "slug": "antoniogalvan",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "MT",
+      "name": "Professor Nelson Ferreira",
+      "party": "AGIR",
+      "number": "360",
+      "slug": "professornelsonferreira2",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "MT",
+      "name": "Coronel Darwin",
+      "party": "O DEMOCRATA",
+      "number": "351",
+      "slug": "coroneldarwin",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "MT",
+      "name": "Beny Godoy",
+      "party": "AGIR",
+      "number": "365",
+      "slug": "benygodoy",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "MA",
+      "name": "Weverton Rocha",
+      "party": "PDT",
+      "number": "123",
+      "slug": "weverton",
+      "gender": "MASCULINO",
+      "currentOffice": "Senador"
+    },
+    {
+      "office": "senator",
+      "uf": "MA",
+      "name": "Roseana Sarney",
+      "party": "MDB",
+      "number": "151",
+      "slug": "roseanasarney",
+      "gender": "FEMININO",
+      "currentOffice": "Deputado Federal"
+    },
+    {
+      "office": "senator",
+      "uf": "MA",
+      "name": "Eliziane Gama",
+      "party": "PT",
+      "number": "133",
+      "slug": "elizianegama",
+      "gender": "FEMININO",
+      "currentOffice": "Senador"
+    },
+    {
+      "office": "senator",
+      "uf": "MA",
+      "name": "Fufuca",
+      "party": "PP",
+      "number": "111",
+      "slug": "andrefufuca",
+      "gender": "MASCULINO",
+      "currentOffice": "Deputado Federal"
+    },
+    {
+      "office": "senator",
+      "uf": "MA",
+      "name": "Wilson Leite",
+      "party": "PSTU",
+      "number": "160",
+      "slug": "wilsonleite4",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "MA",
+      "name": "Lahesio Bonfim",
+      "party": "NOVO",
+      "number": "300",
+      "slug": "lahesiobonfim",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "MA",
+      "name": "Cidônio Gonçalves",
+      "party": "PL",
+      "number": "222",
+      "slug": "cidoniogoncalves",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "MA",
+      "name": "Enilton Rodrigues",
+      "party": "PSOL",
+      "number": "500",
+      "slug": "eniltonrodrigues",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "MA",
+      "name": "Dr.hilton Gonçalo",
+      "party": "PMN",
+      "number": "333",
+      "slug": "drhilton",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "MA",
+      "name": "Raimundo Moreira",
+      "party": "PCB",
+      "number": "212",
+      "slug": "raimundomoreira8",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "MA",
+      "name": "Simplício Araújo",
+      "party": "DC",
+      "number": "277",
+      "slug": "simplicioaraujo",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "MS",
+      "name": "Eduardo Riedel",
+      "party": "PP",
+      "number": "11",
+      "slug": "eduardoriedel",
+      "gender": "MASCULINO",
+      "currentOffice": "Governador"
+    },
+    {
+      "office": "governor",
+      "uf": "MS",
+      "name": "João Henrique Catan",
+      "party": "NOVO",
+      "number": "30",
+      "slug": "joaohenrique",
+      "gender": "MASCULINO",
+      "currentOffice": "Deputado Estadual"
+    },
+    {
+      "office": "governor",
+      "uf": "MS",
+      "name": "Economista Renato Gomes",
+      "party": "DC",
+      "number": "27",
+      "slug": "economistarenatogomes",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "MS",
+      "name": "Fábio Trad",
+      "party": "PT",
+      "number": "13",
+      "slug": "fabiotrad",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "MS",
+      "name": "Jeferson Bezerra",
+      "party": "AGIR",
+      "number": "36",
+      "slug": "jefersonbezerra",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "MS",
+      "name": "Lucien Rezende",
+      "party": "PSOL",
+      "number": "50",
+      "slug": "lucienrezende",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "MS",
+      "name": "Delcidio Amaral",
+      "party": "PRD",
+      "number": "25",
+      "slug": "delcidioamaral",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "MS",
+      "name": "Daniel Lemes",
+      "party": "PCO",
+      "number": "29",
+      "slug": "daniellemes",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "MA",
+      "name": "Eduardo Braide",
+      "party": "PSD",
+      "number": "55",
+      "slug": "eduardobraide",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "MA",
+      "name": "Felipe Camarão",
+      "party": "PT",
+      "number": "13",
+      "slug": "felipecamarao",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "MA",
+      "name": "Orleans Brandão",
+      "party": "MDB",
+      "number": "15",
+      "slug": "orleansbrandao",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "MA",
+      "name": "André Luis",
+      "party": "MISSÃO",
+      "number": "14",
+      "slug": "andreluis45",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "MA",
+      "name": "Dimas Cassimiro",
+      "party": "PCO",
+      "number": "29",
+      "slug": "dimascassimirodonascimento",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "MA",
+      "name": "Reginaldo Lima",
+      "party": "PCB",
+      "number": "21",
+      "slug": "reginaldolima3",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "MA",
+      "name": "Roberto Rocha",
+      "party": "PRTB",
+      "number": "28",
+      "slug": "robertorocha",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "MA",
+      "name": "Saulo Arcangeli",
+      "party": "PSTU",
+      "number": "16",
+      "slug": "sauloarcangeli",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "MG",
+      "name": "Cleitinho Azevedo",
+      "party": "REPUBLICANOS",
+      "number": "10",
+      "slug": "cleitinho",
+      "gender": "MASCULINO",
+      "currentOffice": "Senador"
+    },
+    {
+      "office": "governor",
+      "uf": "MG",
+      "name": "Alexandre Kalil",
+      "party": "PDT",
+      "number": "12",
+      "slug": "kalil",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "MG",
+      "name": "Indira Xavier",
+      "party": "UP",
+      "number": "80",
+      "slug": "indiraxavier",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "MG",
+      "name": "Patrus Ananias",
+      "party": "PT",
+      "number": "13",
+      "slug": "patrusananias",
+      "gender": "MASCULINO",
+      "currentOffice": "Deputado Federal"
+    },
+    {
+      "office": "governor",
+      "uf": "MG",
+      "name": "Mateus Simões",
+      "party": "PSD",
+      "number": "55",
+      "slug": "mateussimoesmg",
+      "gender": "MASCULINO",
+      "currentOffice": "Governador"
+    },
+    {
+      "office": "governor",
+      "uf": "MG",
+      "name": "Professor Túlio Lopes",
+      "party": "PCB",
+      "number": "21",
+      "slug": "professortuliolopes",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "MG",
+      "name": "Flávio Roscoe",
+      "party": "PL",
+      "number": "22",
+      "slug": "flavioroscoe",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "MG",
+      "name": "Gabriel",
+      "party": "MDB",
+      "number": "15",
+      "slug": "gabriel",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "MG",
+      "name": "Ben Mendes",
+      "party": "MISSÃO",
+      "number": "14",
+      "slug": "benmendes",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "MG",
+      "name": "Rafael Duda",
+      "party": "PSTU",
+      "number": "16",
+      "slug": "rafaelduda",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "MG",
+      "name": "Henrique Áreas",
+      "party": "PCO",
+      "number": "29",
+      "slug": "henriqueareas",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "PA",
+      "name": "Dr. Daniel",
+      "party": "PODE",
+      "number": "20",
+      "slug": "drdaniel",
+      "gender": "MASCULINO",
+      "currentOffice": "Prefeito"
+    },
+    {
+      "office": "governor",
+      "uf": "PA",
+      "name": "Araceli",
+      "party": "PSOL",
+      "number": "50",
+      "slug": "araceli",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "PA",
+      "name": "Hana Ghassan",
+      "party": "MDB",
+      "number": "15",
+      "slug": "hana",
+      "gender": "FEMININO",
+      "currentOffice": "Governador"
+    },
+    {
+      "office": "governor",
+      "uf": "PA",
+      "name": "Gal Leite",
+      "party": "UP",
+      "number": "80",
+      "slug": "galleite",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "PA",
+      "name": "Cleber Rabelo",
+      "party": "PSTU",
+      "number": "16",
+      "slug": "cleberrabelo",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "PA",
+      "name": "José Moita",
+      "party": "O DEMOCRATA",
+      "number": "35",
+      "slug": "moita2",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "PB",
+      "name": "Efraim Filho",
+      "party": "PL",
+      "number": "22",
+      "slug": "efraimfilho",
+      "gender": "MASCULINO",
+      "currentOffice": "Senador"
+    },
+    {
+      "office": "governor",
+      "uf": "PB",
+      "name": "Cícero Lucena",
+      "party": "MDB",
+      "number": "15",
+      "slug": "cicerolucena",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "PB",
+      "name": "Yuri Ezequiel",
+      "party": "UP",
+      "number": "80",
+      "slug": "yuriezequiel",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "PB",
+      "name": "Camilo Duarte",
+      "party": "PCO",
+      "number": "29",
+      "slug": "camilosobreiraduarte",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "PB",
+      "name": "Lucas Ribeiro",
+      "party": "PP",
+      "number": "11",
+      "slug": "lucasribeiro14",
+      "gender": "MASCULINO",
+      "currentOffice": "Governador"
+    },
+    {
+      "office": "governor",
+      "uf": "PB",
+      "name": "Pedro Coutinho",
+      "party": "DC",
+      "number": "27",
+      "slug": "pedrocoutinhoguerra",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "PA",
+      "name": "Gizelle Freitas",
+      "party": "PSOL",
+      "number": "505",
+      "slug": "gizellebancadaamazonidas",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "PA",
+      "name": "Delegado Éder Mauro",
+      "party": "PL",
+      "number": "222",
+      "slug": "delegadoedermauro",
+      "gender": "MASCULINO",
+      "currentOffice": "Deputado Federal"
+    },
+    {
+      "office": "senator",
+      "uf": "PA",
+      "name": "Helder",
+      "party": "MDB",
+      "number": "151",
+      "slug": "helder",
+      "gender": "MASCULINO",
+      "currentOffice": "Candidato ao Senado"
+    },
+    {
+      "office": "senator",
+      "uf": "PA",
+      "name": "Zequinha Marinho",
+      "party": "PODE",
+      "number": "200",
+      "slug": "zequinhamarinho",
+      "gender": "MASCULINO",
+      "currentOffice": "Senador"
+    },
+    {
+      "office": "senator",
+      "uf": "PA",
+      "name": "Conti",
+      "party": "PSOL",
+      "number": "500",
+      "slug": "conti2",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "PA",
+      "name": "Celso Sabino",
+      "party": "PDT",
+      "number": "123",
+      "slug": "celsosabino",
+      "gender": "MASCULINO",
+      "currentOffice": "Deputado Federal"
+    },
+    {
+      "office": "senator",
+      "uf": "PA",
+      "name": "Chicão",
+      "party": "UNIÃO",
+      "number": "444",
+      "slug": "chicao",
+      "gender": "MASCULINO",
+      "currentOffice": "Deputado Estadual"
+    },
+    {
+      "office": "senator",
+      "uf": "PA",
+      "name": "Edlaine Rodrigues",
+      "party": "O DEMOCRATA",
+      "number": "355",
+      "slug": "edlainerodrigues",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "PA",
+      "name": "Fernanda Lopes",
+      "party": "UP",
+      "number": "800",
+      "slug": "fernandalopes52",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "PA",
+      "name": "Breno Guimarães",
+      "party": "PMN",
+      "number": "333",
+      "slug": "brenoguimaraes",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "PA",
+      "name": "Livia Noronha",
+      "party": "SOLIDARIEDADE",
+      "number": "777",
+      "slug": "livianoronha",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "PA",
+      "name": "Willem da Silva",
+      "party": "DC",
+      "number": "277",
+      "slug": "willemdasilva2",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "MS",
+      "name": "Soraya",
+      "party": "PSB",
+      "number": "400",
+      "slug": "sorayathronicke",
+      "gender": "FEMININO",
+      "currentOffice": "Senador"
+    },
+    {
+      "office": "senator",
+      "uf": "MS",
+      "name": "Capitão Contar",
+      "party": "PL",
+      "number": "221",
+      "slug": "capitaocontar",
+      "gender": "MASCULINO",
+      "currentOffice": "Deputado Estadual"
+    },
+    {
+      "office": "senator",
+      "uf": "MS",
+      "name": "Beto do Movimento",
+      "party": "PSOL",
+      "number": "500",
+      "slug": "betodomst",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "MS",
+      "name": "Valderi Garcia",
+      "party": "PCO",
+      "number": "290",
+      "slug": "valderigarcia",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "MS",
+      "name": "Reinaldo Azambuja",
+      "party": "PL",
+      "number": "222",
+      "slug": "reinaldoazambuja",
+      "gender": "MASCULINO",
+      "currentOffice": "Deputado Estadual"
+    },
+    {
+      "office": "senator",
+      "uf": "MS",
+      "name": "Vander Loubet",
+      "party": "PT",
+      "number": "133",
+      "slug": "vanderloubet",
+      "gender": "MASCULINO",
+      "currentOffice": "Deputado Federal"
+    },
+    {
+      "office": "senator",
+      "uf": "MS",
+      "name": "Daniel Junior",
+      "party": "AGIR",
+      "number": "365",
+      "slug": "danielzinho7",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "MS",
+      "name": "Luiz Lemes",
+      "party": "DC",
+      "number": "277",
+      "slug": "luizlemes",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "MS",
+      "name": "Roberto Oshiro",
+      "party": "NOVO",
+      "number": "300",
+      "slug": "robertooshiro",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "MS",
+      "name": "Valter da Comagran",
+      "party": "PRD",
+      "number": "258",
+      "slug": "valterdacomagran",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "PB",
+      "name": "Veneziano",
+      "party": "MDB",
+      "number": "155",
+      "slug": "veneziano",
+      "gender": "MASCULINO",
+      "currentOffice": "Senador"
+    },
+    {
+      "office": "senator",
+      "uf": "PB",
+      "name": "Rinaldo Júnior",
+      "party": "DC",
+      "number": "272",
+      "slug": "rinaldojunior2",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "PB",
+      "name": "Adriano Trajano",
+      "party": "PCO",
+      "number": "290",
+      "slug": "adrianotrajano2",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "PB",
+      "name": "Joao Azevêdo",
+      "party": "PSB",
+      "number": "400",
+      "slug": "joao",
+      "gender": "MASCULINO",
+      "currentOffice": "Candidato ao Senado"
+    },
+    {
+      "office": "senator",
+      "uf": "PB",
+      "name": "Nabor",
+      "party": "REPUBLICANOS",
+      "number": "100",
+      "slug": "nabor7",
+      "gender": "MASCULINO",
+      "currentOffice": "Prefeito"
+    },
+    {
+      "office": "senator",
+      "uf": "PB",
+      "name": "André Gadelha",
+      "party": "MDB",
+      "number": "151",
+      "slug": "andregadelha",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "PB",
+      "name": "Dr. Marcelo Queiroga",
+      "party": "PL",
+      "number": "222",
+      "slug": "marceloqueiroga",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "PB",
+      "name": "João Batista",
+      "party": "UP",
+      "number": "801",
+      "slug": "joaobatista39",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "PB",
+      "name": "Rosilene Santana",
+      "party": "UP",
+      "number": "800",
+      "slug": "rosilenesantana",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "PB",
+      "name": "Major Fábio",
+      "party": "NOVO",
+      "number": "300",
+      "slug": "majorfabio",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "PR",
+      "name": "Sergio Moro",
+      "party": "PL",
+      "number": "22",
+      "slug": "sergiomoro",
+      "gender": "MASCULINO",
+      "currentOffice": "Senador"
+    },
+    {
+      "office": "governor",
+      "uf": "PR",
+      "name": "Tayná Miessa",
+      "party": "UP",
+      "number": "80",
+      "slug": "taynamiessa",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "PR",
+      "name": "Requião Filho",
+      "party": "PDT",
+      "number": "12",
+      "slug": "requiaofilho",
+      "gender": "MASCULINO",
+      "currentOffice": "Deputado Estadual"
+    },
+    {
+      "office": "governor",
+      "uf": "PR",
+      "name": "Samuel de Mattos",
+      "party": "PSTU",
+      "number": "16",
+      "slug": "samueldemattos",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "PR",
+      "name": "Sandro Alex",
+      "party": "PSD",
+      "number": "55",
+      "slug": "sandroalex",
+      "gender": "MASCULINO",
+      "currentOffice": "Deputado Federal"
+    },
+    {
+      "office": "governor",
+      "uf": "PR",
+      "name": "Adriano Funileiro",
+      "party": "PCO",
+      "number": "29",
+      "slug": "adrianoteixeira",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "PR",
+      "name": "Alexandre Salomão",
+      "party": "PMN",
+      "number": "33",
+      "slug": "alexandresalomao",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "PR",
+      "name": "Luiz França",
+      "party": "MISSÃO",
+      "number": "14",
+      "slug": "luizfranca10",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "PR",
+      "name": "Deltan Dallagnol",
+      "party": "NOVO",
+      "number": "300",
+      "slug": "deltandallagnol",
+      "gender": "MASCULINO",
+      "currentOffice": "Pré-candidato ao Senado"
+    },
+    {
+      "office": "senator",
+      "uf": "PR",
+      "name": "Gleisi",
+      "party": "PT",
+      "number": "131",
+      "slug": "gleisi",
+      "gender": "FEMININO",
+      "currentOffice": "Deputado Federal"
+    },
+    {
+      "office": "senator",
+      "uf": "PR",
+      "name": "Karen Guerreiro",
+      "party": "MISSÃO",
+      "number": "144",
+      "slug": "karenguerreiro",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "PR",
+      "name": "Alexandre Curi",
+      "party": "REPUBLICANOS",
+      "number": "100",
+      "slug": "alexandrecuri",
+      "gender": "MASCULINO",
+      "currentOffice": "Deputado Estadual"
+    },
+    {
+      "office": "senator",
+      "uf": "PR",
+      "name": "Filipe Barros",
+      "party": "PL",
+      "number": "222",
+      "slug": "filipebarros",
+      "gender": "MASCULINO",
+      "currentOffice": "Deputado Federal"
+    },
+    {
+      "office": "senator",
+      "uf": "PR",
+      "name": "Dr Rosinha",
+      "party": "PT",
+      "number": "132",
+      "slug": "drrosinha",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "PR",
+      "name": "Cristina Graeml",
+      "party": "PSD",
+      "number": "555",
+      "slug": "cristinagraeml",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "PR",
+      "name": "Marcelo Marcelino",
+      "party": "PCO",
+      "number": "290",
+      "slug": "marcelomarcelino3",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "PR",
+      "name": "Joaquim do Mlb",
+      "party": "UP",
+      "number": "800",
+      "slug": "joaquimmaciel2",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "MG",
+      "name": "Marília Campos",
+      "party": "PT",
+      "number": "131",
+      "slug": "marilia",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "MG",
+      "name": "Áurea Carolina",
+      "party": "PSOL",
+      "number": "500",
+      "slug": "aureacarolina",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "MG",
+      "name": "Marco Antônio Superman",
+      "party": "NOVO",
+      "number": "300",
+      "slug": "marcoantoniosuperman",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "MG",
+      "name": "Domingos Sávio",
+      "party": "PL",
+      "number": "222",
+      "slug": "domingossavio",
+      "gender": "MASCULINO",
+      "currentOffice": "Deputado Federal"
+    },
+    {
+      "office": "senator",
+      "uf": "MG",
+      "name": "Marcelo Aro",
+      "party": "PP",
+      "number": "111",
+      "slug": "marceloaro",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "MG",
+      "name": "Ana Luiza do Mlb",
+      "party": "UP",
+      "number": "808",
+      "slug": "analuizadomlb",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "MG",
+      "name": "Carlos Viana",
+      "party": "PSD",
+      "number": "555",
+      "slug": "carlosviana",
+      "gender": "MASCULINO",
+      "currentOffice": "Senador"
+    },
+    {
+      "office": "senator",
+      "uf": "MG",
+      "name": "Arcanjo Pimenta",
+      "party": "MDB",
+      "number": "155",
+      "slug": "arcanjopimenta",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "MG",
+      "name": "Gustavo Galassi",
+      "party": "PSDB",
+      "number": "456",
+      "slug": "gustavogalassi",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "MG",
+      "name": "Juíz Ramon Moreira",
+      "party": "DC",
+      "number": "277",
+      "slug": "juizramonmoreira",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "MG",
+      "name": "Victória Mello Vic",
+      "party": "PSTU",
+      "number": "161",
+      "slug": "victoriamellovic",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "MG",
+      "name": "Tião Pessoa",
+      "party": "PCO",
+      "number": "290",
+      "slug": "sebastiaodeoliveirapessoa",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "MG",
+      "name": "Jordano Metalúrgico",
+      "party": "PSTU",
+      "number": "160",
+      "slug": "jordanometalurgico",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "MG",
+      "name": "Manoel Carvalho",
+      "party": "MDB",
+      "number": "150",
+      "slug": "manoelcarvalho4",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "MG",
+      "name": "Carlin Moura",
+      "party": "AVANTE",
+      "number": "700",
+      "slug": "carlindopcdob",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "MG",
+      "name": "Fidélis Alcântara",
+      "party": "UP",
+      "number": "800",
+      "slug": "fidelisalcantara",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "MG",
+      "name": "Marcelo Heringer",
+      "party": "PDT",
+      "number": "123",
+      "slug": "drmarceloheringer",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "PE",
+      "name": "Raquel Lyra",
+      "party": "PSD",
+      "number": "55",
+      "slug": "raquellyra",
+      "gender": "FEMININO",
+      "currentOffice": "Governador"
+    },
+    {
+      "office": "governor",
+      "uf": "PE",
+      "name": "João Campos",
+      "party": "PSB",
+      "number": "40",
+      "slug": "joaocampos",
+      "gender": "MASCULINO",
+      "currentOffice": "Candidato ao Governo de Pernambuco"
+    },
+    {
+      "office": "governor",
+      "uf": "PE",
+      "name": "Renan",
+      "party": "MISSÃO",
+      "number": "14",
+      "slug": "renan45",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "PE",
+      "name": "Ivan Moraes",
+      "party": "PSOL",
+      "number": "50",
+      "slug": "ivanmoraes",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "PE",
+      "name": "Professor Jeremias do Banco",
+      "party": "O DEMOCRATA",
+      "number": "35",
+      "slug": "professorjeremiasdobanco",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "PE",
+      "name": "Victor Assis",
+      "party": "PCO",
+      "number": "29",
+      "slug": "victorassis",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "PE",
+      "name": "Guilherme Fonseca",
+      "party": "PSTU",
+      "number": "16",
+      "slug": "guilhermefonseca3",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "PE",
+      "name": "Professora Camila",
+      "party": "UP",
+      "number": "80",
+      "slug": "professoracamila7",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "PI",
+      "name": "Joel Rodrigues",
+      "party": "PP",
+      "number": "11",
+      "slug": "joelrodrigues",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "PI",
+      "name": "Rafael Fonteles",
+      "party": "PT",
+      "number": "13",
+      "slug": "rafaelfonteles",
+      "gender": "MASCULINO",
+      "currentOffice": "Governador"
+    },
+    {
+      "office": "governor",
+      "uf": "PI",
+      "name": "Lourdes Melo",
+      "party": "PCO",
+      "number": "29",
+      "slug": "lourdesmelo",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "PI",
+      "name": "Dra. Lúcia Santos",
+      "party": "PSDB",
+      "number": "45",
+      "slug": "draluciasantos",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "PI",
+      "name": "Elizeu Aguiar",
+      "party": "NOVO",
+      "number": "30",
+      "slug": "elizeuaguiar",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "PI",
+      "name": "Gustavo pelo Piauí Ou Gustavo",
+      "party": "AVANTE",
+      "number": "70",
+      "slug": "gustavohenriquepelacidade",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "PI",
+      "name": "Ravenna da Inclusão",
+      "party": "O DEMOCRATA",
+      "number": "35",
+      "slug": "ravennacastro",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "PI",
+      "name": "Santiago Belizário",
+      "party": "UP",
+      "number": "80",
+      "slug": "santiagobelizario",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "PI",
+      "name": "Geraldo Carvalho",
+      "party": "PSTU",
+      "number": "16",
+      "slug": "geraldocarvalho10",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "PI",
+      "name": "Professor Gisvaldo",
+      "party": "PSOL",
+      "number": "50",
+      "slug": "professorgisvaldo",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "PI",
+      "name": "Professor Jurity",
+      "party": "DC",
+      "number": "27",
+      "slug": "professorjurity",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "PI",
+      "name": "Ciro Nogueira",
+      "party": "PP",
+      "number": "111",
+      "slug": "cironogueira",
+      "gender": "MASCULINO",
+      "currentOffice": "Senador"
+    },
+    {
+      "office": "senator",
+      "uf": "PI",
+      "name": "Tiago Junqueira",
+      "party": "PL",
+      "number": "222",
+      "slug": "tiagojunqueira",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "PI",
+      "name": "Marcelo Castro",
+      "party": "MDB",
+      "number": "151",
+      "slug": "marcelocastro4",
+      "gender": "MASCULINO",
+      "currentOffice": "Senador"
+    },
+    {
+      "office": "senator",
+      "uf": "PI",
+      "name": "Antônio Barros",
+      "party": "NOVO",
+      "number": "300",
+      "slug": "antoniobarros25",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "PI",
+      "name": "Missionário Evandro Craveiro",
+      "party": "O DEMOCRATA",
+      "number": "350",
+      "slug": "missionarioevandrocraveiro",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "PI",
+      "name": "Julio Cesar",
+      "party": "PSD",
+      "number": "555",
+      "slug": "juliocesar",
+      "gender": "MASCULINO",
+      "currentOffice": "Deputado Federal"
+    },
+    {
+      "office": "senator",
+      "uf": "PI",
+      "name": "Alexandre Mariano",
+      "party": "AVANTE",
+      "number": "700",
+      "slug": "alexandremariano",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "PI",
+      "name": "Cloves José",
+      "party": "PCO",
+      "number": "291",
+      "slug": "clovesjose",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "PI",
+      "name": "Danniel Rocha",
+      "party": "PSTU",
+      "number": "166",
+      "slug": "dannielrocha",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "PI",
+      "name": "Dionisio Carvalho",
+      "party": "DC",
+      "number": "277",
+      "slug": "dionisiopiaui",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "PI",
+      "name": "Francinaldo Leão",
+      "party": "PSOL",
+      "number": "500",
+      "slug": "francinaldoleao",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "PI",
+      "name": "Irmão Evandro Marques",
+      "party": "DC",
+      "number": "278",
+      "slug": "evandromarques",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "PI",
+      "name": "Jardenya Bezerra",
+      "party": "O DEMOCRATA",
+      "number": "355",
+      "slug": "jardenyabezerra",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "PI",
+      "name": "Jorge Lopes",
+      "party": "PSDB",
+      "number": "456",
+      "slug": "jorgelopes4",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "PI",
+      "name": "Major Paulo Roberto",
+      "party": "PMN",
+      "number": "333",
+      "slug": "majorpauloroberto",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "PI",
+      "name": "Maria Madalena Nunes",
+      "party": "PSOL",
+      "number": "505",
+      "slug": "madalenanunes",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "PI",
+      "name": "Pastor Sena",
+      "party": "AVANTE",
+      "number": "707",
+      "slug": "pastorsena",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "PI",
+      "name": "Pedro Laurentino",
+      "party": "UP",
+      "number": "800",
+      "slug": "pedrolaurentino",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "PI",
+      "name": "Toinho Dufrango",
+      "party": "PMN",
+      "number": "338",
+      "slug": "toimdufrango",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "PE",
+      "name": "Marília Arraes",
+      "party": "PDT",
+      "number": "123",
+      "slug": "mariliaarraes",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "PE",
+      "name": "Mendonça Filho",
+      "party": "PL",
+      "number": "222",
+      "slug": "mendonafilho",
+      "gender": "MASCULINO",
+      "currentOffice": "Deputado Federal"
+    },
+    {
+      "office": "senator",
+      "uf": "PE",
+      "name": "Túlio Gadêlha",
+      "party": "PSD",
+      "number": "555",
+      "slug": "tuliogadelha",
+      "gender": "MASCULINO",
+      "currentOffice": "Deputado Federal"
+    },
+    {
+      "office": "senator",
+      "uf": "PE",
+      "name": "Eduardo da Fonte",
+      "party": "PP",
+      "number": "111",
+      "slug": "eduardodafonte",
+      "gender": "MASCULINO",
+      "currentOffice": "Deputado Federal"
+    },
+    {
+      "office": "senator",
+      "uf": "PE",
+      "name": "Humberto Costa",
+      "party": "PT",
+      "number": "130",
+      "slug": "humbertocosta2",
+      "gender": "MASCULINO",
+      "currentOffice": "Senador"
+    },
+    {
+      "office": "senator",
+      "uf": "PE",
+      "name": "Carlos Sant Anna",
+      "party": "NOVO",
+      "number": "300",
+      "slug": "carlossantanna",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "PE",
+      "name": "Pastor Gilvan Costa",
+      "party": "O DEMOCRATA",
+      "number": "355",
+      "slug": "pastorgilvancosta",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "PE",
+      "name": "Paulo Rubem Santiago",
+      "party": "REDE",
+      "number": "180",
+      "slug": "paulorubem",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "PE",
+      "name": "Gorett Bitu",
+      "party": "UP",
+      "number": "801",
+      "slug": "gorettbitu",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "PE",
+      "name": "Mailson da Silva Neto",
+      "party": "PCO",
+      "number": "290",
+      "slug": "mailsondasilvaneto",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "PE",
+      "name": "Samuel Timoteo",
+      "party": "UP",
+      "number": "800",
+      "slug": "samueltimoteo",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "PE",
+      "name": "Mariano Macedo",
+      "party": "PSTU",
+      "number": "161",
+      "slug": "mariano103",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "RJ",
+      "name": "Douglas Ruas",
+      "party": "PL",
+      "number": "22",
+      "slug": "douglasruas",
+      "gender": "MASCULINO",
+      "currentOffice": "Deputado Estadual"
+    },
+    {
+      "office": "governor",
+      "uf": "RJ",
+      "name": "Eduardo Paes",
+      "party": "PSD",
+      "number": "55",
+      "slug": "eduardopaes",
+      "gender": "MASCULINO",
+      "currentOffice": "Candidato ao Governo do Rio"
+    },
+    {
+      "office": "governor",
+      "uf": "RJ",
+      "name": "William Siri",
+      "party": "PSOL",
+      "number": "50",
+      "slug": "williamsiri",
+      "gender": "MASCULINO",
+      "currentOffice": "Vereador"
+    },
+    {
+      "office": "governor",
+      "uf": "RJ",
+      "name": "Juliete",
+      "party": "UP",
+      "number": "80",
+      "slug": "julietepantoja",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "RJ",
+      "name": "André Marinho",
+      "party": "NOVO",
+      "number": "30",
+      "slug": "andremarinho",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "RJ",
+      "name": "Garotinho",
+      "party": "REPUBLICANOS",
+      "number": "10",
+      "slug": "garotinho",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "RJ",
+      "name": "Coronel Busnello",
+      "party": "MISSÃO",
+      "number": "14",
+      "slug": "coronelbusnello",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "RJ",
+      "name": "Cyro Garcia",
+      "party": "PSTU",
+      "number": "16",
+      "slug": "cyrogarcia",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "RJ",
+      "name": "Luan Monteiro",
+      "party": "PCO",
+      "number": "29",
+      "slug": "luanmonteiro",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "RN",
+      "name": "Allyson",
+      "party": "UNIÃO",
+      "number": "44",
+      "slug": "allyson",
+      "gender": "MASCULINO",
+      "currentOffice": "Pré-candidato ao Governo do RN"
+    },
+    {
+      "office": "governor",
+      "uf": "RN",
+      "name": "Cadu de Lula",
+      "party": "PT",
+      "number": "13",
+      "slug": "cadudelula",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "RN",
+      "name": "Álvaro Dias",
+      "party": "PL",
+      "number": "22",
+      "slug": "alvarocostadias",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "RN",
+      "name": "Carlos Jararaca",
+      "party": "DC",
+      "number": "27",
+      "slug": "carlosvendedor2",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "RN",
+      "name": "Henrique Lyra",
+      "party": "PCO",
+      "number": "29",
+      "slug": "henriquelyra",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "RN",
+      "name": "Arinalda do Mlb",
+      "party": "UP",
+      "number": "80",
+      "slug": "arinaldadomlb",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "RN",
+      "name": "Professor Roberio Paulino",
+      "party": "PSOL",
+      "number": "50",
+      "slug": "professorroberiopaulino",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "RN",
+      "name": "Rodrigo Bolsonaro",
+      "party": "AGIR",
+      "number": "36",
+      "slug": "rodrigovieira",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "RN",
+      "name": "Dário Barbosa",
+      "party": "PSTU",
+      "number": "16",
+      "slug": "dariobarbosa",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "RN",
+      "name": "Styvenson Valentim",
+      "party": "PODE",
+      "number": "200",
+      "slug": "capitaostyvenson",
+      "gender": "MASCULINO",
+      "currentOffice": "Senador"
+    },
+    {
+      "office": "senator",
+      "uf": "RN",
+      "name": "Zenaide Maia",
+      "party": "PSD",
+      "number": "555",
+      "slug": "drzenaidemaia",
+      "gender": "FEMININO",
+      "currentOffice": "Senador"
+    },
+    {
+      "office": "senator",
+      "uf": "RN",
+      "name": "Tércio Tinôco",
+      "party": "UNIÃO",
+      "number": "444",
+      "slug": "terciotinoco",
+      "gender": "MASCULINO",
+      "currentOffice": "Vereador"
+    },
+    {
+      "office": "senator",
+      "uf": "RN",
+      "name": "Rafael Motta",
+      "party": "PDT",
+      "number": "123",
+      "slug": "rafaelmotta",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "RN",
+      "name": "Coronel Hélio",
+      "party": "PL",
+      "number": "222",
+      "slug": "coronelheliooliveira",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "RN",
+      "name": "Samanda de Lula",
+      "party": "PT",
+      "number": "131",
+      "slug": "samanda",
+      "gender": "FEMININO",
+      "currentOffice": "Vereador"
+    },
+    {
+      "office": "senator",
+      "uf": "RN",
+      "name": "Clóvis Costa do Coletivo Nós",
+      "party": "AGIR",
+      "number": "369",
+      "slug": "sargentocosta52",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "RN",
+      "name": "Gari Wendell Batista",
+      "party": "AGIR",
+      "number": "360",
+      "slug": "wendellbatista",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "RN",
+      "name": "Rosália Fernandes",
+      "party": "PSTU",
+      "number": "166",
+      "slug": "rosaliafernandes",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "RN",
+      "name": "Luciana Mandu",
+      "party": "PSTU",
+      "number": "161",
+      "slug": "lucianalima",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "RN",
+      "name": "Sonia Godeiro",
+      "party": "PSOL",
+      "number": "501",
+      "slug": "soniagodeiro",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "RN",
+      "name": "Linhares Jiboia",
+      "party": "DC",
+      "number": "277",
+      "slug": "godeirolinhares",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "RN",
+      "name": "Professor Guilherme",
+      "party": "UP",
+      "number": "800",
+      "slug": "professorguilherme20",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "RN",
+      "name": "Sandro Pimentel",
+      "party": "PSOL",
+      "number": "500",
+      "slug": "sandropimentel",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "RS",
+      "name": "Zucco",
+      "party": "PL",
+      "number": "22",
+      "slug": "tenentecoronelzucco",
+      "gender": "MASCULINO",
+      "currentOffice": "Deputado Federal"
+    },
+    {
+      "office": "governor",
+      "uf": "RS",
+      "name": "Juliana Brizola",
+      "party": "PDT",
+      "number": "12",
+      "slug": "julianabrizola",
+      "gender": "FEMININO",
+      "currentOffice": "Pré-candidato ao Governo do RS"
+    },
+    {
+      "office": "governor",
+      "uf": "RS",
+      "name": "Gabriel Souza",
+      "party": "MDB",
+      "number": "15",
+      "slug": "gabrielsouza",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "RS",
+      "name": "Marcelo Maranata",
+      "party": "PSDB",
+      "number": "45",
+      "slug": "marcelomaranata",
+      "gender": "MASCULINO",
+      "currentOffice": "Prefeito"
+    },
+    {
+      "office": "governor",
+      "uf": "RS",
+      "name": "Priscila Voigt",
+      "party": "UP",
+      "number": "80",
+      "slug": "privoigtcommulheresmirabal",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "RS",
+      "name": "Cesar Pontes",
+      "party": "PCO",
+      "number": "29",
+      "slug": "cesarpontes2",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "RS",
+      "name": "Rejane de Oliveira",
+      "party": "PSTU",
+      "number": "16",
+      "slug": "rejanedeoliveira",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "RJ",
+      "name": "Benedita da Silva",
+      "party": "PT",
+      "number": "131",
+      "slug": "beneditadasilva",
+      "gender": "FEMININO",
+      "currentOffice": "Deputado Federal"
+    },
+    {
+      "office": "senator",
+      "uf": "RJ",
+      "name": "Monica Benicio",
+      "party": "PSOL",
+      "number": "500",
+      "slug": "monicabenicio",
+      "gender": "FEMININO",
+      "currentOffice": "Vereador"
+    },
+    {
+      "office": "senator",
+      "uf": "RJ",
+      "name": "Carlos Jordy",
+      "party": "PL",
+      "number": "221",
+      "slug": "carlosjordy",
+      "gender": "MASCULINO",
+      "currentOffice": "Deputado Federal"
+    },
+    {
+      "office": "senator",
+      "uf": "RJ",
+      "name": "Helio Secco",
+      "party": "MISSÃO",
+      "number": "144",
+      "slug": "heliosecco",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "RJ",
+      "name": "Carlos Portinho",
+      "party": "PL",
+      "number": "222",
+      "slug": "portinho",
+      "gender": "MASCULINO",
+      "currentOffice": "Senador"
+    },
+    {
+      "office": "senator",
+      "uf": "RJ",
+      "name": "Paula Falcão",
+      "party": "PSTU",
+      "number": "160",
+      "slug": "paulafalcao",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "RJ",
+      "name": "Pedro Paulo",
+      "party": "PSD",
+      "number": "555",
+      "slug": "pedropaulo",
+      "gender": "MASCULINO",
+      "currentOffice": "Deputado Federal"
+    },
+    {
+      "office": "senator",
+      "uf": "RJ",
+      "name": "Michelly Xavier",
+      "party": "UP",
+      "number": "800",
+      "slug": "michellyxavier2",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "RJ",
+      "name": "Vinicius Benevides",
+      "party": "UP",
+      "number": "808",
+      "slug": "benevidescamelo",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "RJ",
+      "name": "Luiz Eugenio",
+      "party": "PCO",
+      "number": "290",
+      "slug": "luizeugenio",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "RJ",
+      "name": "Marcelo Crivella",
+      "party": "REPUBLICANOS",
+      "number": "100",
+      "slug": "marcelocrivella",
+      "gender": "MASCULINO",
+      "currentOffice": "Deputado Federal"
+    },
+    {
+      "office": "senator",
+      "uf": "RJ",
+      "name": "Waguinho",
+      "party": "REPUBLICANOS",
+      "number": "101",
+      "slug": "waguinho75",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "RJ",
+      "name": "André Monteiro",
+      "party": "O DEMOCRATA",
+      "number": "350",
+      "slug": "andremonteiro2",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "RJ",
+      "name": "Ó Clemente",
+      "party": "O DEMOCRATA",
+      "number": "355",
+      "slug": "oclemente",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "RJ",
+      "name": "Luciano Mattos",
+      "party": "PRTB",
+      "number": "280",
+      "slug": "lucianomattos4",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "RJ",
+      "name": "Marcos Dias",
+      "party": "PODE",
+      "number": "200",
+      "slug": "marcosdias",
+      "gender": "MASCULINO",
+      "currentOffice": "Vereador"
+    },
+    {
+      "office": "governor",
+      "uf": "RR",
+      "name": "Farah Mesquita",
+      "party": "SOLIDARIEDADE",
+      "number": "77",
+      "slug": "farahmesquita",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "RR",
+      "name": "Arthur Henrique",
+      "party": "PL",
+      "number": "22",
+      "slug": "arthurhenrique",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "RR",
+      "name": "Clébio Genuíno",
+      "party": "PCO",
+      "number": "29",
+      "slug": "clebiodezedaesp",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "RR",
+      "name": "Rosi Aires",
+      "party": "PSOL",
+      "number": "50",
+      "slug": "rosiaires2",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "RR",
+      "name": "Soldado Sampaio",
+      "party": "REPUBLICANOS",
+      "number": "10",
+      "slug": "soldadosampaio",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "RO",
+      "name": "Engenheiro Thulio",
+      "party": "MISSÃO",
+      "number": "144",
+      "slug": "engenheirothulio",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "RO",
+      "name": "Sílvia Cristina",
+      "party": "PP",
+      "number": "111",
+      "slug": "silviacristina",
+      "gender": "FEMININO",
+      "currentOffice": "Deputado Federal"
+    },
+    {
+      "office": "senator",
+      "uf": "RO",
+      "name": "Dr. Fernando Máximo",
+      "party": "PL",
+      "number": "221",
+      "slug": "drfernandomaximo",
+      "gender": "MASCULINO",
+      "currentOffice": "Deputado Federal"
+    },
+    {
+      "office": "senator",
+      "uf": "RO",
+      "name": "Mariana Carvalho",
+      "party": "REPUBLICANOS",
+      "number": "100",
+      "slug": "marianacarvalho",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "RO",
+      "name": "Luciana Oliveira",
+      "party": "PT",
+      "number": "133",
+      "slug": "lucianaoliveira9",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "RO",
+      "name": "Neidinha",
+      "party": "PSB",
+      "number": "400",
+      "slug": "neidinhasurui",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "RO",
+      "name": "Bruno Bolsonaro Scheid",
+      "party": "PL",
+      "number": "222",
+      "slug": "brunobolsonaroscheid",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "RO",
+      "name": "Acir Gurgacz",
+      "party": "PDT",
+      "number": "123",
+      "slug": "acirgurgacz",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "RO",
+      "name": "Aires Mota",
+      "party": "PV",
+      "number": "432",
+      "slug": "airesmota",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "RO",
+      "name": "Luis Fernando",
+      "party": "PSD",
+      "number": "555",
+      "slug": "luisfernando53",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "SC",
+      "name": "João Rodrigues",
+      "party": "PSD",
+      "number": "55",
+      "slug": "joaorodrigues",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "SC",
+      "name": "Jorginho Mello",
+      "party": "PL",
+      "number": "22",
+      "slug": "jorginhomello",
+      "gender": "MASCULINO",
+      "currentOffice": "Governador"
+    },
+    {
+      "office": "governor",
+      "uf": "SC",
+      "name": "Marcelo Brigadeiro",
+      "party": "MISSÃO",
+      "number": "14",
+      "slug": "marcelobrigadeiro",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "SC",
+      "name": "Professor Marcus Sodré",
+      "party": "PSTU",
+      "number": "16",
+      "slug": "marcussodre2",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "SC",
+      "name": "Bruno Pedreiro do Pco",
+      "party": "PCO",
+      "number": "29",
+      "slug": "brunnodias",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "SC",
+      "name": "Gelson Merísio",
+      "party": "PSB",
+      "number": "40",
+      "slug": "gelsonmerisio",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "SC",
+      "name": "Laís Chaud",
+      "party": "UP",
+      "number": "80",
+      "slug": "laischaud",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "SC",
+      "name": "Ralf Zimmer",
+      "party": "PRD",
+      "number": "25",
+      "slug": "ralfzimmer",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "RR",
+      "name": "Helio Bolsonaro",
+      "party": "PL",
+      "number": "222",
+      "slug": "heliofernandobarbosalopes",
+      "gender": "MASCULINO",
+      "currentOffice": "Deputado Federal"
+    },
+    {
+      "office": "senator",
+      "uf": "RR",
+      "name": "Nicoletti",
+      "party": "PL",
+      "number": "227",
+      "slug": "nicoletti",
+      "gender": "MASCULINO",
+      "currentOffice": "Deputado Federal"
+    },
+    {
+      "office": "senator",
+      "uf": "RR",
+      "name": "Bartô Macuxi",
+      "party": "PSOL",
+      "number": "500",
+      "slug": "bartomacuxi",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "RR",
+      "name": "Chico Rodrigues",
+      "party": "PSB",
+      "number": "400",
+      "slug": "chicorodrigues3",
+      "gender": "MASCULINO",
+      "currentOffice": "Senador"
+    },
+    {
+      "office": "senator",
+      "uf": "RR",
+      "name": "Hilton Xavier",
+      "party": "AVANTE",
+      "number": "700",
+      "slug": "hiltonxavier",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "RR",
+      "name": "Mario Rocha",
+      "party": "PSOL",
+      "number": "505",
+      "slug": "mariorocha32",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "RR",
+      "name": "Teresa Surita",
+      "party": "MDB",
+      "number": "155",
+      "slug": "teresasurita",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "RR",
+      "name": "Helena da Asatur",
+      "party": "PSD",
+      "number": "555",
+      "slug": "helenadaasatur",
+      "gender": "FEMININO",
+      "currentOffice": "Deputado Federal"
+    },
+    {
+      "office": "senator",
+      "uf": "RR",
+      "name": "Hiperion de Oliveira",
+      "party": "PV",
+      "number": "433",
+      "slug": "hiperion",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "RR",
+      "name": "Márcio Junqueira",
+      "party": "PSDB",
+      "number": "456",
+      "slug": "marciojunqueira3",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "RR",
+      "name": "Pastor Isamar",
+      "party": "UNIÃO",
+      "number": "444",
+      "slug": "prisamarramalho",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "RR",
+      "name": "Regina Tio Ivo",
+      "party": "NOVO",
+      "number": "300",
+      "slug": "regina39",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "RR",
+      "name": "Rogério Miranda",
+      "party": "DC",
+      "number": "277",
+      "slug": "rogeriomiranda",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "SP",
+      "name": "Tarcísio",
+      "party": "REPUBLICANOS",
+      "number": "10",
+      "slug": "tarcisio",
+      "gender": "MASCULINO",
+      "currentOffice": "Governador"
+    },
+    {
+      "office": "governor",
+      "uf": "SP",
+      "name": "Fernando Haddad",
+      "party": "PT",
+      "number": "13",
+      "slug": "fernandohaddad",
+      "gender": "MASCULINO",
+      "currentOffice": "Candidato ao Governo de SP"
+    },
+    {
+      "office": "governor",
+      "uf": "SP",
+      "name": "Vivian Mendes",
+      "party": "UP",
+      "number": "80",
+      "slug": "vivianmendes",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "SP",
+      "name": "Vera Lúcia",
+      "party": "PSTU",
+      "number": "16",
+      "slug": "vera",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "SP",
+      "name": "Izadora Dias",
+      "party": "PCO",
+      "number": "29",
+      "slug": "izadoradias",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "SP",
+      "name": "Policial Edjane",
+      "party": "AGIR",
+      "number": "36",
+      "slug": "policialedjane",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "SP",
+      "name": "Carlos Machado",
+      "party": "PCB",
+      "number": "21",
+      "slug": "carlosmachado",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "RO",
+      "name": "Adailton Furia",
+      "party": "PSD",
+      "number": "55",
+      "slug": "furia",
+      "gender": "MASCULINO",
+      "currentOffice": "Prefeito"
+    },
+    {
+      "office": "governor",
+      "uf": "RO",
+      "name": "Marcos Rogério",
+      "party": "PL",
+      "number": "22",
+      "slug": "marcosrogerio",
+      "gender": "MASCULINO",
+      "currentOffice": "Senador"
+    },
+    {
+      "office": "governor",
+      "uf": "RO",
+      "name": "Hildon Chaves",
+      "party": "UNIÃO",
+      "number": "44",
+      "slug": "hildonchaves",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "RO",
+      "name": "Expedito Netto",
+      "party": "PT",
+      "number": "13",
+      "slug": "expeditonetto",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "RO",
+      "name": "Pedro Abib",
+      "party": "MDB",
+      "number": "15",
+      "slug": "pedroabib",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "RO",
+      "name": "Samuel Costa",
+      "party": "PSB",
+      "number": "40",
+      "slug": "samuelcosta",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "RS",
+      "name": "Manuela D Ávila",
+      "party": "PSOL",
+      "number": "500",
+      "slug": "manueladavila",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "RS",
+      "name": "Marcel Van Hattem",
+      "party": "NOVO",
+      "number": "300",
+      "slug": "marcelvanhattem",
+      "gender": "MASCULINO",
+      "currentOffice": "Deputado Federal"
+    },
+    {
+      "office": "senator",
+      "uf": "RS",
+      "name": "Sanderson",
+      "party": "PL",
+      "number": "222",
+      "slug": "sanderson",
+      "gender": "MASCULINO",
+      "currentOffice": "Deputado Federal"
+    },
+    {
+      "office": "senator",
+      "uf": "RS",
+      "name": "Frederico Antunes",
+      "party": "PSD",
+      "number": "555",
+      "slug": "fredericoantunes",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "RS",
+      "name": "Pimenta",
+      "party": "PT",
+      "number": "131",
+      "slug": "paulopimenta",
+      "gender": "MASCULINO",
+      "currentOffice": "Deputado Federal"
+    },
+    {
+      "office": "senator",
+      "uf": "RS",
+      "name": "Rigotto",
+      "party": "MDB",
+      "number": "151",
+      "slug": "germanorigotto",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "RS",
+      "name": "Tania Peres",
+      "party": "UP",
+      "number": "808",
+      "slug": "taniaperes2",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "RS",
+      "name": "Daniela Mulheres Socialistas",
+      "party": "PSTU",
+      "number": "160",
+      "slug": "danielamulheressocialistas",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "RS",
+      "name": "Milton Cardoso",
+      "party": "PSDB",
+      "number": "455",
+      "slug": "miltoncardoso3",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "RS",
+      "name": "Luciano do Mlb",
+      "party": "UP",
+      "number": "800",
+      "slug": "lucianodomlb",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "RS",
+      "name": "Regis Ethur",
+      "party": "PSTU",
+      "number": "161",
+      "slug": "regisethur",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "RS",
+      "name": "Renato Jaguarão",
+      "party": "CIDADANIA",
+      "number": "234",
+      "slug": "renatojaguarao",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "RS",
+      "name": "Ric Jones",
+      "party": "PCO",
+      "number": "290",
+      "slug": "ricjones",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "SP",
+      "name": "Salles",
+      "party": "NOVO",
+      "number": "300",
+      "slug": "ricardosalles",
+      "gender": "MASCULINO",
+      "currentOffice": "Deputado Federal"
+    },
+    {
+      "office": "senator",
+      "uf": "SP",
+      "name": "Guilherme Derrite",
+      "party": "PP",
+      "number": "111",
+      "slug": "capitaoderrite",
+      "gender": "MASCULINO",
+      "currentOffice": "Deputado Federal"
+    },
+    {
+      "office": "senator",
+      "uf": "SP",
+      "name": "Simone Tebet",
+      "party": "PSB",
+      "number": "400",
+      "slug": "simonetebet",
+      "gender": "FEMININO",
+      "currentOffice": "Deputado Estadual"
+    },
+    {
+      "office": "senator",
+      "uf": "SP",
+      "name": "Marina Silva",
+      "party": "REDE",
+      "number": "180",
+      "slug": "marinasilva",
+      "gender": "FEMININO",
+      "currentOffice": "Deputado Federal"
+    },
+    {
+      "office": "senator",
+      "uf": "SP",
+      "name": "André do Prado",
+      "party": "PL",
+      "number": "222",
+      "slug": "andredoprado",
+      "gender": "MASCULINO",
+      "currentOffice": "Deputado Estadual"
+    },
+    {
+      "office": "senator",
+      "uf": "SP",
+      "name": "Marcio Alves",
+      "party": "UP",
+      "number": "800",
+      "slug": "marcioalves",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "SP",
+      "name": "Maíra de Souza",
+      "party": "UP",
+      "number": "808",
+      "slug": "mairadesouza",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "SP",
+      "name": "Guto Schiavetto",
+      "party": "MISSÃO",
+      "number": "144",
+      "slug": "gutoschiavetto",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "SP",
+      "name": "Dra Eliana Ferreira",
+      "party": "PSTU",
+      "number": "161",
+      "slug": "draelianaferreira",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "SP",
+      "name": "Geraldo Rufino",
+      "party": "PODE",
+      "number": "200",
+      "slug": "geraldorufino",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "SP",
+      "name": "Petter Maahs",
+      "party": "PCB",
+      "number": "211",
+      "slug": "pettermaahs",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "SP",
+      "name": "Soninha Francine",
+      "party": "CIDADANIA",
+      "number": "232",
+      "slug": "soninhafrancine",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "SP",
+      "name": "Weller Gonçalves",
+      "party": "PSTU",
+      "number": "160",
+      "slug": "wellerbancadatrabalhadores",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "SP",
+      "name": "William Teixeira",
+      "party": "AGIR",
+      "number": "360",
+      "slug": "djlu",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "SP",
+      "name": "Ednelson Cesaretti",
+      "party": "PCO",
+      "number": "290",
+      "slug": "ednelsoncesaretti",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "SE",
+      "name": "Ricardo Marques",
+      "party": "PL",
+      "number": "22",
+      "slug": "ricardomarques",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "SE",
+      "name": "Fábio",
+      "party": "PSD",
+      "number": "55",
+      "slug": "fabio",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "SE",
+      "name": "Valmir de Francisquinho",
+      "party": "REPUBLICANOS",
+      "number": "10",
+      "slug": "valmirdefrancisquinho",
+      "gender": "MASCULINO",
+      "currentOffice": "Prefeito"
+    },
+    {
+      "office": "governor",
+      "uf": "SE",
+      "name": "Emanuel Cacho",
+      "party": "PSDB",
+      "number": "45",
+      "slug": "emanuelcacho",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "SE",
+      "name": "Dr. Helton",
+      "party": "PSOL",
+      "number": "50",
+      "slug": "drhelton2",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "SE",
+      "name": "Taty  Cristina de Jesus",
+      "party": "DC",
+      "number": "27",
+      "slug": "tatycristinadejesus",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "SE",
+      "name": "Iran Barbosa",
+      "party": "PSOL",
+      "number": "500",
+      "slug": "iranbarbosa",
+      "gender": "MASCULINO",
+      "currentOffice": "Vereador"
+    },
+    {
+      "office": "senator",
+      "uf": "SE",
+      "name": "Renatinha",
+      "party": "DC",
+      "number": "277",
+      "slug": "renatinha39",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "SE",
+      "name": "Rodrigo Valadares",
+      "party": "PL",
+      "number": "222",
+      "slug": "rodrigovaladares",
+      "gender": "MASCULINO",
+      "currentOffice": "Deputado Federal"
+    },
+    {
+      "office": "senator",
+      "uf": "SE",
+      "name": "Rogerio Carvalho",
+      "party": "PT",
+      "number": "131",
+      "slug": "rogeriocarvalho",
+      "gender": "MASCULINO",
+      "currentOffice": "Senador"
+    },
+    {
+      "office": "senator",
+      "uf": "SE",
+      "name": "Delegado Alessandro",
+      "party": "MDB",
+      "number": "155",
+      "slug": "delegadoalessandro",
+      "gender": "MASCULINO",
+      "currentOffice": "Senador"
+    },
+    {
+      "office": "senator",
+      "uf": "SE",
+      "name": "André Moura",
+      "party": "UNIÃO",
+      "number": "444",
+      "slug": "andremoura",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "SE",
+      "name": "Eduardo Amorim",
+      "party": "REPUBLICANOS",
+      "number": "100",
+      "slug": "dreduardoamorim",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "SE",
+      "name": "Coronel Rocha",
+      "party": "PL",
+      "number": "221",
+      "slug": "coronelrocha",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "SE",
+      "name": "Delegado André David",
+      "party": "REPUBLICANOS",
+      "number": "101",
+      "slug": "delegadoandredavid",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "SE",
+      "name": "Edvaldo",
+      "party": "PDT",
+      "number": "123",
+      "slug": "edvaldo26",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "SE",
+      "name": "Paulinho da União Tur",
+      "party": "DC",
+      "number": "270",
+      "slug": "paulinhodauniaotur",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "SC",
+      "name": "Afrânio Boppré",
+      "party": "PSOL",
+      "number": "500",
+      "slug": "afranioboppre",
+      "gender": "MASCULINO",
+      "currentOffice": "Vereador"
+    },
+    {
+      "office": "senator",
+      "uf": "SC",
+      "name": "Túlio de Amorim Pfuetzenreiter",
+      "party": "MISSÃO",
+      "number": "144",
+      "slug": "tuliodeamorimpfuetzenreiter",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "SC",
+      "name": "Carlos Bolsonaro",
+      "party": "PL",
+      "number": "222",
+      "slug": "carlosbolsonaro2",
+      "gender": "MASCULINO",
+      "currentOffice": "Candidato ao Senado"
+    },
+    {
+      "office": "senator",
+      "uf": "SC",
+      "name": "Ana Lucia da Silveira Machado",
+      "party": "UP",
+      "number": "800",
+      "slug": "analuciadasilveiramachado",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "SC",
+      "name": "Décio Lima",
+      "party": "PT",
+      "number": "133",
+      "slug": "deciolima",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "SC",
+      "name": "Carol de Toni",
+      "party": "PL",
+      "number": "221",
+      "slug": "caroldetoni",
+      "gender": "FEMININO",
+      "currentOffice": "Deputado Federal"
+    },
+    {
+      "office": "senator",
+      "uf": "SC",
+      "name": "Marcos Dorval",
+      "party": "PSTU",
+      "number": "161",
+      "slug": "marcosdorval",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "SC",
+      "name": "Marlene Soccas",
+      "party": "UP",
+      "number": "808",
+      "slug": "marlenesoccas",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "SC",
+      "name": "Carol",
+      "party": "PCO",
+      "number": "290",
+      "slug": "carolinesantanna",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "SC",
+      "name": "Joaninha de Oliveira",
+      "party": "PSTU",
+      "number": "160",
+      "slug": "joaninha84",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "SC",
+      "name": "Lunelli",
+      "party": "MDB",
+      "number": "155",
+      "slug": "antidiolunelli",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "SC",
+      "name": "Esperidião Amin",
+      "party": "PP",
+      "number": "111",
+      "slug": "esperidiaoamin",
+      "gender": "MASCULINO",
+      "currentOffice": "Senador"
+    },
+    {
+      "office": "senator",
+      "uf": "SC",
+      "name": "Jeferson da Rocha",
+      "party": "PRD",
+      "number": "250",
+      "slug": "jefersondarocha",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "TO",
+      "name": "Vicentinho Júnior",
+      "party": "PSDB",
+      "number": "45",
+      "slug": "vicentinhojunior",
+      "gender": "MASCULINO",
+      "currentOffice": "Deputado Federal"
+    },
+    {
+      "office": "governor",
+      "uf": "TO",
+      "name": "Ataides de Oliveira",
+      "party": "NOVO",
+      "number": "30",
+      "slug": "ataidesdeoliveira",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "TO",
+      "name": "Professora Dorinha",
+      "party": "UNIÃO",
+      "number": "44",
+      "slug": "professoradorinha",
+      "gender": "FEMININO",
+      "currentOffice": "Senador"
+    },
+    {
+      "office": "governor",
+      "uf": "TO",
+      "name": "Du Pereira",
+      "party": "DC",
+      "number": "27",
+      "slug": "dupereira2",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "TO",
+      "name": "Laurez Moreira",
+      "party": "PSD",
+      "number": "55",
+      "slug": "laurezmoreira",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "TO",
+      "name": "Prof Witer Naves",
+      "party": "PSOL",
+      "number": "50",
+      "slug": "profwiternaves",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "governor",
+      "uf": "TO",
+      "name": "Subtenente Luiz Carlos",
+      "party": "O DEMOCRATA",
+      "number": "35",
+      "slug": "subtenenteluizcarlos2",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "TO",
+      "name": "Vanderlei Luxemburgo",
+      "party": "PODE",
+      "number": "200",
+      "slug": "vanderleiluxemburgo",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "TO",
+      "name": "Alexandre Guimarães",
+      "party": "MDB",
+      "number": "153",
+      "slug": "alexandreguimaraes",
+      "gender": "MASCULINO",
+      "currentOffice": "Deputado Federal"
+    },
+    {
+      "office": "senator",
+      "uf": "TO",
+      "name": "Eduardo Gomes",
+      "party": "PL",
+      "number": "222",
+      "slug": "eduardogomes11",
+      "gender": "MASCULINO",
+      "currentOffice": "Senador"
+    },
+    {
+      "office": "senator",
+      "uf": "TO",
+      "name": "Gaguim",
+      "party": "UNIÃO",
+      "number": "444",
+      "slug": "carlosgaguim",
+      "gender": "MASCULINO",
+      "currentOffice": "Deputado Federal"
+    },
+    {
+      "office": "senator",
+      "uf": "TO",
+      "name": "Ronaldo Dimas",
+      "party": "PODE",
+      "number": "202",
+      "slug": "ronaldodimas",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "TO",
+      "name": "Eli Borges",
+      "party": "REPUBLICANOS",
+      "number": "100",
+      "slug": "eliborges",
+      "gender": "MASCULINO",
+      "currentOffice": "Deputado Federal"
+    },
+    {
+      "office": "senator",
+      "uf": "TO",
+      "name": "Fábio Ribeiro",
+      "party": "REDE",
+      "number": "180",
+      "slug": "fabioribeiro9",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "TO",
+      "name": "Helio Rodrigues Bolsonaro",
+      "party": "O DEMOCRATA",
+      "number": "351",
+      "slug": "heliorodriguesbolsonaro",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "TO",
+      "name": "Paulo Mourão",
+      "party": "PT",
+      "number": "133",
+      "slug": "paulomourao",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "TO",
+      "name": "Apóstolo Flavio Braga",
+      "party": "DC",
+      "number": "277",
+      "slug": "flaviobraga42",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "TO",
+      "name": "Nilton Santos",
+      "party": "NOVO",
+      "number": "303",
+      "slug": "niltonsantos17",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "TO",
+      "name": "Osvany Luz",
+      "party": "O DEMOCRATA",
+      "number": "355",
+      "slug": "osvanyluz",
+      "gender": "FEMININO",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "TO",
+      "name": "Professor Osvaldo",
+      "party": "PSOL",
+      "number": "500",
+      "slug": "profosvaldo3",
+      "gender": "MASCULINO",
+      "currentOffice": ""
+    },
+    {
+      "office": "president",
+      "uf": "BR",
+      "name": "Lula",
+      "party": "PT",
+      "number": "",
+      "slug": "lula",
+      "gender": "",
+      "currentOffice": ""
+    },
+    {
+      "office": "president",
+      "uf": "BR",
+      "name": "Flávio Bolsonaro",
+      "party": "PL",
+      "number": "",
+      "slug": "flaviobolsonaro",
+      "gender": "",
+      "currentOffice": ""
+    },
+    {
+      "office": "president",
+      "uf": "BR",
+      "name": "Renan Santos",
+      "party": "Missão",
+      "number": "",
+      "slug": "renansantos",
+      "gender": "",
+      "currentOffice": ""
+    },
+    {
+      "office": "president",
+      "uf": "BR",
+      "name": "Ronaldo Caiado",
+      "party": "PSD",
+      "number": "",
+      "slug": "ronaldocaiado",
+      "gender": "",
+      "currentOffice": ""
+    },
+    {
+      "office": "president",
+      "uf": "BR",
+      "name": "Romeu Zema",
+      "party": "NOVO",
+      "number": "",
+      "slug": "romeuzema",
+      "gender": "",
+      "currentOffice": ""
+    }
+  ]
+}

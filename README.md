@@ -4,6 +4,10 @@ Agregador independente da eleição presidencial. **Não é uma pesquisa.** Méd
 
 **URL canônica:** https://radar-2026.vercel.app
 
+**Acessos (pageviews):** https://vercel.com/marceliomps-projects/radar-2026/analytics
+
+A capa é SSR Nitro (não HTML estático no CDN). O forecast público lê JSON em memória: não abre PGLite por request. HTML de `/`, `/lab` e `/candidatos` leva `s-maxage` para o edge. Sem `DATABASE_URL` no projeto; auth WASM só sobe se alguém bater rota de sessão.
+
 Portal neutro. Sem marca de campanha. Sem tilt de lado.
 
 ## Rodar

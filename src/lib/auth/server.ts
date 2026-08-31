@@ -45,8 +45,9 @@ import {
   PREVIEW_CLIENT_SECRET,
 } from "./preview";
 
-// Kick (and share) PGLite bootstrap as soon as the auth server module loads.
-void ensureDbReady();
+// Preview/dev: share PGLite bootstrap with app SQL. On Vercel the public
+// forecast never imports this module on the hot path; skip eager WASM boot.
+if (!process.env.VERCEL) void ensureDbReady();
 
 /**
  * Preview secret must outlive module reloads: PGLite (and its session rows) is

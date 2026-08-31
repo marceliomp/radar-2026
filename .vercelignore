@@ -1,0 +1,5 @@
+deploy
+data/inbox
+.git
+.cursor
+node_modules
