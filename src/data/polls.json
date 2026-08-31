@@ -1,5 +1,48 @@
 [
   {
+    "id": "atlas-08-31",
+    "institute": "AtlasIntel/Bloomberg",
+    "date": "2026-08-31",
+    "fieldEnd": "2026-08-30",
+    "sample": 5014,
+    "moe": 1,
+    "mode": "online",
+    "national": true,
+    "firstRound": {
+      "lula": 43.4,
+      "flavio": 33.7,
+      "cury": 7.8,
+      "renan": 7.6,
+      "caiado": 3.3,
+      "zema": 1.0
+    },
+    "secondRound": {
+      "lula": 47.1,
+      "flavio": 42.6
+    },
+    "secondPairs": [
+      {
+        "a": "lula",
+        "b": "caiado",
+        "aPct": 46.6,
+        "bPct": 41
+      },
+      {
+        "a": "lula",
+        "b": "zema",
+        "aPct": 47,
+        "bPct": 40.7
+      },
+      {
+        "a": "lula",
+        "b": "renan",
+        "aPct": 47.5,
+        "bPct": 26
+      }
+    ],
+    "notes": "Poder360/UOL/Estadao/Bloomberg 31/08 · TSE BR-07972/2026 · Atlas RDR online, n=5014, campo 25-30/08, moe ±1. 1T 43,4x33,7; Cury 7,8 (era 1,6 em jul). 2T Lula 47,1 x Flavio 42,6. Sem 2T Cury. Marcal 1,9% no 1T (nao entra como chave; casa nao publicou cenario sem Marcal). Sem rodada estadual nesta materia. Fonte: https://www.poder360.com.br/poder-eleicoes-2026/lula-tem-471-contra-426-de-flavio-no-2o-turno-diz-pesquisa/"
+  },
+  {
     "id": "nexus-08-31",
     "institute": "Nexus/BTG",
     "date": "2026-08-31",
