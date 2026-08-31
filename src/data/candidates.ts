@@ -1,4 +1,3 @@
-import { UF_META } from "./calendar";
 import candidatesJson from "./candidates.json" with { type: "json" };
 
 export type CandidateOffice = "president" | "governor" | "senator";
@@ -35,8 +34,36 @@ export const CANDIDATES_META = {
   counts: file.counts,
 };
 
-/** Siglas A-Z (AC, AL, AM...). Default de pagina continua SC. */
-export const UF_ORDER = Object.keys(UF_META).sort((a, b) => a.localeCompare(b));
+/** Siglas A-Z. Default de pagina continua SC. */
+export const UF_ORDER = [
+  "AC",
+  "AL",
+  "AM",
+  "AP",
+  "BA",
+  "CE",
+  "DF",
+  "ES",
+  "GO",
+  "MA",
+  "MG",
+  "MS",
+  "MT",
+  "PA",
+  "PB",
+  "PE",
+  "PI",
+  "PR",
+  "RJ",
+  "RN",
+  "RO",
+  "RR",
+  "RS",
+  "SC",
+  "SE",
+  "SP",
+  "TO",
+] as string[];
 
 export function byUf(uf: string): Candidate[] {
   const key = uf.trim().toUpperCase();
