@@ -1,5 +1,48 @@
 [
   {
+    "id": "nexus-08-31",
+    "institute": "Nexus/BTG",
+    "date": "2026-08-31",
+    "fieldEnd": "2026-08-30",
+    "sample": 2005,
+    "moe": 2,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 39,
+      "flavio": 33,
+      "cury": 11,
+      "caiado": 5,
+      "renan": 3,
+      "zema": 1
+    },
+    "secondRound": {
+      "lula": 46,
+      "flavio": 45
+    },
+    "secondPairs": [
+      {
+        "a": "lula",
+        "b": "caiado",
+        "aPct": 45,
+        "bPct": 44
+      },
+      {
+        "a": "lula",
+        "b": "zema",
+        "aPct": 46,
+        "bPct": 41
+      },
+      {
+        "a": "lula",
+        "b": "renan",
+        "aPct": 47,
+        "bPct": 38
+      }
+    ],
+    "notes": "CNN/Revista Forum 31/08 · TSE BR-08900/2026 · 12a rodada Nexus/BTG, telefone, n=2005, campo 28-30/08, moe ±2. Vs 24/08: 1T 41x37 → 39x33; Cury 2→11. 2T Lula 46 x Flavio 45 (estavel). Sem 2T Cury. Cenario com Marcal (nao entra no 1T do Radar): Lula 37, Flavio 31, Cury 11, Caiado 6, Marcal 3, Renan 3, Zema 2."
+  },
+  {
     "id": "vox-08-29",
     "institute": "Vox Brasil",
     "date": "2026-08-29",
