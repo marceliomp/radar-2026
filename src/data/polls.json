@@ -1,5 +1,85 @@
 [
   {
+    "id": "vox-08-29",
+    "institute": "Vox Brasil",
+    "date": "2026-08-29",
+    "fieldEnd": "2026-08-27",
+    "sample": 2100,
+    "moe": 2.15,
+    "mode": "presencial",
+    "national": true,
+    "firstRound": {
+      "lula": 37.1,
+      "flavio": 34.8,
+      "caiado": 5.0,
+      "renan": 3.3,
+      "zema": 2.8,
+      "cury": 2.6
+    },
+    "secondRound": {
+      "lula": 44.5,
+      "flavio": 45.1
+    },
+    "secondPairs": [
+      {
+        "a": "lula",
+        "b": "zema",
+        "aPct": 45.5,
+        "bPct": 39.3
+      },
+      {
+        "a": "lula",
+        "b": "caiado",
+        "aPct": 45.5,
+        "bPct": 41.1
+      }
+    ],
+    "notes": "Exame/CNN/Poder360 29/08 · presencial 25-27/08 · n=2.100 · TSE BR-05519/2026. 1º 37,1×34,8 (empate técnico ±2,15). 2º Flávio 45,1×44,5. Marçal 2% (não entra como chave). vs julho Vox: 1º 40,5×31,2."
+  },
+  {
+    "id": "indexa-broadcast-08-26",
+    "institute": "Indexa/Broadcast",
+    "date": "2026-08-26",
+    "fieldEnd": "2026-08-23",
+    "sample": 2000,
+    "moe": 2.2,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 39,
+      "flavio": 34,
+      "caiado": 5,
+      "renan": 4,
+      "zema": 1,
+      "cury": 1
+    },
+    "secondRound": {
+      "lula": 46,
+      "flavio": 41
+    },
+    "notes": "Estadão/CNN 26/08 · telefone 20-23/08 · n=2.000 · TSE BR-06366/2026. Cenário principal sem Marçal: 39×34. Com Marçal: 39×33 e Marçal 2%. 2º 46×41. vs julho Indexa: 1º 41×30; 2º Lula 46 estável, Flávio 39→41."
+  },
+  {
+    "id": "rtbd-pr-08-28",
+    "institute": "Real Time Big Data",
+    "date": "2026-08-28",
+    "fieldEnd": "2026-08-27",
+    "sample": 1600,
+    "moe": 2,
+    "mode": "presencial",
+    "national": false,
+    "uf": "PR",
+    "firstRound": {
+      "lula": 30,
+      "flavio": 44
+    },
+    "secondRound": {
+      "lula": 34,
+      "flavio": 52
+    },
+    "notes": "Poder360 28/08 · TSE BR-07171/2026 · PR · 24-27/08 · n=1.600. 1º Flávio 44×30. 2º 52×34. Fora do agregador nacional."
+  },
+  {
     "id": "gerp-08-26",
     "institute": "Gerp",
     "date": "2026-08-26",
