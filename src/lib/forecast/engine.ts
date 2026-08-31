@@ -15,6 +15,14 @@ export type PollMode =
   | "modelo"
   | "telefone";
 
+export type PollSource = {
+  tseProtocol: string | null;
+  url: string | null;
+  publisher: string;
+  publishedAt: string;
+  capturedAt: string;
+};
+
 export type CandidateKey =
   | "lula"
   | "flavio"
@@ -39,6 +47,7 @@ export type ForecastPoll = {
   secondRound?: Partial<Record<CandidateKey, number>>;
   /** Confrontos extras de 2º. Lula muda de % conforme o par: nao cabem no mesmo secondRound. */
   secondPairs?: { a: CandidateKey; b: CandidateKey; aPct: number; bPct: number }[];
+  source: PollSource;
   notes?: string;
   govApproval?: number;
 };

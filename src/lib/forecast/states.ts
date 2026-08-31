@@ -25,6 +25,13 @@ function snapshotToPoll(s: (typeof STATE_SNAPSHOTS)[number]): ForecastPoll {
       s.lula2 != null && s.flavio2 != null
         ? { lula: s.lula2, flavio: s.flavio2 }
         : undefined,
+    source: {
+      tseProtocol: null,
+      url: null,
+      publisher: s.institute,
+      publishedAt: s.date,
+      capturedAt: `${s.date}T12:00:00-03:00`,
+    },
     notes: s.note,
   };
 }

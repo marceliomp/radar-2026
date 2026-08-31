@@ -444,3 +444,54 @@ test("half-life diferencia duas ondas no mesmo estado", async () => {
     `recente deve pesar mais: ${JSON.stringify(shares)}`,
   );
 });
+
+test("politica de evidencia usa institutos independentes, nao quantidade bruta", async () => {
+  const { runRaceForecast } = await importRace();
+  const makePoll = (id, institute, day) => ({
+    id,
+    office: "governor",
+    uf: "SP",
+    institute,
+    date: `2026-08-${day}`,
+    fieldEnd: `2026-08-${day}`,
+    sample: 1200,
+    moe: 3,
+    mode: "presencial",
+    firstRound: { tarcisio: 45, haddad: 30, marcal: 8 },
+  });
+  const cfg = {
+    office: "governor",
+    uf: "SP",
+    asOf: "2026-08-31",
+    simulations: 400,
+    useTrackRecord: false,
+  };
+
+  const one = runRaceForecast([makePoll("a1", "Casa A", "20")], GOV_CANDS, cfg);
+  assert.equal(one.evidence.grade, "insufficient");
+  assert.equal(one.evidence.canPublishProbability, false);
+
+  const sameHouse = runRaceForecast([
+    makePoll("a1", "Casa A", "20"),
+    makePoll("a2", "Casa A", "24"),
+  ], GOV_CANDS, cfg);
+  assert.equal(sameHouse.evidence.houses, 1);
+  assert.equal(sameHouse.evidence.canPublishProbability, false);
+
+  const twoHouses = runRaceForecast([
+    makePoll("a1", "Casa A", "20"),
+    makePoll("b1", "Casa B", "24"),
+  ], GOV_CANDS, cfg);
+  assert.equal(twoHouses.evidence.grade, "thin");
+  assert.equal(twoHouses.evidence.canPublishProbability, true);
+
+  const fourHouses = runRaceForecast([
+    makePoll("a1", "Casa A", "20"),
+    makePoll("b1", "Casa B", "22"),
+    makePoll("c1", "Casa C", "24"),
+    makePoll("d1", "Casa D", "26"),
+  ], GOV_CANDS, cfg);
+  assert.equal(fourHouses.evidence.grade, "established");
+  assert.equal(fourHouses.evidence.houses, 4);
+  assert.equal(fourHouses.evidence.canPublishProbability, true);
+});

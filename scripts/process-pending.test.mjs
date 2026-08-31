@@ -82,7 +82,7 @@ test("rowToPoll refuses missing firstRound", () => {
   assert.equal(rowToPoll(poderRow, { firstRound: { lula: 38 } }, house), null);
 });
 
-test("processPending skips governor and does not wipe polls", () => {
+test("processPending skips governor and never returns a published dataset", () => {
   const polls = [
     {
       id: "keep",
@@ -111,15 +111,14 @@ test("processPending skips governor and does not wipe polls", () => {
     tseRows,
     resultsByTse: {},
   });
-  assert.equal(out.polls[0].id, "keep");
-  assert.equal(out.polls.length, 1);
   assert.equal(out.report.notPresidente, 1);
   assert.equal(out.report.alreadyInPolls, 1);
   assert.equal(out.report.noVotes, 1);
-  assert.equal(out.merged.length, 0);
+  assert.equal(out.ready.length, 0);
+  assert.equal("polls" in out, false);
 });
 
-test("processPending merges allowlist poll when votes exist", () => {
+test("processPending prepares allowlist poll when votes exist", () => {
   const out = processPending({
     pending: [{ tse: "BR-04974/2026" }],
     polls: [{ id: "keep", notes: "" }],
@@ -133,16 +132,16 @@ test("processPending merges allowlist poll when votes exist", () => {
       },
     ]),
   });
-  assert.equal(out.report.merged, 1);
-  assert.equal(out.polls.length, 2);
-  const added = out.polls[1];
+  assert.equal(out.report.ready, 1);
+  assert.equal(out.ready.length, 1);
+  const added = out.ready[0];
   assert.equal(added.institute, "PoderData/Aya");
   assert.equal(added.national, true);
   assert.equal(added.sample, 2400);
   assert.equal(added.mode, "telefone");
   assert.equal(added.firstRound.lula, 38);
   assert.equal(added.secondRound.flavio, 44);
-  assert.match(added.notes, /BR-04974\/2026/);
+  assert.equal(added.source.tseProtocol, "BR-04974/2026");
 });
 
 test("dates and moe helpers", () => {
@@ -211,9 +210,8 @@ test("processPending skips Datafolha state president poll", async () => {
     ],
     resultsByTse: {},
   });
-  assert.equal(out.polls.length, 1);
   assert.equal(out.report.notNational, 1);
-  assert.equal(out.merged.length, 0);
+  assert.equal(out.ready.length, 0);
 });
 test("parser reads Gerp Flávio-first 1T", () => {
   const html = `<title>Gerp: Flávio tem 38% e Lula, 37% no 1º turno</title>

@@ -1,12 +1,11 @@
 #!/usr/bin/env node
 /**
  * Processa data/inbox/pending.jsonl contra o CSV TSE e a allowlist
- * (Poder360, G1/Datafolha, CNN/Gerp). Só grava em polls.json com
+ * (Poder360, G1/Datafolha, CNN/Gerp). Produz propostas em ready.jsonl com
  * instituto + campo + n + protocolo TSE + firstRound parseado.
- * Nunca inventa voto. Nunca zera polls.json.
+ * Nunca inventa voto e nunca altera a fonte pública polls.json.
  */
 import {
-  copyFileSync,
   existsSync,
   mkdirSync,
   readFileSync,
@@ -16,13 +15,12 @@ import {
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { inflateRawSync } from "node:zlib";
-import { atomicWriteJson } from "./ingest-polls.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const POLLS_JSON = join(ROOT, "src/data/polls.json");
 const INBOX = join(ROOT, "data/inbox/pending.jsonl");
+const READY = join(ROOT, "data/inbox/ready.jsonl");
 const SKIPPED = join(ROOT, "data/inbox/skipped.jsonl");
-const PROCESSED = join(ROOT, "data/inbox/processed.jsonl");
 const RESULTS_JSONL = join(ROOT, "data/inbox/results.jsonl");
 const LOG = join(ROOT, "data/inbox/process.log");
 
@@ -293,6 +291,8 @@ export function parseAllowlistArticle(html, expectedTse) {
 export function knownProtocols(polls) {
   const set = new Set();
   for (const p of polls) {
+    const structured = p.source?.tseProtocol;
+    if (structured) set.add(normalizeProtocol(structured));
     const blob = `${p.notes ?? ""} ${p.tse ?? ""} ${p.id ?? ""}`;
     for (const m of blob.matchAll(/\b([A-Z]{2})-(\d{1,6})\/2026\b/gi)) {
       set.add(normalizeProtocol(m[0]));
@@ -353,7 +353,14 @@ export function rowToPoll(row, result, house) {
     mode: inferMode(row.DS_METODOLOGIA_PESQUISA),
     national: true,
     firstRound: { ...firstRound },
-    notes: `TSE ${proto}. ${sample} entrevistas. Allowlist ${house.id}.`,
+    source: {
+      tseProtocol: proto,
+      url: result?.url ?? null,
+      publisher: result?.publisher ?? house.id,
+      publishedAt: date,
+      capturedAt: result?.capturedAt ?? new Date().toISOString(),
+    },
+    notes: `${sample} entrevistas. Allowlist ${house.id}.`,
   };
   if (result.secondRound?.lula != null && result.secondRound?.flavio != null) {
     poll.secondRound = {
@@ -385,7 +392,7 @@ export function processPending({
   const tseIndex = indexTseRows(tseRows);
   const remaining = [];
   const skipped = [];
-  const merged = [];
+  const ready = [];
   const report = {
     pendingIn: pending.length,
     alreadyInPolls: 0,
@@ -394,7 +401,7 @@ export function processPending({
     notNational: 0,
     notAllowlist: 0,
     noVotes: 0,
-    merged: 0,
+    ready: 0,
   };
 
   const seen = new Set();
@@ -478,12 +485,11 @@ export function processPending({
     poll.id = id;
     ids.add(id);
     known.add(proto);
-    merged.push(poll);
-    report.merged += 1;
+    ready.push(poll);
+    report.ready += 1;
   }
 
-  const nextPolls = merged.length ? [...polls, ...merged] : polls;
-  return { polls: nextPolls, remaining, skipped, merged, report };
+  return { remaining, skipped, ready, report };
 }
 
 function log(line) {
@@ -689,7 +695,12 @@ async function fetchAllowlistResults(needTse) {
       fetched += 1;
       const parsed = parseAllowlistArticle(buf.toString("utf8"));
       if (parsed && needTse.has(parsed.tse) && !byTse[parsed.tse]) {
-        byTse[parsed.tse] = parsed;
+        byTse[parsed.tse] = {
+          ...parsed,
+          url,
+          publisher: new URL(url).hostname.replace(/^www\./, ""),
+          capturedAt: new Date().toISOString(),
+        };
       }
     } catch (err) {
       log(`page_fail ${url} ${err instanceof Error ? err.message : err}`);
@@ -711,6 +722,9 @@ export function resultsFromJsonl(rows) {
       secondRound: o.secondRound,
       moe: o.moe,
       source: o.source ?? "results.jsonl",
+      url: o.url ?? null,
+      publisher: o.publisher ?? "results.jsonl",
+      capturedAt: o.capturedAt ?? new Date().toISOString(),
     };
   }
   return map;
@@ -724,7 +738,7 @@ async function main() {
     ? JSON.parse(readFileSync(POLLS_JSON, "utf8"))
     : [];
   if (!Array.isArray(polls)) throw new Error("polls.json não é array");
-  copyFileSync(POLLS_JSON, POLLS_JSON + ".bak");
+  const existingReady = loadJsonl(READY);
 
   const pending = loadJsonl(INBOX);
   const overlay = resultsFromJsonl(loadJsonl(RESULTS_JSONL));
@@ -734,7 +748,7 @@ async function main() {
   const tseIndex = indexTseRows(tseRows);
   const need = new Set();
   if (!offline) {
-    const known = knownProtocols(polls);
+    const known = knownProtocols([...polls, ...existingReady]);
     for (const item of pending) {
       const proto = normalizeProtocol(item.tse);
       const row = tseIndex.get(proto);
@@ -748,30 +762,24 @@ async function main() {
   const fetched = offline ? {} : await fetchAllowlistResults(need);
   const resultsByTse = { ...fetched, ...overlay };
 
-  const out = processPending({ pending, polls, tseRows, resultsByTse });
+  const out = processPending({
+    pending,
+    polls: [...polls, ...existingReady],
+    tseRows,
+    resultsByTse,
+  });
   log(
-    `ok pending_in=${out.report.pendingIn} merged=${out.report.merged} remain=${out.remaining.length} skipped=${out.skipped.length} already=${out.report.alreadyInPolls} no_votes=${out.report.noVotes}`,
+    `ok pending_in=${out.report.pendingIn} ready=${out.report.ready} remain=${out.remaining.length} skipped=${out.skipped.length} already=${out.report.alreadyInPolls} no_votes=${out.report.noVotes}`,
   );
 
   if (dry) {
-    log(`dry-run ids=${out.merged.map((p) => p.id).join(",")}`);
+    log(`dry-run ids=${out.ready.map((p) => p.id).join(",")}`);
     return;
   }
 
-  if (out.merged.length) {
-    atomicWriteJson(POLLS_JSON, out.polls);
-  }
+  writeJsonl(READY, [...existingReady, ...out.ready]);
   writeJsonl(INBOX, out.remaining);
   appendJsonl(SKIPPED, out.skipped);
-  appendJsonl(
-    PROCESSED,
-    out.merged.map((p) => ({
-      at: new Date().toISOString(),
-      id: p.id,
-      tse: (p.notes.match(/TSE\s+([A-Z]{2}-\d+\/2026)/) || [])[1],
-      institute: p.institute,
-    })),
-  );
 }
 
 const isMain =

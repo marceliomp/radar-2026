@@ -13,6 +13,8 @@ dist
 coverage
 *.log
 /tmp
+data/inbox/
+src/data/polls.json.bak
 AGENTS.md
 AGENTS.project.md
 .grok

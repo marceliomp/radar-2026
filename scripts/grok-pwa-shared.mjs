@@ -401,6 +401,7 @@ function insertBeforeHeadClose(html, snippet) {
 }
 
 export function normalizeHeadContext(ctx = {}) {
+  if (typeof ctx === "string") ctx = { appName: ctx };
   const cwd = ctx.cwd ?? process.cwd();
   // Middleware passes a baked `site`. Still consult the workspace so a
   // public/og.jpg generated after that snapshot (or missed by a wrong cwd)
@@ -424,11 +425,12 @@ export function normalizeHeadContext(ctx = {}) {
 
 export function injectGrokPwaHead(html, ctx = {}) {
   if (typeof html !== "string") return html;
-  const { site, projectId, creator, creatorId, host, cwd } = normalizeHeadContext(ctx);
+  const normalized = normalizeHeadContext(ctx);
+  const { site, projectId, creator, creatorId, host, cwd } = normalized;
   const documentTitle = titleFromDocument(html);
   const appName = resolveOgTitle(
     site,
-    ctx.appName ?? DEFAULT_APP_NAME,
+    normalized.appName,
     host,
     documentTitle,
   );

@@ -6,7 +6,6 @@ import {
   retainSearchParams,
 } from "@tanstack/react-router";
 import { Analytics } from "@vercel/analytics/react";
-import { AuthProvider } from "@/lib/auth/provider";
 import { parseAsOfSearch } from "@/lib/as-of";
 import appCss from "../styles.css?url";
 
@@ -59,14 +58,12 @@ function RootDocument() {
     <html lang="pt-BR" suppressHydrationWarning>
       <head>
         <HeadContent />
-        <script defer src="/_vercel/insights/script.js" />
+        <script defer src="/_vercel/insights/script.js"></script>
         <meta property="og:image" content="https://radar-2026.vercel.app/og.jpg" />
         <meta name="twitter:image" content="https://radar-2026.vercel.app/og.jpg" />
       </head>
       <body className="min-h-dvh bg-bg text-fg antialiased">
-        <AuthProvider>
-          <Outlet />
-        </AuthProvider>
+        <Outlet />
         <Analytics />
         <Scripts />
       </body>

@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { CandidatesBoard } from "@/components/candidates-board";
+import { RacePage } from "@/features/races/race-page";
 import { parseAsOfParam } from "@/lib/as-of";
 import { parseHalfLifeSearch } from "@/lib/half-life";
 import { UF_ORDER } from "@/data/candidates";
@@ -38,5 +38,5 @@ export const Route = createFileRoute("/candidatos")({
 });
 
 function CandidatosPage() {
-  return <CandidatesBoard />;
+  return <RacePage />;
 }

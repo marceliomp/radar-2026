@@ -11,7 +11,7 @@ import {
   gapSe,
   type PollMode,
 } from "./engine.ts";
-import { trackQuality } from "./track-record.ts";
+import { resolveInstitute, trackQuality } from "./track-record.ts";
 import { round } from "../format.ts";
 
 export type { PollMode };
@@ -37,6 +37,15 @@ export type RaceCandidate = { slug: string; name: string; party: string };
 
 export type RaceMean = { mean: number; se: number };
 
+export type ForecastEvidence = {
+  polls: number;
+  houses: number;
+  latestFieldEnd: string | null;
+  grade: "insufficient" | "thin" | "established";
+  canPublishProbability: boolean;
+  reason: string;
+};
+
 export type RaceForecastConfig = {
   office: RaceOffice;
   uf: string;
@@ -56,6 +65,7 @@ export type RaceForecastResult = {
   probs: Record<string, number>;
   goesToSecond?: number;
   rows: { poll: RacePoll; weight: number; weightShare: number }[];
+  evidence: ForecastEvidence;
 };
 
 const DEFAULT_HALF_LIFE = 14;
@@ -163,7 +173,58 @@ function randn(rng: () => number): number {
 function emptyResult(slugs: string[]): RaceForecastResult {
   const first: Record<string, RaceMean> = {};
   for (const slug of slugs) first[slug] = { mean: 0, se: 0 };
-  return { first, ordered: [], probs: {}, rows: [] };
+  return {
+    first,
+    ordered: [],
+    probs: {},
+    rows: [],
+    evidence: {
+      polls: 0,
+      houses: 0,
+      latestFieldEnd: null,
+      grade: "insufficient",
+      canPublishProbability: false,
+      reason: "Nenhuma pesquisa elegível.",
+    },
+  };
+}
+
+function buildEvidence(rows: RaceForecastResult["rows"]): ForecastEvidence {
+  const houses = new Set(
+    rows.map((row) => resolveInstitute(row.poll.institute)),
+  ).size;
+  const latestFieldEnd = rows.reduce<string | null>(
+    (latest, row) => !latest || row.poll.fieldEnd > latest ? row.poll.fieldEnd : latest,
+    null,
+  );
+  if (houses < 2) {
+    return {
+      polls: rows.length,
+      houses,
+      latestFieldEnd,
+      grade: "insufficient",
+      canPublishProbability: false,
+      reason: "Menos de dois institutos independentes.",
+    };
+  }
+  if (houses < 4) {
+    return {
+      polls: rows.length,
+      houses,
+      latestFieldEnd,
+      grade: "thin",
+      canPublishProbability: true,
+      reason: "Evidência ainda concentrada em poucas casas.",
+    };
+  }
+  return {
+    polls: rows.length,
+    houses,
+    latestFieldEnd,
+    grade: "established",
+    canPublishProbability: true,
+    reason: "Quatro ou mais institutos independentes.",
+  };
 }
 
 function buildRows(
@@ -398,6 +459,8 @@ export function runRaceForecast(
 
   if (!rows.length) return emptyResult(slugs);
 
+  const evidence = buildEvidence(rows);
+
   resolved.extraVarPp = extraVarForPolls(rows.length, resolved.extraVarPp);
 
   const first = aggregateFirst(rows, slugs);
@@ -411,7 +474,7 @@ export function runRaceForecast(
       slugs,
       resolved,
     );
-    return { first, ordered, probs, goesToSecond, rows };
+    return { first, ordered, probs, goesToSecond, rows, evidence };
   }
 
   const probs = simulateSenator(
@@ -419,5 +482,5 @@ export function runRaceForecast(
     ordered.map((o) => o.slug),
     resolved,
   );
-  return { first, ordered, probs, rows };
+  return { first, ordered, probs, rows, evidence };
 }

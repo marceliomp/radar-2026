@@ -14,7 +14,7 @@
       "cury": 7.8,
       "renan": 7.6,
       "caiado": 3.3,
-      "zema": 1.0
+      "zema": 1
     },
     "secondRound": {
       "lula": 47.1,
@@ -40,7 +40,14 @@
         "bPct": 26
       }
     ],
-    "notes": "Poder360/UOL/Estadao/Bloomberg 31/08 · TSE BR-07972/2026 · Atlas RDR online, n=5014, campo 25-30/08, moe ±1. 1T 43,4x33,7; Cury 7,8 (era 1,6 em jul). 2T Lula 47,1 x Flavio 42,6. Sem 2T Cury. Marcal 1,9% no 1T (nao entra como chave; casa nao publicou cenario sem Marcal). Sem rodada estadual nesta materia. Fonte: https://www.poder360.com.br/poder-eleicoes-2026/lula-tem-471-contra-426-de-flavio-no-2o-turno-diz-pesquisa/"
+    "notes": "Poder360/UOL/Estadao/Bloomberg 31/08 · TSE BR-07972/2026 · Atlas RDR online, n=5014, campo 25-30/08, moe ±1. 1T 43,4x33,7; Cury 7,8 (era 1,6 em jul). 2T Lula 47,1 x Flavio 42,6. Sem 2T Cury. Marcal 1,9% no 1T (nao entra como chave; casa nao publicou cenario sem Marcal). Sem rodada estadual nesta materia. Fonte: https://www.poder360.com.br/poder-eleicoes-2026/lula-tem-471-contra-426-de-flavio-no-2o-turno-diz-pesquisa/",
+    "source": {
+      "tseProtocol": "BR-07972/2026",
+      "url": "https://www.poder360.com.br/poder-eleicoes-2026/lula-tem-471-contra-426-de-flavio-no-2o-turno-diz-pesquisa/",
+      "publisher": "Poder360/UOL/Estadao/Bloomberg 31/08",
+      "publishedAt": "2026-08-31",
+      "capturedAt": "2026-08-31T21:50:25.480Z"
+    }
   },
   {
     "id": "nexus-08-31",
@@ -83,7 +90,14 @@
         "bPct": 38
       }
     ],
-    "notes": "CNN/Revista Forum 31/08 · TSE BR-08900/2026 · 12a rodada Nexus/BTG, telefone, n=2005, campo 28-30/08, moe ±2. Vs 24/08: 1T 41x37 → 39x33; Cury 2→11. 2T Lula 46 x Flavio 45 (estavel). Sem 2T Cury. Cenario com Marcal (nao entra no 1T do Radar): Lula 37, Flavio 31, Cury 11, Caiado 6, Marcal 3, Renan 3, Zema 2."
+    "notes": "CNN/Revista Forum 31/08 · TSE BR-08900/2026 · 12a rodada Nexus/BTG, telefone, n=2005, campo 28-30/08, moe ±2. Vs 24/08: 1T 41x37 → 39x33; Cury 2→11. 2T Lula 46 x Flavio 45 (estavel). Sem 2T Cury. Cenario com Marcal (nao entra no 1T do Radar): Lula 37, Flavio 31, Cury 11, Caiado 6, Marcal 3, Renan 3, Zema 2.",
+    "source": {
+      "tseProtocol": "BR-08900/2026",
+      "url": null,
+      "publisher": "CNN/Revista Forum 31/08",
+      "publishedAt": "2026-08-31",
+      "capturedAt": "2026-08-31T21:50:25.480Z"
+    }
   },
   {
     "id": "vox-08-29",
@@ -97,7 +111,7 @@
     "firstRound": {
       "lula": 37.1,
       "flavio": 34.8,
-      "caiado": 5.0,
+      "caiado": 5,
       "renan": 3.3,
       "zema": 2.8,
       "cury": 2.6
@@ -120,7 +134,14 @@
         "bPct": 41.1
       }
     ],
-    "notes": "Exame/CNN/Poder360 29/08 · presencial 25-27/08 · n=2.100 · TSE BR-05519/2026. 1º 37,1×34,8 (empate técnico ±2,15). 2º Flávio 45,1×44,5. Marçal 2% (não entra como chave). vs julho Vox: 1º 40,5×31,2."
+    "notes": "Exame/CNN/Poder360 29/08 · presencial 25-27/08 · n=2.100 · TSE BR-05519/2026. 1º 37,1×34,8 (empate técnico ±2,15). 2º Flávio 45,1×44,5. Marçal 2% (não entra como chave). vs julho Vox: 1º 40,5×31,2.",
+    "source": {
+      "tseProtocol": "BR-05519/2026",
+      "url": null,
+      "publisher": "Exame/CNN/Poder360 29/08",
+      "publishedAt": "2026-08-29",
+      "capturedAt": "2026-08-31T21:50:25.480Z"
+    }
   },
   {
     "id": "indexa-broadcast-08-26",
@@ -143,7 +164,14 @@
       "lula": 46,
       "flavio": 41
     },
-    "notes": "Estadão/CNN 26/08 · telefone 20-23/08 · n=2.000 · TSE BR-06366/2026. Cenário principal sem Marçal: 39×34. Com Marçal: 39×33 e Marçal 2%. 2º 46×41. vs julho Indexa: 1º 41×30; 2º Lula 46 estável, Flávio 39→41."
+    "notes": "Estadão/CNN 26/08 · telefone 20-23/08 · n=2.000 · TSE BR-06366/2026. Cenário principal sem Marçal: 39×34. Com Marçal: 39×33 e Marçal 2%. 2º 46×41. vs julho Indexa: 1º 41×30; 2º Lula 46 estável, Flávio 39→41.",
+    "source": {
+      "tseProtocol": "BR-06366/2026",
+      "url": null,
+      "publisher": "Estadão/CNN 26/08",
+      "publishedAt": "2026-08-26",
+      "capturedAt": "2026-08-31T21:50:25.480Z"
+    }
   },
   {
     "id": "rtbd-pr-08-28",
@@ -163,7 +191,14 @@
       "lula": 34,
       "flavio": 52
     },
-    "notes": "Poder360 28/08 · TSE BR-07171/2026 · PR · 24-27/08 · n=1.600. 1º Flávio 44×30. 2º 52×34. Fora do agregador nacional."
+    "notes": "Poder360 28/08 · TSE BR-07171/2026 · PR · 24-27/08 · n=1.600. 1º Flávio 44×30. 2º 52×34. Fora do agregador nacional.",
+    "source": {
+      "tseProtocol": "BR-07171/2026",
+      "url": null,
+      "publisher": "Poder360 28/08",
+      "publishedAt": "2026-08-28",
+      "capturedAt": "2026-08-31T21:50:25.480Z"
+    }
   },
   {
     "id": "gerp-08-26",
@@ -182,7 +217,14 @@
       "lula": 42,
       "flavio": 47
     },
-    "notes": "CNN 26/08 · telefone 21–25/08 · n=2.400 · TSE BR-03547/2026. vs 11/08: 1º 38×38 → 38×37 (F numérico); 2º 45×43 → 47×42 (F +5, fora da margem). House-effect pró-Flávio no modelo."
+    "notes": "CNN 26/08 · telefone 21–25/08 · n=2.400 · TSE BR-03547/2026. vs 11/08: 1º 38×38 → 38×37 (F numérico); 2º 45×43 → 47×42 (F +5, fora da margem). House-effect pró-Flávio no modelo.",
+    "source": {
+      "tseProtocol": "BR-03547/2026",
+      "url": null,
+      "publisher": "CNN 26/08",
+      "publishedAt": "2026-08-26",
+      "capturedAt": "2026-08-31T21:50:25.480Z"
+    }
   },
   {
     "id": "poderdata-08-27",
@@ -225,7 +267,14 @@
         "aPct": 44,
         "bPct": 37
       }
-    ]
+    ],
+    "source": {
+      "tseProtocol": "BR-04974/2026",
+      "url": null,
+      "publisher": "Poder360 27/08",
+      "publishedAt": "2026-08-27",
+      "capturedAt": "2026-08-31T21:50:25.480Z"
+    }
   },
   {
     "id": "quaest-ba-08-27",
@@ -244,7 +293,14 @@
       "renan": 1,
       "zema": 1
     },
-    "notes": "Poder360 · TSE BA-06206/2026 · 23–26/08. Sem Marçal. Gov apr. 59%."
+    "notes": "Poder360 · TSE BA-06206/2026 · 23–26/08. Sem Marçal. Gov apr. 59%.",
+    "source": {
+      "tseProtocol": "BA-06206/2026",
+      "url": null,
+      "publisher": "Poder360",
+      "publishedAt": "2026-08-27",
+      "capturedAt": "2026-08-31T21:50:25.480Z"
+    }
   },
   {
     "id": "rtbd-ba-08-11",
@@ -264,7 +320,14 @@
       "lula": 59,
       "flavio": 30
     },
-    "notes": "CartaCapital · 2º 59×30. 1º alinhado à Quaest 27/08."
+    "notes": "CartaCapital · 2º 59×30. 1º alinhado à Quaest 27/08.",
+    "source": {
+      "tseProtocol": null,
+      "url": null,
+      "publisher": "CartaCapital",
+      "publishedAt": "2026-08-11",
+      "capturedAt": "2026-08-31T21:50:25.480Z"
+    }
   },
   {
     "id": "datafolha-mg-08-21",
@@ -284,7 +347,14 @@
       "lula": 46,
       "flavio": 42
     },
-    "notes": "Poder360 · 2º Lula 46×42. 1º mais Lula que Quaest 25/08."
+    "notes": "Poder360 · 2º Lula 46×42. 1º mais Lula que Quaest 25/08.",
+    "source": {
+      "tseProtocol": null,
+      "url": null,
+      "publisher": "Poder360",
+      "publishedAt": "2026-08-21",
+      "capturedAt": "2026-08-31T21:50:25.480Z"
+    }
   },
   {
     "id": "datafolha-sp-08-22",
@@ -308,7 +378,14 @@
       "flavio": 47,
       "lula": 42
     },
-    "notes": "G1 22/08 · TSE SP-01806/2026 BR-07185/2026 · n=1610 presencial 18-19/08 · cenario sem Marcal (G1 principal). Cenario com Marcal: Flavio 35, Lula 34, Marcal 4. Nao inventado."
+    "notes": "G1 22/08 · TSE SP-01806/2026 BR-07185/2026 · n=1610 presencial 18-19/08 · cenario sem Marcal (G1 principal). Cenario com Marcal: Flavio 35, Lula 34, Marcal 4. Nao inventado.",
+    "source": {
+      "tseProtocol": "SP-01806/2026",
+      "url": null,
+      "publisher": "G1 22/08",
+      "publishedAt": "2026-08-22",
+      "capturedAt": "2026-08-31T21:50:25.480Z"
+    }
   },
   {
     "id": "quaest-go-jul",
@@ -329,7 +406,14 @@
       "lula": 35,
       "flavio": 47
     },
-    "notes": "CartaCapital · Caiado 33 no 1º. 2º F 47×35."
+    "notes": "CartaCapital · Caiado 33 no 1º. 2º F 47×35.",
+    "source": {
+      "tseProtocol": null,
+      "url": null,
+      "publisher": "CartaCapital",
+      "publishedAt": "2026-07-30",
+      "capturedAt": "2026-08-31T21:50:25.480Z"
+    }
   },
   {
     "id": "quaest-es-jul",
@@ -349,7 +433,14 @@
       "lula": 36,
       "flavio": 42
     },
-    "notes": "CartaCapital · 2º F 42×36."
+    "notes": "CartaCapital · 2º F 42×36.",
+    "source": {
+      "tseProtocol": null,
+      "url": null,
+      "publisher": "CartaCapital",
+      "publishedAt": "2026-07-17",
+      "capturedAt": "2026-08-31T21:50:25.480Z"
+    }
   },
   {
     "id": "quaest-go-08-27",
@@ -366,7 +457,14 @@
       "flavio": 27,
       "caiado": 32
     },
-    "notes": "Caiado lidera 1º (~32%). L×F 20×27."
+    "notes": "Caiado lidera 1º (~32%). L×F 20×27.",
+    "source": {
+      "tseProtocol": null,
+      "url": null,
+      "publisher": "Caiado lidera 1º (~32%). L×F 20×27.",
+      "publishedAt": "2026-08-27",
+      "capturedAt": "2026-08-31T21:50:25.480Z"
+    }
   },
   {
     "id": "quaest-rr-08-26",
@@ -382,7 +480,14 @@
       "lula": 17,
       "flavio": 52
     },
-    "notes": "Intenção total 52×17. Válidos ~63×21 Flávio."
+    "notes": "Intenção total 52×17. Válidos ~63×21 Flávio.",
+    "source": {
+      "tseProtocol": null,
+      "url": null,
+      "publisher": "Intenção total 52×17. Válidos ~63×21 Flávio.",
+      "publishedAt": "2026-08-26",
+      "capturedAt": "2026-08-31T21:50:25.480Z"
+    }
   },
   {
     "id": "quaest-ac-08-26",
@@ -397,6 +502,13 @@
     "firstRound": {
       "lula": 25,
       "flavio": 42
+    },
+    "source": {
+      "tseProtocol": null,
+      "url": null,
+      "publisher": "Quaest",
+      "publishedAt": "2026-08-26",
+      "capturedAt": "2026-08-31T21:50:25.480Z"
     }
   },
   {
@@ -412,6 +524,13 @@
     "firstRound": {
       "lula": 30,
       "flavio": 37
+    },
+    "source": {
+      "tseProtocol": null,
+      "url": null,
+      "publisher": "Quaest",
+      "publishedAt": "2026-08-26",
+      "capturedAt": "2026-08-31T21:50:25.480Z"
     }
   },
   {
@@ -427,6 +546,13 @@
     "firstRound": {
       "lula": 53,
       "flavio": 19
+    },
+    "source": {
+      "tseProtocol": null,
+      "url": null,
+      "publisher": "Quaest",
+      "publishedAt": "2026-08-26",
+      "capturedAt": "2026-08-31T21:50:25.480Z"
     }
   },
   {
@@ -443,7 +569,14 @@
       "lula": 60,
       "flavio": 19
     },
-    "notes": "Folha · Piauí · Lula 60 × Flávio 19."
+    "notes": "Folha · Piauí · Lula 60 × Flávio 19.",
+    "source": {
+      "tseProtocol": null,
+      "url": null,
+      "publisher": "Folha",
+      "publishedAt": "2026-08-25",
+      "capturedAt": "2026-08-31T21:50:25.480Z"
+    }
   },
   {
     "id": "rtbd-ce-08-20",
@@ -466,7 +599,14 @@
       "lula": 66,
       "flavio": 27
     },
-    "notes": "Exame · 15–19/08 · n=1.600. Gov apr. 67%."
+    "notes": "Exame · 15–19/08 · n=1.600. Gov apr. 67%.",
+    "source": {
+      "tseProtocol": null,
+      "url": null,
+      "publisher": "Exame",
+      "publishedAt": "2026-08-20",
+      "capturedAt": "2026-08-31T21:50:25.480Z"
+    }
   },
   {
     "id": "rtbd-pa-08-04",
@@ -482,7 +622,14 @@
       "lula": 43,
       "flavio": 33
     },
-    "notes": "Exame · campo início de ago. Sem Quaest na rodada 20–26."
+    "notes": "Exame · campo início de ago. Sem Quaest na rodada 20–26.",
+    "source": {
+      "tseProtocol": null,
+      "url": null,
+      "publisher": "Exame",
+      "publishedAt": "2026-08-04",
+      "capturedAt": "2026-08-31T21:50:25.480Z"
+    }
   },
   {
     "id": "nexus-08-24",
@@ -505,7 +652,14 @@
       "lula": 46,
       "flavio": 45
     },
-    "notes": "UOL 24/08 · telefone. vs 17/08: 1º 41×36 → 41×37; 2º 47×44 → 46×45. Empate técnico no 2º (1 pp, ±2). Pós-início de campanha. Cury 2% na tabela (nao omitir como 0)."
+    "notes": "UOL 24/08 · telefone. vs 17/08: 1º 41×36 → 41×37; 2º 47×44 → 46×45. Empate técnico no 2º (1 pp, ±2). Pós-início de campanha. Cury 2% na tabela (nao omitir como 0).",
+    "source": {
+      "tseProtocol": null,
+      "url": null,
+      "publisher": "UOL 24/08",
+      "publishedAt": "2026-08-24",
+      "capturedAt": "2026-08-31T21:50:25.480Z"
+    }
   },
   {
     "id": "quaest-sp-08-25",
@@ -524,7 +678,14 @@
       "zema": 3,
       "renan": 3
     },
-    "notes": "G1 25/08 · maior colégio. Empate técnico. Flávio 30 × Lula 29."
+    "notes": "G1 25/08 · maior colégio. Empate técnico. Flávio 30 × Lula 29.",
+    "source": {
+      "tseProtocol": null,
+      "url": null,
+      "publisher": "G1 25/08",
+      "publishedAt": "2026-08-25",
+      "capturedAt": "2026-08-31T21:50:25.480Z"
+    }
   },
   {
     "id": "quaest-mg-08-25",
@@ -543,7 +704,14 @@
       "caiado": 3,
       "renan": 3
     },
-    "notes": "G1 25/08 · 2º colégio. Empate. Flávio 31 × Lula 30. Zema 7."
+    "notes": "G1 25/08 · 2º colégio. Empate. Flávio 31 × Lula 30. Zema 7.",
+    "source": {
+      "tseProtocol": null,
+      "url": null,
+      "publisher": "G1 25/08",
+      "publishedAt": "2026-08-25",
+      "capturedAt": "2026-08-31T21:50:25.480Z"
+    }
   },
   {
     "id": "quaest-rj-08-25",
@@ -559,7 +727,14 @@
       "lula": 29,
       "flavio": 31
     },
-    "notes": "G1 26/08 · 3º colégio. Empate. Flávio 31 × Lula 29."
+    "notes": "G1 26/08 · 3º colégio. Empate. Flávio 31 × Lula 29.",
+    "source": {
+      "tseProtocol": null,
+      "url": null,
+      "publisher": "G1 26/08",
+      "publishedAt": "2026-08-25",
+      "capturedAt": "2026-08-31T21:50:25.480Z"
+    }
   },
   {
     "id": "rtbd-rs-08-25",
@@ -580,7 +755,14 @@
       "lula": 42,
       "flavio": 52
     },
-    "notes": "CNN 25/08 · TSE BR-02823/2026 · RS · 20–24/08 · n=1.600. 1º empate 40×39. 2º Flávio 52×42. Marçal 5%. Fora do agregador nacional."
+    "notes": "CNN 25/08 · TSE BR-02823/2026 · RS · 20–24/08 · n=1.600. 1º empate 40×39. 2º Flávio 52×42. Marçal 5%. Fora do agregador nacional.",
+    "source": {
+      "tseProtocol": "BR-02823/2026",
+      "url": null,
+      "publisher": "CNN 25/08",
+      "publishedAt": "2026-08-25",
+      "capturedAt": "2026-08-31T21:50:25.480Z"
+    }
   },
   {
     "id": "quaest-sc-08-24",
@@ -596,7 +778,14 @@
       "lula": 20,
       "flavio": 45
     },
-    "notes": "G1 25/08 · SC · 20–23/08. Flávio 45 × Lula 20. Fora do nacional."
+    "notes": "G1 25/08 · SC · 20–23/08. Flávio 45 × Lula 20. Fora do nacional.",
+    "source": {
+      "tseProtocol": null,
+      "url": null,
+      "publisher": "G1 25/08",
+      "publishedAt": "2026-08-24",
+      "capturedAt": "2026-08-31T21:50:25.480Z"
+    }
   },
   {
     "id": "quaest-pr-08-24",
@@ -612,7 +801,14 @@
       "lula": 23,
       "flavio": 41
     },
-    "notes": "G1 25/08 · PR · 20–23/08. Flávio 41 × Lula 23. Confirma RTBD PR."
+    "notes": "G1 25/08 · PR · 20–23/08. Flávio 41 × Lula 23. Confirma RTBD PR.",
+    "source": {
+      "tseProtocol": null,
+      "url": null,
+      "publisher": "G1 25/08",
+      "publishedAt": "2026-08-24",
+      "capturedAt": "2026-08-31T21:50:25.480Z"
+    }
   },
   {
     "id": "quaest-rs-08-24",
@@ -628,7 +824,14 @@
       "lula": 28,
       "flavio": 34
     },
-    "notes": "G1 25/08 · RS · 20–23/08. Flávio 34 × Lula 28 (mais conservadora que RTBD 40×39)."
+    "notes": "G1 25/08 · RS · 20–23/08. Flávio 34 × Lula 28 (mais conservadora que RTBD 40×39).",
+    "source": {
+      "tseProtocol": null,
+      "url": null,
+      "publisher": "G1 25/08",
+      "publishedAt": "2026-08-24",
+      "capturedAt": "2026-08-31T21:50:25.480Z"
+    }
   },
   {
     "id": "datafolha-08-21",
@@ -671,7 +874,14 @@
         "aPct": 47,
         "bPct": 37
       }
-    ]
+    ],
+    "source": {
+      "tseProtocol": "BR-04496/2026",
+      "url": null,
+      "publisher": "TSE BR-04496/2026",
+      "publishedAt": "2026-08-21",
+      "capturedAt": "2026-08-31T21:50:25.480Z"
+    }
   },
   {
     "id": "verita-08-21",
@@ -693,7 +903,14 @@
       "lula": 42,
       "flavio": 47.3
     },
-    "notes": "TSE BR-04006/2026 · 16–20/08 · n=3.840. 1º com Marçal 5,2% (L 39,3 × F 39,1). 2º F 47,3 × L 42,0. Marçal×Lula 43,6×42,7 (empate). Casa com house-effect pró-Flávio no modelo."
+    "notes": "TSE BR-04006/2026 · 16–20/08 · n=3.840. 1º com Marçal 5,2% (L 39,3 × F 39,1). 2º F 47,3 × L 42,0. Marçal×Lula 43,6×42,7 (empate). Casa com house-effect pró-Flávio no modelo.",
+    "source": {
+      "tseProtocol": "BR-04006/2026",
+      "url": null,
+      "publisher": "TSE BR-04006/2026",
+      "publishedAt": "2026-08-21",
+      "capturedAt": "2026-08-31T21:50:25.480Z"
+    }
   },
   {
     "id": "nexus-btg-08-17",
@@ -715,7 +932,14 @@
       "lula": 47,
       "flavio": 44
     },
-    "notes": "10ª rodada BTG · telefone 14–16/08. vs 10/08: 1º 40×35 → 41×36; 2º 47×44 estável. Empate técnico. 78% já decididos. Rejeição L 49% / F ~50%."
+    "notes": "10ª rodada BTG · telefone 14–16/08. vs 10/08: 1º 40×35 → 41×36; 2º 47×44 estável. Empate técnico. 78% já decididos. Rejeição L 49% / F ~50%.",
+    "source": {
+      "tseProtocol": null,
+      "url": null,
+      "publisher": "10ª rodada BTG",
+      "publishedAt": "2026-08-17",
+      "capturedAt": "2026-08-31T21:50:25.480Z"
+    }
   },
   {
     "id": "rtbd-pr-08-18",
@@ -735,7 +959,14 @@
       "lula": 35,
       "flavio": 52
     },
-    "notes": "TSE BR-09275/2026 · PR · 13–17/08. Rejeição L 56% / F 38%. Gov 35×62. Fora do agregador nacional."
+    "notes": "TSE BR-09275/2026 · PR · 13–17/08. Rejeição L 56% / F 38%. Gov 35×62. Fora do agregador nacional.",
+    "source": {
+      "tseProtocol": "BR-09275/2026",
+      "url": null,
+      "publisher": "TSE BR-09275/2026",
+      "publishedAt": "2026-08-18",
+      "capturedAt": "2026-08-31T21:50:25.480Z"
+    }
   },
   {
     "id": "vox-abc-08-16",
@@ -755,7 +986,14 @@
       "zema": 4.3,
       "caiado": 4.1
     },
-    "notes": "Só ABC paulista (7 cidades) — NÃO entra no agregador de SP."
+    "notes": "Só ABC paulista (7 cidades) — NÃO entra no agregador de SP.",
+    "source": {
+      "tseProtocol": null,
+      "url": null,
+      "publisher": "Só ABC paulista (7 cidades) — NÃO entra no agregador de SP.",
+      "publishedAt": "2026-08-16",
+      "capturedAt": "2026-08-31T21:50:25.480Z"
+    }
   },
   {
     "id": "quaest-08-14",
@@ -798,7 +1036,14 @@
         "aPct": 45,
         "bPct": 34
       }
-    ]
+    ],
+    "source": {
+      "tseProtocol": "BR-06773/2026",
+      "url": null,
+      "publisher": "TSE BR-06773/2026",
+      "publishedAt": "2026-08-14",
+      "capturedAt": "2026-08-31T21:50:25.480Z"
+    }
   },
   {
     "id": "american-analytics-sp-08-13",
@@ -821,7 +1066,14 @@
       "lula": 41,
       "flavio": 46
     },
-    "notes": "TSE BR-03025/2026 · SP · 4–8/08. 2º válidos 47×53."
+    "notes": "TSE BR-03025/2026 · SP · 4–8/08. 2º válidos 47×53.",
+    "source": {
+      "tseProtocol": "BR-03025/2026",
+      "url": null,
+      "publisher": "TSE BR-03025/2026",
+      "publishedAt": "2026-08-13",
+      "capturedAt": "2026-08-31T21:50:25.480Z"
+    }
   },
   {
     "id": "atlas-ce-08-13",
@@ -844,7 +1096,14 @@
       "lula": 60.6,
       "flavio": 31.8
     },
-    "notes": "TSE BR-08314/2026 · CE · 6–11/08. 2º válidos 65,6×34,4."
+    "notes": "TSE BR-08314/2026 · CE · 6–11/08. 2º válidos 65,6×34,4.",
+    "source": {
+      "tseProtocol": "BR-08314/2026",
+      "url": null,
+      "publisher": "TSE BR-08314/2026",
+      "publishedAt": "2026-08-13",
+      "capturedAt": "2026-08-31T21:50:25.480Z"
+    }
   },
   {
     "id": "poder-aya-08-13",
@@ -866,7 +1125,14 @@
       "lula": 46,
       "flavio": 45
     },
-    "notes": "TSE BR-06868/2026 · telefone/URA · 9–12/08. 2º: Flávio +2 vs fim de jul (46×43). Válidos ~51×49."
+    "notes": "TSE BR-06868/2026 · telefone/URA · 9–12/08. 2º: Flávio +2 vs fim de jul (46×43). Válidos ~51×49.",
+    "source": {
+      "tseProtocol": "BR-06868/2026",
+      "url": null,
+      "publisher": "TSE BR-06868/2026",
+      "publishedAt": "2026-08-13",
+      "capturedAt": "2026-08-31T21:50:25.480Z"
+    }
   },
   {
     "id": "cnt-mda-08-11",
@@ -888,7 +1154,14 @@
       "lula": 48,
       "flavio": 39.1
     },
-    "notes": "TSE BR-06935/2026 · presencial. 1º gap ~13,7 pp; 2º Flávio +2,1 / Lula −1,3 vs junho."
+    "notes": "TSE BR-06935/2026 · presencial. 1º gap ~13,7 pp; 2º Flávio +2,1 / Lula −1,3 vs junho.",
+    "source": {
+      "tseProtocol": "BR-06935/2026",
+      "url": null,
+      "publisher": "TSE BR-06935/2026",
+      "publishedAt": "2026-08-11",
+      "capturedAt": "2026-08-31T21:50:25.480Z"
+    }
   },
   {
     "id": "futura-apex-08-11",
@@ -910,7 +1183,14 @@
       "lula": 46.5,
       "flavio": 44
     },
-    "notes": "TSE BR-08109/2026 · campo 3–7/08. 2º válidos 51,4×48,6. vs jul: Flávio −2,1 no 2º."
+    "notes": "TSE BR-08109/2026 · campo 3–7/08. 2º válidos 51,4×48,6. vs jul: Flávio −2,1 no 2º.",
+    "source": {
+      "tseProtocol": "BR-08109/2026",
+      "url": null,
+      "publisher": "TSE BR-08109/2026",
+      "publishedAt": "2026-08-11",
+      "capturedAt": "2026-08-31T21:50:25.480Z"
+    }
   },
   {
     "id": "gerp-08-11",
@@ -929,7 +1209,14 @@
       "lula": 43,
       "flavio": 45
     },
-    "notes": "Remoto. Rejeição Lula 48% / Flávio 44%. Governo desapr. 53%."
+    "notes": "Remoto. Rejeição Lula 48% / Flávio 44%. Governo desapr. 53%.",
+    "source": {
+      "tseProtocol": null,
+      "url": null,
+      "publisher": "Remoto. Rejeição Lula 48% / Flávio 44%. Governo desapr. 53%.",
+      "publishedAt": "2026-08-11",
+      "capturedAt": "2026-08-31T21:50:25.480Z"
+    }
   },
   {
     "id": "palver-08-10",
@@ -951,7 +1238,14 @@
       "lula": 46,
       "flavio": 46
     },
-    "notes": "Online / redes; Renan inflado vs presencial."
+    "notes": "Online / redes; Renan inflado vs presencial.",
+    "source": {
+      "tseProtocol": null,
+      "url": null,
+      "publisher": "Online / redes; Renan inflado vs presencial.",
+      "publishedAt": "2026-08-10",
+      "capturedAt": "2026-08-31T21:50:25.480Z"
+    }
   },
   {
     "id": "nexus-btg-08-10",
@@ -973,7 +1267,14 @@
       "lula": 47,
       "flavio": 44
     },
-    "notes": "Telefone 7–9/08. Same-house da 17/08."
+    "notes": "Telefone 7–9/08. Same-house da 17/08.",
+    "source": {
+      "tseProtocol": null,
+      "url": null,
+      "publisher": "Telefone 7–9/08. Same-house da 17/08.",
+      "publishedAt": "2026-08-10",
+      "capturedAt": "2026-08-31T21:50:25.480Z"
+    }
   },
   {
     "id": "ideia-sp-08",
@@ -996,7 +1297,14 @@
       "lula": 39,
       "flavio": 44
     },
-    "notes": "Estadual SP — fora do agregador nacional."
+    "notes": "Estadual SP — fora do agregador nacional.",
+    "source": {
+      "tseProtocol": null,
+      "url": null,
+      "publisher": "Estadual SP — fora do agregador nacional.",
+      "publishedAt": "2026-08-08",
+      "capturedAt": "2026-08-31T21:50:25.480Z"
+    }
   },
   {
     "id": "quaest-08-05",
@@ -1039,7 +1347,14 @@
         "bPct": 34
       }
     ],
-    "notes": "2T extra: pares Lula×Caiado/Renan/Zema das tabelas da casa. Cury 1% na tabela (nao omitir como 0)."
+    "notes": "2T extra: pares Lula×Caiado/Renan/Zema das tabelas da casa. Cury 1% na tabela (nao omitir como 0).",
+    "source": {
+      "tseProtocol": null,
+      "url": null,
+      "publisher": "2T extra: pares Lula×Caiado/Renan/Zema das tabelas da casa. Cury 1% na tabela (nao omitir como 0).",
+      "publishedAt": "2026-08-05",
+      "capturedAt": "2026-08-31T21:50:25.480Z"
+    }
   },
   {
     "id": "meio-ideia-08",
@@ -1060,6 +1375,13 @@
     "secondRound": {
       "lula": 48,
       "flavio": 42.5
+    },
+    "source": {
+      "tseProtocol": null,
+      "url": null,
+      "publisher": "Meio/Ideia",
+      "publishedAt": "2026-08-04",
+      "capturedAt": "2026-08-31T21:50:25.480Z"
     }
   },
   {
@@ -1082,7 +1404,14 @@
       "lula": 46,
       "flavio": 42
     },
-    "notes": "Rodada anterior BTG (≈ Veja: Flávio 33→37)."
+    "notes": "Rodada anterior BTG (≈ Veja: Flávio 33→37).",
+    "source": {
+      "tseProtocol": null,
+      "url": null,
+      "publisher": "Rodada anterior BTG (≈ Veja: Flávio 33→37).",
+      "publishedAt": "2026-07-25",
+      "capturedAt": "2026-08-31T21:50:25.480Z"
+    }
   },
   {
     "id": "futura-apex-07",
@@ -1104,7 +1433,14 @@
       "lula": 46.3,
       "flavio": 46.1
     },
-    "notes": "Anterior Futura (BR-07294/2026). 2º reconstruído a partir dos Δ oficiais ago."
+    "notes": "Anterior Futura (BR-07294/2026). 2º reconstruído a partir dos Δ oficiais ago.",
+    "source": {
+      "tseProtocol": "BR-07294/2026",
+      "url": null,
+      "publisher": "Anterior Futura (BR-07294/2026). 2º reconstruído a partir dos Δ oficiais ago.",
+      "publishedAt": "2026-07-12",
+      "capturedAt": "2026-08-31T21:50:25.480Z"
+    }
   },
   {
     "id": "quaest-07",
@@ -1146,7 +1482,14 @@
         "bPct": 35
       }
     ],
-    "notes": "2T extra: pares Lula×Caiado/Renan/Zema das tabelas da casa."
+    "notes": "2T extra: pares Lula×Caiado/Renan/Zema das tabelas da casa.",
+    "source": {
+      "tseProtocol": null,
+      "url": null,
+      "publisher": "2T extra: pares Lula×Caiado/Renan/Zema das tabelas da casa.",
+      "publishedAt": "2026-07-15",
+      "capturedAt": "2026-08-31T21:50:25.480Z"
+    }
   },
   {
     "id": "rtbd-07-21",
@@ -1165,6 +1508,13 @@
     "secondRound": {
       "lula": 45,
       "flavio": 42
+    },
+    "source": {
+      "tseProtocol": null,
+      "url": null,
+      "publisher": "Real Time Big Data",
+      "publishedAt": "2026-07-21",
+      "capturedAt": "2026-08-31T21:50:25.480Z"
     }
   },
   {
@@ -1186,6 +1536,13 @@
     "secondRound": {
       "lula": 48,
       "flavio": 40
+    },
+    "source": {
+      "tseProtocol": null,
+      "url": null,
+      "publisher": "Datafolha",
+      "publishedAt": "2026-06-18",
+      "capturedAt": "2026-08-31T21:50:25.480Z"
     }
   },
   {
@@ -1205,6 +1562,13 @@
     "secondRound": {
       "lula": 46,
       "flavio": 43
+    },
+    "source": {
+      "tseProtocol": "BR-07845/2026",
+      "url": null,
+      "publisher": "TSE BR-07845/2026. 2400 entrevistas. Allowlist poderdata.",
+      "publishedAt": "2026-07-30",
+      "capturedAt": "2026-08-31T21:50:25.480Z"
     }
   },
   {
@@ -1224,6 +1588,13 @@
     "secondRound": {
       "lula": 46,
       "flavio": 43
+    },
+    "source": {
+      "tseProtocol": "BR-05722/2026",
+      "url": null,
+      "publisher": "TSE BR-05722/2026. 2400 entrevistas. Allowlist poderdata.",
+      "publishedAt": "2026-06-25",
+      "capturedAt": "2026-08-31T21:50:25.480Z"
     }
   },
   {
@@ -1244,6 +1615,13 @@
     "secondRound": {
       "lula": 45,
       "flavio": 43
+    },
+    "source": {
+      "tseProtocol": "BR-00059/2026",
+      "url": null,
+      "publisher": "TSE BR-00059/2026. 2400 entrevistas. Allowlist poderdata.",
+      "publishedAt": "2026-07-16",
+      "capturedAt": "2026-08-31T21:50:25.480Z"
     }
   },
   {
@@ -1263,6 +1641,13 @@
     "secondRound": {
       "lula": 47,
       "flavio": 43
+    },
+    "source": {
+      "tseProtocol": "BR-09956/2026",
+      "url": null,
+      "publisher": "TSE BR-09956/2026. 2004 entrevistas. Allowlist datafolha.",
+      "publishedAt": "2026-06-19",
+      "capturedAt": "2026-08-31T21:50:25.480Z"
     }
   },
   {
@@ -1299,6 +1684,13 @@
         "aPct": 48,
         "bPct": 40
       }
-    ]
+    ],
+    "source": {
+      "tseProtocol": "BR-01166/2026",
+      "url": null,
+      "publisher": "TSE BR-01166/2026. 2004 entrevistas. Allowlist datafolha. 2T extra: pares Lula×Caiado/Renan/Zema das tabelas da casa.",
+      "publishedAt": "2026-07-24",
+      "capturedAt": "2026-08-31T21:50:25.480Z"
+    }
   }
 ]
