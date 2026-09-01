@@ -1,5 +1,55 @@
 [
   {
+    "id": "rtbd-09-01",
+    "institute": "Real Time Big Data",
+    "date": "2026-09-01",
+    "fieldEnd": "2026-08-31",
+    "sample": 2000,
+    "moe": 2,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 38,
+      "flavio": 30,
+      "cury": 11,
+      "renan": 7,
+      "caiado": 4,
+      "zema": 2
+    },
+    "secondRound": {
+      "lula": 44,
+      "flavio": 44
+    },
+    "secondPairs": [
+      {
+        "a": "lula",
+        "b": "caiado",
+        "aPct": 43,
+        "bPct": 45
+      },
+      {
+        "a": "lula",
+        "b": "zema",
+        "aPct": 43,
+        "bPct": 40
+      },
+      {
+        "a": "lula",
+        "b": "renan",
+        "aPct": 44,
+        "bPct": 37
+      }
+    ],
+    "notes": "Brasil247/CNN/Itatiaia 01/09 · TSE BR-03490/2026 · telefone, n=2000, campo 27-31/08, moe ±2. Cenario sem Marcal: 1T 38x30, Cury 11 (3a via). 2T Lula 44 x Flavio 44 (empate numerico; vs jul 45x42). Pares: Caiado 45x43, Zema 40x43, Renan 37x44. Com Marcal (nao entra no 1T do Radar): Lula 38, Flavio 29, Cury 10, Renan 6, Caiado 4, Marcal 3, Zema 2.",
+    "source": {
+      "tseProtocol": "BR-03490/2026",
+      "url": "https://www.cnnbrasil.com.br/eleicoes/real-time-big-data-lula-e-flavio-empatam-em-44-no-2o-turno/",
+      "publisher": "Brasil247/CNN/Itatiaia 01/09",
+      "publishedAt": "2026-09-01",
+      "capturedAt": "2026-09-01T13:01:04.558Z"
+    }
+  },
+  {
     "id": "atlas-08-31",
     "institute": "AtlasIntel/Bloomberg",
     "date": "2026-08-31",
