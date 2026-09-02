@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import {
   CartesianGrid,
   ComposedChart,
@@ -9,8 +9,9 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { ChartTip } from "@/components/chart-tooltip";
-import { CHART } from "@/lib/chart-theme";
+import { SegGroup } from "@/features/radar/map/map-layer-toggle";
+import { CHART, tipStyle } from "@/lib/chart-theme";
+import { fmtNum } from "@/lib/format";
 import { buildNationalTrend, rollingAverage } from "@/lib/forecast/trends";
 import type { ForecastPoll } from "@/lib/forecast/engine";
 
@@ -26,61 +27,62 @@ const XAXIS = {
   tickLine: false,
 };
 
-function PairChart({
-  data,
-  domain,
-}: {
-  data: Record<string, unknown>[];
-  domain: [number, number];
-}) {
+type RoundKey = "1" | "2";
+
+type CurveRow = {
+  label: string;
+  institute: string;
+  published: string;
+  fieldEnd: string;
+  lulaPoll: number | null;
+  flavioPoll: number | null;
+  lulaAvg: number | null;
+  flavioAvg: number | null;
+};
+
+type TipRow = {
+  dataKey?: string | number;
+  value?: number | string;
+  payload?: CurveRow;
+};
+
+function dateBr(iso?: string) {
+  if (!iso || iso.length < 10) return "";
+  return `${iso.slice(8)}/${iso.slice(5, 7)}`;
+}
+
+function CurveTip({ active, payload }: { active?: boolean; payload?: TipRow[] }) {
+  if (!active || !payload?.length) return null;
+  const row = payload[0]?.payload;
+  const pick = (key: keyof CurveRow) => {
+    const hit = payload.find((item) => item.dataKey === key);
+    const raw = Number(hit?.value);
+    return Number.isFinite(raw) ? `${fmtNum(raw)}%` : "n/d";
+  };
   return (
-    <div className="mt-4 h-72 w-full min-w-0 sm:h-80">
-      <ResponsiveContainer width="100%" height="100%">
-        <ComposedChart data={data} margin={{ left: 0, right: 12, top: 8, bottom: 8 }}>
-          <CartesianGrid strokeDasharray="3 3" stroke={CHART.grid} />
-          <XAxis {...XAXIS} />
-          <YAxis
-            domain={domain}
-            tick={{ fill: CHART.axis, fontSize: 12, fontWeight: 500 }}
-            unit="%"
-            width={36}
-            axisLine={false}
-            tickLine={false}
-          />
-          <Tooltip content={ChartTip} cursor={false} />
-          <Legend wrapperStyle={{ color: CHART.fg, fontSize: 12 }} />
-          <Line
-            type="monotone"
-            dataKey="Lula"
-            stroke={CHART.lula}
-            strokeWidth={1.5}
-            strokeOpacity={0.55}
-            dot={{ r: 3, fill: CHART.lula }}
-          />
-          <Line
-            type="monotone"
-            dataKey="Flávio"
-            stroke={CHART.flavio}
-            strokeWidth={1.5}
-            strokeOpacity={0.55}
-            dot={{ r: 3, fill: CHART.flavio }}
-          />
-          <Line
-            type="monotone"
-            dataKey="Lula (média 3)"
-            stroke={CHART.lula}
-            strokeWidth={2.5}
-            dot={false}
-          />
-          <Line
-            type="monotone"
-            dataKey="Flávio (média 3)"
-            stroke={CHART.flavio}
-            strokeWidth={2.5}
-            dot={false}
-          />
-        </ComposedChart>
-      </ResponsiveContainer>
+    <div style={{ ...tipStyle, padding: "10px 12px", minWidth: 196, color: CHART.fg }}>
+      <p className="m-0 text-sm font-semibold" style={{ color: CHART.fg }}>
+        {row?.institute ?? ""} · {dateBr(row?.published)}
+      </p>
+      <p className="m-0 mt-0.5 text-[11px] font-medium text-cream/70">
+        Campo {dateBr(row?.fieldEnd)}
+      </p>
+      <p className="m-0 mt-2.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-gold">
+        Nesta pesquisa
+      </p>
+      <p className="m-0 mt-1 font-mono text-sm tabular-nums">
+        <span style={{ color: CHART.lula }}>Lula {pick("lulaPoll")}</span>
+        <span className="text-cream/35"> · </span>
+        <span style={{ color: CHART.flavio }}>Flávio {pick("flavioPoll")}</span>
+      </p>
+      <p className="m-0 mt-2.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-gold">
+        Média das 3 últimas
+      </p>
+      <p className="m-0 mt-1 font-mono text-sm tabular-nums">
+        <span style={{ color: CHART.lula }}>Lula {pick("lulaAvg")}</span>
+        <span className="text-cream/35"> · </span>
+        <span style={{ color: CHART.flavio }}>Flávio {pick("flavioAvg")}</span>
+      </p>
     </div>
   );
 }
@@ -92,6 +94,7 @@ export function GrowthCurve({
   polls: ForecastPoll[];
   asOf: string;
 }) {
+  const [round, setRound] = useState<RoundKey>("1");
   const { first, second } = useMemo(() => {
     const visible = polls.filter(
       (poll) => poll.national && poll.date <= asOf && poll.fieldEnd <= asOf,
@@ -103,10 +106,10 @@ export function GrowthCurve({
         institute: point.institute,
         published: point.published,
         fieldEnd: point.fieldEnd,
-        Lula: point.lula1,
-        Flávio: point.flavio1,
-        "Lula (média 3)": point.lula1Avg,
-        "Flávio (média 3)": point.flavio1Avg,
+        lulaPoll: point.lula1,
+        flavioPoll: point.flavio1,
+        lulaAvg: point.lula1Avg,
+        flavioAvg: point.flavio1Avg,
       })),
       second: smooth
         .filter((point) => point.lula2 != null && point.flavio2 != null)
@@ -115,36 +118,114 @@ export function GrowthCurve({
           institute: point.institute,
           published: point.published,
           fieldEnd: point.fieldEnd,
-          Lula: point.lula2,
-          Flávio: point.flavio2,
-          "Lula (média 3)": point.lula2Avg,
-          "Flávio (média 3)": point.flavio2Avg,
+          lulaPoll: point.lula2,
+          flavioPoll: point.flavio2,
+          lulaAvg: point.lula2Avg,
+          flavioAvg: point.flavio2Avg,
         })),
     };
   }, [polls, asOf]);
 
   if (first.length < 3) return null;
+  const canSecond = second.length >= 3;
+  const active: RoundKey = round === "2" && canSecond ? "2" : "1";
+  const data = active === "2" ? second : first;
+  const domain: [number, number] = active === "2" ? [35, 52] : [26, 48];
 
   return (
-    <section id="curva" className="mb-6 scroll-mt-24 space-y-4">
+    <section id="curva" className="mb-6 scroll-mt-24">
       <div className="board-card">
-        <p className="kicker">Linha de crescimento</p>
-        <p className="mt-1 font-display text-xl font-semibold">1º turno, Lula × Flávio</p>
-        <p className="mt-1 max-w-xl text-xs font-medium leading-relaxed text-cream/85">
-          Cada ponto é uma pesquisa nacional. A linha grossa é a média das 3 últimas.
-        </p>
-        <PairChart data={first} domain={[26, 48]} />
-      </div>
-      {second.length >= 3 ? (
-        <div className="board-card">
-          <p className="kicker">Linha de crescimento</p>
-          <p className="mt-1 font-display text-xl font-semibold">2º turno, Lula × Flávio</p>
-          <p className="mt-1 max-w-xl text-xs font-medium leading-relaxed text-cream/85">
-            Só as pesquisas que perguntaram o par. Linha grossa = média das 3 últimas com 2º turno.
-          </p>
-          <PairChart data={second} domain={[35, 52]} />
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+          <div>
+            <p className="kicker">Linha de crescimento</p>
+            <p className="mt-1 font-display text-xl font-semibold">
+              {active === "2" ? "2º turno, Lula × Flávio" : "1º turno, Lula × Flávio"}
+            </p>
+            <p className="mt-1 max-w-xl text-xs font-medium leading-relaxed text-cream/85">
+              {active === "2"
+                ? "Só pesquisas que perguntaram o par. Ponto fino = nesta pesquisa. Linha grossa = média das 3 últimas."
+                : "Ponto fino = nesta pesquisa. Linha grossa = média das 3 últimas."}
+            </p>
+          </div>
+          <SegGroup ariaLabel="Turno da curva">
+            <button
+              type="button"
+              className="seg-btn"
+              aria-pressed={active === "1"}
+              onClick={() => setRound("1")}
+            >
+              <span className="seg-label">1º</span>
+              <span className="seg-meta">turno</span>
+            </button>
+            <button
+              type="button"
+              className="seg-btn"
+              aria-pressed={active === "2"}
+              aria-disabled={!canSecond}
+              disabled={!canSecond}
+              onClick={() => canSecond && setRound("2")}
+            >
+              <span className="seg-label">2º</span>
+              <span className="seg-meta">turno</span>
+            </button>
+          </SegGroup>
         </div>
-      ) : null}
+        <div className="mt-4 h-72 w-full min-w-0 sm:h-80">
+          <ResponsiveContainer width="100%" height="100%">
+            <ComposedChart data={data} margin={{ left: 0, right: 12, top: 8, bottom: 8 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke={CHART.grid} />
+              <XAxis {...XAXIS} />
+              <YAxis
+                domain={domain}
+                tick={{ fill: CHART.axis, fontSize: 12, fontWeight: 500 }}
+                unit="%"
+                width={36}
+                axisLine={false}
+                tickLine={false}
+              />
+              <Tooltip content={CurveTip} cursor={false} />
+              <Legend
+                wrapperStyle={{ color: CHART.fg, fontSize: 12 }}
+                formatter={(value) => <span style={{ color: CHART.fg }}>{value}</span>}
+              />
+              <Line
+                type="monotone"
+                dataKey="lulaPoll"
+                name="Lula, pesquisa"
+                stroke={CHART.lula}
+                strokeWidth={1.5}
+                strokeOpacity={0.55}
+                dot={{ r: 3, fill: CHART.lula }}
+              />
+              <Line
+                type="monotone"
+                dataKey="flavioPoll"
+                name="Flávio, pesquisa"
+                stroke={CHART.flavio}
+                strokeWidth={1.5}
+                strokeOpacity={0.55}
+                dot={{ r: 3, fill: CHART.flavio }}
+              />
+              <Line
+                type="monotone"
+                dataKey="lulaAvg"
+                name="Lula, média 3"
+                stroke={CHART.lula}
+                strokeWidth={2.5}
+                dot={false}
+              />
+              <Line
+                type="monotone"
+                dataKey="flavioAvg"
+                name="Flávio, média 3"
+                stroke={CHART.flavio}
+                strokeWidth={2.5}
+                dot={false}
+              />
+            </ComposedChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
     </section>
   );
 }
