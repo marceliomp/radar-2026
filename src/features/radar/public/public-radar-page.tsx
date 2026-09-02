@@ -6,6 +6,7 @@ import { HalfLifeControl } from "@/components/half-life-control";
 import { ShareBar } from "@/components/share-bar";
 import { SiteNav } from "@/components/site-nav";
 import { TightRaces } from "@/components/tight-races";
+import { GrowthCurve } from "@/features/radar/public/growth-curve";
 import { VisitHook } from "@/components/visit-hook";
 import { CANDIDATE_META, polls } from "@/data/polls";
 import { useAsOf } from "@/lib/as-of";
@@ -242,6 +243,7 @@ export function PublicRadarPage() {
         />
         <div className="hook-rail">
           <a href="#novo" className="hook-link">O que entrou</a>
+          <a href="#curva" className="hook-link">A curva</a>
           <a href="#mapa" className="hook-link">E no seu estado?</a>
           <a href="#pares" className="hook-link">Os pares do 2º</a>
           <button type="button" className="hook-link" onClick={() => setHalfLife(halfLife <= 5 ? 40 : 5)}>
@@ -345,6 +347,7 @@ export function PublicRadarPage() {
           </section>
         ) : null}
 
+        <GrowthCurve polls={polls} asOf={asOf} />
         <TightRaces />
         <section id="mapa" className="space-y-3 scroll-mt-24">
           <p className="kicker">Mapa</p>

@@ -45,3 +45,12 @@ test("root shell mounts Vercel Analytics", () => {
   assert.match(text, /<Analytics/);
   assert.match(text, /\/_vercel\/insights\/script\.js/);
 });
+
+test("capa mounts the national growth curve", () => {
+  const page = readFileSync("src/features/radar/public/public-radar-page.tsx", "utf8");
+  const curve = readFileSync("src/features/radar/public/growth-curve.tsx", "utf8");
+  assert.match(page, /GrowthCurve/);
+  assert.match(page, /#curva/);
+  assert.match(curve, /buildNationalTrend/);
+  assert.match(curve, /Lula \(média 3\)/);
+});
