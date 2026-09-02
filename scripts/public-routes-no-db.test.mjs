@@ -100,3 +100,18 @@ test("home curve tooltip uses field range helper", () => {
   assert.match(curve, /fieldRangeLabel/);
   assert.doesNotMatch(curve, /Campo \{dateBr\(row\?\.fieldEnd\)\}/);
 });
+
+test("latest poll is a public ficha without ingest jargon", () => {
+  const page = readFileSync("src/features/radar/public/public-radar-page.tsx", "utf8");
+  assert.match(page, /fieldRangeLabel/);
+  assert.match(page, /source\?\.tseProtocol/);
+  assert.match(page, /pairTightnessLine/);
+  assert.match(page, /<VisitHook/);
+  assert.doesNotMatch(page, /latestNational\.notes/);
+  assert.doesNotMatch(page, /Allowlist/);
+  assert.doesNotMatch(page, /número ainda não extraído/);
+  const visitAt = page.indexOf("<VisitHook");
+  const scoreAt = page.indexOf("hero-score");
+  const mainAt = page.indexOf('id="conteudo"');
+  assert.ok(visitAt > scoreAt && visitAt < mainAt, "visit hook stays on the public hero");
+});

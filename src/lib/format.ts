@@ -75,3 +75,35 @@ export function fieldRangeLabel(start?: string | null, end?: string | null): str
   if (to) return from === to ? to : `até ${to}`;
   return from;
 }
+
+export type PairTightnessKind = "tie" | "inside" | "outside";
+
+/** Aperto do 2º na ficha da casa: percents e moe dela, sem inventar. */
+export function pairTightness(
+  aPct: number,
+  bPct: number,
+  moe: number,
+): { kind: PairTightnessKind; gap: number; leader: "a" | "b" | "tie" } {
+  const gap = round(Math.abs(aPct - bPct), 1);
+  const margin = round(Math.abs(moe), 1);
+  if (gap === 0) return { kind: "tie", gap: 0, leader: "tie" };
+  const leader = aPct >= bPct ? "a" : "b";
+  if (gap <= margin) return { kind: "inside", gap, leader };
+  return { kind: "outside", gap, leader };
+}
+
+export function pairTightnessLine(
+  aName: string,
+  bName: string,
+  aPct: number,
+  bPct: number,
+  moe: number,
+): string {
+  const t = pairTightness(aPct, bPct, moe);
+  const left = `${aName} ${fmtPct(aPct)} × ${bName} ${fmtPct(bPct)}`;
+  if (t.kind === "tie") return `${left}: empate nesta casa.`;
+  const who = t.leader === "a" ? aName : bName;
+  const unit = t.gap === 1 ? "ponto" : "pontos";
+  const where = t.kind === "inside" ? "dentro da margem" : "fora da margem";
+  return `${left}: ${who} com ${fmtNum(t.gap)} ${unit} de vantagem, ${where} de ${fmtNum(moe)}.`;
+}

@@ -22,7 +22,7 @@ import {
   type RunoffKey,
 } from "@/lib/forecast/runoff-scenarios";
 import { bottomUpNational } from "@/lib/forecast/states";
-import { fmtMult, fmtNum, fmtPct, fmtProb, isShownTie, shownGap } from "@/lib/format";
+import { fieldRangeLabel, fmtMult, fmtNum, fmtPct, fmtProb, isShownTie, pairTightnessLine, shownGap } from "@/lib/format";
 import { useHalfLife } from "@/lib/half-life";
 import { fileStamp } from "@/lib/visit-delta";
 import { CHART } from "@/lib/chart-theme";
@@ -225,7 +225,7 @@ export function PublicRadarPage() {
         </div>
         <h1 className="hero-method">
           Chance de ser presidente
-          <span className="hero-method-sub">Não é intenção de voto</span>
+          <span className="hero-method-sub">Simulação do Radar. Não é intenção de voto.</span>
         </h1>
         <div className="hero-score">
           <div className="hero-col hero-col-l">
@@ -310,9 +310,30 @@ export function PublicRadarPage() {
                   <p className="eyebrow">Nova pesquisa</p>
                   <p className="font-display text-xl font-semibold">{latestNational.institute}</p>
                   <p className="text-sm font-medium text-gold">
-                    {latestNational.date.slice(8)}/{latestNational.date.slice(5, 7)} · {latestNational.mode} · n={latestNational.sample.toLocaleString("pt-BR")} · ±{fmtNum(latestNational.moe)} pp
+                    Campo {fieldRangeLabel(latestNational.fieldStart, latestNational.fieldEnd)}
+                    {" · "}
+                    {latestNational.mode}
+                    {" · n="}
+                    {latestNational.sample.toLocaleString("pt-BR")}
+                    {" · ±"}
+                    {fmtNum(latestNational.moe)} pp
                   </p>
-                  {latestNational.notes ? <p className="max-w-xl text-xs font-medium leading-relaxed text-fg">{latestNational.notes}</p> : null}
+                  {latestNational.source?.tseProtocol ? (
+                    <p className="font-mono text-xs font-medium text-cream/80">
+                      TSE {latestNational.source.tseProtocol}
+                    </p>
+                  ) : null}
+                  {latestNational.secondRound?.lula != null && latestNational.secondRound?.flavio != null ? (
+                    <p className="max-w-xl text-sm font-medium leading-relaxed text-cream">
+                      {pairTightnessLine(
+                        "Lula",
+                        "Flávio",
+                        latestNational.secondRound.lula,
+                        latestNational.secondRound.flavio,
+                        latestNational.moe,
+                      )}
+                    </p>
+                  ) : null}
                 </div>
                 <div className="grid gap-6 sm:grid-cols-[minmax(0,16rem)_minmax(0,1fr)]">
                   <div>
