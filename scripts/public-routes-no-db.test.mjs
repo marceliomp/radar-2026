@@ -76,3 +76,21 @@ test("curve key sits above the chart", () => {
   const chartAt = curve.indexOf("<ResponsiveContainer");
   assert.ok(keyAt >= 0 && chartAt >= 0 && keyAt < chartAt, "legend must sit above the chart");
 });
+
+test("public home scan path is chance, intention, news, method", () => {
+  const page = readFileSync("src/features/radar/public/public-radar-page.tsx", "utf8");
+  const nav = readFileSync("src/components/site-nav.tsx", "utf8");
+  const lab = readFileSync("src/features/radar/lab/lab-radar-page.tsx", "utf8");
+  assert.match(nav, /to="\/lab"/);
+  assert.match(nav, />\s*Método\s*</);
+  assert.match(lab, /<SiteNav/);
+  assert.match(page, /id="media"/);
+  assert.match(page, /id="metodo"/);
+  assert.match(page, /Intenção de voto/);
+  const chrome = page.slice(page.indexOf("hero-chrome"), page.indexOf("hero-score"));
+  assert.doesNotMatch(chrome, /HalfLifeControl/);
+  assert.match(page, /<HalfLifeControl/);
+  assert.ok(page.indexOf('id="media"') < page.indexOf('id="novo"'), "intention before latest poll");
+  assert.ok(page.indexOf("GrowthCurve") < page.indexOf('id="mapa"'), "curve before map");
+  assert.ok(page.indexOf('id="mapa"') < page.indexOf('id="metodo"'), "map before method");
+});

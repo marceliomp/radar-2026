@@ -22,6 +22,7 @@ import { trackQuality } from "@/lib/forecast/track-record";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ShareBar } from "@/components/share-bar";
+import { SiteNav } from "@/components/site-nav";
 import {
   FIRST_KEYS,
   FirstRoundField,
@@ -193,9 +194,7 @@ export function LabRadarPage() {
   return (
     <div className="pb-[max(4rem,env(safe-area-inset-bottom))]">
     <div className="page-body mx-auto min-w-0 max-w-6xl overflow-x-clip px-4 pt-5 sm:px-6 sm:pt-8">
-      <p className="mb-4 font-mono text-[11px] uppercase tracking-[0.16em] text-gold">
-        Laboratorio · <a href="/" className="underline">voltar ao Radar</a>
-      </p>
+      <SiteNav className="mb-5" />
       <header className="mb-6 space-y-4">
         <div className="board-split">
           <div className="board-card border-0 sm:border-r sm:border-border">

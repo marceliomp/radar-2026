@@ -184,7 +184,7 @@ function latestPairRows(poll: ForecastPoll) {
 
 export function PublicRadarPage() {
   const [asOf] = useAsOf();
-  const [halfLife, setHalfLife] = useHalfLife();
+  const [halfLife] = useHalfLife();
   const [mapLayer, setMapLayer] = useState<MapLayer>("agg2026");
 
   const config = useMemo<EngineConfig>(() => {
@@ -222,7 +222,6 @@ export function PublicRadarPage() {
             <SiteNav className="min-w-0 flex-1" />
             <span className="hero-badge">Não é pesquisa</span>
           </div>
-          <div className="hl-strip"><HalfLifeControl /></div>
         </div>
         <h1 className="hero-method">
           Chance de ser presidente
@@ -252,18 +251,21 @@ export function PublicRadarPage() {
           newestId={latestNational?.id ?? ""}
         />
         <div className="hook-rail">
+          <a href="#media" className="hook-link">Intenção</a>
           <a href="#novo" className="hook-link">O que entrou</a>
           <a href="#curva" className="hook-link">A curva</a>
-          <a href="#mapa" className="hook-link">E no seu estado?</a>
-          <a href="#pares" className="hook-link">Os pares do 2º</a>
-          <button type="button" className="hook-link" onClick={() => setHalfLife(halfLife <= 5 ? 40 : 5)}>
-            {halfLife <= 5 ? "Período longo" : "Só o recente"}
-          </button>
+          <a href="#mapa" className="hook-link">O mapa</a>
+          <a href="#metodo" className="hook-link">Método</a>
         </div>
       </section>
 
       <main id="conteudo" className="page-body mx-auto min-w-0 max-w-6xl overflow-x-clip px-4 pt-5 sm:px-6 sm:pt-8">
-        <header className="mb-6 space-y-4">
+        <section id="media" className="mb-6 space-y-4 scroll-mt-24">
+          <div className="story-head">
+            <p className="kicker">Média das pesquisas</p>
+            <h2 className="story-title">Intenção de voto</h2>
+            <p className="story-lede">Não é a chance de ganhar. É o que as casas perguntam.</p>
+          </div>
           <div className="board-split">
             <div className="board-card border-0 sm:border-r sm:border-border">
               <p className="kicker">1º turno</p>
@@ -298,16 +300,7 @@ export function PublicRadarPage() {
               pFlavio={probs.flavioWinsElection}
             />
           </div>
-          <div className="chip-row -mx-4 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:flex-wrap sm:px-0">
-            {housesInAverage(rows).slice(0, 6).map((house, index) => (
-              <span key={house.institute} className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-border bg-surface px-3 py-1.5 text-xs font-semibold text-fg">
-                <span className="text-gold">{index + 1}.</span>{house.institute}
-                <span className="tabular-nums text-cream/80">{fmtPct(house.share * 100, 0)} do peso</span>
-                <span className="tabular-nums text-primary">×{fmtMult(house.quality)}</span>
-              </span>
-            ))}
-          </div>
-        </header>
+        </section>
 
         {latestNational ? (
           <section id="novo" className="mb-6">
@@ -360,20 +353,49 @@ export function PublicRadarPage() {
         <GrowthCurve polls={polls} asOf={asOf} />
         <TightRaces />
         <section id="mapa" className="space-y-3 scroll-mt-24">
-          <p className="kicker">Mapa</p>
-          <p className="text-sm font-medium text-cream/85">Clique no estado. Abre governadores.</p>
+          <div className="story-head">
+            <p className="kicker">Território</p>
+            <h2 className="story-title">E no seu estado?</h2>
+            <p className="story-lede">Clique no estado. Abre governadores.</p>
+          </div>
           <MapLayerToggle layer={mapLayer} onChange={setMapLayer} />
           <BrazilMap config={config} layer={mapLayer} />
           <p className="tight-next">
-            <Link to="/lab" className="hook-link">Metodo, pesos e acerto historico</Link>
-            <span className="text-cream/35"> · </span>
             <Link to="/candidatos" search={{ uf: "SP", cargo: "governador", asOf, hl: halfLife }} className="hook-link">
               SP tem 2 casas. Compara.
             </Link>
           </p>
         </section>
+        <section id="metodo" className="mb-6 mt-8 space-y-4 scroll-mt-24">
+          <div className="story-head">
+            <p className="kicker">Método</p>
+            <h2 className="story-title">Como a média pesa</h2>
+            <p className="story-lede">Pesquisas novas pesam mais. O laboratório tem pesos e acerto histórico.</p>
+          </div>
+          <div className="board-card">
+            <HalfLifeControl />
+            <div className="chip-row -mx-4 mt-4 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:flex-wrap sm:px-0">
+              {housesInAverage(rows).slice(0, 6).map((house, index) => (
+                <span key={house.institute} className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-border bg-surface px-3 py-1.5 text-xs font-semibold text-fg">
+                  <span className="text-gold">{index + 1}.</span>{house.institute}
+                  <span className="tabular-nums text-cream/80">{fmtPct(house.share * 100, 0)} do peso</span>
+                  <span className="tabular-nums text-primary">×{fmtMult(house.quality)}</span>
+                </span>
+              ))}
+            </div>
+            <p className="mt-4">
+              <Link to="/lab" className="hook-link">Pesos, acerto histórico e o motor</Link>
+            </p>
+          </div>
+        </section>
         <footer className="mt-10 border-t border-border pt-6 text-center text-xs font-medium text-muted">
-          v3 · portal independente · peso 2014, 2018 e 2022 · não é instituto oficial
+          <nav aria-label="Rodapé" className="mb-3 flex flex-wrap justify-center gap-x-4 gap-y-1">
+            <Link to="/" className="hook-link">Presidente</Link>
+            <Link to="/candidatos" search={{ uf: "SP", cargo: "governador", asOf, hl: halfLife }} className="hook-link">Governadores</Link>
+            <Link to="/candidatos" search={{ uf: "SP", cargo: "senador", asOf, hl: halfLife }} className="hook-link">Senadores</Link>
+            <Link to="/lab" className="hook-link">Método</Link>
+          </nav>
+          <p>v3 · portal independente · peso 2014, 2018 e 2022 · não é instituto oficial</p>
         </footer>
       </main>
     </div>

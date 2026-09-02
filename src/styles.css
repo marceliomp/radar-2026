@@ -425,7 +425,7 @@
 
     .hero-col {
       min-height: 52dvh;
-      padding: 9rem 2rem 7.25rem;
+      padding: 5.5rem 2rem 7.25rem;
     }
 
     .hero-col-l {
@@ -445,7 +445,7 @@
 
     .hero-method {
       position: absolute;
-      top: 9.5rem;
+      top: 4.35rem;
       right: 0;
       bottom: auto;
       left: 0;
@@ -920,6 +920,29 @@
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.45);
   }
 
+  .story-head {
+    margin: 0 0 0.85rem;
+  }
+
+  .story-title {
+    margin: 0.25rem 0 0;
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    color: var(--color-cream);
+    text-wrap: balance;
+  }
+
+  .story-lede {
+    margin: 0.3rem 0 0;
+    max-width: 36rem;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    line-height: 1.45;
+    color: color-mix(in oklab, var(--color-cream) 78%, transparent);
+  }
+
   .kicker,
   .eyebrow {
     font-family: var(--font-sans);
@@ -967,6 +990,10 @@
     line-height: 0.88;
     letter-spacing: -0.04em;
     font-weight: 400;
+  }
+
+  .board-split .matchup-num {
+    font-size: clamp(1.45rem, 4vw, 2.05rem);
   }
 
   .cand-head {

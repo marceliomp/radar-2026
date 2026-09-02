@@ -45,6 +45,7 @@ export function SiteNav({ className }: { className?: string }) {
   const onCandidatos = pathname === "/candidatos";
   const isGov = onCandidatos && search.cargo !== "senador";
   const isSen = onCandidatos && search.cargo === "senador";
+  const isLab = pathname === "/lab";
 
   return (
     <nav className={cn("mast", className)} aria-label="Radar 2026">
@@ -86,6 +87,13 @@ export function SiteNav({ className }: { className?: string }) {
           className={cn(linkClass, isSen ? "mast-link-active" : "mast-link-idle")}
         >
           Senadores
+        </Link>
+        <Link
+          to="/lab"
+          search={(prev) => radarFrom(prev as Record<string, unknown>)}
+          className={cn(linkClass, isLab ? "mast-link-active" : "mast-link-idle")}
+        >
+          Método
         </Link>
       </div>
     </nav>
