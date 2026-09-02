@@ -284,13 +284,18 @@ export function parseAllowlistArticle(html, expectedTse) {
     else if (who.startsWith("cury")) extras.cury = pct;
   }
 
+  const twoT = text.split(/2[oº°]?\s*turno|segundo turno/i).slice(1).join(" ");
+  const twoTClean = twoT.split(/Atlas|PoderData|Datafolha|1[oº°]?\s*turno/i)[0];
   let secondRound;
   const vs2 =
     text.match(
-      /Lula\s+tem\s+(\d{1,2}(?:[.,]\d)?)\s*%[^.]{0,28}contra\s+(\d{1,2}(?:[.,]\d)?)\s*%[^.]{0,28}Fl[aá]vio.{0,80}?2[oº°]?\s*turno/i,
+      /Lula\s+tem\s+(\d{1,2}(?:[.,]\d)?)\s*%[^.]{0,40}(?:no\s+)?2[oº°]?\s*turno[^.]{0,40}Fl[aá]vio,?\s*(\d{1,2}(?:[.,]\d)?)\s*%/i,
     ) ||
     text.match(
-      /2[oº°]?\s*turno.{0,160}?(?:petista|Lula).{0,40}?(\d{1,2}(?:[.,]\d)?)\s*%.{0,80}?(\d{1,2}(?:[.,]\d)?)\s*%/i,
+      /Lula\s+tem\s+(\d{1,2}(?:[.,]\d)?)\s*%[^.]{0,28}contra\s+(\d{1,2}(?:[.,]\d)?)\s*%[^.]{0,28}Fl[aá]vio.{0,80}?2[oº°]?\s*turno/i,
+    ) ||
+    twoTClean.match(
+      /Lula[^0-9]{0,24}(\d{1,2}(?:[.,]\d)?)\s*%[^.]{0,80}Fl[aá]vio[^0-9]{0,24}(\d{1,2}(?:[.,]\d)?)\s*%/i,
     ) ||
     text.match(
       /petista\s+registra\s+(\d{1,2}(?:[.,]\d)?)\s*%.{0,80}?ante\s+(\d{1,2}(?:[.,]\d)?)\s*%/i,
@@ -301,10 +306,8 @@ export function parseAllowlistArticle(html, expectedTse) {
     if (a != null && b != null) secondRound = { lula: a, flavio: b };
   }
   if (!secondRound) {
-    const parts = text.split(/2[oº°]?\s*turno|segundo turno/i);
-    const w2 = parts.slice(1).join(" ");
-    const l2 = pctAfterName(w2, /Lula/i);
-    const f2 = pctAfterName(w2, /Fl[aá]vio(?:\s+Bolsonaro)?/i);
+    const l2 = pctAfterName(twoTClean, /Lula/i);
+    const f2 = pctAfterName(twoTClean, /Fl[aá]vio(?:\s+Bolsonaro)?/i);
     if (l2 != null && f2 != null) secondRound = { lula: l2, flavio: f2 };
   }
 

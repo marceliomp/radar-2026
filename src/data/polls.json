@@ -1764,10 +1764,36 @@
       "publishedAt": "2026-09-02",
       "capturedAt": "2026-09-02T17:36:50.867Z"
     },
-    "notes": "2004 entrevistas. Allowlist quaest.",
+    "notes": "2004 entrevistas. Allowlist quaest. 2T G1 02/09: Lula 42 Flavio 41 (empate tecnico).",
     "secondRound": {
-      "lula": 43.4,
-      "flavio": 33.7
-    }
+      "lula": 42,
+      "flavio": 41
+    },
+    "secondPairs": [
+      {
+        "a": "lula",
+        "b": "caiado",
+        "aPct": 42,
+        "bPct": 37
+      },
+      {
+        "a": "lula",
+        "b": "cury",
+        "aPct": 40,
+        "bPct": 34
+      },
+      {
+        "a": "lula",
+        "b": "renan",
+        "aPct": 43,
+        "bPct": 36
+      },
+      {
+        "a": "lula",
+        "b": "zema",
+        "aPct": 44,
+        "bPct": 33
+      }
+    ]
   }
 ]

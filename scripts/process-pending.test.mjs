@@ -279,3 +279,16 @@ test("unknown sample below 1800 is not national", () => {
   assert.equal(out.report.notNational, 1);
   assert.equal(out.ready.length, 0);
 });
+
+test("2T da Quaest nao copia Atlas 1T de teaser na mesma pagina", () => {
+  const html = `<title>Quaest: Lula tem 37% no 1o turno; Flavio, 30% e Cury, 10%</title>
+  <p>registrada no TSE sob o n. BR-07065/2026. Margem de erro de 2 pontos.</p>
+  <p>Mais Quaest: Lula tem 42% das intencoes de voto no 2o turno; Flavio, 41%</p>
+  <p>Atlas: Lula tem 43,4% no 1o turno; Flavio, 33,7%; Cury, 7,8%</p>`;
+  const parsed = parseAllowlistArticle(html);
+  assert.equal(parsed.tse, "BR-07065/2026");
+  assert.equal(parsed.firstRound.lula, 37);
+  assert.equal(parsed.firstRound.flavio, 30);
+  assert.equal(parsed.secondRound.lula, 42);
+  assert.equal(parsed.secondRound.flavio, 41);
+});
