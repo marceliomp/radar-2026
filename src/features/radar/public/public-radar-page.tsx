@@ -215,6 +215,7 @@ export function PublicRadarPage() {
 
   return (
     <div className="pb-[max(4rem,env(safe-area-inset-bottom))]">
+      <a href="#conteudo" className="skip-link">Ir ao conteúdo</a>
       <section className="hero-mast">
         <div className="hero-chrome">
           <div className="flex min-w-0 items-start justify-between gap-3">
@@ -226,14 +227,20 @@ export function PublicRadarPage() {
         <div className="hero-score">
           <div className="hero-col hero-col-l">
             <p className="hero-kicker" style={{ color: CHART.lula }}>Lula</p>
-            <p className="hero-num" style={{ color: CHART.lula }}>{fmtProb(probs.lulaWinsElection).replace("%", "")}</p>
+            <p className="hero-num" style={{ color: CHART.lula }}>
+              {fmtProb(probs.lulaWinsElection).replace("%", "")}
+              <span className="hero-unit">%</span>
+            </p>
           </div>
           <div className="hero-col hero-col-f">
             <p className="hero-kicker" style={{ color: CHART.flavio }}>Flávio</p>
-            <p className="hero-num" style={{ color: CHART.flavio }}>{fmtProb(probs.flavioWinsElection).replace("%", "")}</p>
+            <p className="hero-num" style={{ color: CHART.flavio }}>
+              {fmtProb(probs.flavioWinsElection).replace("%", "")}
+              <span className="hero-unit">%</span>
+            </p>
           </div>
         </div>
-        <p className="hero-method">1º + 2º nos pares que as casas perguntaram</p>
+        <p className="hero-method">Chance de ser presidente. Não é intenção de voto.</p>
         <p className="hero-fresh">{fileStamp(latestNational)}</p>
         <VisitHook
           pLula={pLula}
@@ -252,7 +259,7 @@ export function PublicRadarPage() {
         </div>
       </section>
 
-      <div className="page-body mx-auto min-w-0 max-w-6xl overflow-x-clip px-4 pt-5 sm:px-6 sm:pt-8">
+      <main id="conteudo" className="page-body mx-auto min-w-0 max-w-6xl overflow-x-clip px-4 pt-5 sm:px-6 sm:pt-8">
         <header className="mb-6 space-y-4">
           <div className="board-split">
             <div className="board-card border-0 sm:border-r sm:border-border">
@@ -365,7 +372,7 @@ export function PublicRadarPage() {
         <footer className="mt-10 border-t border-border pt-6 text-center text-xs font-medium text-muted">
           v3 · portal independente · peso 2014, 2018 e 2022 · não é instituto oficial
         </footer>
-      </div>
+      </main>
     </div>
   );
 }

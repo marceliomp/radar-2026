@@ -57,3 +57,11 @@ test("capa mounts the national growth curve", () => {
   assert.match(curve, /linha: média das 3 últimas/);
   assert.doesNotMatch(curve, /Lula, pesquisa/);
 });
+
+test("hero states chance not vote intention", () => {
+  const page = readFileSync("src/features/radar/public/public-radar-page.tsx", "utf8");
+  assert.match(page, /Chance de ser presidente/);
+  assert.match(page, /Não é intenção de voto/);
+  assert.match(page, /skip-link/);
+  assert.match(page, /id="conteudo"/);
+});
