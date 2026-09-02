@@ -48,6 +48,37 @@ export function promotePoll({ protocol, polls, ready }) {
   };
 }
 
+export function promoteReady({ polls, ready }) {
+  let nextPolls = polls;
+  let nextReady = [...ready];
+  const promoted = [];
+  const failed = [];
+  for (const candidate of ready) {
+    const protocol = candidate.source?.tseProtocol;
+    if (!protocol) {
+      failed.push({ id: candidate.id, error: "sem protocolo TSE" });
+      continue;
+    }
+    try {
+      const out = promotePoll({
+        protocol,
+        polls: nextPolls,
+        ready: nextReady,
+      });
+      nextPolls = out.polls;
+      nextReady = out.ready;
+      promoted.push(out.candidate);
+    } catch (error) {
+      failed.push({
+        id: candidate.id,
+        protocol,
+        error: error instanceof Error ? error.message : String(error),
+      });
+    }
+  }
+  return { polls: nextPolls, ready: nextReady, promoted, failed };
+}
+
 function argValue(name) {
   const index = process.argv.indexOf(name);
   return index >= 0 ? process.argv[index + 1] : null;
@@ -56,14 +87,32 @@ function argValue(name) {
 const isMain = process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1];
 if (isMain) {
   try {
+    const all = process.argv.includes("--all");
     const protocol = argValue("--tse");
-    if (!protocol) throw new Error("uso: npm run polls:promote -- --tse BR-00000/2026");
+    if (!all && !protocol) {
+      throw new Error("uso: npm run polls:promote -- --tse BR-00000/2026  |  --all");
+    }
     const polls = JSON.parse(readFileSync(POLLS_JSON, "utf8"));
     const ready = readJsonl(READY);
-    const promoted = promotePoll({ protocol, polls, ready });
-    atomicWriteJson(POLLS_JSON, promoted.polls);
-    writeJsonlAtomic(READY, promoted.ready);
-    process.stdout.write(`[promote] ${promoted.candidate.id} validada e adicionada a polls.json\n`);
+    if (all) {
+      const out = promoteReady({ polls, ready });
+      if (out.promoted.length) {
+        atomicWriteJson(POLLS_JSON, out.polls);
+        writeJsonlAtomic(READY, out.ready);
+      }
+      for (const row of out.promoted) {
+        process.stdout.write(`[promote] ${row.id} ${row.source?.tseProtocol}\n`);
+      }
+      for (const row of out.failed) {
+        process.stderr.write(`[promote] skip ${row.id ?? row.protocol}: ${row.error}\n`);
+      }
+      process.stdout.write(`[promote] ready ${out.promoted.length} failed ${out.failed.length}\n`);
+    } else {
+      const promoted = promotePoll({ protocol, polls, ready });
+      atomicWriteJson(POLLS_JSON, promoted.polls);
+      writeJsonlAtomic(READY, promoted.ready);
+      process.stdout.write(`[promote] ${promoted.candidate.id} validada e adicionada a polls.json\n`);
+    }
   } catch (error) {
     process.stderr.write(`[promote] ${error instanceof Error ? error.message : error}\n`);
     process.exit(1);

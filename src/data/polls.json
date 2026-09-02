@@ -1769,31 +1769,5 @@
       "lula": 43.4,
       "flavio": 33.7
     }
-  },
-  {
-    "id": "real-time-big-data-08-26-09140",
-    "institute": "Real Time Big Data",
-    "date": "2026-08-26",
-    "fieldEnd": "2026-08-25",
-    "sample": 1600,
-    "moe": 2,
-    "mode": "telefone",
-    "national": true,
-    "firstRound": {
-      "lula": 40,
-      "flavio": 39
-    },
-    "source": {
-      "tseProtocol": "BR-09140/2026",
-      "url": "https://www.cnnbrasil.com.br/eleicoes/real-time-amazonas-no-2o-turno-flavio-tem-43-e-lula-41/",
-      "publisher": "cnnbrasil.com.br",
-      "publishedAt": "2026-08-26",
-      "capturedAt": "2026-09-02T17:36:57.697Z"
-    },
-    "notes": "1600 entrevistas. Allowlist realtime.",
-    "secondRound": {
-      "lula": 41,
-      "flavio": 43
-    }
   }
 ]

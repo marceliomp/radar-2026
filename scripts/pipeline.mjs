@@ -1,18 +1,16 @@
 #!/usr/bin/env node
 /**
- * Pipeline Radar 2026: descobrir protocolos TSE e processar a allowlist.
- * Usado pelo timer systemd e por `npm run polls:pipeline`.
+ * Pipeline Radar 2026: TSE -> allowlist -> promote ready -> git push (Vercel).
  */
 import { spawn } from "node:child_process";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
-const extra = process.argv.slice(2);
 
-function run(script) {
+function run(script, args = []) {
   return new Promise((resolve, reject) => {
-    const child = spawn(process.execPath, [join(ROOT, "scripts", script), ...extra], {
+    const child = spawn(process.execPath, [join(ROOT, "scripts", script), ...args], {
       cwd: ROOT,
       stdio: "inherit",
       env: process.env,
@@ -27,3 +25,5 @@ function run(script) {
 
 await run("ingest-polls.mjs");
 await run("process-pending.mjs");
+await run("promote-poll.mjs", ["--all"]);
+await run("publish-polls.mjs");

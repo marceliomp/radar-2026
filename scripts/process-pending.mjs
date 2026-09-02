@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Processa data/inbox/pending.jsonl contra o CSV TSE e a allowlist
- * (Poder360, G1/Datafolha, CNN/Gerp). Produz propostas em ready.jsonl com
+ * (Poder360, Datafolha, Gerp, RTBD, Atlas, Nexus, Quaest, Vox). Produz ready.jsonl com
  * instituto + campo + n + protocolo TSE + firstRound parseado.
  * Nunca inventa voto e nunca altera a fonte pública polls.json.
  */
@@ -28,7 +28,8 @@ const CKAN_URL =
   process.env.TSE_CKAN_URL ??
   "https://dadosabertos.tse.jus.br/api/3/action/package_show?id=pesquisas-eleitorais-2026";
 const FETCH_MAX_BYTES = 12_000_000;
-const UA = "radar-2026-ingest/1.0";
+const UA =
+  "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36";
 
 export const ALLOWLIST = [
   {
@@ -51,6 +52,36 @@ export const ALLOWLIST = [
     cnpj: "05270800000146",
     nameRe: /\bgerp\b/i,
     sources: ["cnn", "gerp"],
+  },
+  {
+    id: "realtime",
+    institute: "Real Time Big Data",
+    nameRe: /real\s*time\s*big\s*data|\brtbd\b/i,
+    sources: ["cnn", "poder360"],
+  },
+  {
+    id: "atlasintel",
+    institute: "AtlasIntel",
+    nameRe: /atlas\s*intel/i,
+    sources: ["poder360", "bloomberg"],
+  },
+  {
+    id: "nexus",
+    institute: "Nexus/BTG",
+    nameRe: /\bnexus\b/i,
+    sources: ["cnn"],
+  },
+  {
+    id: "quaest",
+    institute: "Quaest",
+    nameRe: /quaest/i,
+    sources: ["g1", "globo"],
+  },
+  {
+    id: "vox",
+    institute: "Vox Brasil",
+    nameRe: /vox\s*brasil/i,
+    sources: ["cnn", "exame"],
   },
 ];
 
@@ -241,7 +272,7 @@ export function parseAllowlistArticle(html, expectedTse) {
 
   const extras = {};
   const extraRe =
-    /(Caiado|Renan(?:\s+Santos)?|Zema)[^0-9]{0,24}(\d{1,2}(?:[.,]\d)?)\s*%/gi;
+    /(Caiado|Renan(?:\s+Santos)?|Zema|Cury)[^0-9]{0,24}(\d{1,2}(?:[.,]\d)?)\s*%/gi;
   let em;
   while ((em = extraRe.exec(w1))) {
     const who = em[1].toLowerCase();
@@ -250,6 +281,7 @@ export function parseAllowlistArticle(html, expectedTse) {
     if (who.startsWith("caiado")) extras.caiado = pct;
     else if (who.startsWith("renan")) extras.renan = pct;
     else if (who.startsWith("zema")) extras.zema = pct;
+    else if (who.startsWith("cury")) extras.cury = pct;
   }
 
   let secondRound;
@@ -442,7 +474,9 @@ export function processPending({
       continue;
     }
 
-    if (!isNationalRow(row) || coverageFromRow(row) === "state") {
+    const coverage = coverageFromRow(row);
+    const n = parseSample(row.QT_ENTREVISTADO) ?? 0;
+    if (!isNationalRow(row) || coverage === "state" || (coverage === "unknown" && n < 1800)) {
       report.notNational += 1;
       skipped.push({
         at: item.at ?? new Date().toISOString(),
@@ -637,9 +671,25 @@ function isVoteArticle(url) {
   const u = String(url);
   if (/wp-json|\/tag\/|\/page\/|oembed|busca\?|\/author\/|#comment/i.test(u)) return false;
   if (!/^https?:\/\/(www\.)?(poder360\.com\.br|g1\.globo\.com|www1\.folha\.uol\.com\.br|cnnbrasil\.com\.br)\//i.test(u)) return false;
-  return /lula|flavio|flávio|1o-turno|1º-turno|pesquisa-poderdata|datafolha|gerp|intencao|intenção/i.test(
+  if (/amazonas|sao-paulo|sao_paulo|bahia|ceara|minas|parana|goias|pernambuco|paraiba|rio-grande|distrito-federal/i.test(u)) return false;
+  return /lula|flavio|flávio|1o-turno|1º-turno|pesquisa-poderdata|datafolha|gerp|intencao|intenção|real-time|atlasintel|quaest|nexus/i.test(
     u,
   );
+}
+
+export function isChallengeHtml(html) {
+  const head = String(html).slice(0, 2500);
+  return /just a moment|cf-browser-verification|attention required|_cf_chl/i.test(head);
+}
+
+export function searchUrlsForProtocols(needTse) {
+  const urls = [];
+  for (const tse of [...needTse].slice(0, 8)) {
+    const q = encodeURIComponent(tse);
+    urls.push(`https://g1.globo.com/busca/?q=${q}`);
+    urls.push(`https://www.cnnbrasil.com.br/?s=${q}`);
+  }
+  return urls;
 }
 
 function voteScore(url) {
@@ -672,10 +722,14 @@ async function fetchAllowlistResults(needTse) {
     "https://www1.folha.uol.com.br/poder/",
   ];
   const pages = new Set(listings);
-  for (const listing of listings) {
+  for (const listing of [...listings, ...searchUrlsForProtocols(needTse)]) {
     try {
       const buf = await fetchBuf(listing, 2_000_000);
       const html = buf.toString("utf8");
+      if (isChallengeHtml(html)) {
+        log(`listing_cf ${listing}`);
+        continue;
+      }
       for (const href of extractLinks(html, listing)) {
         if (isVoteArticle(href) && !/ao-vivo|poderdatacast|busca\?/.test(href)) {
           pages.add(href);
@@ -693,7 +747,12 @@ async function fetchAllowlistResults(needTse) {
     try {
       const buf = await fetchBuf(url, 800_000);
       fetched += 1;
-      const parsed = parseAllowlistArticle(buf.toString("utf8"));
+      const html = buf.toString("utf8");
+      if (isChallengeHtml(html)) {
+        log(`page_cf ${url}`);
+        continue;
+      }
+      const parsed = parseAllowlistArticle(html);
       if (parsed && needTse.has(parsed.tse) && !byTse[parsed.tse]) {
         byTse[parsed.tse] = {
           ...parsed,
@@ -749,18 +808,39 @@ async function main() {
   const need = new Set();
   if (!offline) {
     const known = knownProtocols([...polls, ...existingReady]);
+    const ranked = [];
     for (const item of pending) {
       const proto = normalizeProtocol(item.tse);
       const row = tseIndex.get(proto);
       if (!row || known.has(proto) || overlay[proto]) continue;
       if (!isPresidente(row.DS_CARGO) || !isNationalRow(row)) continue;
-      if (coverageFromRow(row) === "state") continue;
+      const coverage = coverageFromRow(row);
+      const n = parseSample(row.QT_ENTREVISTADO) ?? 0;
+      if (coverage === "state" || (coverage === "unknown" && n < 1800)) continue;
       if (!matchAllowlist(row)) continue;
-      need.add(proto);
+      ranked.push({ proto, fieldEnd: parseBrDate(row.DT_FIM_PESQUISA) || "" });
     }
+    ranked.sort((a, b) => String(b.fieldEnd).localeCompare(String(a.fieldEnd)));
+    for (const row of ranked) need.add(row.proto);
   }
   const fetched = offline ? {} : await fetchAllowlistResults(need);
-  const resultsByTse = { ...fetched, ...overlay };
+  const resultsByTse = { ...overlay, ...fetched };
+  if (!offline && !dry && Object.keys(fetched).length) {
+    const merged = { ...overlay, ...fetched };
+    writeJsonl(
+      RESULTS_JSONL,
+      Object.values(merged).map((row) => ({
+        tse: row.tse,
+        firstRound: row.firstRound,
+        secondRound: row.secondRound,
+        moe: row.moe,
+        url: row.url ?? null,
+        publisher: row.publisher ?? null,
+        capturedAt: row.capturedAt,
+        source: row.source ?? "allowlist-html",
+      })),
+    );
+  }
 
   const out = processPending({
     pending,

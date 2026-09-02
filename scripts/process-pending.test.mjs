@@ -13,6 +13,8 @@ import {
   rowToPoll,
   resultsFromJsonl,
   coverageFromRow,
+  isChallengeHtml,
+  searchUrlsForProtocols,
 } from "./process-pending.mjs";
 
 test("normalizeProtocol pads TSE ids", () => {
@@ -229,4 +231,51 @@ test("2T-only article does not become firstRound", () => {
   <p>TSE BR-08045/2026. No segundo turno Flávio Bolsonaro aparece com 45%, Lula registra 43%.</p>`;
   const parsed = parseAllowlistArticle(html);
   assert.equal(parsed, null);
+});
+
+test("allowlist includes RTBD and still rejects Veritá", () => {
+  const rtbd = matchAllowlist({
+    NM_EMPRESA: "REAL TIME BIG DATA LTDA",
+    NM_EMPRESA_FANTASIA: "REAL TIME BIG DATA",
+  });
+  assert.equal(rtbd?.id, "realtime");
+  const verita = matchAllowlist({
+    NR_CNPJ_EMPRESA: "00654576000172",
+    NM_EMPRESA: "INSTITUTO VERITA LTDA",
+    NM_EMPRESA_FANTASIA: "VERITA",
+  });
+  assert.equal(verita, null);
+});
+
+test("Cloudflare challenge pages are skipped", () => {
+  assert.equal(isChallengeHtml("<title>Just a moment...</title>"), true);
+  assert.equal(isChallengeHtml("<html><p>Lula tem 40%</p></html>"), false);
+});
+
+test("protocol search targets G1 and CNN", () => {
+  const urls = searchUrlsForProtocols(["BR-03490/2026"]);
+  assert.equal(urls.length, 2);
+  assert.match(urls[0], /g1\.globo\.com\/busca/);
+  assert.match(urls[1], /cnnbrasil\.com\.br/);
+});
+
+test("unknown sample below 1800 is not national", () => {
+  const out = processPending({
+    pending: [{ tse: "BR-09140/2026" }],
+    polls: [{ id: "keep", notes: "" }],
+    tseRows: [{
+      NR_PROTOCOLO_REGISTRO: "BR091402026",
+      DS_CARGO: "Presidente",
+      SG_UF: "BR",
+      NM_UE: "BRASIL",
+      NM_EMPRESA: "REAL TIME BIG DATA",
+      QT_ENTREVISTADO: "1600",
+      DT_FIM_PESQUISA: "2026-08-25",
+      DT_DIVULGACAO: "2026-08-26",
+      DS_PLANO_AMOSTRAL: "amostra 1600",
+    }],
+    resultsByTse: { "BR-09140/2026": { firstRound: { lula: 40, flavio: 39 } } },
+  });
+  assert.equal(out.report.notNational, 1);
+  assert.equal(out.ready.length, 0);
 });
