@@ -1,5 +1,5 @@
 import { CHART, tipStyle } from "@/lib/chart-theme";
-import { dateBr, fieldRangeLabel, fmtNum } from "@/lib/format";
+import { dateBr, fieldPeriodLine, fmtNum } from "@/lib/format";
 
 type TipRow = {
   name?: string;
@@ -16,8 +16,9 @@ type TipRow = {
 function pollTitle(row: TipRow["payload"]): string {
   if (!row?.institute) return "";
   const pub = dateBr(row.published);
-  const campo = fieldRangeLabel(row.fieldStart, row.fieldEnd);
-  if (campo) return `${row.institute} · ${pub} (campo ${campo})`;
+  const periodo = fieldPeriodLine(row.fieldStart, row.fieldEnd);
+  if (periodo && pub) return `${row.institute} · ${pub}. ${periodo}`;
+  if (periodo) return `${row.institute}. ${periodo}`;
   return pub ? `${row.institute} · ${pub}` : row.institute;
 }
 

@@ -97,13 +97,14 @@ test("public home scan path is chance, intention, news, method", () => {
 
 test("home curve tooltip uses field range helper", () => {
   const curve = readFileSync("src/features/radar/public/growth-curve.tsx", "utf8");
-  assert.match(curve, /fieldRangeLabel/);
-  assert.doesNotMatch(curve, /Campo \{dateBr\(row\?\.fieldEnd\)\}/);
+  assert.match(curve, /fieldPeriodLine/);
+  assert.doesNotMatch(curve, /Campo /);
 });
 
 test("latest poll is a public ficha without ingest jargon", () => {
   const page = readFileSync("src/features/radar/public/public-radar-page.tsx", "utf8");
-  assert.match(page, /fieldRangeLabel/);
+  assert.match(page, /fieldPeriodLine/);
+  assert.doesNotMatch(page, />Campo /);
   assert.match(page, /source\?\.tseProtocol/);
   assert.match(page, /pairTightnessLine/);
   assert.match(page, /<VisitHook/);

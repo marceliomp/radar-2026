@@ -17,7 +17,11 @@ test("first visit tells the truth about the file", async () => {
   assert.match(v.line, /arquivo/);
   assert.match(
     fileStamp({ institute: "PoderData/Aya", fieldEnd: "2026-08-26" }),
-    /PoderData 26\/08/,
+    /PoderData/,
+  );
+  assert.match(
+    fileStamp({ institute: "PoderData/Aya", fieldEnd: "2026-08-26" }),
+    /Entrevistas até 26\/08/,
   );
   assert.match(
     fileStamp({ institute: "PoderData/Aya", fieldEnd: "2026-08-26" }),

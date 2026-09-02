@@ -10,7 +10,7 @@ import {
 } from "recharts";
 import { SegGroup } from "@/features/radar/map/map-layer-toggle";
 import { CHART, tipStyle } from "@/lib/chart-theme";
-import { fieldRangeLabel, fmtNum } from "@/lib/format";
+import { fieldPeriodLine, fmtNum } from "@/lib/format";
 import { buildNationalTrend, rollingAverage } from "@/lib/forecast/trends";
 import type { ForecastPoll } from "@/lib/forecast/engine";
 
@@ -65,7 +65,7 @@ function CurveTip({ active, payload }: { active?: boolean; payload?: TipRow[] })
         {row?.institute ?? ""} · {dateBr(row?.published)}
       </p>
       <p className="m-0 mt-0.5 text-[11px] font-medium text-cream/70">
-        Campo {fieldRangeLabel(row?.fieldStart, row?.fieldEnd)}
+        {fieldPeriodLine(row?.fieldStart, row?.fieldEnd)}
       </p>
       <p className="m-0 mt-2.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-gold">
         Nesta pesquisa

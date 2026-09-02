@@ -67,13 +67,24 @@ export function dateBr(iso?: string | null): string {
   return `${iso.slice(8, 10)}/${iso.slice(5, 7)}`;
 }
 
-/** Campo de pesquisa: 30/08 a 01/09. Sem início, "até 01/09". */
+/** Só as datas: 30/08 a 01/09. Sem início, "até 01/09". */
 export function fieldRangeLabel(start?: string | null, end?: string | null): string {
   const from = dateBr(start);
   const to = dateBr(end);
   if (from && to && from !== to) return `${from} a ${to}`;
   if (to) return from === to ? to : `até ${to}`;
   return from;
+}
+
+/** Linha pública do período: "Entrevistas de 30/08 a 01/09". */
+export function fieldPeriodLine(start?: string | null, end?: string | null): string {
+  const from = dateBr(start);
+  const to = dateBr(end);
+  if (from && to && from !== to) return `Entrevistas de ${from} a ${to}`;
+  if (from && to) return `Entrevistas em ${to}`;
+  if (to) return `Entrevistas até ${to}`;
+  if (from) return `Entrevistas a partir de ${from}`;
+  return "";
 }
 
 export type PairTightnessKind = "tie" | "inside" | "outside";

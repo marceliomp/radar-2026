@@ -22,7 +22,7 @@ import {
   type RunoffKey,
 } from "@/lib/forecast/runoff-scenarios";
 import { bottomUpNational } from "@/lib/forecast/states";
-import { fieldRangeLabel, fmtMult, fmtNum, fmtPct, fmtProb, isShownTie, pairTightnessLine, shownGap } from "@/lib/format";
+import { fieldPeriodLine, fmtMult, fmtNum, fmtPct, fmtProb, isShownTie, pairTightnessLine, shownGap } from "@/lib/format";
 import { useHalfLife } from "@/lib/half-life";
 import { fileStamp } from "@/lib/visit-delta";
 import { CHART } from "@/lib/chart-theme";
@@ -310,12 +310,13 @@ export function PublicRadarPage() {
                   <p className="eyebrow">Nova pesquisa</p>
                   <p className="font-display text-xl font-semibold">{latestNational.institute}</p>
                   <p className="text-sm font-medium text-gold">
-                    Campo {fieldRangeLabel(latestNational.fieldStart, latestNational.fieldEnd)}
-                    {" · "}
+                    {fieldPeriodLine(latestNational.fieldStart, latestNational.fieldEnd)}
+                  </p>
+                  <p className="text-sm font-medium text-cream/80">
                     {latestNational.mode}
-                    {" · n="}
-                    {latestNational.sample.toLocaleString("pt-BR")}
-                    {" · ±"}
+                    {" · "}
+                    {latestNational.sample.toLocaleString("pt-BR")} pessoas
+                    {" · margem ±"}
                     {fmtNum(latestNational.moe)} pp
                   </p>
                   {latestNational.source?.tseProtocol ? (
