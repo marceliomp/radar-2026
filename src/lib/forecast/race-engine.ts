@@ -24,6 +24,7 @@ export type RacePoll = {
   uf: string;
   institute: string;
   date: string;
+  fieldStart?: string;
   fieldEnd: string;
   sample: number;
   moe: number;

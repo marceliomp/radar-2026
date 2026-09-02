@@ -10,7 +10,7 @@ import {
 } from "recharts";
 import { SegGroup } from "@/features/radar/map/map-layer-toggle";
 import { CHART, tipStyle } from "@/lib/chart-theme";
-import { fmtNum } from "@/lib/format";
+import { fieldRangeLabel, fmtNum } from "@/lib/format";
 import { buildNationalTrend, rollingAverage } from "@/lib/forecast/trends";
 import type { ForecastPoll } from "@/lib/forecast/engine";
 
@@ -32,6 +32,7 @@ type CurveRow = {
   label: string;
   institute: string;
   published: string;
+  fieldStart?: string;
   fieldEnd: string;
   lulaPoll: number | null;
   flavioPoll: number | null;
@@ -64,7 +65,7 @@ function CurveTip({ active, payload }: { active?: boolean; payload?: TipRow[] })
         {row?.institute ?? ""} · {dateBr(row?.published)}
       </p>
       <p className="m-0 mt-0.5 text-[11px] font-medium text-cream/70">
-        Campo {dateBr(row?.fieldEnd)}
+        Campo {fieldRangeLabel(row?.fieldStart, row?.fieldEnd)}
       </p>
       <p className="m-0 mt-2.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-gold">
         Nesta pesquisa
@@ -136,6 +137,7 @@ export function GrowthCurve({
         label: point.label,
         institute: point.institute,
         published: point.published,
+        fieldStart: point.fieldStart,
         fieldEnd: point.fieldEnd,
         lulaPoll: point.lula1,
         flavioPoll: point.flavio1,
@@ -148,6 +150,7 @@ export function GrowthCurve({
           label: point.label,
           institute: point.institute,
           published: point.published,
+          fieldStart: point.fieldStart,
           fieldEnd: point.fieldEnd,
           lulaPoll: point.lula2,
           flavioPoll: point.flavio2,

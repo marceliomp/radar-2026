@@ -2,13 +2,13 @@ import { Info } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { TabsContent } from "@/components/ui/tabs";
-import { fmtMult, fmtNum } from "@/lib/format";
+import { fieldRangeLabel, fmtMult, fmtNum } from "@/lib/format";
 
 export function WeightsTab({
   rows,
 }: {
   rows: Array<{
-    poll: { id: string; institute: string; fieldEnd: string; mode: string };
+    poll: { id: string; institute: string; fieldStart?: string; fieldEnd: string; mode: string };
     wTrack: number;
     wRecency: number;
     weightShare: number;
@@ -50,7 +50,7 @@ export function WeightsTab({
                           {r.poll.institute}
                         </td>
                         <td className="px-3 py-2.5 font-medium text-muted">
-                          {r.poll.fieldEnd}
+                          {fieldRangeLabel(r.poll.fieldStart, r.poll.fieldEnd)}
                         </td>
                         <td className="px-3 py-2.5">
                           <Badge

@@ -60,3 +60,18 @@ export function fmtDelta(n: number, digits = 1): string {
 export function fmtMult(n: number, digits = 2): string {
   return fmtNum(n, digits);
 }
+
+/** ISO YYYY-MM-DD → 01/09 */
+export function dateBr(iso?: string | null): string {
+  if (!iso || iso.length < 10) return "";
+  return `${iso.slice(8, 10)}/${iso.slice(5, 7)}`;
+}
+
+/** Campo de pesquisa: 30/08 a 01/09. Sem início, "até 01/09". */
+export function fieldRangeLabel(start?: string | null, end?: string | null): string {
+  const from = dateBr(start);
+  const to = dateBr(end);
+  if (from && to && from !== to) return `${from} a ${to}`;
+  if (to) return from === to ? to : `até ${to}`;
+  return from;
+}

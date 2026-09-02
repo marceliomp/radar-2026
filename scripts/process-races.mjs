@@ -151,8 +151,9 @@ export function rowToRacePolls(row, house, percentsByOffice, url) {
   const proto = normalizeProtocol(row.NR_PROTOCOLO_REGISTRO ?? "");
   const sample = parseSample(row.QT_ENTREVISTADO);
   const fieldEnd = parseBrDate(row.DT_FIM_PESQUISA);
+  const fieldStart = parseBrDate(row.DT_INICIO_PESQUISA);
   const date =
-    parseBrDate(row.DT_DIVULGACAO) || fieldEnd || parseBrDate(row.DT_INICIO_PESQUISA);
+    parseBrDate(row.DT_DIVULGACAO) || fieldEnd || fieldStart;
   if (!uf || !proto || !sample || !fieldEnd || !date || !house) return [];
   const polls = [];
   for (const office of raceOfficesFromCargo(row.DS_CARGO)) {
@@ -165,6 +166,7 @@ export function rowToRacePolls(row, house, percentsByOffice, url) {
       institute: house.institute,
       date,
       fieldEnd,
+      ...(fieldStart && fieldStart <= fieldEnd ? { fieldStart } : {}),
       sample,
       moe: estimateMoe(sample),
       mode: inferMode(row.DS_METODOLOGIA_PESQUISA),

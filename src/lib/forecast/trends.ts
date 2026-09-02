@@ -5,6 +5,7 @@ export type TrendPoint = {
   id: string;
   date: string;
   published: string;
+  fieldStart?: string;
   fieldEnd: string;
   label: string;
   institute: string;
@@ -76,6 +77,7 @@ export function buildNationalTrend(polls: ForecastPoll[]): TrendPoint[] {
       id: p.id,
       date: p.date,
       published: p.date,
+      fieldStart: p.fieldStart,
       fieldEnd: p.fieldEnd,
       label,
       institute: p.institute,

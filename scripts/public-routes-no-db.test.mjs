@@ -94,3 +94,9 @@ test("public home scan path is chance, intention, news, method", () => {
   assert.ok(page.indexOf("GrowthCurve") < page.indexOf('id="mapa"'), "curve before map");
   assert.ok(page.indexOf('id="mapa"') < page.indexOf('id="metodo"'), "map before method");
 });
+
+test("home curve tooltip uses field range helper", () => {
+  const curve = readFileSync("src/features/radar/public/growth-curve.tsx", "utf8");
+  assert.match(curve, /fieldRangeLabel/);
+  assert.doesNotMatch(curve, /Campo \{dateBr\(row\?\.fieldEnd\)\}/);
+});

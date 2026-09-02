@@ -1747,6 +1747,7 @@
     "id": "quaest-09-02-07065",
     "institute": "Quaest",
     "date": "2026-09-02",
+    "fieldStart": "2026-08-30",
     "fieldEnd": "2026-09-01",
     "sample": 2004,
     "moe": 2,

@@ -36,6 +36,8 @@ export type ForecastPoll = {
   id: string;
   institute: string;
   date: string;
+  /** Primeiro dia de campo, quando o TSE/a casa informou o intervalo. */
+  fieldStart?: string;
   fieldEnd: string;
   sample: number;
   moe: number;

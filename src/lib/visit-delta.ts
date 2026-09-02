@@ -1,4 +1,4 @@
-import { fmtDelta, round } from "./format.ts";
+import { dateBr, fieldRangeLabel, fmtDelta, round } from "./format.ts";
 
 export const VISIT_KEY = "radar2026.visit.v1";
 
@@ -129,10 +129,13 @@ export function visitView(
 
 export function fileStamp(poll: {
   institute: string;
+  fieldStart?: string;
   fieldEnd: string;
 } | null): string {
   if (!poll) return "Nenhuma pesquisa nacional no arquivo.";
   const house = poll.institute.split("/")[0] ?? poll.institute;
-  const [, m, d] = poll.fieldEnd.split("-");
-  return `Última no arquivo: ${house} ${d}/${m} (campo). Varredura 11h/19h não entra número.`;
+  const campo = poll.fieldStart
+    ? fieldRangeLabel(poll.fieldStart, poll.fieldEnd)
+    : dateBr(poll.fieldEnd);
+  return `Última no arquivo: ${house} ${campo} (campo). Varredura 11h/19h não entra número.`;
 }

@@ -292,3 +292,14 @@ test("2T da Quaest nao copia Atlas 1T de teaser na mesma pagina", () => {
   assert.equal(parsed.secondRound.lula, 42);
   assert.equal(parsed.secondRound.flavio, 41);
 });
+
+test("rowToPoll keeps TSE field start and end", () => {
+  const house = matchAllowlist(poderRow);
+  const poll = rowToPoll(
+    { ...poderRow, DT_INICIO_PESQUISA: "2026-08-24 00:00:00" },
+    { firstRound: { lula: 38, flavio: 32 } },
+    house,
+  );
+  assert.equal(poll.fieldEnd, "2026-08-26");
+  assert.equal(poll.fieldStart, "2026-08-24");
+});

@@ -50,6 +50,11 @@ export function validatePolls(polls) {
     if (!isIsoDate(poll.date) || !isIsoDate(poll.fieldEnd)) {
       errors.push(`${poll.id}: date/fieldEnd inválidos`);
     }
+    if (poll.fieldStart != null && poll.fieldStart !== "") {
+      if (!isIsoDate(poll.fieldStart) || poll.fieldStart > poll.fieldEnd) {
+        errors.push(`${poll.id}: fieldStart inválido`);
+      }
+    }
     if (!Number.isFinite(poll.sample) || poll.sample <= 0) {
       errors.push(`${poll.id}: amostra precisa ser positiva`);
     }

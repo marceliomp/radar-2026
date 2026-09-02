@@ -1,5 +1,5 @@
 import { CHART, tipStyle } from "@/lib/chart-theme";
-import { fmtNum } from "@/lib/format";
+import { dateBr, fieldRangeLabel, fmtNum } from "@/lib/format";
 
 type TipRow = {
   name?: string;
@@ -8,15 +8,17 @@ type TipRow = {
   payload?: {
     institute?: string;
     published?: string;
+    fieldStart?: string;
     fieldEnd?: string;
   };
 };
 
 function pollTitle(row: TipRow["payload"]): string {
   if (!row?.institute) return "";
-  const pub = row.published?.slice(8) + "/" + row.published?.slice(5, 7);
-  const field = row.fieldEnd?.slice(8) + "/" + row.fieldEnd?.slice(5, 7);
-  return `${row.institute} · ${pub} (campo ${field})`;
+  const pub = dateBr(row.published);
+  const campo = fieldRangeLabel(row.fieldStart, row.fieldEnd);
+  if (campo) return `${row.institute} · ${pub} (campo ${campo})`;
+  return pub ? `${row.institute} · ${pub}` : row.institute;
 }
 
 /** Cream on petro. Recharts DefaultTooltipContent paints item text black. */

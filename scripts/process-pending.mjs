@@ -369,8 +369,9 @@ export function rowToPoll(row, result, house) {
   const proto = normalizeProtocol(row.NR_PROTOCOLO_REGISTRO ?? row._proto);
   const sample = parseSample(row.QT_ENTREVISTADO);
   const fieldEnd = parseBrDate(row.DT_FIM_PESQUISA);
+  const fieldStart = parseBrDate(row.DT_INICIO_PESQUISA);
   const date =
-    parseBrDate(row.DT_DIVULGACAO) || fieldEnd || parseBrDate(row.DT_INICIO_PESQUISA);
+    parseBrDate(row.DT_DIVULGACAO) || fieldEnd || fieldStart;
   const firstRound = result?.firstRound;
   if (!proto || !sample || !fieldEnd || !date || !house) return null;
   if (firstRound?.lula == null || firstRound?.flavio == null) return null;
@@ -397,6 +398,7 @@ export function rowToPoll(row, result, house) {
     },
     notes: `${sample} entrevistas. Allowlist ${house.id}.`,
   };
+  if (fieldStart && fieldStart <= fieldEnd) poll.fieldStart = fieldStart;
   if (result.secondRound?.lula != null && result.secondRound?.flavio != null) {
     poll.secondRound = {
       lula: result.secondRound.lula,
