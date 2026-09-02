@@ -224,6 +224,10 @@ export function PublicRadarPage() {
           </div>
           <div className="hl-strip"><HalfLifeControl /></div>
         </div>
+        <h1 className="hero-method">
+          Chance de ser presidente
+          <span className="hero-method-sub">Não é intenção de voto</span>
+        </h1>
         <div className="hero-score">
           <div className="hero-col hero-col-l">
             <p className="hero-kicker" style={{ color: CHART.lula }}>Lula</p>
@@ -240,7 +244,6 @@ export function PublicRadarPage() {
             </p>
           </div>
         </div>
-        <p className="hero-method">Chance de ser presidente. Não é intenção de voto.</p>
         <p className="hero-fresh">{fileStamp(latestNational)}</p>
         <VisitHook
           pLula={pLula}

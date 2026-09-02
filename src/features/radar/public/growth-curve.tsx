@@ -201,7 +201,8 @@ export function GrowthCurve({
             </button>
           </SegGroup>
         </div>
-        <div className="mt-4 h-72 w-full min-w-0 sm:h-80">
+        <CurveKey />
+        <div className="mt-3 h-72 w-full min-w-0 sm:h-80">
           <ResponsiveContainer width="100%" height="100%">
             <ComposedChart data={data} margin={{ left: 0, right: 12, top: 8, bottom: 8 }}>
               <CartesianGrid strokeDasharray="3 3" stroke={CHART.grid} />
@@ -252,7 +253,6 @@ export function GrowthCurve({
             </ComposedChart>
           </ResponsiveContainer>
         </div>
-        <CurveKey />
       </div>
     </section>
   );

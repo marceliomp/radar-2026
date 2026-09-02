@@ -60,8 +60,19 @@ test("capa mounts the national growth curve", () => {
 
 test("hero states chance not vote intention", () => {
   const page = readFileSync("src/features/radar/public/public-radar-page.tsx", "utf8");
+  assert.match(page, /<h1 className="hero-method">/);
   assert.match(page, /Chance de ser presidente/);
   assert.match(page, /Não é intenção de voto/);
   assert.match(page, /skip-link/);
   assert.match(page, /id="conteudo"/);
+  const chanceAt = page.indexOf("Chance de ser presidente");
+  const scoreAt = page.indexOf("hero-score");
+  assert.ok(chanceAt >= 0 && chanceAt < scoreAt, "chance title must sit above the score");
+});
+
+test("curve key sits above the chart", () => {
+  const curve = readFileSync("src/features/radar/public/growth-curve.tsx", "utf8");
+  const keyAt = curve.indexOf("<CurveKey />");
+  const chartAt = curve.indexOf("<ResponsiveContainer");
+  assert.ok(keyAt >= 0 && chartAt >= 0 && keyAt < chartAt, "legend must sit above the chart");
 });
