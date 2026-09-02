@@ -2,7 +2,6 @@ import { useMemo, useState } from "react";
 import {
   CartesianGrid,
   ComposedChart,
-  Legend,
   Line,
   ResponsiveContainer,
   Tooltip,
@@ -87,6 +86,38 @@ function CurveTip({ active, payload }: { active?: boolean; payload?: TipRow[] })
   );
 }
 
+function CurveKey() {
+  return (
+    <div className="mt-3 flex flex-col gap-2 text-xs font-medium sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
+      <div className="flex items-center gap-4">
+        <span className="inline-flex items-center gap-1.5">
+          <span className="inline-block size-2.5 rounded-full" style={{ background: CHART.lula }} />
+          Lula
+        </span>
+        <span className="inline-flex items-center gap-1.5">
+          <span className="inline-block size-2.5 rounded-full" style={{ background: CHART.flavio }} />
+          Flávio
+        </span>
+      </div>
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-cream/80">
+        <span className="inline-flex items-center gap-1.5">
+          <svg width="30" height="10" viewBox="0 0 30 10" aria-hidden>
+            <circle cx="5" cy="5" r="2.4" fill={CHART.axis} opacity="0.85" />
+            <line x1="10" y1="5" x2="28" y2="5" stroke={CHART.axis} strokeWidth="1.3" opacity="0.55" />
+          </svg>
+          ponto: nesta pesquisa
+        </span>
+        <span className="inline-flex items-center gap-1.5">
+          <svg width="30" height="10" viewBox="0 0 30 10" aria-hidden>
+            <line x1="2" y1="5" x2="28" y2="5" stroke={CHART.axis} strokeWidth="2.6" />
+          </svg>
+          linha: média das 3 últimas
+        </span>
+      </div>
+    </div>
+  );
+}
+
 export function GrowthCurve({
   polls,
   asOf,
@@ -141,11 +172,11 @@ export function GrowthCurve({
             <p className="mt-1 font-display text-xl font-semibold">
               {active === "2" ? "2º turno, Lula × Flávio" : "1º turno, Lula × Flávio"}
             </p>
-            <p className="mt-1 max-w-xl text-xs font-medium leading-relaxed text-cream/85">
-              {active === "2"
-                ? "Só pesquisas que perguntaram o par. Ponto fino = nesta pesquisa. Linha grossa = média das 3 últimas."
-                : "Ponto fino = nesta pesquisa. Linha grossa = média das 3 últimas."}
-            </p>
+            {active === "2" ? (
+              <p className="mt-1 max-w-xl text-xs font-medium leading-relaxed text-cream/85">
+                Só pesquisas que perguntaram o par.
+              </p>
+            ) : null}
           </div>
           <SegGroup ariaLabel="Turno da curva">
             <button
@@ -184,14 +215,10 @@ export function GrowthCurve({
                 tickLine={false}
               />
               <Tooltip content={CurveTip} cursor={false} />
-              <Legend
-                wrapperStyle={{ color: CHART.fg, fontSize: 12 }}
-                formatter={(value) => <span style={{ color: CHART.fg }}>{value}</span>}
-              />
               <Line
                 type="monotone"
                 dataKey="lulaPoll"
-                name="Lula, pesquisa"
+                legendType="none"
                 stroke={CHART.lula}
                 strokeWidth={1.5}
                 strokeOpacity={0.55}
@@ -200,7 +227,7 @@ export function GrowthCurve({
               <Line
                 type="monotone"
                 dataKey="flavioPoll"
-                name="Flávio, pesquisa"
+                legendType="none"
                 stroke={CHART.flavio}
                 strokeWidth={1.5}
                 strokeOpacity={0.55}
@@ -209,7 +236,7 @@ export function GrowthCurve({
               <Line
                 type="monotone"
                 dataKey="lulaAvg"
-                name="Lula, média 3"
+                legendType="none"
                 stroke={CHART.lula}
                 strokeWidth={2.5}
                 dot={false}
@@ -217,7 +244,7 @@ export function GrowthCurve({
               <Line
                 type="monotone"
                 dataKey="flavioAvg"
-                name="Flávio, média 3"
+                legendType="none"
                 stroke={CHART.flavio}
                 strokeWidth={2.5}
                 dot={false}
@@ -225,6 +252,7 @@ export function GrowthCurve({
             </ComposedChart>
           </ResponsiveContainer>
         </div>
+        <CurveKey />
       </div>
     </section>
   );

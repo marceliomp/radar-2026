@@ -51,9 +51,9 @@ test("capa mounts the national growth curve", () => {
   const curve = readFileSync("src/features/radar/public/growth-curve.tsx", "utf8");
   assert.match(page, /GrowthCurve/);
   assert.match(page, /#curva/);
-  assert.match(curve, /buildNationalTrend/);
   assert.match(curve, /seg-btn/);
   assert.match(curve, /Nesta pesquisa/);
-  assert.match(curve, /Média das 3 últimas/);
-  assert.match(curve, /setRound/);
+  assert.match(curve, /ponto: nesta pesquisa/);
+  assert.match(curve, /linha: média das 3 últimas/);
+  assert.doesNotMatch(curve, /Lula, pesquisa/);
 });
