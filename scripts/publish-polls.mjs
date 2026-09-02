@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 /**
- * Publica polls.json no GitHub (Vercel puxa main).
- * Sem mudança no arquivo: exit 0. Falha de push: exit 1.
+ * Publica polls.json e race-polls.json no GitHub (Vercel puxa main).
  */
 import { execSync } from "node:child_process";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
+const PATHS = ["src/data/polls.json", "src/data/race-polls.json"];
 
 function sh(cmd) {
   return execSync(cmd, {
@@ -21,13 +21,13 @@ function log(line) {
   process.stdout.write(`[publish] ${line}\n`);
 }
 
-const status = sh("git status --porcelain -- src/data/polls.json").trim();
-if (!status) {
-  log("polls.json unchanged");
+const dirty = PATHS.filter((path) => sh(`git status --porcelain -- ${path}`).trim());
+if (!dirty.length) {
+  log("no data changes");
   process.exit(0);
 }
 
-sh("git add -- src/data/polls.json");
+sh(`git add -- ${dirty.join(" ")}`);
 const author =
   'git -c user.email=radar-ingest@alvobrimobiliaria.com.br -c user.name="radar-ingest"';
 try {
@@ -41,4 +41,4 @@ try {
   throw err;
 }
 sh("git push origin main");
-log("pushed src/data/polls.json to origin/main");
+log(`pushed ${dirty.join(" ")} to origin/main`);

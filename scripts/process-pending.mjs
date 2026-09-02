@@ -587,7 +587,7 @@ function unzipCsvTexts(u8) {
   return texts;
 }
 
-async function fetchBuf(url, maxBytes = FETCH_MAX_BYTES) {
+export async function fetchBuf(url, maxBytes = FETCH_MAX_BYTES) {
   const res = await fetch(url, {
     headers: { "user-agent": UA, accept: "application/zip,text/csv,text/html,application/json,*/*" },
     signal: AbortSignal.timeout(40000),
@@ -620,7 +620,7 @@ export function tseRowsFromZipOrCsv(buf) {
   return rows;
 }
 
-async function loadTseRows() {
+export async function loadTseRows() {
   const zipPath = process.env.TSE_ZIP ?? "/tmp/pesquisa_eleitoral_2026.zip";
   if (existsSync(zipPath)) {
     return tseRowsFromZipOrCsv(readFileSync(zipPath));

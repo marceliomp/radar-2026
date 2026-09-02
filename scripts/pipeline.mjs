@@ -25,5 +25,6 @@ function run(script, args = []) {
 
 await run("ingest-polls.mjs");
 await run("process-pending.mjs");
+await run("process-races.mjs");
 await run("promote-poll.mjs", ["--all"]);
 await run("publish-polls.mjs");

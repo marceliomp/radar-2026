@@ -21,7 +21,8 @@
     "polls:process": "node scripts/process-pending.mjs",
     "polls:pipeline": "node scripts/pipeline.mjs",
     "polls:promote": "node scripts/promote-poll.mjs",
-    "polls:publish": "node scripts/publish-polls.mjs"
+    "polls:publish": "node scripts/publish-polls.mjs",
+    "polls:races": "node scripts/process-races.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.7.0",
