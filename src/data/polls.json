@@ -1742,5 +1742,58 @@
       "publishedAt": "2026-07-24",
       "capturedAt": "2026-08-31T21:50:25.480Z"
     }
+  },
+  {
+    "id": "quaest-09-02-07065",
+    "institute": "Quaest",
+    "date": "2026-09-02",
+    "fieldEnd": "2026-09-01",
+    "sample": 2004,
+    "moe": 2,
+    "mode": "presencial",
+    "national": true,
+    "firstRound": {
+      "lula": 37,
+      "flavio": 30,
+      "cury": 10
+    },
+    "source": {
+      "tseProtocol": "BR-07065/2026",
+      "url": "https://www.cnnbrasil.com.br/eleicoes/quaest-lula-tem-37-no-1o-turno-flavio-30-e-cury-10/",
+      "publisher": "cnnbrasil.com.br",
+      "publishedAt": "2026-09-02",
+      "capturedAt": "2026-09-02T17:36:50.867Z"
+    },
+    "notes": "2004 entrevistas. Allowlist quaest.",
+    "secondRound": {
+      "lula": 43.4,
+      "flavio": 33.7
+    }
+  },
+  {
+    "id": "real-time-big-data-08-26-09140",
+    "institute": "Real Time Big Data",
+    "date": "2026-08-26",
+    "fieldEnd": "2026-08-25",
+    "sample": 1600,
+    "moe": 2,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 40,
+      "flavio": 39
+    },
+    "source": {
+      "tseProtocol": "BR-09140/2026",
+      "url": "https://www.cnnbrasil.com.br/eleicoes/real-time-amazonas-no-2o-turno-flavio-tem-43-e-lula-41/",
+      "publisher": "cnnbrasil.com.br",
+      "publishedAt": "2026-08-26",
+      "capturedAt": "2026-09-02T17:36:57.697Z"
+    },
+    "notes": "1600 entrevistas. Allowlist realtime.",
+    "secondRound": {
+      "lula": 41,
+      "flavio": 43
+    }
   }
 ]
