@@ -1,6 +1,6 @@
 {
   "source": "G1, Folha, Poder360, CNN, O Globo, Ipsos, Gazeta do Povo. Rodada Quaest/Globo 24-27/08 + ondas anteriores: Genial/Quaest jul (10 UFs, PA ja estava), Datafolha SP 01-03/07, Genial/Quaest SP abr, Parana Pesquisas PR jul/ago. Quaest PA 29/08 ainda sem tabela.",
-  "asOf": "2026-08-29",
+  "asOf": "2026-09-03",
   "polls": [
     {
       "id": "quaest-sp-gov-04-29",
@@ -482,7 +482,7 @@
         "taynamiessa": 0.6,
         "alexandresalomao": 0.4,
         "samueldemattos": 0.1,
-        "adrianoteixeira": 0.0
+        "adrianoteixeira": 0
       },
       "notes": "Gazeta do Povo 17/08 estimulado pos-registro. Campo 13-16/08. TSE PR-09048/2026. Contratada pelo PL. Anterior a rodada Quaest/Globo 20-23/08."
     },
@@ -1838,6 +1838,24 @@
         "paulinhodauniaotur": 1
       },
       "notes": "O Globo 28/08, Quaest Senado votos combinados (dois nomes). Base 100% da casa."
+    },
+    {
+      "id": "real-time-big-data-pe-sen-09-03",
+      "office": "senator",
+      "uf": "PE",
+      "institute": "Real Time Big Data",
+      "date": "2026-09-03",
+      "fieldEnd": "2026-09-02",
+      "fieldStart": "2026-08-29",
+      "sample": 1600,
+      "moe": 2.5,
+      "mode": "telefone",
+      "firstRound": {
+        "mailsondasilvaneto": 39,
+        "pastorgilvancosta": 23,
+        "humbertocosta2": 23
+      },
+      "notes": "Auto realtime. TSE PE-09116/2026. https://g1.globo.com/ba/bahia/eleicoes/2026/noticia/2026/09/02/candidato-ao-governo-da-bahia-e-atingido-por-bala-de-borracha-em-protesto-e-acusa-pm.ghtml"
     }
   ]
 }
