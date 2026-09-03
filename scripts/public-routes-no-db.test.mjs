@@ -136,11 +136,13 @@ test("hero mounts the election period bar", () => {
   const race = readFileSync("src/features/races/race-page.tsx", "utf8");
   const base = readFileSync("src/components/election-base.tsx", "utf8");
   const css = readFileSync("src/styles.css", "utf8");
-  assert.match(base, /pollWeekBar/);
+  assert.match(base, /pollTimeAxis/);
   assert.match(page, /<ElectionBase asOf=\{asOf\} polls=\{polls\}/);
   assert.doesNotMatch(page, /variant="hero"/);
   assert.doesNotMatch(race, /ElectionBase/);
   assert.doesNotMatch(css, /elec-strip/);
+  assert.doesNotMatch(css, /week-cell/);
+  assert.doesNotMatch(base, /week-bar/);
   const heroEnd = page.indexOf("</section>");
   const barAt = page.indexOf("<ElectionBase");
   const mainAt = page.indexOf('id="conteudo"');

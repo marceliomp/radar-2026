@@ -1,5 +1,4 @@
-import { pollWeekBar } from "@/lib/election-calendar";
-import { dateBr } from "@/lib/format";
+import { pollTimeAxis } from "@/lib/election-calendar";
 import type { ForecastPoll } from "@/lib/forecast/engine";
 
 export function ElectionBase({
@@ -9,22 +8,31 @@ export function ElectionBase({
   asOf: string;
   polls: ForecastPoll[];
 }) {
-  const bar = pollWeekBar(polls, asOf);
-  if (!bar.weeks.length) return null;
+  const bar = pollTimeAxis(polls, asOf);
+  if (!bar.ticks.length) return null;
   return (
-    <div className="week-bar">
-      <p className="week-bar-copy">{bar.label}</p>
-      <div className="week-bar-row" role="img" aria-label={bar.label}>
-        {bar.weeks.map((week) => (
+    <div className="time-axis">
+      <div className="time-axis-track" role="img" aria-label={bar.label}>
+        <div className="time-axis-fill" style={{ width: `${bar.fill}%` }} />
+        {bar.ticks.map((tick) => (
           <span
-            key={week.start}
-            className={week.count > 0 ? "week-cell on" : "week-cell"}
-            title={
-              week.count > 0
-                ? `${dateBr(week.start)}: ${week.houses.join(", ")}`
-                : `${dateBr(week.start)}: nenhuma`
-            }
+            key={tick.iso}
+            className="time-axis-tick"
+            style={{ left: `${tick.left}%` }}
+            title={tick.title}
           />
+        ))}
+        <span className="time-axis-now" style={{ left: `${bar.fill}%` }} />
+      </div>
+      <div className="time-axis-labels">
+        {bar.labels.map((lab) => (
+          <span
+            key={lab.iso}
+            className={`time-axis-lab ${lab.align}`}
+            style={{ left: `${lab.left}%` }}
+          >
+            {lab.text}
+          </span>
         ))}
       </div>
     </div>
