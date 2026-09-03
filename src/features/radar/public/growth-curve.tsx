@@ -303,7 +303,7 @@ function CurveKey({ houseFocus, showOthers }: { houseFocus: boolean; showOthers:
         </span>
         <span className="inline-flex items-center gap-1.5">
           <svg width="30" height="10" viewBox="0 0 30 10" aria-hidden>
-            <line x1="2" y1="5" x2="28" y2="5" stroke={CHART.axis} strokeWidth="2.6" />
+            <line x1="2" y1="5" x2="28" y2="5" stroke={CHART.axis} strokeWidth="3.4" />
           </svg>
           {houseFocus ? "linha: esta casa" : "linha: média do período"}
         </span>
@@ -533,7 +533,7 @@ export function GrowthCurve({
                 dataKey="lulaAvg"
                 legendType="none"
                 stroke={CHART.lula}
-                strokeWidth={2.8}
+                strokeWidth={3.6}
                 dot={false}
                 activeDot={{ r: 4, fill: CHART.lula, strokeWidth: 0 }}
                 isAnimationActive={false}
@@ -543,7 +543,7 @@ export function GrowthCurve({
                 dataKey="flavioAvg"
                 legendType="none"
                 stroke={CHART.flavio}
-                strokeWidth={2.8}
+                strokeWidth={3.6}
                 dot={false}
                 activeDot={{ r: 4, fill: CHART.flavio, strokeWidth: 0 }}
                 isAnimationActive={false}
@@ -576,7 +576,7 @@ export function GrowthCurve({
                       dataKey={`${other.key}Avg`}
                       legendType="none"
                       stroke={other.color}
-                      strokeWidth={1.7}
+                      strokeWidth={2.4}
                       strokeOpacity={0.9}
                       connectNulls
                       dot={false}
