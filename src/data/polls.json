@@ -1881,7 +1881,10 @@
     "firstRound": {
       "lula": 37,
       "flavio": 30,
-      "cury": 10
+      "cury": 10,
+      "renan": 3,
+      "caiado": 1,
+      "zema": 1
     },
     "source": {
       "tseProtocol": "BR-07065/2026",
@@ -1934,7 +1937,10 @@
     "firstRound": {
       "lula": 37,
       "flavio": 34,
-      "cury": 10
+      "cury": 10,
+      "renan": 3,
+      "caiado": 2,
+      "zema": 1
     },
     "source": {
       "tseProtocol": "BR-07561/2026",
