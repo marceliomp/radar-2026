@@ -1,5 +1,55 @@
 [
   {
+    "id": "datafolha-09-03-03669",
+    "institute": "Datafolha",
+    "date": "2026-09-03",
+    "fieldStart": "2026-09-01",
+    "fieldEnd": "2026-09-03",
+    "sample": 2002,
+    "moe": 2,
+    "mode": "presencial",
+    "national": true,
+    "firstRound": {
+      "lula": 38,
+      "flavio": 33,
+      "cury": 8,
+      "caiado": 4,
+      "renan": 3,
+      "zema": 2
+    },
+    "secondRound": {
+      "lula": 46,
+      "flavio": 44
+    },
+    "secondPairs": [
+      {
+        "a": "lula",
+        "b": "caiado",
+        "aPct": 46,
+        "bPct": 41
+      },
+      {
+        "a": "lula",
+        "b": "zema",
+        "aPct": 48,
+        "bPct": 39
+      },
+      {
+        "a": "lula",
+        "b": "renan",
+        "aPct": 47,
+        "bPct": 38
+      }
+    ],
+    "source": {
+      "tseProtocol": "BR-03669/2026",
+      "url": "https://www.cnnbrasil.com.br/eleicoes/datafolha-no-1o-turno-lula-tem-38-flavio-33-e-cury-8/",
+      "publisher": "CNN/CBN 03/09",
+      "publishedAt": "2026-09-03",
+      "capturedAt": "2026-09-03T22:20:21.000Z"
+    }
+  },
+  {
     "id": "futura-apex-09-03-02793",
     "institute": "Futura/Apex",
     "date": "2026-09-03",
