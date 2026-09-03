@@ -43,12 +43,12 @@ test("1T is never implied", () => {
   assert.equal(v.flavio, 45);
 });
 
-test("shareBarPct leaves the rest of the bar empty", async () => {
+test("shareBarPct paints the rest to 100% as blank", async () => {
   const { shareBarPct } = await import("../src/lib/forecast/map-round.ts");
   const bar = shareBarPct(50, 17);
   assert.equal(bar.lula, 50);
   assert.equal(bar.flavio, 17);
-  assert.ok(bar.lula + bar.flavio < 100);
+  assert.equal(bar.rest, 33);
   const tight = shareBarPct(46, 44);
-  assert.equal(tight.lula + tight.flavio, 90);
+  assert.equal(tight.rest, 10);
 });

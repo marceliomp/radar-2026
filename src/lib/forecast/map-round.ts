@@ -66,12 +66,16 @@ export function mapRoundView(f: MapRoundInput, round: RoundKey): MapRoundView {
   };
 }
 
-/** Barra do dossie: 50 e 17 ocupam 50% e 17%, o resto fica vazio. Nao renormaliza o par para 100. */
-export function shareBarPct(lula: number, flavio: number): { lula: number; flavio: number } {
+/** Barra do dossie: 50 e 17 ocupam 50% e 17%. O resto ate 100% vai em branco. */
+export function shareBarPct(lula: number, flavio: number): {
+  lula: number;
+  flavio: number;
+  rest: number;
+} {
   const a = Number.isFinite(lula) && lula > 0 ? lula : 0;
   const b = Number.isFinite(flavio) && flavio > 0 ? flavio : 0;
   const sum = a + b;
-  if (sum <= 0) return { lula: 0, flavio: 0 };
-  if (sum > 100) return { lula: (a / sum) * 100, flavio: (b / sum) * 100 };
-  return { lula: a, flavio: b };
+  if (sum <= 0) return { lula: 0, flavio: 0, rest: 100 };
+  if (sum > 100) return { lula: (a / sum) * 100, flavio: (b / sum) * 100, rest: 0 };
+  return { lula: a, flavio: b, rest: 100 - sum };
 }

@@ -13,7 +13,7 @@ type RoundView = ReturnType<typeof mapRoundView>;
 function ShareBar({ lula, flavio }: { lula: number; flavio: number }) {
   const bar = shareBarPct(lula, flavio);
   return (
-    <div className="h-2 overflow-hidden bg-bg">
+    <div className="h-2 overflow-hidden bg-surface-2">
       <div
         className="h-full"
         style={{
@@ -29,6 +29,15 @@ function ShareBar({ lula, flavio }: { lula: number; flavio: number }) {
           background: "var(--color-flavio)",
           float: "left",
         }}
+      />
+      <div
+        className="h-full"
+        style={{
+          width: `${bar.rest}%`,
+          background: "var(--color-cream)",
+          float: "left",
+        }}
+        title="resto ate 100%"
       />
     </div>
   );
