@@ -55,6 +55,9 @@ test("capa mounts the national growth curve", () => {
   assert.match(curve, /Nesta pesquisa/);
   assert.match(curve, /ponto: nesta pesquisa/);
   assert.match(curve, /linha: média das 3 últimas/);
+  assert.match(curve, /pollsOnDate/);
+  assert.match(curve, /sameDay/);
+  assert.match(curve, /pesquisas/);
   assert.doesNotMatch(curve, /Lula, pesquisa/);
 });
 
@@ -121,6 +124,7 @@ test("same-day houses all get a ficha", () => {
   const page = readFileSync("src/features/radar/public/public-radar-page.tsx", "utf8");
   const helper = readFileSync("src/lib/latest-day.ts", "utf8");
   assert.match(helper, /export function pollsOnLatestDay/);
+  assert.match(helper, /export function pollsOnDate/);
   assert.match(page, /pollsOnLatestDay/);
   assert.match(page, /pesquisas no mesmo dia/);
   assert.match(page, /LatestHouseCard/);
@@ -131,9 +135,14 @@ test("hero mounts the election period bar", () => {
   const page = readFileSync("src/features/radar/public/public-radar-page.tsx", "utf8");
   const race = readFileSync("src/features/races/race-page.tsx", "utf8");
   const base = readFileSync("src/components/election-base.tsx", "utf8");
-  assert.match(base, /Base \{dateBr\(asOf\)\}/);
-  assert.match(page, /<ElectionBase asOf=\{asOf\} variant="hero"/);
-  assert.match(page, /latestDayPolls.length > 1 \? <ElectionBase/);
-  assert.match(page, /id="mapa"[\s\S]*<ElectionBase asOf=\{asOf\}/);
-  assert.match(race, /<ElectionBase asOf=\{asOf\}/);
+  const css = readFileSync("src/styles.css", "utf8");
+  assert.match(base, /pollWeekBar/);
+  assert.match(page, /<ElectionBase asOf=\{asOf\} polls=\{polls\}/);
+  assert.doesNotMatch(page, /variant="hero"/);
+  assert.doesNotMatch(race, /ElectionBase/);
+  assert.doesNotMatch(css, /elec-strip/);
+  const heroEnd = page.indexOf("</section>");
+  const barAt = page.indexOf("<ElectionBase");
+  const mainAt = page.indexOf('id="conteudo"');
+  assert.ok(barAt > mainAt && mainAt > heroEnd, "week bar sits in the page body, not over the score");
 });

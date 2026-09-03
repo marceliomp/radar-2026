@@ -73,3 +73,34 @@ test("a later day replaces the previous bundle", async () => {
   assert.equal(rows.length, 1);
   assert.equal(rows[0].institute, "Quaest");
 });
+
+test("pollsOnDate returns every house that published that day", async () => {
+  const { pollsOnDate } = await load();
+  const atlas = stub({
+    id: "atlas-08-31",
+    institute: "AtlasIntel/Bloomberg",
+    date: "2026-08-31",
+    fieldStart: "2026-08-28",
+    fieldEnd: "2026-08-30",
+  });
+  const nexus = stub({
+    id: "nexus-08-31",
+    institute: "Nexus/BTG",
+    date: "2026-08-31",
+    fieldStart: "2026-08-29",
+    fieldEnd: "2026-08-30",
+  });
+  const quaest = stub({
+    id: "quaest-09-02",
+    institute: "Quaest",
+    date: "2026-09-02",
+    fieldStart: "2026-08-30",
+    fieldEnd: "2026-09-01",
+  });
+  const rows = pollsOnDate([atlas, nexus, quaest], "2026-08-31", "2026-09-03");
+  assert.equal(rows.length, 2);
+  assert.deepEqual(rows.map((row) => row.institute), ["AtlasIntel/Bloomberg", "Nexus/BTG"]);
+  const later = pollsOnDate([atlas, nexus, quaest], "2026-09-02", "2026-09-03");
+  assert.equal(later.length, 1);
+  assert.equal(later[0].institute, "Quaest");
+});

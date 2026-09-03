@@ -1,52 +1,75 @@
-/** Calendário TSE 2026: 1º turno 04/10, 2º 25/10. */
+/** Semanas de pesquisa no arquivo, segunda a domingo. */
 
-export const ELECTION_2026 = {
-  campaignStart: "2026-08-16",
-  firstRound: "2026-10-04",
-  secondRound: "2026-10-25",
-} as const;
-
-function dayMs(iso: string) {
-  return Date.parse(`${iso}T12:00:00Z`);
+export function mondayOf(iso: string): string {
+  const [y, m, d] = iso.split("-").map(Number);
+  const dt = new Date(Date.UTC(y, (m ?? 1) - 1, d ?? 1));
+  const wd = dt.getUTCDay();
+  const back = wd === 0 ? 6 : wd - 1;
+  dt.setUTCDate(dt.getUTCDate() - back);
+  return dt.toISOString().slice(0, 10);
 }
 
-export function electionBarView(asOf: string): {
-  pct: number;
+export function addDays(iso: string, days: number): string {
+  const [y, m, d] = iso.split("-").map(Number);
+  const dt = new Date(Date.UTC(y, (m ?? 1) - 1, (d ?? 1) + days));
+  return dt.toISOString().slice(0, 10);
+}
+
+function dateBr(iso: string): string {
+  if (!iso || iso.length < 10) return "";
+  return `${iso.slice(8, 10)}/${iso.slice(5, 7)}`;
+}
+
+export type WeekCell = { start: string; count: number; houses: string[] };
+
+export function pollWeekBar(
+  polls: { national?: boolean; date: string; fieldEnd: string; institute?: string }[],
+  asOf: string,
+): {
+  weeks: WeekCell[];
+  asOf: string;
+  nWithPolls: number;
+  from: string;
+  to: string;
   label: string;
-  marks: { iso: string; text: string; left: number }[];
 } {
-  const start = dayMs(ELECTION_2026.campaignStart);
-  const end = dayMs(ELECTION_2026.secondRound);
-  const now = dayMs(asOf);
-  const span = Math.max(end - start, 1);
-  const pct = Math.round((1000 * Math.min(1, Math.max(0, (now - start) / span)))) / 10;
-  const days1 = Math.round((dayMs(ELECTION_2026.firstRound) - now) / 86_400_000);
-  const days2 = Math.round((dayMs(ELECTION_2026.secondRound) - now) / 86_400_000);
-  let label: string;
-  if (asOf < ELECTION_2026.firstRound) {
-    label =
-      days1 === 1
-        ? "Falta 1 dia para o 1º turno, 04/10"
-        : `Faltam ${days1} dias para o 1º turno, 04/10`;
-  } else if (asOf === ELECTION_2026.firstRound) {
-    label = "1º turno hoje, 04/10";
-  } else if (asOf < ELECTION_2026.secondRound) {
-    label =
-      days2 === 1
-        ? "Falta 1 dia para o 2º turno, 25/10"
-        : `Faltam ${days2} dias para o 2º turno, 25/10`;
-  } else if (asOf === ELECTION_2026.secondRound) {
-    label = "2º turno hoje, 25/10";
-  } else {
-    label = "Urnas em 04/10 e 25/10";
+  const visible = polls.filter(
+    (poll) => poll.national && poll.date <= asOf && poll.fieldEnd <= asOf,
+  );
+  if (!visible.length) {
+    return {
+      weeks: [],
+      asOf,
+      nWithPolls: 0,
+      from: asOf,
+      to: asOf,
+      label: `Pesquisas por semana`,
+    };
   }
-  const marks = [
-    { iso: ELECTION_2026.campaignStart, text: "Campanha" },
-    { iso: ELECTION_2026.firstRound, text: "1º 04/10" },
-    { iso: ELECTION_2026.secondRound, text: "2º 25/10" },
-  ].map((mark) => ({
-    ...mark,
-    left: Math.round((1000 * (dayMs(mark.iso) - start)) / span) / 10,
-  }));
-  return { pct, label, marks };
+  const first = visible.reduce((min, poll) => (poll.date < min ? poll.date : min), visible[0]!.date);
+  const houses = new Map<string, string[]>();
+  for (const poll of visible) {
+    const week = mondayOf(poll.date);
+    const list = houses.get(week) ?? [];
+    const name = poll.institute?.trim();
+    if (name && !list.includes(name)) list.push(name);
+    houses.set(week, list);
+  }
+  const weeks: WeekCell[] = [];
+  let cur = mondayOf(first);
+  const last = mondayOf(asOf);
+  while (cur <= last) {
+    const list = (houses.get(cur) ?? []).slice().sort((a, b) => a.localeCompare(b));
+    weeks.push({ start: cur, count: list.length, houses: list });
+    cur = addDays(cur, 7);
+  }
+  const nWithPolls = weeks.filter((week) => week.count > 0).length;
+  return {
+    weeks,
+    asOf,
+    nWithPolls,
+    from: first,
+    to: asOf,
+    label: `Pesquisas por semana · ${dateBr(first)} a ${dateBr(asOf)}`,
+  };
 }

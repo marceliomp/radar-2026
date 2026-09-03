@@ -10,9 +10,10 @@ import {
 } from "recharts";
 import { SegGroup } from "@/features/radar/map/map-layer-toggle";
 import { CHART, tipStyle } from "@/lib/chart-theme";
-import { fieldPeriodLine, fmtNum } from "@/lib/format";
+import { dateBr, fieldPeriodLine, fmtNum } from "@/lib/format";
 import { buildNationalTrend, rollingAverage } from "@/lib/forecast/trends";
 import type { ForecastPoll } from "@/lib/forecast/engine";
+import { pollsOnDate } from "@/lib/latest-day";
 
 const XAXIS = {
   dataKey: "label" as const,
@@ -28,6 +29,14 @@ const XAXIS = {
 
 type RoundKey = "1" | "2";
 
+type DayHouse = {
+  institute: string;
+  fieldStart?: string;
+  fieldEnd: string;
+  lulaPoll: number | null;
+  flavioPoll: number | null;
+};
+
 type CurveRow = {
   label: string;
   institute: string;
@@ -38,6 +47,7 @@ type CurveRow = {
   flavioPoll: number | null;
   lulaAvg: number | null;
   flavioAvg: number | null;
+  sameDay: DayHouse[];
 };
 
 type TipRow = {
@@ -46,35 +56,75 @@ type TipRow = {
   payload?: CurveRow;
 };
 
-function dateBr(iso?: string) {
-  if (!iso || iso.length < 10) return "";
-  return `${iso.slice(8)}/${iso.slice(5, 7)}`;
+function pct(n: number | null | undefined) {
+  return n == null || !Number.isFinite(n) ? "n/d" : `${fmtNum(n)}%`;
+}
+
+function housesOnCurveDay(
+  polls: ForecastPoll[],
+  date: string,
+  asOf: string,
+  round: RoundKey,
+): DayHouse[] {
+  return pollsOnDate(polls, date, asOf)
+    .map((poll) => ({
+      institute: poll.institute,
+      fieldStart: poll.fieldStart,
+      fieldEnd: poll.fieldEnd,
+      lulaPoll: round === "2" ? (poll.secondRound?.lula ?? null) : (poll.firstRound.lula ?? null),
+      flavioPoll: round === "2" ? (poll.secondRound?.flavio ?? null) : (poll.firstRound.flavio ?? null),
+    }))
+    .filter((house) => house.lulaPoll != null && house.flavioPoll != null);
 }
 
 function CurveTip({ active, payload }: { active?: boolean; payload?: TipRow[] }) {
   if (!active || !payload?.length) return null;
   const row = payload[0]?.payload;
+  if (!row) return null;
+  const houses = row.sameDay.length ? row.sameDay : [
+    {
+      institute: row.institute,
+      fieldStart: row.fieldStart,
+      fieldEnd: row.fieldEnd,
+      lulaPoll: row.lulaPoll,
+      flavioPoll: row.flavioPoll,
+    },
+  ];
+  const many = houses.length > 1;
   const pick = (key: keyof CurveRow) => {
     const hit = payload.find((item) => item.dataKey === key);
     const raw = Number(hit?.value);
     return Number.isFinite(raw) ? `${fmtNum(raw)}%` : "n/d";
   };
   return (
-    <div style={{ ...tipStyle, padding: "10px 12px", minWidth: 196, color: CHART.fg }}>
+    <div style={{ ...tipStyle, padding: "10px 12px", minWidth: 196, maxWidth: 280, color: CHART.fg }}>
       <p className="m-0 text-sm font-semibold" style={{ color: CHART.fg }}>
-        {row?.institute ?? ""} · {dateBr(row?.published)}
+        {many
+          ? `${dateBr(row.published)} · ${houses.length} pesquisas`
+          : `${houses[0]?.institute ?? ""} · ${dateBr(row.published)}`}
       </p>
-      <p className="m-0 mt-0.5 text-[11px] font-medium text-cream/70">
-        {fieldPeriodLine(row?.fieldStart, row?.fieldEnd)}
-      </p>
-      <p className="m-0 mt-2.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-gold">
-        Nesta pesquisa
-      </p>
-      <p className="m-0 mt-1 font-mono text-sm tabular-nums">
-        <span style={{ color: CHART.lula }}>Lula {pick("lulaPoll")}</span>
-        <span className="text-cream/35"> · </span>
-        <span style={{ color: CHART.flavio }}>Flávio {pick("flavioPoll")}</span>
-      </p>
+      {houses.map((house, i) => (
+        <div key={`${house.institute}-${i}`} className={i === 0 ? "mt-0.5" : "mt-2.5"}>
+          {many ? (
+            <p className="m-0 text-sm font-semibold" style={{ color: CHART.fg }}>
+              {house.institute}
+            </p>
+          ) : null}
+          <p className="m-0 mt-0.5 text-[11px] font-medium text-cream/70">
+            {fieldPeriodLine(house.fieldStart, house.fieldEnd)}
+          </p>
+          {!many ? (
+            <p className="m-0 mt-2.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-gold">
+              Nesta pesquisa
+            </p>
+          ) : null}
+          <p className="m-0 mt-1 font-mono text-sm tabular-nums">
+            <span style={{ color: CHART.lula }}>Lula {pct(house.lulaPoll)}</span>
+            <span className="text-cream/35"> · </span>
+            <span style={{ color: CHART.flavio }}>Flávio {pct(house.flavioPoll)}</span>
+          </p>
+        </div>
+      ))}
       <p className="m-0 mt-2.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-gold">
         Média das 3 últimas
       </p>
@@ -143,6 +193,7 @@ export function GrowthCurve({
         flavioPoll: point.flavio1,
         lulaAvg: point.lula1Avg,
         flavioAvg: point.flavio1Avg,
+        sameDay: housesOnCurveDay(visible, point.published, asOf, "1"),
       })),
       second: smooth
         .filter((point) => point.lula2 != null && point.flavio2 != null)
@@ -156,6 +207,7 @@ export function GrowthCurve({
           flavioPoll: point.flavio2,
           lulaAvg: point.lula2Avg,
           flavioAvg: point.flavio2Avg,
+          sameDay: housesOnCurveDay(visible, point.published, asOf, "2"),
         })),
     };
   }, [polls, asOf]);

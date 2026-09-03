@@ -1,33 +1,30 @@
-import { electionBarView } from "@/lib/election-calendar";
+import { pollWeekBar } from "@/lib/election-calendar";
 import { dateBr } from "@/lib/format";
-import { cn } from "@/lib/utils";
+import type { ForecastPoll } from "@/lib/forecast/engine";
 
 export function ElectionBase({
   asOf,
-  variant = "block",
+  polls,
 }: {
   asOf: string;
-  variant?: "hero" | "block";
+  polls: ForecastPoll[];
 }) {
-  const bar = electionBarView(asOf);
+  const bar = pollWeekBar(polls, asOf);
+  if (!bar.weeks.length) return null;
   return (
-    <div className={cn("elec-strip", variant === "block" && "elec-strip-block")}>
-      <p className="elec-bar-copy">
-        Base {dateBr(asOf)} · {bar.label}
-      </p>
-      <div
-        className="elec-bar"
-        role="meter"
-        aria-valuemin={0}
-        aria-valuemax={100}
-        aria-valuenow={bar.pct}
-        aria-label={`Base ${dateBr(asOf)}. ${bar.label}`}
-      >
-        <div className="elec-bar-fill" style={{ width: `${bar.pct}%` }} />
-        {bar.marks.map((mark) => (
-          <span key={mark.iso} className="elec-bar-mark" style={{ left: `${mark.left}%` }}>
-            {mark.text}
-          </span>
+    <div className="week-bar">
+      <p className="week-bar-copy">{bar.label}</p>
+      <div className="week-bar-row" role="img" aria-label={bar.label}>
+        {bar.weeks.map((week) => (
+          <span
+            key={week.start}
+            className={week.count > 0 ? "week-cell on" : "week-cell"}
+            title={
+              week.count > 0
+                ? `${dateBr(week.start)}: ${week.houses.join(", ")}`
+                : `${dateBr(week.start)}: nenhuma`
+            }
+          />
         ))}
       </div>
     </div>

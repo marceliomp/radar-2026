@@ -5,16 +5,30 @@ async function load() {
   return import("../src/lib/election-calendar.ts");
 }
 
-test("3 set is 31 days before 1st round and fill is inside the bar", async () => {
-  const { electionBarView } = await load();
-  const view = electionBarView("2026-09-03");
-  assert.match(view.label, /Faltam 31 dias para o 1º turno, 04\/10/);
-  assert.ok(view.pct > 10 && view.pct < 90);
-  assert.equal(view.marks.at(-1)?.text, "2º 25/10");
+test("mondayOf snaps to Monday UTC", async () => {
+  const { mondayOf } = await load();
+  assert.equal(mondayOf("2026-09-03"), "2026-08-31");
+  assert.equal(mondayOf("2026-08-31"), "2026-08-31");
 });
 
-test("election day labels", async () => {
-  const { electionBarView } = await load();
-  assert.equal(electionBarView("2026-10-04").label, "1º turno hoje, 04/10");
-  assert.equal(electionBarView("2026-10-25").label, "2º turno hoje, 25/10");
+test("poll week bar counts houses per week and ignores later asOf cuts", async () => {
+  const { pollWeekBar } = await load();
+  const polls = [
+    { national: true, date: "2026-08-10", fieldEnd: "2026-08-09", institute: "Palver" },
+    { national: true, date: "2026-08-11", fieldEnd: "2026-08-10", institute: "Gerp" },
+    { national: true, date: "2026-08-31", fieldEnd: "2026-08-30", institute: "AtlasIntel/Bloomberg" },
+    { national: true, date: "2026-08-31", fieldEnd: "2026-08-30", institute: "Nexus/BTG" },
+    { national: true, date: "2026-09-03", fieldEnd: "2026-09-02", institute: "PoderData/Aya" },
+  ];
+  const view = pollWeekBar(polls, "2026-09-03");
+  assert.match(view.label, /Pesquisas por semana/);
+  assert.match(view.label, /10\/08 a 03\/09/);
+  assert.ok(view.nWithPolls >= 2);
+  const last = view.weeks.at(-1);
+  assert.equal(last?.start, "2026-08-31");
+  assert.equal(last?.count, 3);
+  assert.deepEqual(last?.houses, ["AtlasIntel/Bloomberg", "Nexus/BTG", "PoderData/Aya"]);
+  const cut = pollWeekBar(polls, "2026-08-15");
+  assert.ok(cut.weeks.every((week) => week.start <= "2026-08-15"));
+  assert.equal(cut.weeks.some((week) => week.start === "2026-08-31"), false);
 });

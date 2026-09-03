@@ -316,7 +316,6 @@ export function PublicRadarPage() {
           hl={halfLife}
           newestId={latestNational?.id ?? ""}
         />
-        <ElectionBase asOf={asOf} variant="hero" />
         <div className="hook-rail">
           <a href="#media" className="hook-link">Intenção</a>
           <a href="#novo" className="hook-link">O que entrou</a>
@@ -327,6 +326,7 @@ export function PublicRadarPage() {
       </section>
 
       <main id="conteudo" className="page-body mx-auto min-w-0 max-w-6xl overflow-x-clip px-4 pt-5 sm:px-6 sm:pt-8">
+        <ElectionBase asOf={asOf} polls={polls} />
         <section id="media" className="mb-6 space-y-4 scroll-mt-24">
           <div className="story-head">
             <p className="kicker">Média das pesquisas</p>
@@ -377,7 +377,6 @@ export function PublicRadarPage() {
                 <h2 className="story-title">{latestDayPolls.length} pesquisas no mesmo dia</h2>
               ) : null}
             </div>
-            {latestDayPolls.length > 1 ? <ElectionBase asOf={asOf} /> : null}
             {latestDayPolls.map((poll) => (
               <LatestHouseCard key={poll.id} poll={poll} />
             ))}
@@ -392,7 +391,6 @@ export function PublicRadarPage() {
             <h2 className="story-title">E no seu estado?</h2>
             <p className="story-lede">Clique no estado. Abre governadores.</p>
           </div>
-          <ElectionBase asOf={asOf} />
           <MapLayerToggle layer={mapLayer} onChange={setMapLayer} />
           <BrazilMap config={config} layer={mapLayer} />
           <p className="tight-next">
