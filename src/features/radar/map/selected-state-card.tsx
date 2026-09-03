@@ -2,13 +2,38 @@ import { Link } from "@tanstack/react-router";
 import { UF_META } from "@/data/calendar";
 import { ELECTION_2022, gap1t, gap2t, leader1t, leader2t, type Election2022Uf } from "@/data/election-2022";
 import { STATE_BY_UF, cardMarginPp, type RoundKey } from "@/data/state-polls";
-import { mapRoundView } from "@/lib/forecast/map-round";
+import { mapRoundView, shareBarPct } from "@/lib/forecast/map-round";
 import { runAllStateForecasts } from "@/lib/forecast/states";
 import { fmtNum, fmtPct, fmtProb } from "@/lib/format";
 import { leadLine, radarKeep } from "./map-helpers";
 
 type Forecasts = ReturnType<typeof runAllStateForecasts>;
 type RoundView = ReturnType<typeof mapRoundView>;
+
+function ShareBar({ lula, flavio }: { lula: number; flavio: number }) {
+  const bar = shareBarPct(lula, flavio);
+  return (
+    <div className="h-2 overflow-hidden bg-bg">
+      <div
+        className="h-full"
+        style={{
+          width: `${bar.lula}%`,
+          background: "var(--color-lula)",
+          float: "left",
+        }}
+      />
+      <div
+        className="h-full"
+        style={{
+          width: `${bar.flavio}%`,
+          background: "var(--color-flavio)",
+          float: "left",
+        }}
+      />
+    </div>
+  );
+}
+
 
 export function Urna2022Card({ uf, row }: { uf: string; row: Election2022Uf }) {
   const meta = UF_META[uf];
@@ -179,24 +204,7 @@ export function SelectedStatePanel({
                             Flávio {fmtPct(m.flavio)}
                           </span>
                         </div>
-                        <div className="h-2 overflow-hidden bg-bg">
-                          <div
-                            className="h-full"
-                            style={{
-                              width: `${(m.lula / Math.max(m.lula + m.flavio, 1)) * 100}%`,
-                              background: "var(--color-lula)",
-                              float: "left",
-                            }}
-                          />
-                          <div
-                            className="h-full"
-                            style={{
-                              width: `${(m.flavio / Math.max(m.lula + m.flavio, 1)) * 100}%`,
-                              background: "var(--color-flavio)",
-                              float: "left",
-                            }}
-                          />
-                        </div>
+                        <ShareBar lula={m.lula} flavio={m.flavio} />
                         <p className="text-xs font-medium text-gold">
                           Margem ~ ±{fmtNum(cardMarginPp(m.se), 1)} pp · {m.implied
                             ? "chance de Flávio no two-way do 1º"
