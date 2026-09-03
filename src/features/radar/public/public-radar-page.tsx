@@ -8,6 +8,7 @@ import { SiteNav } from "@/components/site-nav";
 import { TightRaces } from "@/components/tight-races";
 import { GrowthCurve } from "@/features/radar/public/growth-curve";
 import { VisitHook } from "@/components/visit-hook";
+import { ElectionBase } from "@/components/election-base";
 import { CANDIDATE_META, polls } from "@/data/polls";
 import { useAsOf } from "@/lib/as-of";
 import {
@@ -26,7 +27,6 @@ import { fieldPeriodLine, fmtMult, fmtNum, fmtPct, fmtProb, isShownTie, pairTigh
 import { useHalfLife } from "@/lib/half-life";
 import { fileStamp } from "@/lib/visit-delta";
 import { pollsOnLatestDay } from "@/lib/latest-day";
-import { electionBarView } from "@/lib/election-calendar";
 import { CHART } from "@/lib/chart-theme";
 import { cn } from "@/lib/utils";
 
@@ -276,7 +276,6 @@ export function PublicRadarPage() {
   const { first, second, probs, rows } = forecast;
   const latestDayPolls = useMemo(() => pollsOnLatestDay(polls, asOf), [asOf]);
   const latestNational = latestDayPolls[0] ?? null;
-  const electionBar = useMemo(() => electionBarView(asOf), [asOf]);
   const pLula = Math.round(probs.lulaWinsElection * 1000) / 10;
   const pFlavio = Math.round(probs.flavioWinsElection * 1000) / 10;
 
@@ -317,24 +316,7 @@ export function PublicRadarPage() {
           hl={halfLife}
           newestId={latestNational?.id ?? ""}
         />
-        <div className="elec-strip">
-          <p className="elec-bar-copy">{electionBar.label}</p>
-          <div
-            className="elec-bar"
-            role="meter"
-            aria-valuemin={0}
-            aria-valuemax={100}
-            aria-valuenow={electionBar.pct}
-            aria-label={electionBar.label}
-          >
-            <div className="elec-bar-fill" style={{ width: `${electionBar.pct}%` }} />
-            {electionBar.marks.map((mark) => (
-              <span key={mark.iso} className="elec-bar-mark" style={{ left: `${mark.left}%` }}>
-                {mark.text}
-              </span>
-            ))}
-          </div>
-        </div>
+        <ElectionBase asOf={asOf} variant="hero" />
         <div className="hook-rail">
           <a href="#media" className="hook-link">Intenção</a>
           <a href="#novo" className="hook-link">O que entrou</a>
@@ -395,6 +377,7 @@ export function PublicRadarPage() {
                 <h2 className="story-title">{latestDayPolls.length} pesquisas no mesmo dia</h2>
               ) : null}
             </div>
+            {latestDayPolls.length > 1 ? <ElectionBase asOf={asOf} /> : null}
             {latestDayPolls.map((poll) => (
               <LatestHouseCard key={poll.id} poll={poll} />
             ))}
@@ -409,6 +392,7 @@ export function PublicRadarPage() {
             <h2 className="story-title">E no seu estado?</h2>
             <p className="story-lede">Clique no estado. Abre governadores.</p>
           </div>
+          <ElectionBase asOf={asOf} />
           <MapLayerToggle layer={mapLayer} onChange={setMapLayer} />
           <BrazilMap config={config} layer={mapLayer} />
           <p className="tight-next">

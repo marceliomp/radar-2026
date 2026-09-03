@@ -8,6 +8,7 @@ import { useAsOf } from "@/lib/as-of";
 import { useHalfLife } from "@/lib/half-life";
 import { HalfLifeControl } from "@/components/half-life-control";
 import { SiteNav } from "@/components/site-nav";
+import { ElectionBase } from "@/components/election-base";
 import { CandidateList } from "./candidate-list";
 import { RaceHero } from "./race-hero";
 import { RacePollsTable } from "./race-polls-table";
@@ -126,6 +127,7 @@ export function RacePage() {
         </div>
       </header>
 
+      <ElectionBase asOf={asOf} />
       <RaceHero ufName={ufName} office={office} leaders={leaders} result={result} />
 
       <p className="border-b border-border px-4 py-2 font-mono text-xs uppercase tracking-[0.12em] text-cream/85 md:px-6">

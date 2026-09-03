@@ -129,7 +129,11 @@ test("same-day houses all get a ficha", () => {
 
 test("hero mounts the election period bar", () => {
   const page = readFileSync("src/features/radar/public/public-radar-page.tsx", "utf8");
-  assert.match(page, /electionBarView/);
-  assert.match(page, /elec-strip/);
-  assert.match(page, /role="meter"/);
+  const race = readFileSync("src/features/races/race-page.tsx", "utf8");
+  const base = readFileSync("src/components/election-base.tsx", "utf8");
+  assert.match(base, /Base \{dateBr\(asOf\)\}/);
+  assert.match(page, /<ElectionBase asOf=\{asOf\} variant="hero"/);
+  assert.match(page, /latestDayPolls.length > 1 \? <ElectionBase/);
+  assert.match(page, /id="mapa"[\s\S]*<ElectionBase asOf=\{asOf\}/);
+  assert.match(race, /<ElectionBase asOf=\{asOf\}/);
 });
