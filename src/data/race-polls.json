@@ -1,7 +1,136 @@
 {
-  "source": "G1, Folha, Poder360, CNN, O Globo, Ipsos, Gazeta do Povo. Rodada Quaest/Globo 24-27/08 + ondas anteriores: Genial/Quaest jul (10 UFs, PA ja estava), Datafolha SP 01-03/07, Genial/Quaest SP abr, Parana Pesquisas PR jul/ago. Quaest PA 29/08 ainda sem tabela.",
+  "source": "CartaCapital/AtlasIntel 03/09 (RS GO PI RJ) + Gazeta/RTBD RJ 02/09. G1, Folha, Poder360, CNN, O Globo, Ipsos, Gazeta do Povo. Rodada Quaest/Globo 24-27/08 + ondas anteriores: Genial/Quaest jul (10 UFs, PA ja estava), Datafolha SP 01-03/07, Genial/Quaest SP abr, Parana Pesquisas PR jul/ago. Quaest PA 29/08 ainda sem tabela.",
   "asOf": "2026-09-03",
   "polls": [
+    {
+      "id": "atlas-rs-gov-09-03",
+      "office": "governor",
+      "uf": "RS",
+      "institute": "AtlasIntel",
+      "date": "2026-09-03",
+      "fieldStart": "2026-08-27",
+      "fieldEnd": "2026-09-01",
+      "sample": 1783,
+      "moe": 2,
+      "mode": "online",
+      "firstRound": {
+        "tenentecoronelzucco": 44.3,
+        "julianabrizola": 37.5,
+        "gabrielsouza": 10.4,
+        "marcelomaranata": 2.3,
+        "privoigtcommulheresmirabal": 0,
+        "rejanedeoliveira": 0
+      },
+      "secondRound": {
+        "tenentecoronelzucco": 48.5,
+        "julianabrizola": 43.9
+      },
+      "notes": "CartaCapital 03/09. Recrutamento digital 27/08 a 01/09 n=1783 moe 2. TSE RS-00652/2026. https://www.cartacapital.com.br/politica/atlasintel-zucco-lidera-a-disputa-pelo-governo-do-rio-grande-do-sul-com-juliana-brizola-em-2o/"
+    },
+    {
+      "id": "atlas-go-gov-09-03",
+      "office": "governor",
+      "uf": "GO",
+      "institute": "AtlasIntel",
+      "date": "2026-09-03",
+      "fieldStart": "2026-08-27",
+      "fieldEnd": "2026-09-01",
+      "sample": 1214,
+      "moe": 3,
+      "mode": "online",
+      "firstRound": {
+        "danielvilela": 43.5,
+        "wildermorais": 20.1,
+        "marconiperillo": 16.1,
+        "luiscesarbueno": 10.7,
+        "lucianaamorim2": 0.1
+      },
+      "secondRound": {
+        "danielvilela": 53.7,
+        "wildermorais": 28.9
+      },
+      "notes": "CartaCapital 03/09. Recrutamento digital 27/08 a 01/09 n=1214 moe 3. TSE GO-05293/2026. https://www.cartacapital.com.br/politica/atlasintel-daniel-vilela-lidera-em-goias-23-pontos-a-frente-de-candidato-do-pl/"
+    },
+    {
+      "id": "atlas-pi-gov-09-03",
+      "office": "governor",
+      "uf": "PI",
+      "institute": "AtlasIntel/Meio Norte",
+      "date": "2026-09-03",
+      "fieldStart": "2026-08-28",
+      "fieldEnd": "2026-09-02",
+      "sample": 1622,
+      "moe": 2,
+      "mode": "online",
+      "firstRound": {
+        "rafaelfonteles": 62.4,
+        "joelrodrigues": 20.9,
+        "draluciasantos": 1.5,
+        "lourdesmelo": 0.8,
+        "elizeuaguiar": 0.6,
+        "professorgisvaldo": 0.6,
+        "gustavohenriquepelacidade": 0.5,
+        "geraldocarvalho10": 0.2,
+        "professorjurity": 0.2,
+        "santiagobelizario": 0.2,
+        "ravennacastro": 0
+      },
+      "notes": "CartaCapital 03/09. TV Meio Norte. Recrutamento digital 28/08 a 02/09 n=1622 moe 2. TSE PI-03771/2026. https://www.cartacapital.com.br/politica/atlasintel-rafael-fonteles-lidera-com-folga-e-venceria-no-1o-turno-no-piaui/"
+    },
+    {
+      "id": "atlas-rj-gov-09-03",
+      "office": "governor",
+      "uf": "RJ",
+      "institute": "AtlasIntel",
+      "date": "2026-09-03",
+      "fieldStart": "2026-08-26",
+      "fieldEnd": "2026-08-31",
+      "sample": 1784,
+      "moe": 2,
+      "mode": "online",
+      "firstRound": {
+        "eduardopaes": 43.6,
+        "douglasruas": 27.6,
+        "garotinho": 10.7,
+        "coronelbusnello": 5.6,
+        "andremarinho": 4.3,
+        "williamsiri": 3.2,
+        "cyrogarcia": 0.7,
+        "julietepantoja": 0.2
+      },
+      "secondRound": {
+        "eduardopaes": 51.9,
+        "douglasruas": 38.2
+      },
+      "notes": "TMC 03/09. Recrutamento digital 26/08 a 31/08 n=1784 moe 2. TSE RJ-04067/2026 e BR-05901/2026. Cenário com Garotinho. https://tmc.com.br/politica/pesquisa-aponta-que-eduardo-paes-lidera-corrida-pelo-governo-do-rio-em-todos-os-cenarios/"
+    },
+    {
+      "id": "rtbd-rj-gov-09-02",
+      "office": "governor",
+      "uf": "RJ",
+      "institute": "Real Time Big Data",
+      "date": "2026-09-02",
+      "fieldStart": "2026-08-28",
+      "fieldEnd": "2026-09-01",
+      "sample": 2000,
+      "moe": 2,
+      "mode": "telefone",
+      "firstRound": {
+        "eduardopaes": 35,
+        "douglasruas": 21,
+        "garotinho": 7,
+        "williamsiri": 5,
+        "coronelbusnello": 4,
+        "andremarinho": 3,
+        "cyrogarcia": 1,
+        "julietepantoja": 1
+      },
+      "secondRound": {
+        "eduardopaes": 41,
+        "douglasruas": 30
+      },
+      "notes": "Gazeta do Povo 02/09. Campo 28/08 a 01/09 n=2000 moe 2. TSE RJ-08350/2026. Estimulado com Garotinho. https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/real-time-big-data-governador-senador-rio-de-janeiro-setembro-2026/"
+    },
     {
       "id": "atlas-ce-gov-09-03",
       "office": "governor",
