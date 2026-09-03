@@ -4,6 +4,7 @@ import {
   DEFAULT_CONFIG,
   type ForecastPoll,
 } from "./engine.ts";
+import { resolveInstitute } from "./track-record.ts";
 
 export type DayAverage = {
   date: string;
@@ -99,4 +100,29 @@ export function axisTicks(values: number[], maxTicks = 6): number[] {
   if (picked[0] !== first) picked.unshift(first);
   if (picked[picked.length - 1] !== last) picked.push(last);
   return [...new Set(picked)].sort((a, b) => a - b);
+}
+
+export function houseFilterKey(name: string): string {
+  const resolved = resolveInstitute(name);
+  if (resolved === "Genial/Quaest" || resolved === "Quaest") return "Quaest";
+  if (resolved.startsWith("PoderData")) return "PoderData";
+  if (resolved === "Real Time Big Data") return "RTBD";
+  if (resolved.startsWith("Nexus")) return "Nexus";
+  if (resolved.startsWith("Futura")) return "Futura";
+  if (resolved.startsWith("Atlas")) return "AtlasIntel";
+  return resolved.split("/")[0] ?? resolved;
+}
+
+export function houseFilterOptions(
+  polls: { institute: string }[],
+): string[] {
+  const n = new Map<string, number>();
+  for (const poll of polls) {
+    const key = houseFilterKey(poll.institute);
+    n.set(key, (n.get(key) ?? 0) + 1);
+  }
+  return [...n.entries()]
+    .filter(([, count]) => count >= 2)
+    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+    .map(([key]) => key);
 }

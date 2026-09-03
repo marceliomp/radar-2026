@@ -9,16 +9,16 @@ test("field range is start to end, not a single day", async () => {
   const { fieldRangeLabel } = await load();
   assert.equal(fieldRangeLabel("2026-08-30", "2026-09-01"), "30/08 a 01/09");
   assert.equal(fieldRangeLabel("2026-09-01", "2026-09-01"), "01/09");
-  assert.equal(fieldRangeLabel(undefined, "2026-09-01"), "até 01/09");
-  assert.equal(fieldRangeLabel(null, "2026-09-01"), "até 01/09");
+  assert.equal(fieldRangeLabel(undefined, "2026-09-01"), "01/09");
+  assert.equal(fieldRangeLabel(null, "2026-09-01"), "01/09");
 });
 
 test("field period line is a plain sentence", async () => {
   const { fieldPeriodLine } = await load();
   assert.equal(fieldPeriodLine("2026-08-30", "2026-09-01"), "Entrevistas de 30/08 a 01/09");
   assert.equal(fieldPeriodLine("2026-09-01", "2026-09-01"), "Entrevistas em 01/09");
-  assert.equal(fieldPeriodLine(undefined, "2026-09-01"), "Entrevistas até 01/09");
-  assert.equal(fieldPeriodLine(null, "2026-09-01"), "Entrevistas até 01/09");
+  assert.equal(fieldPeriodLine(undefined, "2026-09-01"), "Entrevistas em 01/09");
+  assert.equal(fieldPeriodLine(null, "2026-09-01"), "Entrevistas em 01/09");
 });
 
 test("Quaest 42×41 ±2 is a lead inside the house margin", async () => {

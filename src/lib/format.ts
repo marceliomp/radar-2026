@@ -88,13 +88,12 @@ export function utcMsToDayBr(ms: number): string {
   return `${d}/${m}`;
 }
 
-/** Só as datas: 30/08 a 01/09. Sem início, "até 01/09". */
+/** Só as datas: 30/08 a 01/09. Um dia só: 01/09. */
 export function fieldRangeLabel(start?: string | null, end?: string | null): string {
   const from = dateBr(start);
   const to = dateBr(end);
   if (from && to && from !== to) return `${from} a ${to}`;
-  if (to) return from === to ? to : `até ${to}`;
-  return from;
+  return to || from;
 }
 
 /** Linha pública do período: "Entrevistas de 30/08 a 01/09". */
@@ -103,8 +102,8 @@ export function fieldPeriodLine(start?: string | null, end?: string | null): str
   const to = dateBr(end);
   if (from && to && from !== to) return `Entrevistas de ${from} a ${to}`;
   if (from && to) return `Entrevistas em ${to}`;
-  if (to) return `Entrevistas até ${to}`;
-  if (from) return `Entrevistas a partir de ${from}`;
+  if (to) return `Entrevistas em ${to}`;
+  if (from) return `Entrevistas em ${from}`;
   return "";
 }
 

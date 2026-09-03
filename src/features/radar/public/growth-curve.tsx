@@ -10,8 +10,20 @@ import {
 } from "recharts";
 import { SegGroup } from "@/features/radar/map/map-layer-toggle";
 import { CHART, tipStyle } from "@/lib/chart-theme";
-import { dateBr, fieldPeriodLine, fmtNum, isoDayUtc, utcMsToDayBr } from "@/lib/format";
-import { asOfDayAverages, axisTicks } from "@/lib/forecast/curve-series";
+import {
+  dateBr,
+  fieldPeriodLine,
+  fmtDelta,
+  fmtNum,
+  isoDayUtc,
+  utcMsToDayBr,
+} from "@/lib/format";
+import {
+  asOfDayAverages,
+  axisTicks,
+  houseFilterKey,
+  houseFilterOptions,
+} from "@/lib/forecast/curve-series";
 import { buildNationalTrend } from "@/lib/forecast/trends";
 import type { ForecastPoll } from "@/lib/forecast/engine";
 import { pollsOnDate } from "@/lib/latest-day";
@@ -61,6 +73,10 @@ type CurveRow = {
   lulaAvg: number | null;
   flavioAvg: number | null;
   sameDay: DayHouse[];
+  houseFocus: boolean;
+  prevPublished?: string;
+  dLula?: number | null;
+  dFlavio?: number | null;
 };
 
 type TipRow = {
@@ -94,15 +110,17 @@ function CurveTip({ active, payload }: { active?: boolean; payload?: TipRow[] })
   if (!active || !payload?.length) return null;
   const row = payload[0]?.payload;
   if (!row) return null;
-  const houses = row.sameDay.length ? row.sameDay : [
-    {
-      institute: row.institute,
-      fieldStart: row.fieldStart,
-      fieldEnd: row.fieldEnd,
-      lulaPoll: row.lulaPoll,
-      flavioPoll: row.flavioPoll,
-    },
-  ];
+  const houses = row.sameDay.length
+    ? row.sameDay
+    : [
+        {
+          institute: row.institute,
+          fieldStart: row.fieldStart,
+          fieldEnd: row.fieldEnd,
+          lulaPoll: row.lulaPoll,
+          flavioPoll: row.flavioPoll,
+        },
+      ];
   const many = houses.length > 1;
   const pick = (key: keyof CurveRow) => {
     const hit = payload.find((item) => item.dataKey === key);
@@ -111,6 +129,31 @@ function CurveTip({ active, payload }: { active?: boolean; payload?: TipRow[] })
     const fromRow = row[key];
     return typeof fromRow === "number" && Number.isFinite(fromRow) ? pct(fromRow) : "n/d";
   };
+  if (row.houseFocus) {
+    const house = houses[0];
+    return (
+      <div style={{ ...tipStyle, padding: "10px 12px", minWidth: 196, maxWidth: 280, color: CHART.fg }}>
+        <p className="m-0 text-sm font-semibold" style={{ color: CHART.fg }}>
+          {house?.institute ?? row.institute} · {dateBr(row.published)}
+        </p>
+        <p className="m-0 mt-0.5 text-[11px] font-medium text-cream/55">
+          {fieldPeriodLine(house?.fieldStart ?? row.fieldStart, house?.fieldEnd ?? row.fieldEnd)}
+        </p>
+        <p className="m-0 mt-2 font-mono text-base font-semibold tabular-nums">
+          <span style={{ color: CHART.lula }}>Lula {pct(house?.lulaPoll ?? row.lulaPoll)}</span>
+          <span className="text-cream/35"> · </span>
+          <span style={{ color: CHART.flavio }}>Flávio {pct(house?.flavioPoll ?? row.flavioPoll)}</span>
+        </p>
+        {row.prevPublished && row.dLula != null && row.dFlavio != null ? (
+          <p className="m-0 mt-2 text-[12px] font-medium text-cream/80">
+            vs {dateBr(row.prevPublished)}: Lula {fmtDelta(row.dLula)} · Flávio {fmtDelta(row.dFlavio)}
+          </p>
+        ) : (
+          <p className="m-0 mt-2 text-[11px] font-medium text-cream/55">Primeira onda desta casa no arquivo</p>
+        )}
+      </div>
+    );
+  }
   return (
     <div style={{ ...tipStyle, padding: "10px 12px", minWidth: 196, maxWidth: 280, color: CHART.fg }}>
       <p className="m-0 text-sm font-semibold" style={{ color: CHART.fg }}>
@@ -127,9 +170,7 @@ function CurveTip({ active, payload }: { active?: boolean; payload?: TipRow[] })
       </p>
       {houses.map((house, i) => (
         <div key={`${house.institute}-${i}`} className={i === 0 ? "mt-3" : "mt-2.5"}>
-          <p className="m-0 text-[12px] font-medium text-cream/80">
-            {house.institute}
-          </p>
+          <p className="m-0 text-[12px] font-medium text-cream/80">{house.institute}</p>
           <p className="m-0 mt-0.5 text-[11px] font-medium text-cream/55">
             {fieldPeriodLine(house.fieldStart, house.fieldEnd)}
           </p>
@@ -144,7 +185,7 @@ function CurveTip({ active, payload }: { active?: boolean; payload?: TipRow[] })
   );
 }
 
-function CurveKey() {
+function CurveKey({ houseFocus }: { houseFocus: boolean }) {
   return (
     <div className="mt-3 flex flex-col gap-2 text-xs font-medium sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
       <div className="flex items-center gap-4">
@@ -168,7 +209,7 @@ function CurveKey() {
           <svg width="30" height="10" viewBox="0 0 30 10" aria-hidden>
             <line x1="2" y1="5" x2="28" y2="5" stroke={CHART.axis} strokeWidth="2.6" />
           </svg>
-          linha: média do período
+          {houseFocus ? "linha: esta casa" : "linha: média do período"}
         </span>
       </div>
     </div>
@@ -185,32 +226,56 @@ export function GrowthCurve({
   halfLifeDays: number;
 }) {
   const [round, setRound] = useState<RoundKey>("1");
-  const { first, second } = useMemo(() => {
+  const [house, setHouse] = useState<string | null>(null);
+  const { first, second, houseOpts } = useMemo(() => {
     const visible = polls.filter(
       (poll) => poll.national && poll.date <= asOf && poll.fieldEnd <= asOf,
     );
-    const trend = buildNationalTrend(visible);
-    const avg1 = asOfDayAverages(visible, asOf, halfLifeDays, false);
-    const avg2 = asOfDayAverages(visible, asOf, halfLifeDays, true);
+    const focused = house
+      ? visible.filter((poll) => houseFilterKey(poll.institute) === house)
+      : visible;
+    const trend = buildNationalTrend(focused);
+    const avg1 = asOfDayAverages(focused, asOf, halfLifeDays, false);
+    const avg2 = asOfDayAverages(focused, asOf, halfLifeDays, true);
     const byDay1 = new Map(avg1.map((day) => [day.date, day]));
     const byDay2 = new Map(avg2.map((day) => [day.date, day]));
     const toDots = (
       points: typeof trend,
       byDay: Map<string, (typeof avg1)[number]>,
       key: RoundKey,
-    ): CurveRow[] =>
-      points.map((point) => ({
-        t: isoDayUtc(point.published),
-        institute: point.institute,
-        published: point.published,
-        fieldStart: point.fieldStart,
-        fieldEnd: point.fieldEnd,
-        lulaPoll: key === "2" ? point.lula2 : point.lula1,
-        flavioPoll: key === "2" ? point.flavio2 : point.flavio1,
-        lulaAvg: byDay.get(point.published)?.lula ?? null,
-        flavioAvg: byDay.get(point.published)?.flavio ?? null,
-        sameDay: housesOnCurveDay(visible, point.published, asOf, key),
-      }));
+    ): CurveRow[] => {
+      const rows: CurveRow[] = points.map((point) => {
+        const lulaPoll = key === "2" ? point.lula2 : point.lula1;
+        const flavioPoll = key === "2" ? point.flavio2 : point.flavio1;
+        return {
+          t: isoDayUtc(point.published),
+          institute: point.institute,
+          published: point.published,
+          fieldStart: point.fieldStart,
+          fieldEnd: point.fieldEnd,
+          lulaPoll,
+          flavioPoll,
+          lulaAvg: house ? lulaPoll : (byDay.get(point.published)?.lula ?? null),
+          flavioAvg: house ? flavioPoll : (byDay.get(point.published)?.flavio ?? null),
+          sameDay: housesOnCurveDay(focused, point.published, asOf, key),
+          houseFocus: Boolean(house),
+        };
+      });
+      if (house) {
+        for (let i = 1; i < rows.length; i++) {
+          const prev = rows[i - 1]!;
+          const cur = rows[i]!;
+          if (cur.lulaPoll != null && prev.lulaPoll != null) {
+            cur.prevPublished = prev.published;
+            cur.dLula = Number((cur.lulaPoll - prev.lulaPoll).toFixed(1));
+          }
+          if (cur.flavioPoll != null && prev.flavioPoll != null) {
+            cur.dFlavio = Number((cur.flavioPoll - prev.flavioPoll).toFixed(1));
+          }
+        }
+      }
+      return rows;
+    };
     const firstDots = toDots(trend, byDay1, "1");
     const secondDots = toDots(
       trend.filter((point) => point.lula2 != null && point.flavio2 != null),
@@ -220,15 +285,18 @@ export function GrowthCurve({
     return {
       first: firstDots,
       second: secondDots,
+      houseOpts: houseFilterOptions(visible),
     };
-  }, [polls, asOf, halfLifeDays]);
+  }, [polls, asOf, halfLifeDays, house]);
 
-  if (first.length < 3) return null;
-  const canSecond = second.length >= 3;
+  if (first.length < 3 && !house) return null;
+  const canSecond = second.length >= 2;
   const active: RoundKey = round === "2" && canSecond ? "2" : "1";
   const data = active === "2" ? second : first;
+  if (data.length < 1) return null;
   const ticks = axisTicks(data.map((row) => row.t));
   const domain: [number, number] = active === "2" ? [35, 52] : [26, 48];
+  const houseFocus = Boolean(house);
 
   return (
     <section id="curva" className="mb-6 scroll-mt-24">
@@ -241,7 +309,9 @@ export function GrowthCurve({
             </p>
             <p className="mt-1 max-w-xl text-xs font-medium leading-relaxed text-cream/85">
               {active === "2" ? "Só pesquisas que perguntaram o par. " : ""}
-              Pontos são cada casa. A linha é a média do período.
+              {houseFocus
+                ? `Só ${house}. A linha liga as ondas desta casa.`
+                : "Pontos são cada casa. A linha é a média do período."}
             </p>
           </div>
           <SegGroup ariaLabel="Turno da curva">
@@ -267,7 +337,40 @@ export function GrowthCurve({
             </button>
           </SegGroup>
         </div>
-        <CurveKey />
+        <CurveKey houseFocus={houseFocus} />
+        {houseOpts.length ? (
+          <div
+            className="chip-row mt-3 -mx-1 flex gap-2 overflow-x-auto px-1 pb-1 sm:flex-wrap"
+            role="group"
+            aria-label="Filtrar por casa"
+          >
+            <button
+              type="button"
+              aria-pressed={!house}
+              onClick={() => setHouse(null)}
+              className={`inline-flex shrink-0 rounded-full border px-3 py-1.5 text-xs font-semibold ${
+                !house ? "border-gold bg-gold/10 text-gold" : "border-border bg-surface text-fg"
+              }`}
+            >
+              Todas
+            </button>
+            {houseOpts.map((name) => (
+              <button
+                key={name}
+                type="button"
+                aria-pressed={house === name}
+                onClick={() => setHouse(name)}
+                className={`inline-flex shrink-0 rounded-full border px-3 py-1.5 text-xs font-semibold ${
+                  house === name
+                    ? "border-gold bg-gold/10 text-gold"
+                    : "border-border bg-surface text-fg"
+                }`}
+              >
+                {name}
+              </button>
+            ))}
+          </div>
+        ) : null}
         <div className="mt-3 h-72 w-full min-w-0 sm:h-80">
           <ResponsiveContainer width="100%" height="100%">
             <ComposedChart data={data} margin={{ left: 0, right: 12, top: 8, bottom: 4 }}>
@@ -292,7 +395,12 @@ export function GrowthCurve({
                 dataKey="lulaPoll"
                 legendType="none"
                 stroke="none"
-                dot={{ r: 2.4, fill: CHART.lula, fillOpacity: 0.42, strokeWidth: 0 }}
+                dot={{
+                  r: houseFocus ? 3.2 : 2.4,
+                  fill: CHART.lula,
+                  fillOpacity: houseFocus ? 0.9 : 0.42,
+                  strokeWidth: 0,
+                }}
                 activeDot={false}
                 isAnimationActive={false}
               />
@@ -301,12 +409,17 @@ export function GrowthCurve({
                 dataKey="flavioPoll"
                 legendType="none"
                 stroke="none"
-                dot={{ r: 2.4, fill: CHART.flavio, fillOpacity: 0.42, strokeWidth: 0 }}
+                dot={{
+                  r: houseFocus ? 3.2 : 2.4,
+                  fill: CHART.flavio,
+                  fillOpacity: houseFocus ? 0.9 : 0.42,
+                  strokeWidth: 0,
+                }}
                 activeDot={false}
                 isAnimationActive={false}
               />
               <Line
-                type="monotone"
+                type={houseFocus ? "linear" : "monotone"}
                 dataKey="lulaAvg"
                 legendType="none"
                 stroke={CHART.lula}
@@ -316,7 +429,7 @@ export function GrowthCurve({
                 isAnimationActive={false}
               />
               <Line
-                type="monotone"
+                type={houseFocus ? "linear" : "monotone"}
                 dataKey="flavioAvg"
                 legendType="none"
                 stroke={CHART.flavio}

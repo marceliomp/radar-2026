@@ -52,7 +52,7 @@ test("poll series stays dots and the line is the period average", () => {
   assert.match(poll, /stroke="none"/);
   assert.match(curve, /asOfDayAverages/);
   assert.match(curve, /média do período/);
-  assert.match(curve, /type="monotone"/);
+  assert.match(curve, /monotone/);
   assert.doesNotMatch(curve, /média das 3 últimas/);
   assert.doesNotMatch(curve, /rollingAverage/);
 });
@@ -95,4 +95,26 @@ test("tooltip puts period average above the houses", () => {
   const avgAt = curve.indexOf("Média do período");
   const housesAt = curve.indexOf("{houses.map");
   assert.ok(avgAt > 0 && housesAt > avgAt, "average must sit above the house list");
+});
+
+test("houseFilterKey groups Genial/Quaest as Quaest", async () => {
+  const { houseFilterKey, houseFilterOptions } = await import("../src/lib/forecast/curve-series.ts");
+  assert.equal(houseFilterKey("Genial/Quaest"), "Quaest");
+  assert.equal(houseFilterKey("Quaest"), "Quaest");
+  assert.equal(houseFilterKey("PoderData/Aya"), "PoderData");
+  const opts = houseFilterOptions([
+    { institute: "Genial/Quaest" },
+    { institute: "Quaest" },
+    { institute: "Datafolha" },
+    { institute: "Palver" },
+  ]);
+  assert.deepEqual(opts, ["Quaest"]);
+});
+
+test("curve can filter by house inside the card", () => {
+  const curve = readFileSync("src/features/radar/public/growth-curve.tsx", "utf8");
+  assert.match(curve, /Filtrar por casa/);
+  assert.match(curve, /Todas/);
+  assert.match(curve, /houseFocus/);
+  assert.match(curve, /prevPublished/);
 });
