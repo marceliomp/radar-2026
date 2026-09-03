@@ -16,6 +16,10 @@ export type TrendPoint = {
   lula2: number | null;
   flavio2: number | null;
   gap2: number | null;
+  cury1: number | null;
+  renan1: number | null;
+  caiado1: number | null;
+  zema1: number | null;
 };
 
 export type HouseDelta = {
@@ -87,6 +91,10 @@ export function buildNationalTrend(polls: ForecastPoll[]): TrendPoint[] {
       gap1: shownGap(lula1, flavio1),
       lula2: lula2 != null ? round(lula2, 1) : null,
       flavio2: flavio2 != null ? round(flavio2, 1) : null,
+      cury1: p.firstRound.cury != null ? round(p.firstRound.cury, 1) : null,
+      renan1: p.firstRound.renan != null ? round(p.firstRound.renan, 1) : null,
+      caiado1: p.firstRound.caiado != null ? round(p.firstRound.caiado, 1) : null,
+      zema1: p.firstRound.zema != null ? round(p.firstRound.zema, 1) : null,
       gap2:
         lula2 != null && flavio2 != null ? shownGap(lula2, flavio2) : null,
     };

@@ -54,12 +54,25 @@ const XAXIS = {
 
 type RoundKey = "1" | "2";
 
+const OTHERS = [
+  { key: "cury", label: "Cury", color: CHART.cury },
+  { key: "renan", label: "Renan", color: CHART.renan },
+  { key: "caiado", label: "Caiado", color: CHART.caiado },
+  { key: "zema", label: "Zema", color: CHART.zema },
+] as const;
+
+type OtherKey = (typeof OTHERS)[number]["key"];
+
 type DayHouse = {
   institute: string;
   fieldStart?: string;
   fieldEnd: string;
   lulaPoll: number | null;
   flavioPoll: number | null;
+  curyPoll: number | null;
+  renanPoll: number | null;
+  caiadoPoll: number | null;
+  zemaPoll: number | null;
 };
 
 type CurveRow = {
@@ -72,6 +85,14 @@ type CurveRow = {
   flavioPoll: number | null;
   lulaAvg: number | null;
   flavioAvg: number | null;
+  curyPoll: number | null;
+  renanPoll: number | null;
+  caiadoPoll: number | null;
+  zemaPoll: number | null;
+  curyAvg: number | null;
+  renanAvg: number | null;
+  caiadoAvg: number | null;
+  zemaAvg: number | null;
   sameDay: DayHouse[];
   houseFocus: boolean;
   prevPublished?: string;
@@ -89,6 +110,36 @@ function pct(n: number | null | undefined) {
   return n == null || !Number.isFinite(n) ? "n/d" : `${fmtNum(n)}%`;
 }
 
+function asked(n: number | null | undefined) {
+  return n != null && Number.isFinite(n);
+}
+
+function OthersLine({
+  values,
+  className,
+}: {
+  values: { key: OtherKey; n: number | null | undefined }[];
+  className?: string;
+}) {
+  const shown = values.filter((item) => asked(item.n));
+  if (!shown.length) return null;
+  return (
+    <p className={className ?? "m-0 mt-1 font-mono text-[12px] tabular-nums text-cream/80"}>
+      {shown.map((item, i) => {
+        const meta = OTHERS.find((other) => other.key === item.key)!;
+        return (
+          <span key={item.key}>
+            {i > 0 ? <span className="text-cream/35"> · </span> : null}
+            <span style={{ color: meta.color }}>
+              {meta.label} {pct(item.n)}
+            </span>
+          </span>
+        );
+      })}
+    </p>
+  );
+}
+
 function housesOnCurveDay(
   polls: ForecastPoll[],
   date: string,
@@ -102,6 +153,10 @@ function housesOnCurveDay(
       fieldEnd: poll.fieldEnd,
       lulaPoll: round === "2" ? (poll.secondRound?.lula ?? null) : (poll.firstRound.lula ?? null),
       flavioPoll: round === "2" ? (poll.secondRound?.flavio ?? null) : (poll.firstRound.flavio ?? null),
+      curyPoll: round === "1" ? (poll.firstRound.cury ?? null) : null,
+      renanPoll: round === "1" ? (poll.firstRound.renan ?? null) : null,
+      caiadoPoll: round === "1" ? (poll.firstRound.caiado ?? null) : null,
+      zemaPoll: round === "1" ? (poll.firstRound.zema ?? null) : null,
     }))
     .filter((house) => house.lulaPoll != null && house.flavioPoll != null);
 }
@@ -119,6 +174,10 @@ function CurveTip({ active, payload }: { active?: boolean; payload?: TipRow[] })
           fieldEnd: row.fieldEnd,
           lulaPoll: row.lulaPoll,
           flavioPoll: row.flavioPoll,
+          curyPoll: row.curyPoll,
+          renanPoll: row.renanPoll,
+          caiadoPoll: row.caiadoPoll,
+          zemaPoll: row.zemaPoll,
         },
       ];
   const many = houses.length > 1;
@@ -144,6 +203,14 @@ function CurveTip({ active, payload }: { active?: boolean; payload?: TipRow[] })
           <span className="text-cream/35"> · </span>
           <span style={{ color: CHART.flavio }}>Flávio {pct(house?.flavioPoll ?? row.flavioPoll)}</span>
         </p>
+        <OthersLine
+          values={[
+            { key: "cury", n: house?.curyPoll ?? row.curyPoll },
+            { key: "renan", n: house?.renanPoll ?? row.renanPoll },
+            { key: "caiado", n: house?.caiadoPoll ?? row.caiadoPoll },
+            { key: "zema", n: house?.zemaPoll ?? row.zemaPoll },
+          ]}
+        />
         {row.prevPublished && row.dLula != null && row.dFlavio != null ? (
           <p className="m-0 mt-2 text-[12px] font-medium text-cream/80">
             vs {dateBr(row.prevPublished)}: Lula {fmtDelta(row.dLula)} · Flávio {fmtDelta(row.dFlavio)}
@@ -168,6 +235,15 @@ function CurveTip({ active, payload }: { active?: boolean; payload?: TipRow[] })
         <span className="text-cream/35"> · </span>
         <span style={{ color: CHART.flavio }}>Flávio {pick("flavioAvg")}</span>
       </p>
+      <OthersLine
+        values={[
+          { key: "cury", n: row.curyAvg },
+          { key: "renan", n: row.renanAvg },
+          { key: "caiado", n: row.caiadoAvg },
+          { key: "zema", n: row.zemaAvg },
+        ]}
+        className="m-0 mt-1 font-mono text-[12px] tabular-nums"
+      />
       {houses.map((house, i) => (
         <div key={`${house.institute}-${i}`} className={i === 0 ? "mt-3" : "mt-2.5"}>
           <p className="m-0 text-[12px] font-medium text-cream/80">{house.institute}</p>
@@ -179,16 +255,24 @@ function CurveTip({ active, payload }: { active?: boolean; payload?: TipRow[] })
             <span className="text-cream/35"> · </span>
             <span style={{ color: CHART.flavio }}>Flávio {pct(house.flavioPoll)}</span>
           </p>
+          <OthersLine
+            values={[
+              { key: "cury", n: house.curyPoll },
+              { key: "renan", n: house.renanPoll },
+              { key: "caiado", n: house.caiadoPoll },
+              { key: "zema", n: house.zemaPoll },
+            ]}
+          />
         </div>
       ))}
     </div>
   );
 }
 
-function CurveKey({ houseFocus }: { houseFocus: boolean }) {
+function CurveKey({ houseFocus, showOthers }: { houseFocus: boolean; showOthers: boolean }) {
   return (
     <div className="mt-3 flex flex-col gap-2 text-xs font-medium sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
-      <div className="flex items-center gap-4">
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
         <span className="inline-flex items-center gap-1.5">
           <span className="inline-block size-2.5 rounded-full" style={{ background: CHART.lula }} />
           Lula
@@ -197,6 +281,14 @@ function CurveKey({ houseFocus }: { houseFocus: boolean }) {
           <span className="inline-block size-2.5 rounded-full" style={{ background: CHART.flavio }} />
           Flávio
         </span>
+        {showOthers
+          ? OTHERS.map((other) => (
+              <span key={other.key} className="inline-flex items-center gap-1.5">
+                <span className="inline-block size-2 rounded-full" style={{ background: other.color }} />
+                {other.label}
+              </span>
+            ))
+          : null}
       </div>
       <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-cream/80">
         <span className="inline-flex items-center gap-1.5">
@@ -247,6 +339,11 @@ export function GrowthCurve({
       const rows: CurveRow[] = points.map((point) => {
         const lulaPoll = key === "2" ? point.lula2 : point.lula1;
         const flavioPoll = key === "2" ? point.flavio2 : point.flavio1;
+        const day = byDay.get(point.published);
+        const curyPoll = key === "1" ? point.cury1 : null;
+        const renanPoll = key === "1" ? point.renan1 : null;
+        const caiadoPoll = key === "1" ? point.caiado1 : null;
+        const zemaPoll = key === "1" ? point.zema1 : null;
         return {
           t: isoDayUtc(point.published),
           institute: point.institute,
@@ -255,8 +352,16 @@ export function GrowthCurve({
           fieldEnd: point.fieldEnd,
           lulaPoll,
           flavioPoll,
-          lulaAvg: house ? lulaPoll : (byDay.get(point.published)?.lula ?? null),
-          flavioAvg: house ? flavioPoll : (byDay.get(point.published)?.flavio ?? null),
+          lulaAvg: house ? lulaPoll : (day?.lula ?? null),
+          flavioAvg: house ? flavioPoll : (day?.flavio ?? null),
+          curyPoll,
+          renanPoll,
+          caiadoPoll,
+          zemaPoll,
+          curyAvg: key === "1" ? (house ? curyPoll : (day?.cury ?? null)) : null,
+          renanAvg: key === "1" ? (house ? renanPoll : (day?.renan ?? null)) : null,
+          caiadoAvg: key === "1" ? (house ? caiadoPoll : (day?.caiado ?? null)) : null,
+          zemaAvg: key === "1" ? (house ? zemaPoll : (day?.zema ?? null)) : null,
           sameDay: housesOnCurveDay(focused, point.published, asOf, key),
           houseFocus: Boolean(house),
         };
@@ -295,8 +400,9 @@ export function GrowthCurve({
   const data = active === "2" ? second : first;
   if (data.length < 1) return null;
   const ticks = axisTicks(data.map((row) => row.t));
-  const domain: [number, number] = active === "2" ? [35, 52] : [26, 48];
+  const domain: [number, number] = active === "2" ? [35, 52] : [0, 50];
   const houseFocus = Boolean(house);
+  const showOthers = active === "1";
 
   return (
     <section id="curva" className="mb-6 scroll-mt-24">
@@ -305,10 +411,10 @@ export function GrowthCurve({
           <div>
             <p className="kicker">Linha de crescimento</p>
             <p className="mt-1 font-display text-xl font-semibold">
-              {active === "2" ? "2º turno, Lula × Flávio" : "1º turno, Lula × Flávio"}
+              {active === "2" ? "2º turno, Lula × Flávio" : "1º turno"}
             </p>
             <p className="mt-1 max-w-xl text-xs font-medium leading-relaxed text-cream/85">
-              {active === "2" ? "Só pesquisas que perguntaram o par. " : ""}
+              {active === "2" ? "Só pesquisas que perguntaram o par. " : "Nome só entra se a casa perguntou. "}
               {houseFocus
                 ? `Só ${house}. A linha liga as ondas desta casa.`
                 : "Pontos são cada casa. A linha é a média do período."}
@@ -337,7 +443,7 @@ export function GrowthCurve({
             </button>
           </SegGroup>
         </div>
-        <CurveKey houseFocus={houseFocus} />
+        <CurveKey houseFocus={houseFocus} showOthers={showOthers} />
         {houseOpts.length ? (
           <div
             className="chip-row mt-3 -mx-1 flex gap-2 overflow-x-auto px-1 pb-1 sm:flex-wrap"
@@ -438,6 +544,43 @@ export function GrowthCurve({
                 activeDot={{ r: 4, fill: CHART.flavio, strokeWidth: 0 }}
                 isAnimationActive={false}
               />
+              {showOthers
+                ? OTHERS.map((other) => (
+                    <Line
+                      key={`${other.key}-poll`}
+                      type="linear"
+                      dataKey={`${other.key}Poll`}
+                      legendType="none"
+                      stroke="none"
+                      connectNulls={false}
+                      dot={{
+                        r: houseFocus ? 2.6 : 2,
+                        fill: other.color,
+                        fillOpacity: houseFocus ? 0.85 : 0.5,
+                        strokeWidth: 0,
+                      }}
+                      activeDot={false}
+                      isAnimationActive={false}
+                    />
+                  ))
+                : null}
+              {showOthers
+                ? OTHERS.map((other) => (
+                    <Line
+                      key={`${other.key}-avg`}
+                      type={houseFocus ? "linear" : "monotone"}
+                      dataKey={`${other.key}Avg`}
+                      legendType="none"
+                      stroke={other.color}
+                      strokeWidth={1.7}
+                      strokeOpacity={0.9}
+                      connectNulls
+                      dot={false}
+                      activeDot={{ r: 3.5, fill: other.color, strokeWidth: 0 }}
+                      isAnimationActive={false}
+                    />
+                  ))
+                : null}
             </ComposedChart>
           </ResponsiveContainer>
         </div>

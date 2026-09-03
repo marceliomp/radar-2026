@@ -11,6 +11,10 @@ export type DayAverage = {
   t: number;
   lula: number;
   flavio: number;
+  cury: number | null;
+  renan: number | null;
+  caiado: number | null;
+  zema: number | null;
 };
 
 export function publicationDays(
@@ -29,6 +33,23 @@ export function publicationDays(
     days.add(poll.date);
   }
   return [...days].sort();
+}
+
+
+function meanAsked(
+  rows: { weight: number; poll: ForecastPoll }[],
+  key: "cury" | "renan" | "caiado" | "zema",
+): number | null {
+  let sum = 0;
+  let sumW = 0;
+  for (const row of rows) {
+    const value = row.poll.firstRound[key];
+    if (value == null || !Number.isFinite(value)) continue;
+    sum += row.weight * value;
+    sumW += row.weight;
+  }
+  if (sumW <= 0) return null;
+  return round(sum / sumW, 2);
 }
 
 export function asOfDayAverages(
@@ -71,6 +92,10 @@ export function asOfDayAverages(
       t: isoDayUtc(day),
       lula: round(lula, 2),
       flavio: round(flavio, 2),
+      cury: needSecond ? null : meanAsked(subset, "cury"),
+      renan: needSecond ? null : meanAsked(subset, "renan"),
+      caiado: needSecond ? null : meanAsked(subset, "caiado"),
+      zema: needSecond ? null : meanAsked(subset, "zema"),
     });
   }
   return out;

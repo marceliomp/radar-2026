@@ -118,3 +118,43 @@ test("curve can filter by house inside the card", () => {
   assert.match(curve, /houseFocus/);
   assert.match(curve, /prevPublished/);
 });
+
+test("asOfDayAverages does not treat a missing third name as 0", async () => {
+  const { asOfDayAverages } = await import("../src/lib/forecast/curve-series.ts");
+  const polls = [
+    {
+      id: "a",
+      institute: "Datafolha",
+      date: "2026-08-01",
+      fieldEnd: "2026-08-01",
+      sample: 2000,
+      moe: 2,
+      mode: "presencial",
+      national: true,
+      firstRound: { lula: 40, flavio: 30 },
+    },
+    {
+      id: "b",
+      institute: "Datafolha",
+      date: "2026-08-01",
+      fieldEnd: "2026-08-01",
+      sample: 2000,
+      moe: 2,
+      mode: "presencial",
+      national: true,
+      firstRound: { lula: 40, flavio: 30, cury: 10 },
+    },
+  ];
+  const days = asOfDayAverages(polls, "2026-08-02", 14, false);
+  assert.equal(days.length, 1);
+  assert.equal(days[0].cury, 10);
+});
+
+test("first-round curve plots the other names", () => {
+  const curve = readFileSync("src/features/radar/public/growth-curve.tsx", "utf8");
+  assert.match(curve, /curyAvg/);
+  assert.match(curve, /showOthers/);
+  assert.match(curve, /\[0, 50\]/);
+  assert.match(curve, /Cury/);
+  assert.match(curve, /connectNulls/);
+});
