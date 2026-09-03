@@ -1,5 +1,55 @@
 [
   {
+    "id": "futura-apex-09-03-02793",
+    "institute": "Futura/Apex",
+    "date": "2026-09-03",
+    "fieldStart": "2026-08-27",
+    "fieldEnd": "2026-09-01",
+    "sample": 2000,
+    "moe": 2.2,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 38.7,
+      "flavio": 33.6,
+      "cury": 9.9,
+      "caiado": 3.5,
+      "renan": 2.8,
+      "zema": 1.6
+    },
+    "secondRound": {
+      "lula": 45.6,
+      "flavio": 45.2
+    },
+    "secondPairs": [
+      {
+        "a": "lula",
+        "b": "caiado",
+        "aPct": 44.4,
+        "bPct": 42.5
+      },
+      {
+        "a": "lula",
+        "b": "zema",
+        "aPct": 46.7,
+        "bPct": 38.5
+      },
+      {
+        "a": "lula",
+        "b": "renan",
+        "aPct": 46.6,
+        "bPct": 36.6
+      }
+    ],
+    "source": {
+      "tseProtocol": "BR-02793/2026",
+      "url": "https://www.cnnbrasil.com.br/eleicoes/futura-lula-tem-456-contra-452-de-flavio-no-2o-turno/",
+      "publisher": "cnnbrasil.com.br",
+      "publishedAt": "2026-09-03",
+      "capturedAt": "2026-09-03T19:25:24.000Z"
+    }
+  },
+  {
     "id": "rtbd-09-01",
     "institute": "Real Time Big Data",
     "date": "2026-09-01",
