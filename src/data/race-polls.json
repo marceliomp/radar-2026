@@ -3,6 +3,31 @@
   "asOf": "2026-09-03",
   "polls": [
     {
+      "id": "atlas-ce-gov-09-03",
+      "office": "governor",
+      "uf": "CE",
+      "institute": "AtlasIntel/Focus",
+      "date": "2026-09-03",
+      "fieldStart": "2026-08-28",
+      "fieldEnd": "2026-09-02",
+      "sample": 1834,
+      "moe": 2,
+      "mode": "online",
+      "firstRound": {
+        "cirogomes": 48.4,
+        "elmanodefreitas": 45.8,
+        "delegadohuggo": 1,
+        "serleyleal": 0.2,
+        "ieribraga": 0,
+        "zebatista": 0
+      },
+      "secondRound": {
+        "cirogomes": 50,
+        "elmanodefreitas": 46.1
+      },
+      "notes": "CartaCapital 03/09. Recrutamento digital 28/08 a 02/09 n=1834 moe 2. TSE CE-02357/2026. Vera Lúcia (Novo) 0,3% sem slug TSE desta cadeira. https://www.cartacapital.com.br/politica/atlasintel-ciro-gomes-lidera-o-2o-turno-no-ceara-mas-vantagem-para-elmano-de-freitas-cai/"
+    },
+    {
       "id": "quaest-sp-gov-04-29",
       "office": "governor",
       "uf": "SP",
