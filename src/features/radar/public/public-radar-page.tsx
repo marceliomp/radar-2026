@@ -25,6 +25,7 @@ import { bottomUpNational } from "@/lib/forecast/states";
 import { fieldPeriodLine, fmtMult, fmtNum, fmtPct, fmtProb, isShownTie, pairTightnessLine, shownGap } from "@/lib/format";
 import { useHalfLife } from "@/lib/half-life";
 import { fileStamp } from "@/lib/visit-delta";
+import { pollsOnLatestDay } from "@/lib/latest-day";
 import { CHART } from "@/lib/chart-theme";
 import { cn } from "@/lib/utils";
 
@@ -182,6 +183,75 @@ function latestPairRows(poll: ForecastPoll) {
   return rows;
 }
 
+function LatestHouseCard({ poll }: { poll: ForecastPoll }) {
+  return (
+    <div className="board-card">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <div className="space-y-1.5">
+          <p className="font-display text-xl font-semibold">{poll.institute}</p>
+          <p className="text-sm font-medium text-gold">
+            {fieldPeriodLine(poll.fieldStart, poll.fieldEnd)}
+          </p>
+          <p className="text-sm font-medium text-cream/80">
+            {poll.mode}
+            {" · "}
+            {poll.sample.toLocaleString("pt-BR")} pessoas
+            {" · margem ±"}
+            {fmtNum(poll.moe)} pp
+          </p>
+          {poll.source?.tseProtocol ? (
+            <p className="font-mono text-xs font-medium text-cream/80">
+              TSE {poll.source.tseProtocol}
+            </p>
+          ) : null}
+          {poll.secondRound?.lula != null && poll.secondRound?.flavio != null ? (
+            <p className="max-w-xl text-sm font-medium leading-relaxed text-cream">
+              {pairTightnessLine(
+                "Lula",
+                "Flávio",
+                poll.secondRound.lula,
+                poll.secondRound.flavio,
+                poll.moe,
+              )}
+            </p>
+          ) : null}
+        </div>
+        <div className="grid gap-6 sm:grid-cols-[minmax(0,16rem)_minmax(0,1fr)]">
+          <div>
+            <p className="text-xs font-medium text-gold">1º turno</p>
+            <ul className="mt-1 space-y-0.5 text-sm font-semibold tabular-nums">
+              {FIELD_KEYS
+                .filter((key) => poll.firstRound[key] != null)
+                .sort((a, b) => (poll.firstRound[b] ?? 0) - (poll.firstRound[a] ?? 0))
+                .map((key) => (
+                  <li key={key} className="flex justify-between gap-3">
+                    <span style={{ color: CANDIDATE_META[key].color }}>{CANDIDATE_META[key].name}</span>
+                    <span style={{ color: CANDIDATE_META[key].color }}>{fmtPct(poll.firstRound[key] ?? 0)}</span>
+                  </li>
+                ))}
+            </ul>
+          </div>
+          <div>
+            <p className="text-xs font-medium text-gold">2º turno</p>
+            <ul className="mt-1">
+              {latestPairRows(poll).map((pair) => (
+                <li key={`${pair.a}|${pair.b}`} className="score-row py-1">
+                  <span className="min-w-0 text-sm">
+                    <span style={{ color: CANDIDATE_META[pair.a].color }}>{CANDIDATE_META[pair.a].name}</span>
+                    <span className="text-cream/40"> × </span>
+                    <span style={{ color: CANDIDATE_META[pair.b].color }}>{CANDIDATE_META[pair.b].name}</span>
+                  </span>
+                  <span className="shrink-0 font-mono text-xs tabular-nums">{fmtPct(pair.aPct)} × {fmtPct(pair.bPct)}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function PublicRadarPage() {
   const [asOf] = useAsOf();
   const [halfLife] = useHalfLife();
@@ -203,13 +273,8 @@ export function PublicRadarPage() {
 
   const forecast = useMemo(() => runForecast(polls, config), [config]);
   const { first, second, probs, rows } = forecast;
-  const latestNational = useMemo(
-    () => polls
-      .filter((poll) => poll.national && poll.date <= asOf && poll.fieldEnd <= asOf)
-      .slice()
-      .sort((a, b) => b.date.localeCompare(a.date) || b.fieldEnd.localeCompare(a.fieldEnd))[0] ?? null,
-    [asOf],
-  );
+  const latestDayPolls = useMemo(() => pollsOnLatestDay(polls, asOf), [asOf]);
+  const latestNational = latestDayPolls[0] ?? null;
   const pLula = Math.round(probs.lulaWinsElection * 1000) / 10;
   const pFlavio = Math.round(probs.flavioWinsElection * 1000) / 10;
 
@@ -302,73 +367,17 @@ export function PublicRadarPage() {
           </div>
         </section>
 
-        {latestNational ? (
-          <section id="novo" className="mb-6">
-            <div className="board-card">
-              <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-                <div className="space-y-1.5">
-                  <p className="eyebrow">Nova pesquisa</p>
-                  <p className="font-display text-xl font-semibold">{latestNational.institute}</p>
-                  <p className="text-sm font-medium text-gold">
-                    {fieldPeriodLine(latestNational.fieldStart, latestNational.fieldEnd)}
-                  </p>
-                  <p className="text-sm font-medium text-cream/80">
-                    {latestNational.mode}
-                    {" · "}
-                    {latestNational.sample.toLocaleString("pt-BR")} pessoas
-                    {" · margem ±"}
-                    {fmtNum(latestNational.moe)} pp
-                  </p>
-                  {latestNational.source?.tseProtocol ? (
-                    <p className="font-mono text-xs font-medium text-cream/80">
-                      TSE {latestNational.source.tseProtocol}
-                    </p>
-                  ) : null}
-                  {latestNational.secondRound?.lula != null && latestNational.secondRound?.flavio != null ? (
-                    <p className="max-w-xl text-sm font-medium leading-relaxed text-cream">
-                      {pairTightnessLine(
-                        "Lula",
-                        "Flávio",
-                        latestNational.secondRound.lula,
-                        latestNational.secondRound.flavio,
-                        latestNational.moe,
-                      )}
-                    </p>
-                  ) : null}
-                </div>
-                <div className="grid gap-6 sm:grid-cols-[minmax(0,16rem)_minmax(0,1fr)]">
-                  <div>
-                    <p className="text-xs font-medium text-gold">1º turno</p>
-                    <ul className="mt-1 space-y-0.5 text-sm font-semibold tabular-nums">
-                      {FIELD_KEYS
-                        .filter((key) => latestNational.firstRound[key] != null)
-                        .sort((a, b) => (latestNational.firstRound[b] ?? 0) - (latestNational.firstRound[a] ?? 0))
-                        .map((key) => (
-                          <li key={key} className="flex justify-between gap-3">
-                            <span style={{ color: CANDIDATE_META[key].color }}>{CANDIDATE_META[key].name}</span>
-                            <span style={{ color: CANDIDATE_META[key].color }}>{fmtPct(latestNational.firstRound[key] ?? 0)}</span>
-                          </li>
-                        ))}
-                    </ul>
-                  </div>
-                  <div>
-                    <p className="text-xs font-medium text-gold">2º turno</p>
-                    <ul className="mt-1">
-                      {latestPairRows(latestNational).map((pair) => (
-                        <li key={`${pair.a}|${pair.b}`} className="score-row py-1">
-                          <span className="min-w-0 text-sm">
-                            <span style={{ color: CANDIDATE_META[pair.a].color }}>{CANDIDATE_META[pair.a].name}</span>
-                            <span className="text-cream/40"> × </span>
-                            <span style={{ color: CANDIDATE_META[pair.b].color }}>{CANDIDATE_META[pair.b].name}</span>
-                          </span>
-                          <span className="shrink-0 font-mono text-xs tabular-nums">{fmtPct(pair.aPct)} × {fmtPct(pair.bPct)}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              </div>
+        {latestDayPolls.length > 0 ? (
+          <section id="novo" className="mb-6 space-y-3">
+            <div className="story-head mb-0">
+              <p className="eyebrow">{latestDayPolls.length > 1 ? "Neste dia" : "Nova pesquisa"}</p>
+              {latestDayPolls.length > 1 ? (
+                <h2 className="story-title">{latestDayPolls.length} pesquisas no mesmo dia</h2>
+              ) : null}
             </div>
+            {latestDayPolls.map((poll) => (
+              <LatestHouseCard key={poll.id} poll={poll} />
+            ))}
           </section>
         ) : null}
 

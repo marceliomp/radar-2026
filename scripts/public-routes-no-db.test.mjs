@@ -116,3 +116,13 @@ test("latest poll is a public ficha without ingest jargon", () => {
   const mainAt = page.indexOf('id="conteudo"');
   assert.ok(visitAt > scoreAt && visitAt < mainAt, "visit hook stays on the public hero");
 });
+
+test("same-day houses all get a ficha", () => {
+  const page = readFileSync("src/features/radar/public/public-radar-page.tsx", "utf8");
+  const helper = readFileSync("src/lib/latest-day.ts", "utf8");
+  assert.match(helper, /export function pollsOnLatestDay/);
+  assert.match(page, /pollsOnLatestDay/);
+  assert.match(page, /pesquisas no mesmo dia/);
+  assert.match(page, /LatestHouseCard/);
+  assert.match(page, /fieldPeriodLine\(poll.fieldStart, poll.fieldEnd\)/);
+});
