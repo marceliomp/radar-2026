@@ -576,7 +576,7 @@ export function GrowthCurve({
                       dataKey={`${other.key}Avg`}
                       legendType="none"
                       stroke={other.color}
-                      strokeWidth={2.4}
+                      strokeWidth={3.6}
                       strokeOpacity={0.9}
                       connectNulls
                       dot={false}
