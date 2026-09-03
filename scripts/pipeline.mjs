@@ -28,3 +28,4 @@ await run("process-pending.mjs");
 await run("process-races.mjs");
 await run("promote-poll.mjs", ["--all"]);
 await run("publish-polls.mjs");
+await run("ingest-health.mjs", ["--git"]);

@@ -126,3 +126,10 @@ test("same-day houses all get a ficha", () => {
   assert.match(page, /LatestHouseCard/);
   assert.match(page, /fieldPeriodLine\(poll.fieldStart, poll.fieldEnd\)/);
 });
+
+test("hero mounts the election period bar", () => {
+  const page = readFileSync("src/features/radar/public/public-radar-page.tsx", "utf8");
+  assert.match(page, /electionBarView/);
+  assert.match(page, /elec-strip/);
+  assert.match(page, /role="meter"/);
+});
