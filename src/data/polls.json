@@ -1796,5 +1796,29 @@
         "bPct": 33
       }
     ]
+  },
+  {
+    "id": "poderdata-aya-09-03-07561",
+    "institute": "PoderData/Aya",
+    "date": "2026-09-03",
+    "fieldEnd": "2026-09-02",
+    "sample": 3000,
+    "moe": 1.8,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 37,
+      "flavio": 34,
+      "cury": 10
+    },
+    "source": {
+      "tseProtocol": "BR-07561/2026",
+      "url": "https://www.cnnbrasil.com.br/eleicoes/poderdata-aya-lula-tem-37-no-1o-turno-flavio-34-e-cury-10/",
+      "publisher": "cnnbrasil.com.br",
+      "publishedAt": "2026-09-03",
+      "capturedAt": "2026-09-03T14:00:20.828Z"
+    },
+    "notes": "3000 entrevistas. Allowlist poderdata.",
+    "fieldStart": "2026-08-30"
   }
 ]
