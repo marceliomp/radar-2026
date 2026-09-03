@@ -1,4 +1,4 @@
-import { fieldPeriodLine, fmtDelta, round } from "./format.ts";
+import { dateBr, fieldPeriodLine, fmtDelta, round } from "./format.ts";
 
 export const VISIT_KEY = "radar2026.visit.v1";
 
@@ -44,6 +44,10 @@ export function writeVisit(snap: VisitSnap): string {
 
 function chanceLine(dLula: number): string {
   return `Lula ${fmtDelta(dLula)} pp de chance`;
+}
+
+export function latestDayKey(ids: string[]): string {
+  return ids.slice().sort().join("|");
 }
 
 export function visitView(
@@ -127,13 +131,37 @@ export function visitView(
   };
 }
 
-export function fileStamp(poll: {
-  institute: string;
-  fieldStart?: string;
-  fieldEnd: string;
-} | null): string {
-  if (!poll) return "Nenhuma pesquisa nacional no arquivo.";
-  const house = poll.institute.split("/")[0] ?? poll.institute;
-  const periodo = fieldPeriodLine(poll.fieldStart, poll.fieldEnd);
-  return `Última no arquivo: ${house}. ${periodo}. Varredura 11h/19h não entra número.`;
+function shortHouse(name: string): string {
+  return name.split("/")[0] ?? name;
+}
+
+export function fileStamp(
+  polls:
+    | {
+        institute: string;
+        date?: string;
+        fieldStart?: string;
+        fieldEnd: string;
+      }[]
+    | {
+        institute: string;
+        date?: string;
+        fieldStart?: string;
+        fieldEnd: string;
+      }
+    | null,
+): string {
+  const rows = !polls ? [] : Array.isArray(polls) ? polls : [polls];
+  if (!rows.length) return "Nenhuma pesquisa nacional no arquivo.";
+  const houses = rows.map((poll) => shortHouse(poll.institute));
+  if (rows.length === 1) {
+    const periodo = fieldPeriodLine(rows[0]!.fieldStart, rows[0]!.fieldEnd);
+    return periodo
+      ? `Última no arquivo: ${houses[0]}. ${periodo}.`
+      : `Última no arquivo: ${houses[0]}.`;
+  }
+  const day = dateBr(rows[0]?.date);
+  return day
+    ? `Últimas no arquivo, ${day}: ${houses.join(", ")}.`
+    : `Últimas no arquivo: ${houses.join(", ")}.`;
 }

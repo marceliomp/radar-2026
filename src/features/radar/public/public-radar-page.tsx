@@ -274,7 +274,6 @@ export function PublicRadarPage() {
   const forecast = useMemo(() => runForecast(polls, config), [config]);
   const { first, second, probs, rows } = forecast;
   const latestDayPolls = useMemo(() => pollsOnLatestDay(polls, asOf), [asOf]);
-  const latestNational = latestDayPolls[0] ?? null;
   const pLula = Math.round(probs.lulaWinsElection * 1000) / 10;
   const pFlavio = Math.round(probs.flavioWinsElection * 1000) / 10;
 
@@ -308,12 +307,12 @@ export function PublicRadarPage() {
             </p>
           </div>
         </div>
-        <p className="hero-fresh">{fileStamp(latestNational)}</p>
+        <p className="hero-fresh">{fileStamp(latestDayPolls)}</p>
         <VisitHook
           pLula={pLula}
           pFlavio={pFlavio}
           hl={halfLife}
-          newestId={latestNational?.id ?? ""}
+          newestId={latestDayPolls.map((poll) => poll.id).sort().join("|")}
         />
         <div className="hook-rail">
           <a href="#media" className="hook-link">Intenção</a>

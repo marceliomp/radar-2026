@@ -23,9 +23,34 @@ test("first visit tells the truth about the file", async () => {
     fileStamp({ institute: "PoderData/Aya", fieldEnd: "2026-08-26" }),
     /Entrevistas até 26\/08/,
   );
-  assert.match(
+  assert.doesNotMatch(
     fileStamp({ institute: "PoderData/Aya", fieldEnd: "2026-08-26" }),
-    /não entra número/,
+    /Varredura/,
+  );
+});
+
+test("same-day houses all appear on the stamp", async () => {
+  const { fileStamp, latestDayKey } = await load();
+  const line = fileStamp([
+    {
+      institute: "Futura/Apex",
+      date: "2026-09-03",
+      fieldStart: "2026-08-27",
+      fieldEnd: "2026-09-01",
+    },
+    {
+      institute: "PoderData/Aya",
+      date: "2026-09-03",
+      fieldStart: "2026-08-30",
+      fieldEnd: "2026-09-02",
+    },
+  ]);
+  assert.match(line, /Futura/);
+  assert.match(line, /PoderData/);
+  assert.match(line, /03\/09/);
+  assert.equal(
+    latestDayKey(["poderdata-aya-09-03-07561", "futura-apex-09-03-02793"]),
+    "futura-apex-09-03-02793|poderdata-aya-09-03-07561",
   );
 });
 
@@ -68,6 +93,25 @@ test("new poll in the file is the hook", async () => {
   assert.equal(v.kind, "new-poll");
   assert.match(v.line, /Pesquisa nova/);
   assert.match(v.line, /Lula \+2,4/);
+});
+
+test("a second house on the same day is a new poll", async () => {
+  const { visitView, latestDayKey } = await load();
+  const prev = {
+    at: 1,
+    pLula: 60,
+    pFlavio: 40,
+    hl: 14,
+    newestId: latestDayKey(["poderdata-aya-09-03-07561"]),
+  };
+  const v = visitView(prev, {
+    pLula: 60.1,
+    pFlavio: 39.9,
+    hl: 14,
+    newestId: latestDayKey(["poderdata-aya-09-03-07561", "futura-apex-09-03-02793"]),
+    nowMs: 1 + 36e5,
+  });
+  assert.equal(v.kind, "new-poll");
 });
 
 test("periodo change is named as memory, not as a new poll", async () => {
