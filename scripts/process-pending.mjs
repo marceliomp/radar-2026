@@ -182,6 +182,10 @@ export function matchAllowlist(row) {
   return null;
 }
 
+export function todayIso() {
+  return process.env.RADAR_TODAY || new Date().toISOString().slice(0, 10);
+}
+
 export function parseBrDate(raw) {
   const s = String(raw ?? "").trim();
   let m = s.match(/^(\d{4})-(\d{2})-(\d{2})/);
@@ -268,8 +272,6 @@ export function parseAllowlistArticle(html, expectedTse) {
     lula = parsePct(vs1[1]) ?? lula;
     flavio = parsePct(vs1[2]) ?? flavio;
   }
-  if (lula == null || flavio == null) return null;
-
   const extras = {};
   const extraRe =
     /(Caiado|Renan(?:\s+Santos)?|Zema|Cury)[^0-9]{0,24}(\d{1,2}(?:[.,]\d)?)\s*%/gi;
@@ -310,9 +312,30 @@ export function parseAllowlistArticle(html, expectedTse) {
     const f2 = pctAfterName(twoTClean, /Fl[aá]vio(?:\s+Bolsonaro)?/i);
     if (l2 != null && f2 != null) secondRound = { lula: l2, flavio: f2 };
   }
+  if (!secondRound) {
+    const flavioFirst =
+      twoT.match(
+        /Fl[aá]vio[^0-9]{0,48}(\d{1,2}(?:[.,]\d)?)\s*%[\s\S]{0,160}(?:Lula|petista)[^0-9]{0,48}(\d{1,2}(?:[.,]\d)?)\s*%/i,
+      ) ||
+      text.match(
+        /Fl[aá]vio[^0-9]{0,24}tem\s+(\d{1,2}(?:[.,]\d)?)\s*%[^.]{0,40}contra\s+(\d{1,2}(?:[.,]\d)?)\s*%[^.]{0,24}Lula/i,
+      );
+    if (flavioFirst) {
+      const f = parsePct(flavioFirst[1]);
+      const l = parsePct(flavioFirst[2]);
+      if (f != null && l != null) secondRound = { lula: l, flavio: f };
+    }
+  }
 
   const moeM = text.match(/margem de erro[^\d]{0,24}(\d+(?:[.,]\d)?)/i);
   const moe = moeM ? Number(String(moeM[1]).replace(",", ".")) : undefined;
+
+  if (lula == null || flavio == null) {
+    if (secondRound?.lula != null && secondRound?.flavio != null) {
+      return { tse, firstRound: null, secondRound, moe, source: "allowlist-html" };
+    }
+    return null;
+  }
 
   return {
     tse,
@@ -374,6 +397,7 @@ export function rowToPoll(row, result, house) {
     parseBrDate(row.DT_DIVULGACAO) || fieldEnd || fieldStart;
   const firstRound = result?.firstRound;
   if (!proto || !sample || !fieldEnd || !date || !house) return null;
+  if (date > todayIso() || fieldEnd > todayIso()) return null;
   if (firstRound?.lula == null || firstRound?.flavio == null) return null;
   const moe =
     Number.isFinite(result?.moe) && result.moe > 0
@@ -748,7 +772,8 @@ async function fetchAllowlistResults(needTse) {
   let fetched = 0;
   for (const url of ordered) {
     if (fetched >= 80) break;
-    if (Object.keys(byTse).length >= needTse.size) break;
+    const missing2t = [...needTse].some((tse) => byTse[tse] && !byTse[tse].secondRound);
+    if (Object.keys(byTse).length >= needTse.size && !missing2t) break;
     try {
       const buf = await fetchBuf(url, 800_000);
       fetched += 1;
@@ -758,13 +783,18 @@ async function fetchAllowlistResults(needTse) {
         continue;
       }
       const parsed = parseAllowlistArticle(html);
-      if (parsed && needTse.has(parsed.tse) && !byTse[parsed.tse]) {
-        byTse[parsed.tse] = {
-          ...parsed,
-          url,
-          publisher: new URL(url).hostname.replace(/^www\./, ""),
-          capturedAt: new Date().toISOString(),
-        };
+      if (parsed && needTse.has(parsed.tse)) {
+        const prev = byTse[parsed.tse];
+        if (!prev && parsed.firstRound?.lula != null && parsed.firstRound?.flavio != null) {
+          byTse[parsed.tse] = {
+            ...parsed,
+            url,
+            publisher: new URL(url).hostname.replace(/^www\./, ""),
+            capturedAt: new Date().toISOString(),
+          };
+        } else if (prev && !prev.secondRound && parsed.secondRound) {
+          prev.secondRound = parsed.secondRound;
+        }
       }
     } catch (err) {
       log(`page_fail ${url} ${err instanceof Error ? err.message : err}`);

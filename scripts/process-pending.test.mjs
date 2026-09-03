@@ -230,7 +230,9 @@ test("2T-only article does not become firstRound", () => {
   const html = `<title>Gerp: Flávio tem 45% no 2º turno; Lula, 43%</title>
   <p>TSE BR-08045/2026. No segundo turno Flávio Bolsonaro aparece com 45%, Lula registra 43%.</p>`;
   const parsed = parseAllowlistArticle(html);
-  assert.equal(parsed, null);
+  assert.equal(parsed.firstRound, null);
+  assert.equal(parsed.secondRound.flavio, 45);
+  assert.equal(parsed.secondRound.lula, 43);
 });
 
 test("allowlist includes RTBD and still rejects Veritá", () => {
@@ -302,4 +304,13 @@ test("rowToPoll keeps TSE field start and end", () => {
   );
   assert.equal(poll.fieldEnd, "2026-08-26");
   assert.equal(poll.fieldStart, "2026-08-24");
+});
+
+test("2T article with Flavio first still reads Lula 44 Flavio 45", () => {
+  const html = `<p>TSE BR-07561/2026. Pesquisa PoderData segundo turno.
+  Flávio marcando 45%, enquanto o petista registra 44% das intenções de voto.
+  Margem de erro 1,8 ponto.</p>`;
+  const parsed = parseAllowlistArticle(html, "BR-07561/2026");
+  assert.equal(parsed.secondRound.lula, 44);
+  assert.equal(parsed.secondRound.flavio, 45);
 });

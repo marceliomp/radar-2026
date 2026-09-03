@@ -1818,7 +1818,31 @@
       "publishedAt": "2026-09-03",
       "capturedAt": "2026-09-03T14:00:20.828Z"
     },
-    "notes": "3000 entrevistas. Allowlist poderdata.",
-    "fieldStart": "2026-08-30"
+    "notes": "3000 entrevistas. Allowlist poderdata. 2T CNN 03/09: Flavio 45 Lula 44.",
+    "fieldStart": "2026-08-30",
+    "secondRound": {
+      "lula": 44,
+      "flavio": 45
+    },
+    "secondPairs": [
+      {
+        "a": "lula",
+        "b": "zema",
+        "aPct": 44,
+        "bPct": 42
+      },
+      {
+        "a": "lula",
+        "b": "caiado",
+        "aPct": 44,
+        "bPct": 42
+      },
+      {
+        "a": "lula",
+        "b": "renan",
+        "aPct": 44,
+        "bPct": 39
+      }
+    ]
   }
 ]

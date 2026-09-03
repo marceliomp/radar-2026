@@ -17,6 +17,7 @@ import {
   normalizeProtocol,
   parseBrDate,
   parseSample,
+  todayIso,
 } from "./process-pending.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -155,6 +156,7 @@ export function rowToRacePolls(row, house, percentsByOffice, url) {
   const date =
     parseBrDate(row.DT_DIVULGACAO) || fieldEnd || fieldStart;
   if (!uf || !proto || !sample || !fieldEnd || !date || !house) return [];
+  if (date > todayIso() || fieldEnd > todayIso()) return [];
   const polls = [];
   for (const office of raceOfficesFromCargo(row.DS_CARGO)) {
     const firstRound = percentsByOffice[office];
@@ -265,7 +267,9 @@ export function mergeRacePolls(file, incoming) {
     ids.add(poll.id);
     added.push(poll);
   }
-  const asOf = polls.reduce((max, p) => (p.date > max ? p.date : max), file.asOf ?? "2026-01-01");
+  const today = todayIso();
+  const dated = polls.filter((p) => p.date && p.date <= today);
+  const asOf = dated.reduce((max, p) => (p.date > max ? p.date : max), file.asOf ?? "2026-01-01");
   return {
     file: {
       source: file.source,

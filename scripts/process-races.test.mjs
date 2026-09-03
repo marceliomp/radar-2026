@@ -78,3 +78,26 @@ test("foldName tira acento", () => {
   assert.equal(foldName("Tarcísio"), "tarcisio");
   assert.equal(racePollId("Datafolha", "RJ", "senator", "2026-08-22"), "datafolha-rj-sen-08-22");
 });
+
+test("rowToRacePolls skips future divulgacao", () => {
+  process.env.RADAR_TODAY = "2026-09-03";
+  const row = {
+    NR_PROTOCOLO_REGISTRO: "BA-01435/2026",
+    DS_CARGO: "Governador",
+    SG_UF: "BA",
+    QT_ENTREVISTADO: "1600",
+    DT_INICIO_PESQUISA: "2026-09-03",
+    DT_FIM_PESQUISA: "2026-09-07",
+    DT_DIVULGACAO: "2026-09-08",
+    DS_METODOLOGIA_PESQUISA: "telefone",
+  };
+  const house = { id: "realtime", institute: "Real Time Big Data" };
+  const polls = rowToRacePolls(
+    row,
+    house,
+    { governor: { jeronimo: 37, acmneto: 39 } },
+    "https://g1.globo.com/ba/bahia/eleicoes/2026/x",
+  );
+  assert.equal(polls.length, 0);
+  delete process.env.RADAR_TODAY;
+});
