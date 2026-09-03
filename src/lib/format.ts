@@ -67,6 +67,27 @@ export function dateBr(iso?: string | null): string {
   return `${iso.slice(8, 10)}/${iso.slice(5, 7)}`;
 }
 
+/** Date-only UTC ms so the curve axis does not shift the calendar day. */
+export function isoDayUtc(iso: string): number {
+  if (!iso || iso.length < 10) return Number.NaN;
+  const y = Number(iso.slice(0, 4));
+  const m = Number(iso.slice(5, 7));
+  const d = Number(iso.slice(8, 10));
+  if (![y, m, d].every(Number.isFinite)) return Number.NaN;
+  return Date.UTC(y, m - 1, d);
+}
+
+/** Epoch ms → 01/09 in UTC. */
+export function utcMsToDayBr(ms: number): string {
+  const t = Number(ms);
+  if (!Number.isFinite(t)) return "";
+  const dt = new Date(t);
+  if (Number.isNaN(dt.getTime())) return "";
+  const d = String(dt.getUTCDate()).padStart(2, "0");
+  const m = String(dt.getUTCMonth() + 1).padStart(2, "0");
+  return `${d}/${m}`;
+}
+
 /** Só as datas: 30/08 a 01/09. Sem início, "até 01/09". */
 export function fieldRangeLabel(start?: string | null, end?: string | null): string {
   const from = dateBr(start);

@@ -10,21 +10,33 @@ import {
 } from "recharts";
 import { SegGroup } from "@/features/radar/map/map-layer-toggle";
 import { CHART, tipStyle } from "@/lib/chart-theme";
-import { dateBr, fieldPeriodLine, fmtNum } from "@/lib/format";
+import { dateBr, fieldPeriodLine, fmtNum, isoDayUtc, utcMsToDayBr } from "@/lib/format";
 import { buildNationalTrend, rollingAverage } from "@/lib/forecast/trends";
 import type { ForecastPoll } from "@/lib/forecast/engine";
 import { pollsOnDate } from "@/lib/latest-day";
 
+function timeDomain([min, max]: [number, number]): [number, number] {
+  const span = Math.max(max - min, 86_400_000);
+  const pad = span * 0.04;
+  return [min - pad, max + pad];
+}
+
+function tickDay(value: number | string) {
+  return utcMsToDayBr(Number(value));
+}
+
 const XAXIS = {
-  dataKey: "label" as const,
-  interval: "equidistantPreserveStart" as const,
-  angle: -40,
-  textAnchor: "end" as const,
-  height: 64,
-  minTickGap: 18,
+  type: "number" as const,
+  dataKey: "t" as const,
+  domain: timeDomain,
+  tickFormatter: tickDay,
+  minTickGap: 36,
+  tickCount: 7,
   tick: { fill: CHART.axis, fontSize: 11, fontWeight: 500 },
   axisLine: false,
   tickLine: false,
+  height: 28,
+  padding: { left: 8, right: 8 },
 };
 
 type RoundKey = "1" | "2";
@@ -38,7 +50,7 @@ type DayHouse = {
 };
 
 type CurveRow = {
-  label: string;
+  t: number;
   institute: string;
   published: string;
   fieldStart?: string;
@@ -184,7 +196,7 @@ export function GrowthCurve({
     const smooth = rollingAverage(buildNationalTrend(visible), 3);
     return {
       first: smooth.map((point) => ({
-        label: point.label,
+        t: isoDayUtc(point.published),
         institute: point.institute,
         published: point.published,
         fieldStart: point.fieldStart,
@@ -198,7 +210,7 @@ export function GrowthCurve({
       second: smooth
         .filter((point) => point.lula2 != null && point.flavio2 != null)
         .map((point) => ({
-          label: point.label,
+          t: isoDayUtc(point.published),
           institute: point.institute,
           published: point.published,
           fieldStart: point.fieldStart,
@@ -259,7 +271,7 @@ export function GrowthCurve({
         <CurveKey />
         <div className="mt-3 h-72 w-full min-w-0 sm:h-80">
           <ResponsiveContainer width="100%" height="100%">
-            <ComposedChart data={data} margin={{ left: 0, right: 12, top: 8, bottom: 8 }}>
+            <ComposedChart data={data} margin={{ left: 0, right: 12, top: 8, bottom: 4 }}>
               <CartesianGrid strokeDasharray="3 3" stroke={CHART.grid} />
               <XAxis {...XAXIS} />
               <YAxis
@@ -272,38 +284,42 @@ export function GrowthCurve({
               />
               <Tooltip content={CurveTip} cursor={false} />
               <Line
-                type="monotone"
+                type="linear"
                 dataKey="lulaPoll"
                 legendType="none"
                 stroke={CHART.lula}
                 strokeWidth={1.5}
                 strokeOpacity={0.55}
                 dot={{ r: 3, fill: CHART.lula }}
+                isAnimationActive={false}
               />
               <Line
-                type="monotone"
+                type="linear"
                 dataKey="flavioPoll"
                 legendType="none"
                 stroke={CHART.flavio}
                 strokeWidth={1.5}
                 strokeOpacity={0.55}
                 dot={{ r: 3, fill: CHART.flavio }}
+                isAnimationActive={false}
               />
               <Line
-                type="monotone"
+                type="linear"
                 dataKey="lulaAvg"
                 legendType="none"
                 stroke={CHART.lula}
                 strokeWidth={2.5}
                 dot={false}
+                isAnimationActive={false}
               />
               <Line
-                type="monotone"
+                type="linear"
                 dataKey="flavioAvg"
                 legendType="none"
                 stroke={CHART.flavio}
                 strokeWidth={2.5}
                 dot={false}
+                isAnimationActive={false}
               />
             </ComposedChart>
           </ResponsiveContainer>

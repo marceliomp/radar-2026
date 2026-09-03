@@ -148,3 +148,14 @@ test("home puts the period slider at the top of the body", () => {
   assert.ok(hlAt < metodoAt, "period slider is not buried in method");
   assert.equal(page.split("<HalfLifeControl").length - 1, 1, "one slider, not two");
 });
+
+test("curve x axis is calendar time, not house names", () => {
+  const curve = readFileSync("src/features/radar/public/growth-curve.tsx", "utf8");
+  assert.match(curve, /type: "number"/);
+  assert.match(curve, /isoDayUtc/);
+  assert.match(curve, /utcMsToDayBr/);
+  assert.match(curve, /dataKey: "t"/);
+  assert.doesNotMatch(curve, /equidistantPreserveStart/);
+  assert.doesNotMatch(curve, /angle: -40/);
+  assert.doesNotMatch(curve, /dataKey: "label"/);
+});

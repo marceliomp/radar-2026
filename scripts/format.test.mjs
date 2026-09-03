@@ -54,3 +54,14 @@ test("equal percents are a tie in this house", async () => {
   const line = pairTightnessLine("Lula", "Flávio", 44, 44, 2);
   assert.match(line, /empate nesta casa/);
 });
+
+test("curve axis keeps the calendar day in UTC", async () => {
+  const { isoDayUtc, utcMsToDayBr } = await load();
+  assert.equal(isoDayUtc("2026-09-03"), Date.UTC(2026, 8, 3));
+  assert.equal(utcMsToDayBr(isoDayUtc("2026-09-03")), "03/09");
+  assert.equal(utcMsToDayBr(isoDayUtc("2026-08-10")), "10/08");
+  assert.equal(isoDayUtc("2026-09-03"), isoDayUtc("2026-09-03"));
+  assert.ok(isoDayUtc("2026-09-03") > isoDayUtc("2026-08-31"));
+  assert.equal(utcMsToDayBr(Number.NaN), "");
+  assert.ok(Number.isNaN(isoDayUtc("")));
+});
