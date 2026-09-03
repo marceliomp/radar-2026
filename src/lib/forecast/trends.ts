@@ -207,19 +207,6 @@ export function sameHouseDeltas(polls: ForecastPoll[]): HouseDelta[] {
   return out.sort((a, b) => b.to.localeCompare(a.to));
 }
 
-export function lastRowPerDay<T extends { t: number }>(rows: T[]): T[] {
-  const out: T[] = [];
-  for (const row of rows) {
-    const prev = out[out.length - 1];
-    if (prev && prev.t === row.t) {
-      out[out.length - 1] = row;
-    } else {
-      out.push(row);
-    }
-  }
-  return out;
-}
-
 export function windowMomentum(points: TrendPoint[]) {
   if (points.length < 2) {
     return {

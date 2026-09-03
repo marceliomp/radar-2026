@@ -11,7 +11,8 @@ import {
 import { SegGroup } from "@/features/radar/map/map-layer-toggle";
 import { CHART, tipStyle } from "@/lib/chart-theme";
 import { dateBr, fieldPeriodLine, fmtNum, isoDayUtc, utcMsToDayBr } from "@/lib/format";
-import { buildNationalTrend, lastRowPerDay, rollingAverage } from "@/lib/forecast/trends";
+import { asOfDayAverages } from "@/lib/forecast/curve-series";
+import { buildNationalTrend } from "@/lib/forecast/trends";
 import type { ForecastPoll } from "@/lib/forecast/engine";
 import { pollsOnDate } from "@/lib/latest-day";
 
@@ -138,7 +139,7 @@ function CurveTip({ active, payload }: { active?: boolean; payload?: TipRow[] })
         </div>
       ))}
       <p className="m-0 mt-2.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-gold">
-        Média das 3 últimas
+        Média do período
       </p>
       <p className="m-0 mt-1 font-mono text-sm tabular-nums">
         <span style={{ color: CHART.lula }}>Lula {pick("lulaAvg")}</span>
@@ -165,7 +166,7 @@ function CurveKey() {
       <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-cream/80">
         <span className="inline-flex items-center gap-1.5">
           <svg width="12" height="10" viewBox="0 0 12 10" aria-hidden>
-            <circle cx="6" cy="5" r="2.6" fill={CHART.axis} opacity="0.85" />
+            <circle cx="6" cy="5" r="2.2" fill={CHART.axis} opacity="0.45" />
           </svg>
           ponto: nesta pesquisa
         </span>
@@ -173,7 +174,7 @@ function CurveKey() {
           <svg width="30" height="10" viewBox="0 0 30 10" aria-hidden>
             <line x1="2" y1="5" x2="28" y2="5" stroke={CHART.axis} strokeWidth="2.6" />
           </svg>
-          linha: média das 3 últimas
+          linha: média do período
         </span>
       </div>
     </div>
@@ -183,51 +184,73 @@ function CurveKey() {
 export function GrowthCurve({
   polls,
   asOf,
+  halfLifeDays,
 }: {
   polls: ForecastPoll[];
   asOf: string;
+  halfLifeDays: number;
 }) {
   const [round, setRound] = useState<RoundKey>("1");
-  const { first, second } = useMemo(() => {
+  const { first, second, firstLine, secondLine } = useMemo(() => {
     const visible = polls.filter(
       (poll) => poll.national && poll.date <= asOf && poll.fieldEnd <= asOf,
     );
-    const smooth = rollingAverage(buildNationalTrend(visible), 3);
-    return {
-      first: smooth.map((point) => ({
+    const trend = buildNationalTrend(visible);
+    const avg1 = asOfDayAverages(visible, asOf, halfLifeDays, false);
+    const avg2 = asOfDayAverages(visible, asOf, halfLifeDays, true);
+    const byDay1 = new Map(avg1.map((day) => [day.date, day]));
+    const byDay2 = new Map(avg2.map((day) => [day.date, day]));
+    const toDots = (
+      points: typeof trend,
+      byDay: Map<string, (typeof avg1)[number]>,
+      key: RoundKey,
+    ): CurveRow[] =>
+      points.map((point) => ({
         t: isoDayUtc(point.published),
         institute: point.institute,
         published: point.published,
         fieldStart: point.fieldStart,
         fieldEnd: point.fieldEnd,
-        lulaPoll: point.lula1,
-        flavioPoll: point.flavio1,
-        lulaAvg: point.lula1Avg,
-        flavioAvg: point.flavio1Avg,
-        sameDay: housesOnCurveDay(visible, point.published, asOf, "1"),
-      })),
-      second: smooth
-        .filter((point) => point.lula2 != null && point.flavio2 != null)
-        .map((point) => ({
-          t: isoDayUtc(point.published),
-          institute: point.institute,
-          published: point.published,
-          fieldStart: point.fieldStart,
-          fieldEnd: point.fieldEnd,
-          lulaPoll: point.lula2,
-          flavioPoll: point.flavio2,
-          lulaAvg: point.lula2Avg,
-          flavioAvg: point.flavio2Avg,
-          sameDay: housesOnCurveDay(visible, point.published, asOf, "2"),
-        })),
+        lulaPoll: key === "2" ? point.lula2 : point.lula1,
+        flavioPoll: key === "2" ? point.flavio2 : point.flavio1,
+        lulaAvg: byDay.get(point.published)?.lula ?? null,
+        flavioAvg: byDay.get(point.published)?.flavio ?? null,
+        sameDay: housesOnCurveDay(visible, point.published, asOf, key),
+      }));
+    const toLine = (
+      days: typeof avg1,
+      key: RoundKey,
+    ): CurveRow[] =>
+      days.map((day) => ({
+        t: day.t,
+        institute: "Média do período",
+        published: day.date,
+        fieldEnd: day.date,
+        lulaPoll: null,
+        flavioPoll: null,
+        lulaAvg: day.lula,
+        flavioAvg: day.flavio,
+        sameDay: housesOnCurveDay(visible, day.date, asOf, key),
+      }));
+    const firstDots = toDots(trend, byDay1, "1");
+    const secondDots = toDots(
+      trend.filter((point) => point.lula2 != null && point.flavio2 != null),
+      byDay2,
+      "2",
+    );
+    return {
+      first: firstDots,
+      second: secondDots,
+      firstLine: toLine(avg1, "1"),
+      secondLine: toLine(avg2, "2"),
     };
-  }, [polls, asOf]);
+  }, [polls, asOf, halfLifeDays]);
 
   if (first.length < 3) return null;
   const canSecond = second.length >= 3;
   const active: RoundKey = round === "2" && canSecond ? "2" : "1";
   const data = active === "2" ? second : first;
-  const daily = lastRowPerDay(data);
+  const daily = active === "2" ? secondLine : firstLine;
   const domain: [number, number] = active === "2" ? [35, 52] : [26, 48];
 
   return (
@@ -239,11 +262,10 @@ export function GrowthCurve({
             <p className="mt-1 font-display text-xl font-semibold">
               {active === "2" ? "2º turno, Lula × Flávio" : "1º turno, Lula × Flávio"}
             </p>
-            {active === "2" ? (
-              <p className="mt-1 max-w-xl text-xs font-medium leading-relaxed text-cream/85">
-                Só pesquisas que perguntaram o par.
-              </p>
-            ) : null}
+            <p className="mt-1 max-w-xl text-xs font-medium leading-relaxed text-cream/85">
+              {active === "2" ? "Só pesquisas que perguntaram o par. " : ""}
+              Pontos são cada casa. A linha é a média do período.
+            </p>
           </div>
           <SegGroup ariaLabel="Turno da curva">
             <button
@@ -288,7 +310,8 @@ export function GrowthCurve({
                 dataKey="lulaPoll"
                 legendType="none"
                 stroke="none"
-                dot={{ r: 3.5, fill: CHART.lula, strokeWidth: 0 }}
+                dot={{ r: 2.4, fill: CHART.lula, fillOpacity: 0.42, strokeWidth: 0 }}
+                activeDot={{ r: 4.5, fill: CHART.lula, strokeWidth: 0 }}
                 isAnimationActive={false}
               />
               <Line
@@ -296,26 +319,27 @@ export function GrowthCurve({
                 dataKey="flavioPoll"
                 legendType="none"
                 stroke="none"
-                dot={{ r: 3.5, fill: CHART.flavio, strokeWidth: 0 }}
+                dot={{ r: 2.4, fill: CHART.flavio, fillOpacity: 0.42, strokeWidth: 0 }}
+                activeDot={{ r: 4.5, fill: CHART.flavio, strokeWidth: 0 }}
                 isAnimationActive={false}
               />
               <Line
-                type="linear"
+                type="monotone"
                 data={daily}
                 dataKey="lulaAvg"
                 legendType="none"
                 stroke={CHART.lula}
-                strokeWidth={2.5}
+                strokeWidth={2.8}
                 dot={false}
                 isAnimationActive={false}
               />
               <Line
-                type="linear"
+                type="monotone"
                 data={daily}
                 dataKey="flavioAvg"
                 legendType="none"
                 stroke={CHART.flavio}
-                strokeWidth={2.5}
+                strokeWidth={2.8}
                 dot={false}
                 isAnimationActive={false}
               />
