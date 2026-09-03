@@ -8,7 +8,6 @@ import { SiteNav } from "@/components/site-nav";
 import { TightRaces } from "@/components/tight-races";
 import { GrowthCurve } from "@/features/radar/public/growth-curve";
 import { VisitHook } from "@/components/visit-hook";
-import { ElectionBase } from "@/components/election-base";
 import { CANDIDATE_META, polls } from "@/data/polls";
 import { useAsOf } from "@/lib/as-of";
 import {
@@ -326,7 +325,7 @@ export function PublicRadarPage() {
       </section>
 
       <main id="conteudo" className="page-body mx-auto min-w-0 max-w-6xl overflow-x-clip px-4 pt-5 sm:px-6 sm:pt-8">
-        <ElectionBase asOf={asOf} polls={polls} />
+        <HalfLifeControl />
         <section id="media" className="mb-6 space-y-4 scroll-mt-24">
           <div className="story-head">
             <p className="kicker">Média das pesquisas</p>
@@ -406,8 +405,7 @@ export function PublicRadarPage() {
             <p className="story-lede">Pesquisas novas pesam mais. O laboratório tem pesos e acerto histórico.</p>
           </div>
           <div className="board-card">
-            <HalfLifeControl />
-            <div className="chip-row -mx-4 mt-4 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:flex-wrap sm:px-0">
+            <div className="chip-row -mx-4 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:flex-wrap sm:px-0">
               {housesInAverage(rows).slice(0, 6).map((house, index) => (
                 <span key={house.institute} className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-border bg-surface px-3 py-1.5 text-xs font-semibold text-fg">
                   <span className="text-gold">{index + 1}.</span>{house.institute}

@@ -131,20 +131,20 @@ test("same-day houses all get a ficha", () => {
   assert.match(page, /fieldPeriodLine\(poll.fieldStart, poll.fieldEnd\)/);
 });
 
-test("hero mounts the election period bar", () => {
+test("home puts the period slider at the top of the body", () => {
   const page = readFileSync("src/features/radar/public/public-radar-page.tsx", "utf8");
-  const race = readFileSync("src/features/races/race-page.tsx", "utf8");
-  const base = readFileSync("src/components/election-base.tsx", "utf8");
   const css = readFileSync("src/styles.css", "utf8");
-  assert.match(base, /pollTimeAxis/);
-  assert.match(page, /<ElectionBase asOf=\{asOf\} polls=\{polls\}/);
-  assert.doesNotMatch(page, /variant="hero"/);
-  assert.doesNotMatch(race, /ElectionBase/);
+  assert.match(page, /<HalfLifeControl/);
+  assert.doesNotMatch(page, /ElectionBase/);
   assert.doesNotMatch(css, /elec-strip/);
   assert.doesNotMatch(css, /week-cell/);
-  assert.doesNotMatch(base, /week-bar/);
   const heroEnd = page.indexOf("</section>");
-  const barAt = page.indexOf("<ElectionBase");
+  const hlAt = page.indexOf("<HalfLifeControl");
   const mainAt = page.indexOf('id="conteudo"');
-  assert.ok(barAt > mainAt && mainAt > heroEnd, "week bar sits in the page body, not over the score");
+  const mediaAt = page.indexOf('id="media"');
+  const metodoAt = page.indexOf('id="metodo"');
+  assert.ok(hlAt > mainAt && mainAt > heroEnd, "period slider sits in the page body, not over the score");
+  assert.ok(hlAt < mediaAt, "period slider sits above intention");
+  assert.ok(hlAt < metodoAt, "period slider is not buried in method");
+  assert.equal(page.split("<HalfLifeControl").length - 1, 1, "one slider, not two");
 });

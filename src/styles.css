@@ -699,6 +699,13 @@
     margin-left: auto;
   }
 
+  .page-body > .mast-hl {
+    flex: none;
+    max-width: none;
+    min-width: 0;
+    margin: 0 0 1.5rem;
+  }
+
   @media (max-width: 639px) {
     .mast-hl {
       flex: 1 1 100%;
