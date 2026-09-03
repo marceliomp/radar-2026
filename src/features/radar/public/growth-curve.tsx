@@ -107,45 +107,39 @@ function CurveTip({ active, payload }: { active?: boolean; payload?: TipRow[] })
   const pick = (key: keyof CurveRow) => {
     const hit = payload.find((item) => item.dataKey === key);
     const raw = Number(hit?.value);
-    return Number.isFinite(raw) ? `${fmtNum(raw)}%` : "n/d";
+    if (Number.isFinite(raw)) return `${fmtNum(raw)}%`;
+    const fromRow = row[key];
+    return typeof fromRow === "number" && Number.isFinite(fromRow) ? pct(fromRow) : "n/d";
   };
   return (
     <div style={{ ...tipStyle, padding: "10px 12px", minWidth: 196, maxWidth: 280, color: CHART.fg }}>
       <p className="m-0 text-sm font-semibold" style={{ color: CHART.fg }}>
-        {many
-          ? `${dateBr(row.published)} · ${houses.length} pesquisas`
-          : `${houses[0]?.institute ?? ""} · ${dateBr(row.published)}`}
+        {dateBr(row.published)}
+        {many ? ` · ${houses.length} pesquisas` : ""}
+      </p>
+      <p className="m-0 mt-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-gold">
+        Média do período
+      </p>
+      <p className="m-0 mt-1 font-mono text-base font-semibold tabular-nums">
+        <span style={{ color: CHART.lula }}>Lula {pick("lulaAvg")}</span>
+        <span className="text-cream/35"> · </span>
+        <span style={{ color: CHART.flavio }}>Flávio {pick("flavioAvg")}</span>
       </p>
       {houses.map((house, i) => (
-        <div key={`${house.institute}-${i}`} className={i === 0 ? "mt-0.5" : "mt-2.5"}>
-          {many ? (
-            <p className="m-0 text-sm font-semibold" style={{ color: CHART.fg }}>
-              {house.institute}
-            </p>
-          ) : null}
-          <p className="m-0 mt-0.5 text-[11px] font-medium text-cream/70">
+        <div key={`${house.institute}-${i}`} className={i === 0 ? "mt-3" : "mt-2.5"}>
+          <p className="m-0 text-[12px] font-medium text-cream/80">
+            {house.institute}
+          </p>
+          <p className="m-0 mt-0.5 text-[11px] font-medium text-cream/55">
             {fieldPeriodLine(house.fieldStart, house.fieldEnd)}
           </p>
-          {!many ? (
-            <p className="m-0 mt-2.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-gold">
-              Nesta pesquisa
-            </p>
-          ) : null}
-          <p className="m-0 mt-1 font-mono text-sm tabular-nums">
+          <p className="m-0 mt-1 font-mono text-[13px] tabular-nums text-cream/85">
             <span style={{ color: CHART.lula }}>Lula {pct(house.lulaPoll)}</span>
             <span className="text-cream/35"> · </span>
             <span style={{ color: CHART.flavio }}>Flávio {pct(house.flavioPoll)}</span>
           </p>
         </div>
       ))}
-      <p className="m-0 mt-2.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-gold">
-        Média do período
-      </p>
-      <p className="m-0 mt-1 font-mono text-sm tabular-nums">
-        <span style={{ color: CHART.lula }}>Lula {pick("lulaAvg")}</span>
-        <span className="text-cream/35"> · </span>
-        <span style={{ color: CHART.flavio }}>Flávio {pick("flavioAvg")}</span>
-      </p>
     </div>
   );
 }

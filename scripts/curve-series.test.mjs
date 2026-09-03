@@ -89,3 +89,10 @@ test("curve hover tracks the date on a vertical cursor", () => {
   assert.doesNotMatch(curve, /data=\{daily\}/);
   assert.doesNotMatch(curve, /tickCount: 7/);
 });
+
+test("tooltip puts period average above the houses", () => {
+  const curve = readFileSync("src/features/radar/public/growth-curve.tsx", "utf8");
+  const avgAt = curve.indexOf("Média do período");
+  const housesAt = curve.indexOf("{houses.map");
+  assert.ok(avgAt > 0 && housesAt > avgAt, "average must sit above the house list");
+});
