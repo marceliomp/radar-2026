@@ -1,6 +1,6 @@
 {
   "source": "G1, Folha, Poder360, CNN, O Globo, Ipsos, Gazeta do Povo. Rodada Quaest/Globo 24-27/08 + ondas anteriores: Genial/Quaest jul (10 UFs, PA ja estava), Datafolha SP 01-03/07, Genial/Quaest SP abr, Parana Pesquisas PR jul/ago. Quaest PA 29/08 ainda sem tabela.",
-  "asOf": "2026-09-08",
+  "asOf": "2026-09-03",
   "polls": [
     {
       "id": "quaest-sp-gov-04-29",
@@ -1856,116 +1856,6 @@
         "humbertocosta2": 23
       },
       "notes": "Auto realtime. TSE PE-09116/2026. https://g1.globo.com/ba/bahia/eleicoes/2026/noticia/2026/09/02/candidato-ao-governo-da-bahia-e-atingido-por-bala-de-borracha-em-protesto-e-acusa-pm.ghtml"
-    },
-    {
-      "id": "real-time-big-data-ba-gov-09-08",
-      "office": "governor",
-      "uf": "BA",
-      "institute": "Real Time Big Data",
-      "date": "2026-09-08",
-      "fieldEnd": "2026-09-07",
-      "fieldStart": "2026-09-03",
-      "sample": 1600,
-      "moe": 2.5,
-      "mode": "telefone",
-      "firstRound": {
-        "jeronimo": 37,
-        "acmneto": 39
-      },
-      "notes": "Auto realtime. TSE BA-01435/2026. https://g1.globo.com/ba/bahia/eleicoes/2026/noticia/2026/09/02/agenda-de-campanha-de-jeronimo-rodrigues.ghtml"
-    },
-    {
-      "id": "real-time-big-data-ba-sen-09-08",
-      "office": "senator",
-      "uf": "BA",
-      "institute": "Real Time Big Data",
-      "date": "2026-09-08",
-      "fieldEnd": "2026-09-07",
-      "fieldStart": "2026-09-03",
-      "sample": 1600,
-      "moe": 2.5,
-      "mode": "telefone",
-      "firstRound": {
-        "angelocoronel": 5,
-        "jaqueswagner": 17,
-        "joaoroma": 7,
-        "ruicosta2": 23
-      },
-      "notes": "Auto realtime. TSE BA-01435/2026. https://g1.globo.com/ba/bahia/eleicoes/2026/noticia/2026/09/02/candidato-ao-governo-da-bahia-e-atingido-por-bala-de-borracha-em-protesto-e-acusa-pm.ghtml"
-    },
-    {
-      "id": "real-time-big-data-mg-sen-09-08",
-      "office": "senator",
-      "uf": "MG",
-      "institute": "Real Time Big Data",
-      "date": "2026-09-08",
-      "fieldEnd": "2026-09-07",
-      "fieldStart": "2026-09-03",
-      "sample": 2000,
-      "moe": 2.2,
-      "mode": "telefone",
-      "firstRound": {
-        "marilia": 19,
-        "domingossavio": 6,
-        "carlosviana": 10
-      },
-      "notes": "Auto realtime. TSE MG-00998/2026. https://g1.globo.com/mg/minas-gerais/eleicoes/2026/noticia/2026/09/02/candidatura-de-aecio-neves-faz-rearranjo-na-disputa-pelo-senado-em-minas-gerais.ghtml"
-    },
-    {
-      "id": "quaest-mg-sen-09-08",
-      "office": "senator",
-      "uf": "MG",
-      "institute": "Quaest",
-      "date": "2026-09-08",
-      "fieldEnd": "2026-09-07",
-      "fieldStart": "2026-09-04",
-      "sample": 1506,
-      "moe": 2.5,
-      "mode": "presencial",
-      "firstRound": {
-        "marilia": 19,
-        "domingossavio": 6,
-        "carlosviana": 10
-      },
-      "notes": "Auto quaest. TSE MG-04716/2026. https://g1.globo.com/mg/minas-gerais/eleicoes/2026/noticia/2026/09/02/candidatura-de-aecio-neves-faz-rearranjo-na-disputa-pelo-senado-em-minas-gerais.ghtml"
-    },
-    {
-      "id": "quaest-rj-sen-09-08",
-      "office": "senator",
-      "uf": "RJ",
-      "institute": "Quaest",
-      "date": "2026-09-08",
-      "fieldEnd": "2026-09-07",
-      "fieldStart": "2026-09-04",
-      "sample": 1302,
-      "moe": 2.7,
-      "mode": "presencial",
-      "firstRound": {
-        "marcelocrivella": 6,
-        "portinho": 5,
-        "monicabenicio": 5,
-        "carlosjordy": 7,
-        "pedropaulo": 6,
-        "waguinho75": 3
-      },
-      "notes": "Auto quaest. TSE RJ-04768/2026. https://g1.globo.com/rj/rio-de-janeiro/eleicoes/2026/noticia/2026/09/03/candidatos-ao-senado-pelo-rj-criticam-bets-e-citam-pautas-de-seguranca-em-propaganda-eleitoral.ghtml"
-    },
-    {
-      "id": "quaest-df-sen-09-08",
-      "office": "senator",
-      "uf": "DF",
-      "institute": "Quaest",
-      "date": "2026-09-08",
-      "fieldEnd": "2026-09-07",
-      "fieldStart": "2026-09-04",
-      "sample": 1104,
-      "moe": 2.9,
-      "mode": "presencial",
-      "firstRound": {
-        "gutofeliciodossantos": 3,
-        "michellebolsonaro": 29
-      },
-      "notes": "Auto quaest. TSE DF-01987/2026. https://g1.globo.com/sp/sao-paulo/eleicoes/2026/noticia/2026/09/02/cury-diz-que-virou-alvo-de-ataques-apos-alta-nas-pesquisas.ghtml"
     }
   ]
 }
