@@ -325,6 +325,7 @@ export function PublicRadarPage() {
 
       <main id="conteudo" className="page-body mx-auto min-w-0 max-w-6xl overflow-x-clip px-4 pt-5 sm:px-6 sm:pt-8">
         <HalfLifeControl />
+        <GrowthCurve polls={polls} asOf={asOf} />
         <section id="media" className="mb-6 space-y-4 scroll-mt-24">
           <div className="story-head">
             <p className="kicker">Média das pesquisas</p>
@@ -381,7 +382,6 @@ export function PublicRadarPage() {
           </section>
         ) : null}
 
-        <GrowthCurve polls={polls} asOf={asOf} />
         <TightRaces />
         <section id="mapa" className="space-y-3 scroll-mt-24">
           <div className="story-head">

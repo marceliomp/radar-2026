@@ -159,3 +159,13 @@ test("curve x axis is calendar time, not house names", () => {
   assert.doesNotMatch(curve, /angle: -40/);
   assert.doesNotMatch(curve, /dataKey: "label"/);
 });
+
+test("growth curve sits second in the page body", () => {
+  const page = readFileSync("src/features/radar/public/public-radar-page.tsx", "utf8");
+  const hlAt = page.indexOf("<HalfLifeControl");
+  const curveAt = page.indexOf("<GrowthCurve");
+  const mediaAt = page.indexOf('id="media"');
+  assert.ok(hlAt >= 0 && curveAt >= 0 && mediaAt >= 0, "slider, curve and intention exist");
+  assert.ok(hlAt < curveAt, "period slider stays first in the body");
+  assert.ok(curveAt < mediaAt, "curve sits above intention");
+});
