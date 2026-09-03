@@ -97,6 +97,13 @@ test("tooltip puts period average above the houses", () => {
   assert.ok(avgAt > 0 && housesAt > avgAt, "average must sit above the house list");
 });
 
+test("tooltip scores sit in a two-column grid", () => {
+  const curve = readFileSync("src/features/radar/public/growth-curve.tsx", "utf8");
+  assert.match(curve, /grid-cols-2/);
+  assert.match(curve, /whitespace-nowrap/);
+  assert.doesNotMatch(curve, /OthersLine/);
+});
+
 test("houseFilterKey groups Genial/Quaest as Quaest", async () => {
   const { houseFilterKey, houseFilterOptions } = await import("../src/lib/forecast/curve-series.ts");
   assert.equal(houseFilterKey("Genial/Quaest"), "Quaest");

@@ -114,29 +114,48 @@ function asked(n: number | null | undefined) {
   return n != null && Number.isFinite(n);
 }
 
-function OthersLine({
-  values,
-  className,
-}: {
-  values: { key: OtherKey; n: number | null | undefined }[];
-  className?: string;
-}) {
-  const shown = values.filter((item) => asked(item.n));
-  if (!shown.length) return null;
+type ScoreItem = { key?: string; label: string; color: string; n: number | null | undefined };
+
+function ScoreCell({ label, color, n }: ScoreItem) {
+  if (!asked(n)) return null;
   return (
-    <p className={className ?? "m-0 mt-1 font-mono text-[12px] tabular-nums text-cream/80"}>
-      {shown.map((item, i) => {
-        const meta = OTHERS.find((other) => other.key === item.key)!;
-        return (
-          <span key={item.key}>
-            {i > 0 ? <span className="text-cream/35"> · </span> : null}
-            <span style={{ color: meta.color }}>
-              {meta.label} {pct(item.n)}
-            </span>
-          </span>
-        );
-      })}
-    </p>
+    <span className="whitespace-nowrap" style={{ color }}>
+      {label} {pct(n)}
+    </span>
+  );
+}
+
+function ScoreGrid({
+  lula,
+  flavio,
+  others,
+  featured,
+}: {
+  lula: number | null | undefined;
+  flavio: number | null | undefined;
+  others?: { key: OtherKey; n: number | null | undefined }[];
+  featured?: boolean;
+}) {
+  const extra: ScoreItem[] = [];
+  for (const item of others ?? []) {
+    const meta = OTHERS.find((other) => other.key === item.key);
+    if (!meta || !asked(item.n)) continue;
+    extra.push({ key: item.key, label: meta.label, color: meta.color, n: item.n });
+  }
+  return (
+    <div
+      className={
+        featured
+          ? "mt-2 grid grid-cols-2 gap-x-4 gap-y-0.5 font-mono text-[15px] font-semibold tabular-nums"
+          : "mt-1 grid grid-cols-2 gap-x-4 gap-y-0.5 font-mono text-[12px] tabular-nums"
+      }
+    >
+      <ScoreCell label="Lula" color={CHART.lula} n={lula} />
+      <ScoreCell label="Flávio" color={CHART.flavio} n={flavio} />
+      {extra.map((item) => (
+        <ScoreCell key={item.key} label={item.label} color={item.color} n={item.n} />
+      ))}
+    </div>
   );
 }
 
@@ -181,30 +200,21 @@ function CurveTip({ active, payload }: { active?: boolean; payload?: TipRow[] })
         },
       ];
   const many = houses.length > 1;
-  const pick = (key: keyof CurveRow) => {
-    const hit = payload.find((item) => item.dataKey === key);
-    const raw = Number(hit?.value);
-    if (Number.isFinite(raw)) return `${fmtNum(raw)}%`;
-    const fromRow = row[key];
-    return typeof fromRow === "number" && Number.isFinite(fromRow) ? pct(fromRow) : "n/d";
-  };
   if (row.houseFocus) {
     const house = houses[0];
     return (
-      <div style={{ ...tipStyle, padding: "10px 12px", minWidth: 196, maxWidth: 280, color: CHART.fg }}>
+      <div style={{ ...tipStyle, padding: "10px 12px", minWidth: 228, maxWidth: 320, color: CHART.fg }}>
         <p className="m-0 text-sm font-semibold" style={{ color: CHART.fg }}>
           {house?.institute ?? row.institute} · {dateBr(row.published)}
         </p>
         <p className="m-0 mt-0.5 text-[11px] font-medium text-cream/55">
           {fieldPeriodLine(house?.fieldStart ?? row.fieldStart, house?.fieldEnd ?? row.fieldEnd)}
         </p>
-        <p className="m-0 mt-2 font-mono text-base font-semibold tabular-nums">
-          <span style={{ color: CHART.lula }}>Lula {pct(house?.lulaPoll ?? row.lulaPoll)}</span>
-          <span className="text-cream/35"> · </span>
-          <span style={{ color: CHART.flavio }}>Flávio {pct(house?.flavioPoll ?? row.flavioPoll)}</span>
-        </p>
-        <OthersLine
-          values={[
+        <ScoreGrid
+          featured
+          lula={house?.lulaPoll ?? row.lulaPoll}
+          flavio={house?.flavioPoll ?? row.flavioPoll}
+          others={[
             { key: "cury", n: house?.curyPoll ?? row.curyPoll },
             { key: "renan", n: house?.renanPoll ?? row.renanPoll },
             { key: "caiado", n: house?.caiadoPoll ?? row.caiadoPoll },
@@ -222,7 +232,7 @@ function CurveTip({ active, payload }: { active?: boolean; payload?: TipRow[] })
     );
   }
   return (
-    <div style={{ ...tipStyle, padding: "10px 12px", minWidth: 196, maxWidth: 280, color: CHART.fg }}>
+    <div style={{ ...tipStyle, padding: "10px 12px", minWidth: 228, maxWidth: 320, color: CHART.fg }}>
       <p className="m-0 text-sm font-semibold" style={{ color: CHART.fg }}>
         {dateBr(row.published)}
         {many ? ` · ${houses.length} pesquisas` : ""}
@@ -230,19 +240,16 @@ function CurveTip({ active, payload }: { active?: boolean; payload?: TipRow[] })
       <p className="m-0 mt-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-gold">
         Média do período
       </p>
-      <p className="m-0 mt-1 font-mono text-base font-semibold tabular-nums">
-        <span style={{ color: CHART.lula }}>Lula {pick("lulaAvg")}</span>
-        <span className="text-cream/35"> · </span>
-        <span style={{ color: CHART.flavio }}>Flávio {pick("flavioAvg")}</span>
-      </p>
-      <OthersLine
-        values={[
+      <ScoreGrid
+        featured
+        lula={row.lulaAvg}
+        flavio={row.flavioAvg}
+        others={[
           { key: "cury", n: row.curyAvg },
           { key: "renan", n: row.renanAvg },
           { key: "caiado", n: row.caiadoAvg },
           { key: "zema", n: row.zemaAvg },
         ]}
-        className="m-0 mt-1 font-mono text-[12px] tabular-nums"
       />
       {houses.map((house, i) => (
         <div key={`${house.institute}-${i}`} className={i === 0 ? "mt-3" : "mt-2.5"}>
@@ -250,13 +257,10 @@ function CurveTip({ active, payload }: { active?: boolean; payload?: TipRow[] })
           <p className="m-0 mt-0.5 text-[11px] font-medium text-cream/55">
             {fieldPeriodLine(house.fieldStart, house.fieldEnd)}
           </p>
-          <p className="m-0 mt-1 font-mono text-[13px] tabular-nums text-cream/85">
-            <span style={{ color: CHART.lula }}>Lula {pct(house.lulaPoll)}</span>
-            <span className="text-cream/35"> · </span>
-            <span style={{ color: CHART.flavio }}>Flávio {pct(house.flavioPoll)}</span>
-          </p>
-          <OthersLine
-            values={[
+          <ScoreGrid
+            lula={house.lulaPoll}
+            flavio={house.flavioPoll}
+            others={[
               { key: "cury", n: house.curyPoll },
               { key: "renan", n: house.renanPoll },
               { key: "caiado", n: house.caiadoPoll },
