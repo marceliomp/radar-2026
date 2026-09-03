@@ -11,7 +11,7 @@ import {
 import { SegGroup } from "@/features/radar/map/map-layer-toggle";
 import { CHART, tipStyle } from "@/lib/chart-theme";
 import { dateBr, fieldPeriodLine, fmtNum, isoDayUtc, utcMsToDayBr } from "@/lib/format";
-import { buildNationalTrend, rollingAverage } from "@/lib/forecast/trends";
+import { buildNationalTrend, lastRowPerDay, rollingAverage } from "@/lib/forecast/trends";
 import type { ForecastPoll } from "@/lib/forecast/engine";
 import { pollsOnDate } from "@/lib/latest-day";
 
@@ -164,9 +164,8 @@ function CurveKey() {
       </div>
       <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-cream/80">
         <span className="inline-flex items-center gap-1.5">
-          <svg width="30" height="10" viewBox="0 0 30 10" aria-hidden>
-            <circle cx="5" cy="5" r="2.4" fill={CHART.axis} opacity="0.85" />
-            <line x1="10" y1="5" x2="28" y2="5" stroke={CHART.axis} strokeWidth="1.3" opacity="0.55" />
+          <svg width="12" height="10" viewBox="0 0 12 10" aria-hidden>
+            <circle cx="6" cy="5" r="2.6" fill={CHART.axis} opacity="0.85" />
           </svg>
           ponto: nesta pesquisa
         </span>
@@ -228,6 +227,7 @@ export function GrowthCurve({
   const canSecond = second.length >= 3;
   const active: RoundKey = round === "2" && canSecond ? "2" : "1";
   const data = active === "2" ? second : first;
+  const daily = lastRowPerDay(data);
   const domain: [number, number] = active === "2" ? [35, 52] : [26, 48];
 
   return (
@@ -287,24 +287,21 @@ export function GrowthCurve({
                 type="linear"
                 dataKey="lulaPoll"
                 legendType="none"
-                stroke={CHART.lula}
-                strokeWidth={1.5}
-                strokeOpacity={0.55}
-                dot={{ r: 3, fill: CHART.lula }}
+                stroke="none"
+                dot={{ r: 3.5, fill: CHART.lula, strokeWidth: 0 }}
                 isAnimationActive={false}
               />
               <Line
                 type="linear"
                 dataKey="flavioPoll"
                 legendType="none"
-                stroke={CHART.flavio}
-                strokeWidth={1.5}
-                strokeOpacity={0.55}
-                dot={{ r: 3, fill: CHART.flavio }}
+                stroke="none"
+                dot={{ r: 3.5, fill: CHART.flavio, strokeWidth: 0 }}
                 isAnimationActive={false}
               />
               <Line
                 type="linear"
+                data={daily}
                 dataKey="lulaAvg"
                 legendType="none"
                 stroke={CHART.lula}
@@ -314,6 +311,7 @@ export function GrowthCurve({
               />
               <Line
                 type="linear"
+                data={daily}
                 dataKey="flavioAvg"
                 legendType="none"
                 stroke={CHART.flavio}
