@@ -74,3 +74,29 @@ export function asOfDayAverages(
   }
   return out;
 }
+
+export function axisTicks(values: number[], maxTicks = 6): number[] {
+  const unique = [...new Set(values.filter((ms) => Number.isFinite(ms)))].sort(
+    (a, b) => a - b,
+  );
+  if (unique.length <= maxTicks) return unique;
+  const first = unique[0]!;
+  const last = unique[unique.length - 1]!;
+  const picked: number[] = [];
+  for (let i = 0; i < maxTicks; i++) {
+    const target = first + ((last - first) * i) / (maxTicks - 1);
+    let best = first;
+    let bestD = Infinity;
+    for (const ms of unique) {
+      const d = Math.abs(ms - target);
+      if (d < bestD) {
+        best = ms;
+        bestD = d;
+      }
+    }
+    if (picked[picked.length - 1] !== best) picked.push(best);
+  }
+  if (picked[0] !== first) picked.unshift(first);
+  if (picked[picked.length - 1] !== last) picked.push(last);
+  return [...new Set(picked)].sort((a, b) => a - b);
+}

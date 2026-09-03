@@ -11,7 +11,7 @@ import {
 import { SegGroup } from "@/features/radar/map/map-layer-toggle";
 import { CHART, tipStyle } from "@/lib/chart-theme";
 import { dateBr, fieldPeriodLine, fmtNum, isoDayUtc, utcMsToDayBr } from "@/lib/format";
-import { asOfDayAverages } from "@/lib/forecast/curve-series";
+import { asOfDayAverages, axisTicks } from "@/lib/forecast/curve-series";
 import { buildNationalTrend } from "@/lib/forecast/trends";
 import type { ForecastPoll } from "@/lib/forecast/engine";
 import { pollsOnDate } from "@/lib/latest-day";
@@ -31,8 +31,8 @@ const XAXIS = {
   dataKey: "t" as const,
   domain: timeDomain,
   tickFormatter: tickDay,
-  minTickGap: 36,
-  tickCount: 7,
+  interval: 0 as const,
+  minTickGap: 28,
   tick: { fill: CHART.axis, fontSize: 11, fontWeight: 500 },
   axisLine: false,
   tickLine: false,
@@ -191,7 +191,7 @@ export function GrowthCurve({
   halfLifeDays: number;
 }) {
   const [round, setRound] = useState<RoundKey>("1");
-  const { first, second, firstLine, secondLine } = useMemo(() => {
+  const { first, second } = useMemo(() => {
     const visible = polls.filter(
       (poll) => poll.national && poll.date <= asOf && poll.fieldEnd <= asOf,
     );
@@ -217,21 +217,6 @@ export function GrowthCurve({
         flavioAvg: byDay.get(point.published)?.flavio ?? null,
         sameDay: housesOnCurveDay(visible, point.published, asOf, key),
       }));
-    const toLine = (
-      days: typeof avg1,
-      key: RoundKey,
-    ): CurveRow[] =>
-      days.map((day) => ({
-        t: day.t,
-        institute: "Média do período",
-        published: day.date,
-        fieldEnd: day.date,
-        lulaPoll: null,
-        flavioPoll: null,
-        lulaAvg: day.lula,
-        flavioAvg: day.flavio,
-        sameDay: housesOnCurveDay(visible, day.date, asOf, key),
-      }));
     const firstDots = toDots(trend, byDay1, "1");
     const secondDots = toDots(
       trend.filter((point) => point.lula2 != null && point.flavio2 != null),
@@ -241,8 +226,6 @@ export function GrowthCurve({
     return {
       first: firstDots,
       second: secondDots,
-      firstLine: toLine(avg1, "1"),
-      secondLine: toLine(avg2, "2"),
     };
   }, [polls, asOf, halfLifeDays]);
 
@@ -250,7 +233,7 @@ export function GrowthCurve({
   const canSecond = second.length >= 3;
   const active: RoundKey = round === "2" && canSecond ? "2" : "1";
   const data = active === "2" ? second : first;
-  const daily = active === "2" ? secondLine : firstLine;
+  const ticks = axisTicks(data.map((row) => row.t));
   const domain: [number, number] = active === "2" ? [35, 52] : [26, 48];
 
   return (
@@ -295,7 +278,7 @@ export function GrowthCurve({
           <ResponsiveContainer width="100%" height="100%">
             <ComposedChart data={data} margin={{ left: 0, right: 12, top: 8, bottom: 4 }}>
               <CartesianGrid strokeDasharray="3 3" stroke={CHART.grid} />
-              <XAxis {...XAXIS} />
+              <XAxis {...XAXIS} ticks={ticks} />
               <YAxis
                 domain={domain}
                 tick={{ fill: CHART.axis, fontSize: 12, fontWeight: 500 }}
@@ -304,14 +287,19 @@ export function GrowthCurve({
                 axisLine={false}
                 tickLine={false}
               />
-              <Tooltip content={CurveTip} cursor={false} />
+              <Tooltip
+                content={CurveTip}
+                cursor={{ stroke: CHART.axis, strokeWidth: 1, strokeOpacity: 0.45 }}
+                isAnimationActive={false}
+                wrapperStyle={{ pointerEvents: "none" }}
+              />
               <Line
                 type="linear"
                 dataKey="lulaPoll"
                 legendType="none"
                 stroke="none"
                 dot={{ r: 2.4, fill: CHART.lula, fillOpacity: 0.42, strokeWidth: 0 }}
-                activeDot={{ r: 4.5, fill: CHART.lula, strokeWidth: 0 }}
+                activeDot={false}
                 isAnimationActive={false}
               />
               <Line
@@ -320,27 +308,27 @@ export function GrowthCurve({
                 legendType="none"
                 stroke="none"
                 dot={{ r: 2.4, fill: CHART.flavio, fillOpacity: 0.42, strokeWidth: 0 }}
-                activeDot={{ r: 4.5, fill: CHART.flavio, strokeWidth: 0 }}
+                activeDot={false}
                 isAnimationActive={false}
               />
               <Line
                 type="monotone"
-                data={daily}
                 dataKey="lulaAvg"
                 legendType="none"
                 stroke={CHART.lula}
                 strokeWidth={2.8}
                 dot={false}
+                activeDot={{ r: 4, fill: CHART.lula, strokeWidth: 0 }}
                 isAnimationActive={false}
               />
               <Line
                 type="monotone"
-                data={daily}
                 dataKey="flavioAvg"
                 legendType="none"
                 stroke={CHART.flavio}
                 strokeWidth={2.8}
                 dot={false}
+                activeDot={{ r: 4, fill: CHART.flavio, strokeWidth: 0 }}
                 isAnimationActive={false}
               />
             </ComposedChart>

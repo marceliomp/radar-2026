@@ -56,3 +56,36 @@ test("poll series stays dots and the line is the period average", () => {
   assert.doesNotMatch(curve, /média das 3 últimas/);
   assert.doesNotMatch(curve, /rollingAverage/);
 });
+test("axisTicks stays chronological and never puts 24/08 after 30/08", async () => {
+  const { isoDayUtc } = await import("../src/lib/format.ts");
+  const { axisTicks } = await import("../src/lib/forecast/curve-series.ts");
+  const t24 = isoDayUtc("2026-08-24");
+  const t30 = isoDayUtc("2026-08-30");
+  const mixed = [
+    isoDayUtc("2026-09-03"),
+    t30,
+    isoDayUtc("2026-06-18"),
+    t24,
+    t30,
+    isoDayUtc("2026-08-26"),
+  ];
+  const ticks = axisTicks(mixed, 6);
+  for (let i = 1; i < ticks.length; i++) {
+    assert.ok(ticks[i] > ticks[i - 1], "ticks must increase");
+  }
+  const i24 = ticks.indexOf(t24);
+  const i30 = ticks.indexOf(t30);
+  if (i24 >= 0 && i30 >= 0) {
+    assert.ok(i24 < i30, "24/08 cannot sit after 30/08");
+  }
+});
+
+test("curve hover tracks the date on a vertical cursor", () => {
+  const curve = readFileSync("src/features/radar/public/growth-curve.tsx", "utf8");
+  assert.match(curve, /ticks=\{ticks\}/);
+  assert.match(curve, /axisTicks/);
+  assert.match(curve, /cursor=\{\{ stroke: CHART.axis/);
+  assert.doesNotMatch(curve, /cursor=\{false\}/);
+  assert.doesNotMatch(curve, /data=\{daily\}/);
+  assert.doesNotMatch(curve, /tickCount: 7/);
+});
