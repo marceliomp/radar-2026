@@ -1,6 +1,6 @@
 {
   "source": "CartaCapital/AtlasIntel 03/09 (RS GO PI RJ CE PB) + TMC/VEJA PB 03/09 + Gazeta/RTBD RJ 02/09. G1, Folha, Poder360, CNN, O Globo, Ipsos, Gazeta do Povo. Rodada Quaest/Globo 24-27/08 + ondas anteriores: Genial/Quaest jul (10 UFs, PA ja estava), Datafolha SP 01-03/07, Genial/Quaest SP abr, Parana Pesquisas PR jul/ago. Quaest PA 29/08 ainda sem tabela.",
-  "asOf": "2026-09-03",
+  "asOf": "2026-09-04",
   "polls": [
     {
       "id": "atlas-pb-gov-09-03",
@@ -2031,6 +2031,40 @@
         "humbertocosta2": 23
       },
       "notes": "Auto realtime. TSE PE-09116/2026. https://g1.globo.com/ba/bahia/eleicoes/2026/noticia/2026/09/02/candidato-ao-governo-da-bahia-e-atingido-por-bala-de-borracha-em-protesto-e-acusa-pm.ghtml"
+    },
+    {
+      "id": "datafolha-ce-sen-09-03",
+      "office": "senator",
+      "uf": "CE",
+      "institute": "Datafolha",
+      "date": "2026-09-03",
+      "fieldEnd": "2026-09-03",
+      "fieldStart": "2026-08-31",
+      "sample": 1204,
+      "moe": 2.8,
+      "mode": "telefone",
+      "firstRound": {
+        "capitaowagner": 17,
+        "cidgomes": 45
+      },
+      "notes": "Auto datafolha. TSE CE-04122/2026. https://g1.globo.com/ba/bahia/eleicoes/2026/noticia/2026/09/02/candidato-ao-governo-da-bahia-e-atingido-por-bala-de-borracha-em-protesto-e-acusa-pm.ghtml"
+    },
+    {
+      "id": "quaest-ce-sen-09-04",
+      "office": "senator",
+      "uf": "CE",
+      "institute": "Quaest",
+      "date": "2026-09-04",
+      "fieldEnd": "2026-09-03",
+      "fieldStart": "2026-08-31",
+      "sample": 900,
+      "moe": 3.3,
+      "mode": "presencial",
+      "firstRound": {
+        "capitaowagner": 17,
+        "cidgomes": 45
+      },
+      "notes": "Auto quaest. TSE CE-01149/2026. https://g1.globo.com/ba/bahia/eleicoes/2026/noticia/2026/09/02/candidato-ao-governo-da-bahia-e-atingido-por-bala-de-borracha-em-protesto-e-acusa-pm.ghtml"
     }
   ]
 }
