@@ -6,7 +6,7 @@ import {
 } from "./engine.ts";
 import { resolveInstitute } from "./track-record.ts";
 
-/** The day's polls plus the 2 days before it. Three days of polls. */
+/** This publication day plus the 2 previous days that had a poll. */
 export const CURVE_PERIOD_DAYS = 2;
 
 export type DayAverage = {
@@ -42,6 +42,11 @@ export function publicationDays(
   return [...days].sort();
 }
 
+function recentPollDays(days: string[], day: string, prior: number): string[] {
+  const upto = days.filter((d) => d <= day);
+  return upto.slice(-(prior + 1));
+}
+
 
 function meanAsked(
   rows: { weight: number; poll: ForecastPoll }[],
@@ -68,15 +73,18 @@ export function asOfDayAverages(
   const days = publicationDays(polls, asOf, needSecond);
   const out: DayAverage[] = [];
   for (const day of days) {
+    const windowDays = new Set(recentPollDays(days, day, halfLifeDays));
     const windowed = polls.filter((poll) => {
       if (!poll.national) return false;
       if (poll.date > day || poll.fieldEnd > day) return false;
-      return ageDays(poll.date, day) <= halfLifeDays;
+      return windowDays.has(poll.date);
     });
+    const oldest = [...windowDays].sort()[0] ?? day;
+    const span = Math.max(ageDays(oldest, day), 1);
     const rows = buildWeightedRows(windowed, {
       ...DEFAULT_CONFIG,
       asOf: day,
-      halfLifeDays,
+      halfLifeDays: span,
     });
     const subset = needSecond
       ? rows.filter((row) => row.adjLula2 != null && row.adjFlavio2 != null)
