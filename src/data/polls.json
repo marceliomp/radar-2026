@@ -1,5 +1,57 @@
 [
   {
+    "id": "atlas-pb-09-03",
+    "institute": "AtlasIntel",
+    "date": "2026-09-03",
+    "fieldStart": "2026-08-28",
+    "fieldEnd": "2026-09-02",
+    "sample": 1207,
+    "moe": 3,
+    "mode": "online",
+    "national": false,
+    "uf": "PB",
+    "firstRound": {
+      "lula": 51.8,
+      "flavio": 28.1,
+      "cury": 8.9,
+      "renan": 4.5,
+      "caiado": 1.3,
+      "zema": 0.2
+    },
+    "secondRound": {
+      "lula": 56.3,
+      "flavio": 33.4
+    },
+    "secondPairs": [
+      {
+        "a": "lula",
+        "b": "caiado",
+        "aPct": 56.1,
+        "bPct": 25.9
+      },
+      {
+        "a": "lula",
+        "b": "zema",
+        "aPct": 56.4,
+        "bPct": 23.8
+      },
+      {
+        "a": "lula",
+        "b": "renan",
+        "aPct": 56.2,
+        "bPct": 17.7
+      }
+    ],
+    "notes": "Brasil247/TMC 03/09 · TSE BR-04083/2026 e PB-01118/2026 · Atlas RDR online, n=1207, campo 28/08-02/09, moe ±3. Totais (nao validos). 1T 51,8×28,1; Cury 8,9; Renan 4,5; Caiado 1,3; Zema 0,2. Samara 1% sem chave. 2T vs Flavio 56,3×33,4 (branco/nulo/ns 10,3). Fonte: https://www.brasil247.com/nordeste/atlasintel-lula-tem-518-e-abre-237-pontos-sobre-flavio-bolsonaro-na-paraiba-na-disputa",
+    "source": {
+      "tseProtocol": "BR-04083/2026",
+      "url": "https://www.brasil247.com/nordeste/atlasintel-lula-tem-518-e-abre-237-pontos-sobre-flavio-bolsonaro-na-paraiba-na-disputa",
+      "publisher": "Brasil247/TMC 03/09",
+      "publishedAt": "2026-09-03",
+      "capturedAt": "2026-09-04T13:00:22.000Z"
+    }
+  },
+  {
     "id": "datafolha-09-03-03669",
     "institute": "Datafolha",
     "date": "2026-09-03",

@@ -1,7 +1,28 @@
 {
-  "source": "CartaCapital/AtlasIntel 03/09 (RS GO PI RJ) + Gazeta/RTBD RJ 02/09. G1, Folha, Poder360, CNN, O Globo, Ipsos, Gazeta do Povo. Rodada Quaest/Globo 24-27/08 + ondas anteriores: Genial/Quaest jul (10 UFs, PA ja estava), Datafolha SP 01-03/07, Genial/Quaest SP abr, Parana Pesquisas PR jul/ago. Quaest PA 29/08 ainda sem tabela.",
+  "source": "CartaCapital/AtlasIntel 03/09 (RS GO PI RJ CE PB) + TMC/VEJA PB 03/09 + Gazeta/RTBD RJ 02/09. G1, Folha, Poder360, CNN, O Globo, Ipsos, Gazeta do Povo. Rodada Quaest/Globo 24-27/08 + ondas anteriores: Genial/Quaest jul (10 UFs, PA ja estava), Datafolha SP 01-03/07, Genial/Quaest SP abr, Parana Pesquisas PR jul/ago. Quaest PA 29/08 ainda sem tabela.",
   "asOf": "2026-09-03",
   "polls": [
+    {
+      "id": "atlas-pb-gov-09-03",
+      "office": "governor",
+      "uf": "PB",
+      "institute": "AtlasIntel",
+      "date": "2026-09-03",
+      "fieldStart": "2026-08-28",
+      "fieldEnd": "2026-09-02",
+      "sample": 1207,
+      "moe": 3,
+      "mode": "online",
+      "firstRound": {
+        "lucasribeiro14": 42.4,
+        "efraimfilho": 30.9,
+        "cicerolucena": 19.8,
+        "yuriezequiel": 0.5,
+        "camilosobreiraduarte": 0.4,
+        "pedrocoutinhoguerra": 0.3
+      },
+      "notes": "TMC/VEJA 03/09. Recrutamento digital 28/08 a 02/09 n=1207 moe 3. TSE PB-01118/2026 e BR-04083/2026. Totais, nao validos. Sem 2T gov publicado nestas materias. https://tmc.com.br/politica/lucas-ribeiro-lidera-disputa-pelo-governo-da-paraiba-com-424-diz-atlas/"
+    },
     {
       "id": "atlas-rs-gov-09-03",
       "office": "governor",
