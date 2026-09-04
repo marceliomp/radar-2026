@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { width: 1200px; height: 630px; overflow: hidden; }
+    body {
+      font-family: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+      background: #0f1f1e;
+      color: #faf6ef;
+    }
+    .frame {
+      width: 1200px;
+      height: 630px;
+      background: #0f1f1e;
+      border-top: 10px solid #2a9583;
+      border-bottom: 10px solid #2a9583;
+      padding: 36px 56px 32px;
+      display: flex;
+      flex-direction: column;
+    }
+    .kicker {
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #2a9583;
+      margin-bottom: 14px;
+    }
+    h1 {
+      font-family: "Archivo Black", "DM Sans", sans-serif;
+      font-size: 64px;
+      line-height: 1;
+      font-weight: 400;
+      color: #faf6ef;
+      letter-spacing: -0.02em;
+    }
+    .sub {
+      margin-top: 12px;
+      font-size: 26px;
+      font-weight: 500;
+      color: #c8bba8;
+    }
+    .cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+      margin-top: 28px;
+    }
+    .card {
+      background: #1b2e2c;
+      border-radius: 18px;
+      padding: 22px 28px 20px;
+    }
+    .card-label {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #c8bba8;
+      margin-bottom: 18px;
+    }
+    .row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 16px;
+    }
+    .col { min-width: 0; }
+    .col.right { text-align: right; }
+    .name {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .name.lula { color: #d92524; }
+    .name.flavio { color: #3e8ec2; }
+    .pct {
+      font-family: "Archivo Black", "DM Sans", sans-serif;
+      font-size: 64px;
+      line-height: 0.92;
+      font-weight: 400;
+    }
+    .pct.lula { color: #d92524; }
+    .pct.flavio { color: #3e8ec2; }
+    .meta {
+      margin-top: 16px;
+      font-size: 18px;
+      font-weight: 500;
+      color: #b7ae9e;
+    }
+    .foot {
+      margin-top: auto;
+      padding-top: 22px;
+    }
+    .foot-lead {
+      font-size: 24px;
+      font-weight: 700;
+      color: #faf6ef;
+    }
+    .foot-sub {
+      margin-top: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      color: #2a9583;
+    }
+  </style>
+</head>
+<body>
+  <div class="frame">
+    <p class="kicker">Agregador eleitoral</p>
+    <h1>Radar 2026</h1>
+    <p class="sub">Não é uma pesquisa. É a média com incerteza.</p>
+    <div class="cards">
+      <div class="card">
+        <p class="card-label">1º turno</p>
+        <div class="row">
+          <div class="col">
+            <p class="name lula">Lula</p>
+            <p class="pct lula">39,5%</p>
+          </div>
+          <div class="col right">
+            <p class="name flavio">Flávio</p>
+            <p class="pct flavio">34,9%</p>
+          </div>
+        </div>
+        <p class="meta">20 pesquisas · as-of 28 ago</p>
+      </div>
+      <div class="card">
+        <p class="card-label">2º turno</p>
+        <div class="row">
+          <div class="col">
+            <p class="name lula">Lula</p>
+            <p class="pct lula">44,9%</p>
+          </div>
+          <div class="col right">
+            <p class="name flavio">Flávio</p>
+            <p class="pct flavio">43,7%</p>
+          </div>
+        </div>
+        <p class="meta">empate técnico · gap 1,2 pp</p>
+      </div>
+    </div>
+    <div class="foot">
+      <p class="foot-lead">SP e MG empatados · Sul Flávio · Nordeste Lula</p>
+      <p class="foot-sub">radar2026 · método, não torcida</p>
+    </div>
+  </div>
+</body>
+</html>

@@ -29,7 +29,7 @@ if (!dirty.length) {
 
 sh(`git add -- ${dirty.join(" ")}`);
 const author =
-  'git -c user.email=radar-ingest@alvobrimobiliaria.com.br -c user.name="radar-ingest"';
+  'git -c user.email=radar-ingest@brasilradar.com.br -c user.name="radar-ingest"';
 try {
   sh(`${author} commit -m "polls: auto-promote from TSE ingest"`);
 } catch (err) {

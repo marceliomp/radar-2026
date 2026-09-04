@@ -1,4 +1,4 @@
-/** Chart colors (surface-deep). Independent of Alvo brand lockups. */
+/** Chart colors (surface-deep). */
 export const CHART = {
   grid: "#3d5c57",
   axis: "#e4d9c8",
