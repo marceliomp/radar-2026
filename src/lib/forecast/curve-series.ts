@@ -6,7 +6,8 @@ import {
 } from "./engine.ts";
 import { resolveInstitute } from "./track-record.ts";
 
-export const CURVE_PERIOD_DAYS = 7;
+/** The day's polls plus the 6 days before it. */
+export const CURVE_PERIOD_DAYS = 6;
 
 export type DayAverage = {
   date: string;
