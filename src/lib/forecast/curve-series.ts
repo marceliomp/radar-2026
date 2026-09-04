@@ -6,8 +6,8 @@ import {
 } from "./engine.ts";
 import { resolveInstitute } from "./track-record.ts";
 
-/** The day's polls plus the 6 days before it. */
-export const CURVE_PERIOD_DAYS = 6;
+/** The day's polls plus the 2 days before it. Three days of polls. */
+export const CURVE_PERIOD_DAYS = 2;
 
 export type DayAverage = {
   date: string;
@@ -70,9 +70,8 @@ export function asOfDayAverages(
   for (const day of days) {
     const windowed = polls.filter((poll) => {
       if (!poll.national) return false;
-      const end = poll.fieldEnd || poll.date;
-      if (end > day) return false;
-      return ageDays(end, day) <= halfLifeDays;
+      if (poll.date > day || poll.fieldEnd > day) return false;
+      return ageDays(poll.date, day) <= halfLifeDays;
     });
     const rows = buildWeightedRows(windowed, {
       ...DEFAULT_CONFIG,

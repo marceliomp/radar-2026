@@ -243,7 +243,7 @@ function CurveTip({ active, payload }: { active?: boolean; payload?: TipRow[] })
         {many ? ` · ${houses.length} pesquisas` : ""}
       </p>
       <p className="m-0 mt-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-gold">
-        Média do período · o dia e os últimos 6 dias
+        Média do período · o dia e os últimos 2 dias
       </p>
       <ScoreGrid
         featured
@@ -310,7 +310,7 @@ function CurveKey({ houseFocus, showOthers }: { houseFocus: boolean; showOthers:
           <svg width="30" height="10" viewBox="0 0 30 10" aria-hidden>
             <line x1="2" y1="5" x2="28" y2="5" stroke={CHART.axis} strokeWidth="3.4" />
           </svg>
-          {houseFocus ? "linha: esta casa" : "linha: média do dia e dos últimos 6 dias"}
+          {houseFocus ? "linha: esta casa" : "linha: média do dia e dos últimos 2 dias"}
         </span>
       </div>
     </div>
@@ -431,8 +431,8 @@ export function GrowthCurve({
               {houseFocus
                 ? `Só ${house}. A linha liga as ondas desta casa.`
                 : mode
-                  ? `Só ${modeFilterLabel(mode).toLowerCase()}. Pontos são cada casa. A linha é a média do dia e dos últimos 6 dias.`
-                  : "Pontos são cada casa. A linha é a média do dia e dos últimos 6 dias."}
+                  ? `Só ${modeFilterLabel(mode).toLowerCase()}. Pontos são cada casa. A linha é a média do dia e dos últimos 2 dias.`
+                  : "Pontos são cada casa. A linha é a média do dia e dos últimos 2 dias."}
             </p>
           </div>
           <SegGroup ariaLabel="Turno da curva">

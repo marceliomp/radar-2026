@@ -53,7 +53,7 @@ test("poll series stays dots and the line is the period average", () => {
   assert.match(curve, /asOfDayAverages/);
   assert.match(curve, /CURVE_PERIOD_DAYS/);
   assert.match(curve, /Média do período/);
-  assert.match(curve, /o dia e os últimos 6 dias/);
+  assert.match(curve, /o dia e os últimos 2 dias/);
   assert.match(curve, /monotone/);
   assert.doesNotMatch(curve, /média das 3 últimas/);
   assert.doesNotMatch(curve, /rollingAverage/);
@@ -61,36 +61,36 @@ test("poll series stays dots and the line is the period average", () => {
 
 test("asOfDayAverages drops polls older than the window", async () => {
   const { asOfDayAverages, CURVE_PERIOD_DAYS } = await import("../src/lib/forecast/curve-series.ts");
-  assert.equal(CURVE_PERIOD_DAYS, 6);
+  assert.equal(CURVE_PERIOD_DAYS, 2);
   const polls = [
     poll("old", "2026-08-20", 50, 20, { lula: 55, flavio: 35 }),
     poll("new", "2026-09-01", 40, 40, { lula: 45, flavio: 45 }),
   ];
-  const week = asOfDayAverages(polls, "2026-09-03", 6, false);
+  const week = asOfDayAverages(polls, "2026-09-03", 2, false);
   const last = week[week.length - 1];
   assert.equal(last.date, "2026-09-01");
   assert.equal(last.lula, 40);
 });
 
-test("window keeps this day plus 6 previous and drops the 7th", async () => {
+test("window keeps this day plus 2 previous and drops the 3rd", async () => {
   const { asOfDayAverages } = await import("../src/lib/forecast/curve-series.ts");
   const polls = [
-    poll("d7", "2026-08-27", 20, 50, { lula: 30, flavio: 60 }),
-    poll("d6", "2026-08-28", 50, 20, { lula: 55, flavio: 35 }),
+    poll("d3", "2026-08-31", 20, 50, { lula: 30, flavio: 60 }),
+    poll("d2", "2026-09-01", 50, 20, { lula: 55, flavio: 35 }),
     poll("today", "2026-09-03", 40, 40, { lula: 45, flavio: 45 }),
   ];
-  const days = asOfDayAverages(polls, "2026-09-03", 6, false);
+  const days = asOfDayAverages(polls, "2026-09-03", 2, false);
   const last = days[days.length - 1];
   assert.equal(last.date, "2026-09-03");
-  assert.ok(last.lula > 40 && last.lula < 50, "6-day-old poll still mixes");
+  assert.ok(last.lula > 40 && last.lula < 50, "2-day-old poll still mixes");
   const onlyEdge = asOfDayAverages(
     [polls[0], polls[2]],
     "2026-09-03",
-    6,
+    2,
     false,
   );
   const lastEdge = onlyEdge[onlyEdge.length - 1];
-  assert.equal(lastEdge.lula, 40, "7-day-old poll must drop");
+  assert.equal(lastEdge.lula, 40, "3-day-old poll must drop");
 });
 test("axisTicks stays chronological and never puts 24/08 after 30/08", async () => {
   const { isoDayUtc } = await import("../src/lib/format.ts");
