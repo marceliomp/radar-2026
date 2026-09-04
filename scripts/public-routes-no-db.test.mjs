@@ -90,6 +90,7 @@ test("public home scan path is chance, intention, news, method", () => {
   assert.match(page, /id="media"/);
   assert.match(page, /id="metodo"/);
   assert.match(page, /Intenção de voto/);
+  assert.match(page, /periodMixInput/);
   const chrome = page.slice(page.indexOf("hero-chrome"), page.indexOf("hero-score"));
   assert.doesNotMatch(chrome, /HalfLifeControl/);
   assert.match(page, /<HalfLifeControl/);

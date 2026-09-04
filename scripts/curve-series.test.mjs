@@ -227,3 +227,18 @@ test("first-round curve plots the other names", () => {
   assert.match(curve, /Cury/);
   assert.match(curve, /connectNulls/);
 });
+
+test("periodMixInput keeps a gap day among the last 2 with a poll", async () => {
+  const { periodMixInput, asOfDayAverages } = await import("../src/lib/forecast/curve-series.ts");
+  const polls = [
+    poll("gap", "2026-08-20", 50, 20, { lula: 55, flavio: 35 }),
+    poll("mid", "2026-09-01", 42, 38, { lula: 48, flavio: 42 }),
+    poll("new", "2026-09-03", 40, 40, { lula: 45, flavio: 45 }),
+  ];
+  const mix = periodMixInput(polls, "2026-09-04", 2);
+  assert.equal(mix.asOfDay, "2026-09-03");
+  assert.deepEqual(mix.polls.map((row) => row.id).sort(), ["gap", "mid", "new"]);
+  const days = asOfDayAverages(polls, "2026-09-04", 2, false);
+  const last = days[days.length - 1];
+  assert.ok(Math.abs(last.lula - 40) > 0.2);
+});

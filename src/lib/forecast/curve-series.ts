@@ -47,6 +47,23 @@ function recentPollDays(days: string[], day: string, prior: number): string[] {
   return upto.slice(-(prior + 1));
 }
 
+export function periodMixInput(
+  polls: ForecastPoll[],
+  asOf: string,
+  priorDays = CURVE_PERIOD_DAYS,
+): { polls: ForecastPoll[]; asOfDay: string; span: number } {
+  const national = polls.filter((poll) => poll.national);
+  const days = publicationDays(national, asOf, false);
+  const asOfDay = days[days.length - 1] ?? asOf;
+  const windowDays = new Set(recentPollDays(days, asOfDay, priorDays));
+  const windowed = national.filter(
+    (poll) => windowDays.has(poll.date) && poll.fieldEnd <= asOfDay,
+  );
+  const oldest = [...windowDays].sort()[0] ?? asOfDay;
+  const span = Math.max(ageDays(oldest, asOfDay), 1);
+  return { polls: windowed, asOfDay, span };
+}
+
 
 function meanAsked(
   rows: { weight: number; poll: ForecastPoll }[],
