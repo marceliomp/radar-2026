@@ -151,6 +151,40 @@ export function houseFilterKey(name: string): string {
   return resolved.split("/")[0] ?? resolved;
 }
 
+export type ModeFilterKey = "presencial" | "telefone" | "online" | "modelo";
+
+export function modeFilterKey(mode: string): ModeFilterKey {
+  if (mode === "telefone" || mode === "remoto") return "telefone";
+  if (mode === "online") return "online";
+  if (mode === "modelo") return "modelo";
+  return "presencial";
+}
+
+export function modeFilterLabel(key: ModeFilterKey): string {
+  if (key === "telefone") return "Telefone";
+  if (key === "online") return "Online";
+  if (key === "modelo") return "Modelo";
+  return "Presencial";
+}
+
+const MODE_ORDER: ModeFilterKey[] = [
+  "presencial",
+  "telefone",
+  "online",
+  "modelo",
+];
+
+export function modeFilterOptions(
+  polls: { mode: string }[],
+): ModeFilterKey[] {
+  const n = new Map<ModeFilterKey, number>();
+  for (const poll of polls) {
+    const key = modeFilterKey(poll.mode);
+    n.set(key, (n.get(key) ?? 0) + 1);
+  }
+  return MODE_ORDER.filter((key) => (n.get(key) ?? 0) >= 1);
+}
+
 export function houseFilterOptions(
   polls: { institute: string }[],
 ): string[] {

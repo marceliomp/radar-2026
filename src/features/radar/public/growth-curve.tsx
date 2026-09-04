@@ -24,6 +24,10 @@ import {
   axisTicks,
   houseFilterKey,
   houseFilterOptions,
+  modeFilterKey,
+  modeFilterLabel,
+  modeFilterOptions,
+  type ModeFilterKey,
 } from "@/lib/forecast/curve-series";
 import { buildNationalTrend } from "@/lib/forecast/trends";
 import type { ForecastPoll } from "@/lib/forecast/engine";
@@ -323,13 +327,17 @@ export function GrowthCurve({
 }) {
   const [round, setRound] = useState<RoundKey>("1");
   const [house, setHouse] = useState<string | null>(null);
-  const { first, second, houseOpts } = useMemo(() => {
+  const [mode, setMode] = useState<ModeFilterKey | null>(null);
+  const { first, second, houseOpts, modeOpts } = useMemo(() => {
     const visible = polls.filter(
       (poll) => poll.national && poll.date <= asOf && poll.fieldEnd <= asOf,
     );
-    const focused = house
-      ? visible.filter((poll) => houseFilterKey(poll.institute) === house)
+    const byMode = mode
+      ? visible.filter((poll) => modeFilterKey(poll.mode) === mode)
       : visible;
+    const focused = house
+      ? byMode.filter((poll) => houseFilterKey(poll.institute) === house)
+      : byMode;
     const trend = buildNationalTrend(focused);
     const avg1 = asOfDayAverages(focused, asOf, CURVE_PERIOD_DAYS, false);
     const avg2 = asOfDayAverages(focused, asOf, CURVE_PERIOD_DAYS, true);
@@ -394,11 +402,12 @@ export function GrowthCurve({
     return {
       first: firstDots,
       second: secondDots,
-      houseOpts: houseFilterOptions(visible),
+      houseOpts: houseFilterOptions(byMode),
+      modeOpts: modeFilterOptions(visible),
     };
-  }, [polls, asOf, house]);
+  }, [polls, asOf, house, mode]);
 
-  if (first.length < 3 && !house) return null;
+  if (first.length < 3 && !house && !mode) return null;
   const canSecond = second.length >= 2;
   const active: RoundKey = round === "2" && canSecond ? "2" : "1";
   const data = active === "2" ? second : first;
@@ -421,7 +430,9 @@ export function GrowthCurve({
               {active === "2" ? "Só pesquisas que perguntaram o par. " : "Nome só entra se a casa perguntou. "}
               {houseFocus
                 ? `Só ${house}. A linha liga as ondas desta casa.`
-                : "Pontos são cada casa. A linha é a média do dia e dos últimos 6 dias."}
+                : mode
+                  ? `Só ${modeFilterLabel(mode).toLowerCase()}. Pontos são cada casa. A linha é a média do dia e dos últimos 6 dias.`
+                  : "Pontos são cada casa. A linha é a média do dia e dos últimos 6 dias."}
             </p>
           </div>
           <SegGroup ariaLabel="Turno da curva">
@@ -448,6 +459,42 @@ export function GrowthCurve({
           </SegGroup>
         </div>
         <CurveKey houseFocus={houseFocus} showOthers={showOthers} />
+        {modeOpts.length > 1 ? (
+          <div
+            className="chip-row mt-3 -mx-1 flex gap-2 overflow-x-auto px-1 pb-1 sm:flex-wrap"
+            role="group"
+            aria-label="Filtrar por tipo de pesquisa"
+          >
+            <button
+              type="button"
+              aria-pressed={!mode}
+              onClick={() => setMode(null)}
+              className={`inline-flex shrink-0 rounded-full border px-3 py-1.5 text-xs font-semibold ${
+                !mode ? "border-gold bg-gold/10 text-gold" : "border-border bg-surface text-fg"
+              }`}
+            >
+              Todos os tipos
+            </button>
+            {modeOpts.map((key) => (
+              <button
+                key={key}
+                type="button"
+                aria-pressed={mode === key}
+                onClick={() => {
+                  setMode(key);
+                  setHouse(null);
+                }}
+                className={`inline-flex shrink-0 rounded-full border px-3 py-1.5 text-xs font-semibold ${
+                  mode === key
+                    ? "border-gold bg-gold/10 text-gold"
+                    : "border-border bg-surface text-fg"
+                }`}
+              >
+                {modeFilterLabel(key)}
+              </button>
+            ))}
+          </div>
+        ) : null}
         {houseOpts.length ? (
           <div
             className="chip-row mt-3 -mx-1 flex gap-2 overflow-x-auto px-1 pb-1 sm:flex-wrap"

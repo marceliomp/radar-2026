@@ -162,6 +162,35 @@ test("curve can filter by house inside the card", () => {
   assert.match(curve, /prevPublished/);
 });
 
+test("modeFilterKey groups phone modes and keeps a stable order", async () => {
+  const { modeFilterKey, modeFilterLabel, modeFilterOptions } = await import(
+    "../src/lib/forecast/curve-series.ts"
+  );
+  assert.equal(modeFilterKey("telefone"), "telefone");
+  assert.equal(modeFilterKey("remoto"), "telefone");
+  assert.equal(modeFilterKey("presencial"), "presencial");
+  assert.equal(modeFilterKey("online"), "online");
+  assert.equal(modeFilterLabel("presencial"), "Presencial");
+  assert.deepEqual(
+    modeFilterOptions([
+      { mode: "online" },
+      { mode: "telefone" },
+      { mode: "presencial" },
+      { mode: "remoto" },
+    ]),
+    ["presencial", "telefone", "online"],
+  );
+});
+
+test("curve can filter by poll mode", () => {
+  const curve = readFileSync("src/features/radar/public/growth-curve.tsx", "utf8");
+  assert.match(curve, /Filtrar por tipo de pesquisa/);
+  assert.match(curve, /Todos os tipos/);
+  assert.match(curve, /modeFilterKey/);
+  assert.match(curve, /modeFilterLabel/);
+  assert.match(curve, /setMode/);
+});
+
 test("asOfDayAverages does not treat a missing third name as 0", async () => {
   const { asOfDayAverages } = await import("../src/lib/forecast/curve-series.ts");
   const polls = [
