@@ -1,5 +1,4 @@
 import { useMemo, useRef, useState, type MouseEvent } from "react";
-import { useNavigate } from "@tanstack/react-router";
 import { UF_META } from "@/data/calendar";
 import { ELECTION_2022, ELECTION_2022_UF_LIST } from "@/data/election-2022";
 import { isCardTie, type RoundKey } from "@/data/state-polls";
@@ -7,7 +6,7 @@ import { runAllStateForecasts } from "@/lib/forecast/states";
 import { mapRoundView } from "@/lib/forecast/map-round";
 import type { EngineConfig } from "@/lib/forecast/engine";
 import { fmtPct } from "@/lib/format";
-import { radarKeep, tipCopy2022 } from "./map-helpers";
+import { tipCopy2022 } from "./map-helpers";
 import { MapLayerToggle, SegGroup, type MapLayer } from "./map-layer-toggle";
 import { BrazilMapSvg } from "./brazil-map-svg";
 import { SelectedStatePanel } from "./selected-state-card";
@@ -23,7 +22,6 @@ export function BrazilMap({
   layer?: MapLayer;
 }) {
   const wrapRef = useRef<HTMLDivElement>(null);
-  const navigate = useNavigate();
   const [sel, setSel] = useState("SP");
   const [round, setRound] = useState<RoundKey>(1);
   const [tip, setTip] = useState<{ text: string; x: number; y: number } | null>(null);
@@ -41,21 +39,13 @@ export function BrazilMap({
   const urnaBolso = ELECTION_2022_UF_LIST.filter((uf) => ELECTION_2022[uf]!.bolsonaro2 > ELECTION_2022[uf]!.lula2).length;
   const urnaLula = ELECTION_2022_UF_LIST.length - urnaBolso;
 
-  function openGovernors(uf: string) {
+  function selectUf(uf: string) {
     setSel(uf);
     try {
       sessionStorage.setItem("radar2026:uf", uf);
     } catch {
       /* ignore */
     }
-    void navigate({
-      to: "/candidatos",
-      search: (prev) => ({
-        uf,
-        cargo: "governador" as const,
-        ...radarKeep(prev as Record<string, unknown>),
-      }),
-    });
   }
 
   function placeTip(uf: string, e: MouseEvent<SVGPathElement>) {
@@ -108,7 +98,7 @@ export function BrazilMap({
             </button>
           </SegGroup>
           <span className="self-center text-[11px] font-medium text-gold">
-            estado · abre governadores
+            estado · presidente
           </span>
         </div>
       )}
@@ -133,7 +123,7 @@ export function BrazilMap({
           round={round}
           sel={sel}
           tip={tip}
-          openGovernors={openGovernors}
+          onSelectUf={selectUf}
           placeTip={placeTip}
           setTip={setTip}
         />

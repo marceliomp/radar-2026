@@ -170,3 +170,31 @@ test("growth curve sits second in the page body", () => {
   assert.ok(hlAt < curveAt, "period slider stays first in the body");
   assert.ok(curveAt < mediaAt, "curve sits above intention");
 });
+
+test("map click stays on president, governors are a link", () => {
+  const page = readFileSync("src/features/radar/public/public-radar-page.tsx", "utf8");
+  const map = readFileSync("src/features/radar/map/brazil-map.tsx", "utf8");
+  const svg = readFileSync("src/features/radar/map/brazil-map-svg.tsx", "utf8");
+  const card = readFileSync("src/features/radar/map/selected-state-card.tsx", "utf8");
+  assert.match(page, /Presidente neste estado/);
+  assert.doesNotMatch(page, /Abre governadores/);
+  assert.doesNotMatch(map, /abre governadores/);
+  assert.doesNotMatch(map, /openGovernors/);
+  assert.doesNotMatch(map, /useNavigate/);
+  assert.match(svg, /onSelectUf/);
+  assert.match(card, /Ver governadores de/);
+  assert.doesNotMatch(card, /chance de Flávio neste turno/);
+  assert.doesNotMatch(card, /fmtProb/);
+});
+
+test("governor hero is intention, not a 99,5% win number glued to the ballot", () => {
+  const hero = readFileSync("src/features/races/race-hero.tsx", "utf8");
+  const results = readFileSync("src/features/races/race-results.tsx", "utf8");
+  assert.match(hero, /Intenção agregada/);
+  assert.match(hero, /fmtPct\(leader\.firstMean\)/);
+  assert.match(hero, /nº \{leader\.number\}/);
+  assert.doesNotMatch(hero, /1T \{fmtPct/);
+  assert.match(results, /Vai a 2º turno em/);
+  assert.match(results, /canPublishProbability/);
+  assert.doesNotMatch(results, /2º \{fmtProb\(result\.goesToSecond\)\}/);
+});

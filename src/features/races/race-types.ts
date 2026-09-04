@@ -55,12 +55,12 @@ export function pickLeaders(
     }))
     .sort(
       (a, b) =>
-        b.pWin - a.pWin ||
         b.firstMean - a.firstMean ||
+        b.pWin - a.pWin ||
         a.name.localeCompare(b.name, "pt-BR"),
     );
   if (office === "governor") return ranked.slice(0, 2);
-  return ranked.filter((leader) => leader.pWin >= 0.02).slice(0, 4);
+  return ranked.filter((leader) => leader.firstMean > 0).slice(0, 4);
 }
 
 export function firstBars(

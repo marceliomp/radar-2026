@@ -61,6 +61,7 @@ export function RaceHero({
 
   const columns = Math.max(leaders.length, 1);
   const publish = result.evidence.canPublishProbability;
+  const chanceLabel = office === "senator" ? "chance de uma cadeira" : "chance da cadeira";
   return (
     <>
       <section
@@ -74,9 +75,6 @@ export function RaceHero({
       >
         {leaders.map((leader, index) => {
           const tone = partyTone(leader.party);
-          const value = publish
-            ? fmtHeroProb(leader.pWin)
-            : fmtPct(leader.firstMean).replace("%", "");
           return (
             <div
               key={leader.key}
@@ -96,15 +94,23 @@ export function RaceHero({
                   color: tone.fg,
                 }}
               >
-                <span className="tabular-nums">{value}</span>
+                <span className="tabular-nums">{fmtPct(leader.firstMean).replace("%", "")}</span>
                 <span className="mb-[0.08em] font-mono text-[0.28em] font-semibold tracking-[0.08em]">%</span>
               </p>
               <p className="mt-2 font-mono text-[10px] uppercase tracking-[0.12em] text-[#eaeaea]/65">
-                {publish ? "Chance da cadeira" : "Intenção agregada"}
+                Intenção agregada
               </p>
-              <p className="mt-3 flex flex-wrap items-baseline gap-x-3 gap-y-1 font-mono text-[11px] uppercase tracking-[0.14em] text-[#eaeaea]/75">
-                {leader.party ? <span>{leader.party}{leader.number ? ` · ${leader.number}` : ""}</span> : null}
-                {leader.firstMean > 0 ? <span className="tabular-nums" style={{ color: tone.fg }}>1T {fmtPct(leader.firstMean)}</span> : null}
+              {publish ? (
+                <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.12em] text-[#eaeaea]/80">
+                  {chanceLabel}{" "}
+                  <span className="tabular-nums" style={{ color: tone.fg }}>
+                    {fmtHeroProb(leader.pWin)}%
+                  </span>
+                </p>
+              ) : null}
+              <p className="mt-3 font-mono text-[11px] uppercase tracking-[0.14em] text-[#eaeaea]/75">
+                {leader.party ? <span>{leader.party}</span> : null}
+                {leader.number ? <span>{leader.party ? " · " : ""}nº {leader.number}</span> : null}
               </p>
             </div>
           );

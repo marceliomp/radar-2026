@@ -74,24 +74,30 @@ const DEFAULT_SIMS = 4000;
 const DEFAULT_EXTRA_VAR = 1.15;
 
 /** Variância mínima do 1º. Uma casa só não fecha a cadeira (se=8 / se=4). */
-function varFloor(nPolls: number): number {
-  if (nPolls <= 1) return 64;
-  if (nPolls === 2) return 16;
+function varFloor(nHouses: number): number {
+  if (nHouses <= 1) return 64;
+  if (nHouses === 2) return 16;
+  if (nHouses === 3) return 4;
   return 0.25;
 }
 
-/** House + campanha restante quando há poucas urnas de casa. */
-function extraVarForPolls(nPolls: number, extraVarPp: number): number {
-  if (nPolls <= 1) return extraVarPp + 6;
-  if (nPolls === 2) return extraVarPp + 2.5;
+/** House + campanha restante quando há poucas casas independentes. */
+function extraVarForPolls(nHouses: number, extraVarPp: number): number {
+  if (nHouses <= 1) return extraVarPp + 6;
+  if (nHouses === 2) return extraVarPp + 2.5;
+  if (nHouses === 3) return extraVarPp + 1;
   return extraVarPp;
 }
 
-/** Mistura leve rumo a 50/50 no par do 2º. Uma Quaest não vira 100,0%. */
-function pairLambda(nPolls: number): number {
-  if (nPolls <= 1) return 0.04;
-  if (nPolls === 2) return 0.02;
+/** Mistura leve rumo a 50/50 no par do 2º. Duas casas não viram 99,5%. */
+function pairLambda(nHouses: number): number {
+  if (nHouses <= 1) return 0.04;
+  if (nHouses === 2) return 0.02;
   return 0;
+}
+
+function rowHouses(rows: { poll: RacePoll }[]): number {
+  return new Set(rows.map((row) => resolveInstitute(row.poll.institute))).size;
 }
 
 type ResolvedCfg = {
@@ -141,6 +147,7 @@ function weightedMeanVar(
   values: number[],
   weights: number[],
   moes: number[],
+  nHouses: number,
 ): RaceMean {
   const n = values.length;
   if (!n) return { mean: 0, se: 0 };
@@ -151,7 +158,7 @@ function weightedMeanVar(
   const avgSamp =
     moes.reduce((s, m, i) => s + weights[i]! * (m / 1.96) ** 2, 0) / sumW;
   const se = Math.sqrt(
-    Math.max(between + avgSamp * 0.5, varFloor(n)),
+    Math.max(between + avgSamp * 0.5, varFloor(nHouses)),
   );
   return { mean: round(mean, 2), se: round(se, 3) };
 }
@@ -266,6 +273,7 @@ function aggregateFirst(
       subset.map((r) => r.poll.firstRound[slug]!),
       subset.map((r) => r.weight),
       subset.map((r) => r.poll.moe),
+      rowHouses(subset),
     );
   }
   return first;
@@ -319,15 +327,18 @@ function aggregateSecond(
   if (with2.length) {
     const w = with2.map((r) => r.weight);
     const moe = with2.map((r) => r.poll.moe);
+    const houses2 = rowHouses(with2);
     const aggA = weightedMeanVar(
       with2.map((r) => r.poll.secondRound![a] ?? 0),
       w,
       moe,
+      houses2,
     );
     const aggB = weightedMeanVar(
       with2.map((r) => r.poll.secondRound![b] ?? 0),
       w,
       moe,
+      houses2,
     );
     return {
       gap: aggA.mean - aggB.mean,
@@ -405,7 +416,7 @@ function simulateGovernor(
 
   const probs: Record<string, number> = {};
   for (const slug of slugs) probs[slug] = round(wins[slug]! / n, 4);
-  const lambda = pairLambda(rows.length);
+  const lambda = pairLambda(rowHouses(rows));
   if (lambda > 0 && b != null) {
     probs[a] = round(probs[a]! * (1 - lambda) + 0.5 * lambda, 4);
     probs[b] = round(probs[b]! * (1 - lambda) + 0.5 * lambda, 4);
@@ -462,7 +473,7 @@ export function runRaceForecast(
 
   const evidence = buildEvidence(rows);
 
-  resolved.extraVarPp = extraVarForPolls(rows.length, resolved.extraVarPp);
+  resolved.extraVarPp = extraVarForPolls(evidence.houses, resolved.extraVarPp);
 
   const first = aggregateFirst(rows, slugs);
   const ordered = orderFirst(first, slugs, rows);

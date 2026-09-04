@@ -495,3 +495,52 @@ test("politica de evidencia usa institutos independentes, nao quantidade bruta",
   assert.equal(fourHouses.evidence.houses, 4);
   assert.equal(fourHouses.evidence.canPublishProbability, true);
 });
+
+test("duas casas 42x27 nao viram P(win) 99,5%", async () => {
+  const { runRaceForecast } = await importRace();
+  const make = (id, institute, day, lulaish) => ({
+    id,
+    office: "governor",
+    uf: "SP",
+    institute,
+    date: `2026-08-${day}`,
+    fieldEnd: `2026-08-${day}`,
+    sample: 1600,
+    moe: 2,
+    mode: "presencial",
+    firstRound: { tarcisio: 42.4, haddad: 27, marcal: 2 },
+    secondRound: lulaish
+      ? { tarcisio: 52, haddad: 40 }
+      : { tarcisio: 54, haddad: 38 },
+  });
+  const snap = runRaceForecast(
+    [
+      make("q1", "Quaest", "25", true),
+      make("d1", "Datafolha", "21", false),
+      make("q2", "Genial/Quaest", "29", true),
+      make("d2", "Datafolha", "05", false),
+      make("q3", "Genial/Quaest", "29", true),
+    ],
+    GOV_CANDS,
+    {
+      office: "governor",
+      uf: "SP",
+      asOf: "2026-08-31",
+      simulations: 4000,
+    },
+  );
+  assert.equal(snap.evidence.houses, 2);
+  assert.equal(snap.evidence.canPublishProbability, true);
+  assert.ok(
+    snap.probs.tarcisio < 0.995,
+    `P(tarcisio)=${snap.probs.tarcisio} duas casas nao fecham 99,5%`,
+  );
+  assert.ok(
+    snap.probs.haddad > 0.005,
+    `P(haddad)=${snap.probs.haddad} nao pode ser <1% com 27 no 1o`,
+  );
+  assert.ok(
+    snap.probs.tarcisio > 0.55,
+    `P(tarcisio)=${snap.probs.tarcisio} ainda favorito`,
+  );
+});

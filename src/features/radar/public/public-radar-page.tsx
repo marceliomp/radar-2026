@@ -402,7 +402,7 @@ export function PublicRadarPage() {
           <div className="story-head">
             <p className="kicker">Território</p>
             <h2 className="story-title">E no seu estado?</h2>
-            <p className="story-lede">Clique no estado. Abre governadores.</p>
+            <p className="story-lede">Clique no estado. Presidente neste estado. Governador no link do dossiê.</p>
           </div>
           <MapLayerToggle layer={mapLayer} onChange={setMapLayer} />
           <BrazilMap config={config} layer={mapLayer} />

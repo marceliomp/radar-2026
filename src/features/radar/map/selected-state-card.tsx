@@ -4,7 +4,7 @@ import { ELECTION_2022, gap1t, gap2t, leader1t, leader2t, type Election2022Uf } 
 import { STATE_BY_UF, cardMarginPp, type RoundKey } from "@/data/state-polls";
 import { mapRoundView, shareBarPct } from "@/lib/forecast/map-round";
 import { runAllStateForecasts } from "@/lib/forecast/states";
-import { fmtNum, fmtPct, fmtProb } from "@/lib/format";
+import { fmtNum, fmtPct } from "@/lib/format";
 import { leadLine, radarKeep } from "./map-helpers";
 
 type Forecasts = ReturnType<typeof runAllStateForecasts>;
@@ -215,12 +215,8 @@ export function SelectedStatePanel({
                         </div>
                         <ShareBar lula={m.lula} flavio={m.flavio} />
                         <p className="text-xs font-medium text-gold">
-                          Margem ~ ±{fmtNum(cardMarginPp(m.se), 1)} pp · {m.implied
-                            ? "chance de Flávio no two-way do 1º"
-                            : "chance de Flávio neste turno"}{" "}
-                          <span className="num-flavio">
-                            {fmtProb(m.pFlavio ?? 0)}
-                          </span>
+                          Margem ~ ±{fmtNum(cardMarginPp(m.se), 1)} pp
+                          {m.implied ? " · 2º não perguntado, two-way do 1º" : ""}
                         </p>
                       </>
                     )}

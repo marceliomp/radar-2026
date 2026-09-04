@@ -5,12 +5,16 @@ import type { FirstBar } from "./race-types";
 
 export function RaceResults({ bars, result }: { bars: FirstBar[]; result: RaceForecastResult | null }) {
   if (!result || bars.length === 0) return null;
+  const publishRunoff =
+    result.evidence.canPublishProbability && result.goesToSecond != null;
   return (
     <section className="border-b border-border">
       <div className="flex items-baseline justify-between gap-4 px-4 py-3 md:px-6">
         <p className="kicker">1º turno</p>
-        {result.goesToSecond != null ? (
-          <p className="font-mono text-[11px] font-semibold tabular-nums text-cream">2º {fmtProb(result.goesToSecond)}</p>
+        {publishRunoff ? (
+          <p className="max-w-[16rem] text-right font-mono text-[11px] font-medium leading-snug text-cream/85">
+            Vai a 2º turno em {fmtProb(result.goesToSecond!)} das simulações
+          </p>
         ) : null}
       </div>
       <ul>

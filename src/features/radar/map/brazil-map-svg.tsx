@@ -19,7 +19,7 @@ export function BrazilMapSvg({
   round,
   sel,
   tip,
-  openGovernors,
+  onSelectUf,
   placeTip,
   setTip,
 }: {
@@ -29,7 +29,7 @@ export function BrazilMapSvg({
   round: RoundKey;
   sel: string;
   tip: { text: string; x: number; y: number } | null;
-  openGovernors: (uf: string) => void;
+  onSelectUf: (uf: string) => void;
   placeTip: (uf: string, e: MouseEvent<SVGPathElement>) => void;
   setTip: (tip: { text: string; x: number; y: number } | null) => void;
 }) {
@@ -74,7 +74,7 @@ export function BrazilMapSvg({
                     stroke={active ? STROKE_ACTIVE : STROKE_IDLE}
                     strokeWidth={active ? 2.4 : 1.2}
                     className="cursor-pointer transition-[filter] duration-150 hover:brightness-110"
-                    onClick={() => openGovernors(uf)}
+                    onClick={() => onSelectUf(uf)}
                     onMouseEnter={(e) => placeTip(uf, e)}
                     onMouseMove={(e) => placeTip(uf, e)}
                   />
