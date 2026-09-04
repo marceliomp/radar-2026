@@ -198,3 +198,17 @@ test("governor hero is intention, not a 99,5% win number glued to the ballot", (
   assert.match(results, /canPublishProbability/);
   assert.doesNotMatch(results, /2º \{fmtProb\(result\.goesToSecond\)\}/);
 });
+
+test("share bar is WhatsApp first and pastes brasilradar.com.br", () => {
+  const bar = readFileSync("src/components/share-bar.tsx", "utf8");
+  const root = readFileSync("src/routes/__root.tsx", "utf8");
+  assert.match(bar, /wa.me/);
+  assert.match(bar, /Mandar no WhatsApp/);
+  assert.match(bar, /https:\/\/brasilradar.com.br/);
+  assert.match(bar, /Chance de ganhar/);
+  assert.match(bar, /Intenção recente/);
+  assert.doesNotMatch(bar, /radar-2026.vercel.app/);
+  assert.match(root, /https:\/\/brasilradar.com.br\/og.jpg/);
+  assert.doesNotMatch(root, /radar-2026.vercel.app\/og.jpg/);
+});
+

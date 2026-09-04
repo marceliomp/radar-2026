@@ -12,7 +12,7 @@ import appCss from "../styles.css?url";
 const APP_NAME = "Radar 2026";
 const APP_DESC =
   "Não é pesquisa. Agregador independente da eleição: presidente, governador e senador. Chance de ser presidente, mapa por estado, lista de urna.";
-const ogImage = "https://radar-2026.vercel.app/og.jpg";
+const ogImage = "https://brasilradar.com.br/og.jpg";
 
 export const Route = createRootRoute({
   validateSearch: parseAsOfSearch,
@@ -34,6 +34,7 @@ export const Route = createRootRoute({
       { property: "og:title", content: "Radar 2026 · não é pesquisa" },
       { property: "og:description", content: APP_DESC },
       { property: "og:locale", content: "pt_BR" },
+      { property: "og:url", content: "https://brasilradar.com.br" },
       { property: "og:image", content: ogImage },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },
@@ -59,8 +60,8 @@ function RootDocument() {
       <head>
         <HeadContent />
         <script defer src="/_vercel/insights/script.js"></script>
-        <meta property="og:image" content="https://radar-2026.vercel.app/og.jpg" />
-        <meta name="twitter:image" content="https://radar-2026.vercel.app/og.jpg" />
+        <meta property="og:image" content="https://brasilradar.com.br/og.jpg" />
+        <meta name="twitter:image" content="https://brasilradar.com.br/og.jpg" />
       </head>
       <body className="min-h-dvh bg-bg text-fg antialiased">
         <Outlet />
