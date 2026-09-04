@@ -2027,5 +2027,29 @@
         "bPct": 39
       }
     ]
+  },
+  {
+    "id": "atlasintel-09-03-07411",
+    "institute": "AtlasIntel",
+    "date": "2026-09-03",
+    "fieldEnd": "2026-09-02",
+    "sample": 1800,
+    "moe": 2,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 51.6,
+      "flavio": 25.7,
+      "cury": 12.3
+    },
+    "source": {
+      "tseProtocol": "BR-07411/2026",
+      "url": "https://www.cnnbrasil.com.br/eleicoes/atlas-focus-lula-tem-516-no-1o-turno-no-ce-flavio-257/",
+      "publisher": "cnnbrasil.com.br",
+      "publishedAt": "2026-09-03",
+      "capturedAt": "2026-09-04T21:00:19.375Z"
+    },
+    "notes": "1800 entrevistas. Allowlist atlasintel.",
+    "fieldStart": "2026-08-28"
   }
 ]
