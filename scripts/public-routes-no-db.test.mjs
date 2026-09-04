@@ -54,7 +54,7 @@ test("capa mounts the national growth curve", () => {
   assert.match(curve, /seg-btn/);
   assert.match(curve, /Média do período/);
   assert.match(curve, /ponto: nesta pesquisa/);
-  assert.match(curve, /linha: média do período/);
+  assert.match(curve, /linha: média dos últimos 7 dias/);
   assert.match(curve, /pollsOnDate/);
   assert.match(curve, /sameDay/);
   assert.match(curve, /pesquisas/);

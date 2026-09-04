@@ -19,6 +19,7 @@ import {
   utcMsToDayBr,
 } from "@/lib/format";
 import {
+  CURVE_PERIOD_DAYS,
   asOfDayAverages,
   axisTicks,
   houseFilterKey,
@@ -238,7 +239,7 @@ function CurveTip({ active, payload }: { active?: boolean; payload?: TipRow[] })
         {many ? ` · ${houses.length} pesquisas` : ""}
       </p>
       <p className="m-0 mt-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-gold">
-        Média do período
+        Média do período · últimos {CURVE_PERIOD_DAYS} dias
       </p>
       <ScoreGrid
         featured
@@ -305,7 +306,7 @@ function CurveKey({ houseFocus, showOthers }: { houseFocus: boolean; showOthers:
           <svg width="30" height="10" viewBox="0 0 30 10" aria-hidden>
             <line x1="2" y1="5" x2="28" y2="5" stroke={CHART.axis} strokeWidth="3.4" />
           </svg>
-          {houseFocus ? "linha: esta casa" : "linha: média do período"}
+          {houseFocus ? "linha: esta casa" : "linha: média dos últimos 7 dias"}
         </span>
       </div>
     </div>
@@ -315,7 +316,6 @@ function CurveKey({ houseFocus, showOthers }: { houseFocus: boolean; showOthers:
 export function GrowthCurve({
   polls,
   asOf,
-  halfLifeDays,
 }: {
   polls: ForecastPoll[];
   asOf: string;
@@ -331,8 +331,8 @@ export function GrowthCurve({
       ? visible.filter((poll) => houseFilterKey(poll.institute) === house)
       : visible;
     const trend = buildNationalTrend(focused);
-    const avg1 = asOfDayAverages(focused, asOf, halfLifeDays, false);
-    const avg2 = asOfDayAverages(focused, asOf, halfLifeDays, true);
+    const avg1 = asOfDayAverages(focused, asOf, CURVE_PERIOD_DAYS, false);
+    const avg2 = asOfDayAverages(focused, asOf, CURVE_PERIOD_DAYS, true);
     const byDay1 = new Map(avg1.map((day) => [day.date, day]));
     const byDay2 = new Map(avg2.map((day) => [day.date, day]));
     const toDots = (
@@ -396,7 +396,7 @@ export function GrowthCurve({
       second: secondDots,
       houseOpts: houseFilterOptions(visible),
     };
-  }, [polls, asOf, halfLifeDays, house]);
+  }, [polls, asOf, house]);
 
   if (first.length < 3 && !house) return null;
   const canSecond = second.length >= 2;
@@ -421,7 +421,7 @@ export function GrowthCurve({
               {active === "2" ? "Só pesquisas que perguntaram o par. " : "Nome só entra se a casa perguntou. "}
               {houseFocus
                 ? `Só ${house}. A linha liga as ondas desta casa.`
-                : "Pontos são cada casa. A linha é a média do período."}
+                : "Pontos são cada casa. A linha é a média dos últimos 7 dias."}
             </p>
           </div>
           <SegGroup ariaLabel="Turno da curva">

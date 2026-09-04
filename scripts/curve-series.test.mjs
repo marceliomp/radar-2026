@@ -36,7 +36,7 @@ test("asOfDayAverages is one point per publication day", async () => {
 test("short half-life moves the last day toward the newest house", async () => {
   const { asOfDayAverages } = await import("../src/lib/forecast/curve-series.ts");
   const polls = [
-    poll("old", "2026-06-01", 50, 20, { lula: 55, flavio: 35 }),
+    poll("old", "2026-08-20", 50, 20, { lula: 55, flavio: 35 }),
     poll("new", "2026-09-01", 40, 40, { lula: 45, flavio: 45 }),
   ];
   const long = asOfDayAverages(polls, "2026-09-03", 40, false);
@@ -51,10 +51,25 @@ test("poll series stays dots and the line is the period average", () => {
   const poll = curve.split('dataKey="lulaPoll"')[1].split('dataKey="flavioPoll"')[0];
   assert.match(poll, /stroke="none"/);
   assert.match(curve, /asOfDayAverages/);
-  assert.match(curve, /média do período/);
+  assert.match(curve, /CURVE_PERIOD_DAYS/);
+  assert.match(curve, /Média do período/);
+  assert.match(curve, /últimos 7 dias/);
   assert.match(curve, /monotone/);
   assert.doesNotMatch(curve, /média das 3 últimas/);
   assert.doesNotMatch(curve, /rollingAverage/);
+});
+
+test("asOfDayAverages drops polls older than the window", async () => {
+  const { asOfDayAverages, CURVE_PERIOD_DAYS } = await import("../src/lib/forecast/curve-series.ts");
+  assert.equal(CURVE_PERIOD_DAYS, 7);
+  const polls = [
+    poll("old", "2026-08-20", 50, 20, { lula: 55, flavio: 35 }),
+    poll("new", "2026-09-01", 40, 40, { lula: 45, flavio: 45 }),
+  ];
+  const week = asOfDayAverages(polls, "2026-09-03", 7, false);
+  const last = week[week.length - 1];
+  assert.equal(last.date, "2026-09-01");
+  assert.equal(last.lula, 40);
 });
 test("axisTicks stays chronological and never puts 24/08 after 30/08", async () => {
   const { isoDayUtc } = await import("../src/lib/format.ts");

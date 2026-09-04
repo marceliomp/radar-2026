@@ -6,6 +6,8 @@ import {
 } from "./engine.ts";
 import { resolveInstitute } from "./track-record.ts";
 
+export const CURVE_PERIOD_DAYS = 7;
+
 export type DayAverage = {
   date: string;
   t: number;
@@ -16,6 +18,10 @@ export type DayAverage = {
   caiado: number | null;
   zema: number | null;
 };
+
+function ageDays(fieldEnd: string, asOf: string): number {
+  return Math.round((isoDayUtc(asOf) - isoDayUtc(fieldEnd)) / 86_400_000);
+}
 
 export function publicationDays(
   polls: ForecastPoll[],
@@ -61,7 +67,13 @@ export function asOfDayAverages(
   const days = publicationDays(polls, asOf, needSecond);
   const out: DayAverage[] = [];
   for (const day of days) {
-    const rows = buildWeightedRows(polls, {
+    const windowed = polls.filter((poll) => {
+      if (!poll.national) return false;
+      const end = poll.fieldEnd || poll.date;
+      if (end > day) return false;
+      return ageDays(end, day) <= halfLifeDays;
+    });
+    const rows = buildWeightedRows(windowed, {
       ...DEFAULT_CONFIG,
       asOf: day,
       halfLifeDays,
