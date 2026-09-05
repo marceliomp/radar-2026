@@ -143,6 +143,13 @@ export function isPresidente(cargo) {
   return /^presidente$/i.test(String(cargo ?? "").trim());
 }
 
+export function articleLooksState(result) {
+  const blob = `${result?.url ?? ""} ${result?.title ?? ""} ${result?.publisher ?? ""}`;
+  return /[/-]no-(ac|al|am|ap|ba|ce|df|es|go|ma|mg|ms|mt|pa|pb|pe|pi|pr|rj|rn|ro|rr|rs|sc|se|sp|to)(?:-|$|\/)/i.test(
+    blob,
+  );
+}
+
 export function isNationalRow(row) {
   const uf = String(row.SG_UF ?? "").trim().toUpperCase();
   const ue = String(row.NM_UE ?? row.SG_UE ?? "")
@@ -529,6 +536,15 @@ export function processPending({
     }
 
     const result = resultsByTse[proto];
+    if (articleLooksState(result)) {
+      report.notNational += 1;
+      skipped.push({
+        at: item.at ?? new Date().toISOString(),
+        tse: proto,
+        reason: "artigo estadual, fora do agregador nacional",
+      });
+      continue;
+    }
     const poll = rowToPoll(row, result, house);
     if (!poll) {
       report.noVotes += 1;

@@ -30,6 +30,23 @@ test("PB AtlasIntel 03/09 president is in polls.json as state totals", () => {
   assert.doesNotMatch(row.notes, /\u2014/);
 });
 
+test("CE AtlasIntel 04/09 president is state, not national", () => {
+  const polls = JSON.parse(readFileSync("src/data/polls.json", "utf8"));
+  const row = polls.find((poll) => poll.id === "atlas-ce-09-03");
+  assert.ok(row, "atlas-ce-09-03 missing");
+  assert.equal(row.national, false);
+  assert.equal(row.uf, "CE");
+  assert.equal(row.sample, 1834);
+  assert.equal(row.firstRound.lula, 51.6);
+  assert.equal(row.firstRound.flavio, 25.7);
+  assert.equal(row.secondRound.lula, 54.6);
+  assert.equal(row.source.tseProtocol, "BR-07411/2026");
+  assert.equal(
+    polls.some((poll) => poll.id === "atlasintel-09-03-07411"),
+    false,
+  );
+});
+
 test("no AtlasIntel national newer than 31/08", () => {
   const polls = JSON.parse(readFileSync("src/data/polls.json", "utf8"));
   const later = polls.filter(

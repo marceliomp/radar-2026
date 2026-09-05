@@ -314,3 +314,20 @@ test("2T article with Flavio first still reads Lula 44 Flavio 45", () => {
   assert.equal(parsed.secondRound.lula, 44);
   assert.equal(parsed.secondRound.flavio, 45);
 });
+
+test("CNN CE Atlas URL is statewide, not national", async () => {
+  const { articleLooksState } = await import("./process-pending.mjs");
+  assert.equal(
+    articleLooksState({
+      url: "https://www.cnnbrasil.com.br/eleicoes/atlas-focus-lula-tem-516-no-1o-turno-no-ce-flavio-257/",
+    }),
+    true,
+  );
+  assert.equal(
+    articleLooksState({
+      url: "https://www.cnnbrasil.com.br/eleicoes/datafolha-lula-38-flavio-33/",
+    }),
+    false,
+  );
+});
+
