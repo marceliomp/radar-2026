@@ -212,3 +212,12 @@ test("share bar is WhatsApp first and pastes brasilradar.com.br", () => {
   assert.doesNotMatch(root, /radar-2026.vercel.app\/og.jpg/);
 });
 
+test("intention stamp names the period mix and the archive", () => {
+  const page = readFileSync("src/features/radar/public/public-radar-page.tsx", "utf8");
+  assert.match(page, /nesta média/);
+  assert.match(page, /no arquivo/);
+  assert.match(page, /intention\.rows\.length/);
+  assert.match(page, /rows\.length/);
+  assert.doesNotMatch(page, /intention\.rows\.length\} pesquisas nacionais/);
+});
+

@@ -369,7 +369,7 @@ export function PublicRadarPage() {
           <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
             <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm font-medium text-fg">
               <span className="inline-flex items-center gap-1.5"><CalendarDays className="size-4 shrink-0 text-primary" />Atualizado {fmtDateBr(config.asOf)}</span>
-              <span className="inline-flex items-center gap-1.5"><Radio className="size-4 shrink-0 text-primary" />{intention.rows.length} pesquisas nacionais</span>
+              <span className="inline-flex items-center gap-1.5"><Radio className="size-4 shrink-0 text-primary" />{intention.rows.length} nesta média · {rows.length} no arquivo</span>
             </div>
             <ShareBar
               asOf={fmtDateBr(config.asOf)}
