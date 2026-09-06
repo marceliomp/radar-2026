@@ -242,7 +242,7 @@ function CurveTip({ active, payload }: { active?: boolean; payload?: TipRow[] })
         {many ? ` · ${houses.length} pesquisas` : ""}
       </p>
       <p className="m-0 mt-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-gold">
-        Média do período · pesquisas novas pesam mais
+        Média · pesquisas novas pesam mais. Não é corte.
       </p>
       <ScoreGrid
         featured

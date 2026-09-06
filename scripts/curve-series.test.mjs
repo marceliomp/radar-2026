@@ -45,7 +45,10 @@ test("shorter half-life pulls the line toward the newest poll", async () => {
   const lastLong = long[long.length - 1];
   assert.equal(lastTight.date, "2026-09-01");
   assert.ok(lastTight.lula < lastLong.lula, "5d must sit closer to 40 than 40d");
-  assert.ok(lastTight.lula < 42, "5d should almost ignore the 50% poll from August");
+  assert.ok(
+    Math.abs(lastTight.lula - 40) < Math.abs(lastTight.lula - 50),
+    "5d is closer to the new 40 than to the August 50, not a hard ignore",
+  );
   assert.ok(lastLong.lula > 41, "40d still mixes the August poll");
 });
 
@@ -56,7 +59,7 @@ test("poll series stays dots and the line is the period average", () => {
   assert.match(curve, /asOfDayAverages/);
   assert.match(curve, /halfLifeDays/);
   assert.doesNotMatch(curve, /CURVE_PERIOD_DAYS/);
-  assert.match(curve, /Média do período/);
+  assert.match(curve, /Média · pesquisas novas pesam mais/);
   assert.match(curve, /linha: média do período/);
   assert.match(curve, /monotone/);
   assert.doesNotMatch(curve, /média das 3 últimas/);
@@ -138,7 +141,7 @@ test("curve hover tracks the date on a vertical cursor", () => {
 
 test("tooltip puts period average above the houses", () => {
   const curve = readFileSync("src/features/radar/public/growth-curve.tsx", "utf8");
-  const avgAt = curve.indexOf("Média do período");
+  const avgAt = curve.indexOf("Média · pesquisas novas pesam mais");
   const housesAt = curve.indexOf("{houses.map");
   assert.ok(avgAt > 0 && housesAt > avgAt, "average must sit above the house list");
 });

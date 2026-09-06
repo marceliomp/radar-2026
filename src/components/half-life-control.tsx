@@ -10,7 +10,7 @@ export function HalfLifeSlider({ id }: { id?: string }) {
         <label htmlFor={id}>Período</label>
         <span className="hl-val">{halfLife} dias</span>
       </div>
-      <p className="hl-copy">Pesquisas novas pesam mais na média</p>
+      <p className="hl-copy">Pesquisas novas pesam mais. Não é corte de calendário.</p>
       <input
         id={id}
         type="range"

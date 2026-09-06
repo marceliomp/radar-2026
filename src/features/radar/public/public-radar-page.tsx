@@ -335,7 +335,7 @@ export function PublicRadarPage() {
           <div className="story-head">
             <p className="kicker">Média das pesquisas</p>
             <h2 className="story-title">Intenção de voto</h2>
-            <p className="story-lede">Não é a chance de ganhar. É a mesma média da chance, com o período de cima.</p>
+            <p className="story-lede">Não é a chance de ganhar. É a mesma média da chance. Pesquisa velha entra com menos peso.</p>
           </div>
           <div className="board-split">
             <div className="board-card border-0 sm:border-r sm:border-border">
@@ -359,7 +359,7 @@ export function PublicRadarPage() {
           <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
             <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm font-medium text-fg">
               <span className="inline-flex items-center gap-1.5"><CalendarDays className="size-4 shrink-0 text-primary" />Atualizado {fmtDateBr(config.asOf)}</span>
-              <span className="inline-flex items-center gap-1.5"><Radio className="size-4 shrink-0 text-primary" />{rows.length} pesquisas na média · período {halfLife} dias</span>
+              <span className="inline-flex items-center gap-1.5"><Radio className="size-4 shrink-0 text-primary" />{rows.length} no arquivo · recência {halfLife}d</span>
             </div>
             <ShareBar
               asOf={fmtDateBr(config.asOf)}

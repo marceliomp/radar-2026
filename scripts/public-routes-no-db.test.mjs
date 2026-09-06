@@ -52,7 +52,7 @@ test("capa mounts the national growth curve", () => {
   assert.match(page, /GrowthCurve/);
   assert.match(page, /#curva/);
   assert.match(curve, /seg-btn/);
-  assert.match(curve, /Média do período/);
+  assert.match(curve, /Média · pesquisas novas pesam mais/);
   assert.match(curve, /ponto: nesta pesquisa/);
   assert.match(curve, /linha: média do período/);
   assert.match(curve, /pollsOnDate/);
@@ -213,12 +213,17 @@ test("share bar is WhatsApp first and pastes brasilradar.com.br", () => {
   assert.doesNotMatch(root, /radar-2026.vercel.app\/og.jpg/);
 });
 
-test("intention stamp names the archive and the period", () => {
+test("intention stamp names the archive and recency, not a calendar window", () => {
   const page = readFileSync("src/features/radar/public/public-radar-page.tsx", "utf8");
-  assert.match(page, /pesquisas na média/);
-  assert.match(page, /período \{halfLife\} dias/);
+  const hl = readFileSync("src/components/half-life-control.tsx", "utf8");
+  assert.match(page, /no arquivo/);
+  assert.match(page, /recência \{halfLife\}d/);
   assert.match(page, /rows\.length/);
+  assert.doesNotMatch(page, /pesquisas na média/);
+  assert.doesNotMatch(page, /período \{halfLife\} dias/);
   assert.doesNotMatch(page, /intention/);
   assert.doesNotMatch(page, /periodMixInput/);
+  assert.match(hl, /Não é corte de calendário/);
+  assert.doesNotMatch(hl, /só o novo/);
 });
 
