@@ -1,5 +1,56 @@
 [
   {
+    "id": "verita-09-06",
+    "institute": "Veritá",
+    "date": "2026-09-06",
+    "fieldStart": "2026-09-01",
+    "fieldEnd": "2026-09-04",
+    "sample": 3804,
+    "moe": 2,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "flavio": 38.9,
+      "lula": 38.4,
+      "cury": 12.2,
+      "renan": 3.7,
+      "caiado": 1.9,
+      "zema": 0.3
+    },
+    "secondRound": {
+      "lula": 43.1,
+      "flavio": 48.5
+    },
+    "secondPairs": [
+      {
+        "a": "lula",
+        "b": "cury",
+        "aPct": 35.6,
+        "bPct": 27.0
+      },
+      {
+        "a": "lula",
+        "b": "renan",
+        "aPct": 37.8,
+        "bPct": 19.3
+      },
+      {
+        "a": "lula",
+        "b": "caiado",
+        "aPct": 36.8,
+        "bPct": 24.9
+      }
+    ],
+    "notes": "CNN 06/09. TSE BR-09426/2026. Campo 01-04/09 n=3804 moe 2. 1T F 38,9 x L 38,4 (empate). 2T F 48,5 x L 43,1. Marcal 1,4% no 1T CNN, fora desta ficha. Casa ja no arquivo (21/08).",
+    "source": {
+      "tseProtocol": "BR-09426/2026",
+      "url": "https://www.cnnbrasil.com.br/eleicoes/verita-flavio-tem-389-no-1o-turno-lula-384-e-cury-122/",
+      "publisher": "CNN 06/09",
+      "publishedAt": "2026-09-06",
+      "capturedAt": "2026-09-06T17:27:09.000Z"
+    }
+  },
+  {
     "id": "quaest-rn-08-24",
     "institute": "Quaest/Globo",
     "date": "2026-08-24",
