@@ -33,18 +33,20 @@ test("asOfDayAverages is one point per publication day", async () => {
   assert.ok(days[0].lula > 39 && days[0].lula < 43);
 });
 
-test("short window uses only this publication day", async () => {
+test("shorter half-life pulls the line toward the newest poll", async () => {
   const { asOfDayAverages } = await import("../src/lib/forecast/curve-series.ts");
   const polls = [
     poll("old", "2026-08-20", 50, 20, { lula: 55, flavio: 35 }),
     poll("new", "2026-09-01", 40, 40, { lula: 45, flavio: 45 }),
   ];
-  const onlyToday = asOfDayAverages(polls, "2026-09-03", 0, false);
-  const withPrior = asOfDayAverages(polls, "2026-09-03", 2, false);
-  const lastToday = onlyToday[onlyToday.length - 1];
-  const lastPrior = withPrior[withPrior.length - 1];
-  assert.equal(lastToday.lula, 40);
-  assert.ok(lastPrior.lula > 40, "older publication day still mixes when it is one of the last 2 with a poll");
+  const tight = asOfDayAverages(polls, "2026-09-03", 5, false);
+  const long = asOfDayAverages(polls, "2026-09-03", 40, false);
+  const lastTight = tight[tight.length - 1];
+  const lastLong = long[long.length - 1];
+  assert.equal(lastTight.date, "2026-09-01");
+  assert.ok(lastTight.lula < lastLong.lula, "5d must sit closer to 40 than 40d");
+  assert.ok(lastTight.lula < 42, "5d should almost ignore the 50% poll from August");
+  assert.ok(lastLong.lula > 41, "40d still mixes the August poll");
 });
 
 test("poll series stays dots and the line is the period average", () => {
@@ -52,43 +54,54 @@ test("poll series stays dots and the line is the period average", () => {
   const poll = curve.split('dataKey="lulaPoll"')[1].split('dataKey="flavioPoll"')[0];
   assert.match(poll, /stroke="none"/);
   assert.match(curve, /asOfDayAverages/);
-  assert.match(curve, /CURVE_PERIOD_DAYS/);
+  assert.match(curve, /halfLifeDays/);
+  assert.doesNotMatch(curve, /CURVE_PERIOD_DAYS/);
   assert.match(curve, /Média do período/);
-  assert.match(curve, /o dia e os 2 últimos com pesquisa/);
+  assert.match(curve, /linha: média do período/);
   assert.match(curve, /monotone/);
   assert.doesNotMatch(curve, /média das 3 últimas/);
+  assert.doesNotMatch(curve, /2 últimos com pesquisa/);
   assert.doesNotMatch(curve, /rollingAverage/);
 });
 
-test("asOfDayAverages keeps a gap day if it is still one of the last 2 with a poll", async () => {
-  const { asOfDayAverages, CURVE_PERIOD_DAYS } = await import("../src/lib/forecast/curve-series.ts");
-  assert.equal(CURVE_PERIOD_DAYS, 2);
+test("last curve point matches the chance mean", async () => {
+  const { asOfDayAverages } = await import("../src/lib/forecast/curve-series.ts");
+  const { runForecast, DEFAULT_CONFIG } = await import("../src/lib/forecast/engine.ts");
+  const polls = [
+    poll("old", "2026-08-20", 50, 20, { lula: 55, flavio: 35 }),
+    poll("mid", "2026-09-01", 42, 38, { lula: 48, flavio: 42 }),
+    poll("new", "2026-09-03", 40, 40, { lula: 45, flavio: 45 }),
+  ];
+  const asOf = "2026-09-03";
+  const snap = runForecast(polls, {
+    ...DEFAULT_CONFIG,
+    asOf,
+    halfLifeDays: 14,
+    simulations: 200,
+  });
+  const days = asOfDayAverages(polls, asOf, 14, false);
+  const last = days[days.length - 1];
+  assert.equal(last.date, asOf);
+  assert.equal(last.lula, snap.first.lula.mean);
+  assert.equal(last.flavio, snap.first.flavio.mean);
+  const days2 = asOfDayAverages(polls, asOf, 14, true);
+  const last2 = days2[days2.length - 1];
+  assert.equal(last2.lula, snap.second.lula.mean);
+  assert.equal(last2.flavio, snap.second.flavio.mean);
+});
+
+test("curve still has a point on a gap calendar day", async () => {
+  const { asOfDayAverages } = await import("../src/lib/forecast/curve-series.ts");
   const polls = [
     poll("gap", "2026-08-20", 50, 20, { lula: 55, flavio: 35 }),
     poll("new", "2026-09-01", 40, 40, { lula: 45, flavio: 45 }),
   ];
-  const days = asOfDayAverages(polls, "2026-09-03", 2, false);
+  const days = asOfDayAverages(polls, "2026-09-03", 14, false);
   const last = days[days.length - 1];
   assert.equal(last.date, "2026-09-01");
-  assert.ok(last.lula > 40, "empty calendar days do not drop the previous poll day");
+  assert.ok(last.lula > 40, "August poll still mixes under a 14d half-life");
 });
 
-test("window is this day plus 2 previous days with polls", async () => {
-  const { asOfDayAverages } = await import("../src/lib/forecast/curve-series.ts");
-  const polls = [
-    poll("d3", "2026-08-20", 20, 50, { lula: 30, flavio: 60 }),
-    poll("d2", "2026-08-31", 50, 20, { lula: 55, flavio: 35 }),
-    poll("d1", "2026-09-01", 42, 38, { lula: 48, flavio: 42 }),
-    poll("today", "2026-09-03", 40, 40, { lula: 45, flavio: 45 }),
-  ];
-  const days = asOfDayAverages(polls, "2026-09-03", 2, false);
-  const last = days[days.length - 1];
-  assert.equal(last.date, "2026-09-03");
-  assert.ok(last.lula > 40, "31/08 still mixes across the 01/09 gap");
-  const withoutOldest = asOfDayAverages(polls.slice(1), "2026-09-03", 2, false);
-  const lastClose = withoutOldest[withoutOldest.length - 1];
-  assert.equal(last.lula, lastClose.lula, "20/08 is the 3rd previous poll day and must drop");
-});
 test("axisTicks stays chronological and never puts 24/08 after 30/08", async () => {
   const { isoDayUtc } = await import("../src/lib/format.ts");
   const { axisTicks } = await import("../src/lib/forecast/curve-series.ts");
@@ -228,17 +241,9 @@ test("first-round curve plots the other names", () => {
   assert.match(curve, /connectNulls/);
 });
 
-test("periodMixInput keeps a gap day among the last 2 with a poll", async () => {
-  const { periodMixInput, asOfDayAverages } = await import("../src/lib/forecast/curve-series.ts");
-  const polls = [
-    poll("gap", "2026-08-20", 50, 20, { lula: 55, flavio: 35 }),
-    poll("mid", "2026-09-01", 42, 38, { lula: 48, flavio: 42 }),
-    poll("new", "2026-09-03", 40, 40, { lula: 45, flavio: 45 }),
-  ];
-  const mix = periodMixInput(polls, "2026-09-04", 2);
-  assert.equal(mix.asOfDay, "2026-09-03");
-  assert.deepEqual(mix.polls.map((row) => row.id).sort(), ["gap", "mid", "new"]);
-  const days = asOfDayAverages(polls, "2026-09-04", 2, false);
-  const last = days[days.length - 1];
-  assert.ok(Math.abs(last.lula - 40) > 0.2);
+test("home curve uses the slider half-life", () => {
+  const curve = readFileSync("src/features/radar/public/growth-curve.tsx", "utf8");
+  assert.match(curve, /asOfDayAverages\(focused, asOf, halfLifeDays, false\)/);
+  assert.match(curve, /asOfDayAverages\(focused, asOf, halfLifeDays, true\)/);
+  assert.match(curve, /halfLifeDays, house, mode/);
 });

@@ -21,7 +21,6 @@ import {
   buildRunoffScenarios,
   type RunoffKey,
 } from "@/lib/forecast/runoff-scenarios";
-import { CURVE_PERIOD_DAYS, periodMixInput } from "@/lib/forecast/curve-series";
 import { bottomUpNational } from "@/lib/forecast/states";
 import { fieldPeriodLine, fmtMult, fmtNum, fmtPct, fmtProb, isShownTie, pairTightnessLine, shownGap } from "@/lib/format";
 import { useHalfLife } from "@/lib/half-life";
@@ -44,6 +43,11 @@ function gapPlain(a: number | undefined, b: number | undefined, se?: number) {
     return `Empate técnico: ${pts} pontos de diferença, cabe na margem.`;
   }
   return `${gap > 0 ? "Lula" : "Flávio"} à frente por ${pts} pontos de intenção.`;
+}
+
+function leadPlain(lulaLead: number, flavioLead: number) {
+  const lula = lulaLead >= flavioLead;
+  return `${lula ? "Lula" : "Flávio"} lidera o 1º em ${fmtProb(lula ? lulaLead : flavioLead)} das simulações`;
 }
 
 function FirstRoundField({
@@ -273,21 +277,7 @@ export function PublicRadarPage() {
   }, [asOf, halfLife]);
 
   const forecast = useMemo(() => runForecast(polls, config), [config]);
-  const { probs, rows } = forecast;
-  const period = useMemo(
-    () => periodMixInput(polls, asOf, CURVE_PERIOD_DAYS),
-    [asOf],
-  );
-  const intention = useMemo(
-    () =>
-      runForecast(period.polls, {
-        ...config,
-        asOf: period.asOfDay,
-        halfLifeDays: period.span,
-      }),
-    [config, period],
-  );
-  const { first, second } = intention;
+  const { probs, rows, first, second } = forecast;
   const latestDayPolls = useMemo(() => pollsOnLatestDay(polls, asOf), [asOf]);
   const pLula = Math.round(probs.lulaWinsElection * 1000) / 10;
   const pFlavio = Math.round(probs.flavioWinsElection * 1000) / 10;
@@ -345,14 +335,14 @@ export function PublicRadarPage() {
           <div className="story-head">
             <p className="kicker">Média das pesquisas</p>
             <h2 className="story-title">Intenção de voto</h2>
-            <p className="story-lede">Não é a chance de ganhar. É a média do dia e dos 2 últimos com pesquisa.</p>
+            <p className="story-lede">Não é a chance de ganhar. É a mesma média da chance, com o período de cima.</p>
           </div>
           <div className="board-split">
             <div className="board-card border-0 sm:border-r sm:border-border">
               <p className="kicker">1º turno</p>
               <FirstRoundField first={first} />
               <p className="mt-3 text-xs font-medium leading-relaxed text-cream/85">
-                {gapPlain(first.lula.mean, first.flavio.mean, first.seGap)} · Lula à frente em {fmtProb(intention.probs.lulaLeadsFirst)} das simulações
+                {gapPlain(first.lula.mean, first.flavio.mean, first.seGap)} · {leadPlain(probs.lulaLeadsFirst, probs.flavioLeadsFirst)}
               </p>
               <p className="mt-3"><a href="#pares" className="hook-link">E no 2º turno?</a></p>
             </div>
@@ -361,7 +351,7 @@ export function PublicRadarPage() {
               <SecondRoundScenarios
                 first={first}
                 second={second}
-                pollsForPairs={intention.rows.map((row) => ({ ...row.poll, weight: row.weight }))}
+                pollsForPairs={rows.map((row) => ({ ...row.poll, weight: row.weight }))}
               />
               <p className="mt-3"><a href="#mapa" className="hook-link">E no seu estado?</a></p>
             </div>
@@ -369,7 +359,7 @@ export function PublicRadarPage() {
           <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
             <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm font-medium text-fg">
               <span className="inline-flex items-center gap-1.5"><CalendarDays className="size-4 shrink-0 text-primary" />Atualizado {fmtDateBr(config.asOf)}</span>
-              <span className="inline-flex items-center gap-1.5"><Radio className="size-4 shrink-0 text-primary" />{intention.rows.length} nesta média · {rows.length} no arquivo</span>
+              <span className="inline-flex items-center gap-1.5"><Radio className="size-4 shrink-0 text-primary" />{rows.length} pesquisas na média · período {halfLife} dias</span>
             </div>
             <ShareBar
               asOf={fmtDateBr(config.asOf)}

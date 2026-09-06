@@ -54,7 +54,7 @@ test("capa mounts the national growth curve", () => {
   assert.match(curve, /seg-btn/);
   assert.match(curve, /Média do período/);
   assert.match(curve, /ponto: nesta pesquisa/);
-  assert.match(curve, /linha: média do dia e dos 2 últimos com pesquisa/);
+  assert.match(curve, /linha: média do período/);
   assert.match(curve, /pollsOnDate/);
   assert.match(curve, /sameDay/);
   assert.match(curve, /pesquisas/);
@@ -90,7 +90,8 @@ test("public home scan path is chance, intention, news, method", () => {
   assert.match(page, /id="media"/);
   assert.match(page, /id="metodo"/);
   assert.match(page, /Intenção de voto/);
-  assert.match(page, /periodMixInput/);
+  assert.doesNotMatch(page, /periodMixInput/);
+  assert.match(page, /halfLifeDays={halfLife}/);
   const chrome = page.slice(page.indexOf("hero-chrome"), page.indexOf("hero-score"));
   assert.doesNotMatch(chrome, /HalfLifeControl/);
   assert.match(page, /<HalfLifeControl/);
@@ -212,12 +213,12 @@ test("share bar is WhatsApp first and pastes brasilradar.com.br", () => {
   assert.doesNotMatch(root, /radar-2026.vercel.app\/og.jpg/);
 });
 
-test("intention stamp names the period mix and the archive", () => {
+test("intention stamp names the archive and the period", () => {
   const page = readFileSync("src/features/radar/public/public-radar-page.tsx", "utf8");
-  assert.match(page, /nesta média/);
-  assert.match(page, /no arquivo/);
-  assert.match(page, /intention\.rows\.length/);
+  assert.match(page, /pesquisas na média/);
+  assert.match(page, /período \{halfLife\} dias/);
   assert.match(page, /rows\.length/);
-  assert.doesNotMatch(page, /intention\.rows\.length\} pesquisas nacionais/);
+  assert.doesNotMatch(page, /intention/);
+  assert.doesNotMatch(page, /periodMixInput/);
 });
 

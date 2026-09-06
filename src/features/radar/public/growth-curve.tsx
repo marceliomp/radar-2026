@@ -19,7 +19,6 @@ import {
   utcMsToDayBr,
 } from "@/lib/format";
 import {
-  CURVE_PERIOD_DAYS,
   asOfDayAverages,
   axisTicks,
   houseFilterKey,
@@ -243,7 +242,7 @@ function CurveTip({ active, payload }: { active?: boolean; payload?: TipRow[] })
         {many ? ` · ${houses.length} pesquisas` : ""}
       </p>
       <p className="m-0 mt-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-gold">
-        Média do período · o dia e os 2 últimos com pesquisa
+        Média do período · pesquisas novas pesam mais
       </p>
       <ScoreGrid
         featured
@@ -310,7 +309,7 @@ function CurveKey({ houseFocus, showOthers }: { houseFocus: boolean; showOthers:
           <svg width="30" height="10" viewBox="0 0 30 10" aria-hidden>
             <line x1="2" y1="5" x2="28" y2="5" stroke={CHART.axis} strokeWidth="3.4" />
           </svg>
-          {houseFocus ? "linha: esta casa" : "linha: média do dia e dos 2 últimos com pesquisa"}
+          {houseFocus ? "linha: esta casa" : "linha: média do período"}
         </span>
       </div>
     </div>
@@ -320,6 +319,7 @@ function CurveKey({ houseFocus, showOthers }: { houseFocus: boolean; showOthers:
 export function GrowthCurve({
   polls,
   asOf,
+  halfLifeDays,
 }: {
   polls: ForecastPoll[];
   asOf: string;
@@ -339,8 +339,8 @@ export function GrowthCurve({
       ? byMode.filter((poll) => houseFilterKey(poll.institute) === house)
       : byMode;
     const trend = buildNationalTrend(focused);
-    const avg1 = asOfDayAverages(focused, asOf, CURVE_PERIOD_DAYS, false);
-    const avg2 = asOfDayAverages(focused, asOf, CURVE_PERIOD_DAYS, true);
+    const avg1 = asOfDayAverages(focused, asOf, halfLifeDays, false);
+    const avg2 = asOfDayAverages(focused, asOf, halfLifeDays, true);
     const byDay1 = new Map(avg1.map((day) => [day.date, day]));
     const byDay2 = new Map(avg2.map((day) => [day.date, day]));
     const toDots = (
@@ -405,7 +405,7 @@ export function GrowthCurve({
       houseOpts: houseFilterOptions(byMode),
       modeOpts: modeFilterOptions(visible),
     };
-  }, [polls, asOf, house, mode]);
+  }, [polls, asOf, halfLifeDays, house, mode]);
 
   if (first.length < 3 && !house && !mode) return null;
   const canSecond = second.length >= 2;
@@ -431,8 +431,8 @@ export function GrowthCurve({
               {houseFocus
                 ? `Só ${house}. A linha liga as ondas desta casa.`
                 : mode
-                  ? `Só ${modeFilterLabel(mode).toLowerCase()}. Pontos são cada casa. A linha é a média do dia e dos 2 últimos com pesquisa.`
-                  : "Pontos são cada casa. A linha é a média do dia e dos 2 últimos com pesquisa."}
+                  ? `Só ${modeFilterLabel(mode).toLowerCase()}. Pontos são cada casa. A linha é a média do período.`
+                  : "Pontos são cada casa. A linha é a média do período."}
             </p>
           </div>
           <SegGroup ariaLabel="Turno da curva">

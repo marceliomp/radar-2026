@@ -207,7 +207,7 @@ export function LabRadarPage() {
             <p className="mt-3 text-xs font-medium leading-relaxed text-cream/85">
               {gapPlain(first.technicalTie, first.lula.mean, first.flavio.mean, first.seGap)}
               {" · "}
-              Lula à frente em {fmtProb(probs.lulaLeadsFirst)} das simulações
+              Lula lidera o 1º em {fmtProb(probs.lulaLeadsFirst)} das simulações
             </p>
             <p className="mt-3">
               <a href="#pares" className="hook-link">

@@ -26,8 +26,8 @@ export function HalfLifeSlider({ id }: { id?: string }) {
         aria-valuetext={`período de ${halfLife} dias`}
       />
       <div className="hl-ends">
-        <span>{HL_MIN}d só o novo</span>
-        <span>{HL_MAX}d tudo entra</span>
+        <span>{HL_MIN}d só o recente</span>
+        <span>{HL_MAX}d período longo</span>
       </div>
     </div>
   );

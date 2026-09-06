@@ -2,12 +2,10 @@ import { isoDayUtc, round } from "../format.ts";
 import {
   buildWeightedRows,
   DEFAULT_CONFIG,
+  dedupePolls,
   type ForecastPoll,
 } from "./engine.ts";
 import { resolveInstitute } from "./track-record.ts";
-
-/** This publication day plus the 2 previous days that had a poll. */
-export const CURVE_PERIOD_DAYS = 2;
 
 export type DayAverage = {
   date: string;
@@ -19,10 +17,6 @@ export type DayAverage = {
   caiado: number | null;
   zema: number | null;
 };
-
-function ageDays(fieldEnd: string, asOf: string): number {
-  return Math.round((isoDayUtc(asOf) - isoDayUtc(fieldEnd)) / 86_400_000);
-}
 
 export function publicationDays(
   polls: ForecastPoll[],
@@ -42,29 +36,6 @@ export function publicationDays(
   return [...days].sort();
 }
 
-function recentPollDays(days: string[], day: string, prior: number): string[] {
-  const upto = days.filter((d) => d <= day);
-  return upto.slice(-(prior + 1));
-}
-
-export function periodMixInput(
-  polls: ForecastPoll[],
-  asOf: string,
-  priorDays = CURVE_PERIOD_DAYS,
-): { polls: ForecastPoll[]; asOfDay: string; span: number } {
-  const national = polls.filter((poll) => poll.national);
-  const days = publicationDays(national, asOf, false);
-  const asOfDay = days[days.length - 1] ?? asOf;
-  const windowDays = new Set(recentPollDays(days, asOfDay, priorDays));
-  const windowed = national.filter(
-    (poll) => windowDays.has(poll.date) && poll.fieldEnd <= asOfDay,
-  );
-  const oldest = [...windowDays].sort()[0] ?? asOfDay;
-  const span = Math.max(ageDays(oldest, asOfDay), 1);
-  return { polls: windowed, asOfDay, span };
-}
-
-
 function meanAsked(
   rows: { weight: number; poll: ForecastPoll }[],
   key: "cury" | "renan" | "caiado" | "zema",
@@ -81,6 +52,7 @@ function meanAsked(
   return round(sum / sumW, 2);
 }
 
+/** One point per publication day. Mean uses the same recency half-life as the chance. */
 export function asOfDayAverages(
   polls: ForecastPoll[],
   asOf: string,
@@ -88,20 +60,14 @@ export function asOfDayAverages(
   needSecond: boolean,
 ): DayAverage[] {
   const days = publicationDays(polls, asOf, needSecond);
+  const hl = Math.max(halfLifeDays, 1);
+  const pool = dedupePolls(polls);
   const out: DayAverage[] = [];
   for (const day of days) {
-    const windowDays = new Set(recentPollDays(days, day, halfLifeDays));
-    const windowed = polls.filter((poll) => {
-      if (!poll.national) return false;
-      if (poll.date > day || poll.fieldEnd > day) return false;
-      return windowDays.has(poll.date);
-    });
-    const oldest = [...windowDays].sort()[0] ?? day;
-    const span = Math.max(ageDays(oldest, day), 1);
-    const rows = buildWeightedRows(windowed, {
+    const rows = buildWeightedRows(pool, {
       ...DEFAULT_CONFIG,
       asOf: day,
-      halfLifeDays: span,
+      halfLifeDays: hl,
     });
     const subset = needSecond
       ? rows.filter((row) => row.adjLula2 != null && row.adjFlavio2 != null)
