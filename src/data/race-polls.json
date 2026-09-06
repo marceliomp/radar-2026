@@ -1,7 +1,29 @@
 {
-  "source": "CartaCapital/AtlasIntel 03/09 (RS GO PI RJ CE PB) + TMC/VEJA PB 03/09 + Gazeta/RTBD RJ 02/09. G1, Folha, Poder360, CNN, O Globo, Ipsos, Gazeta do Povo. Rodada Quaest/Globo 24-27/08 + ondas anteriores: Genial/Quaest jul (10 UFs, PA ja estava), Datafolha SP 01-03/07, Genial/Quaest SP abr, Parana Pesquisas PR jul/ago. Quaest PA 29/08 ainda sem tabela.",
-  "asOf": "2026-09-04",
+  "source": "G1 mapa Quaest 05/09 (25 UFs+DF, sem PI) + Quaest CE gov/sen 04/09. CartaCapital/AtlasIntel 03/09 (RS GO PI RJ CE PB) + TMC/VEJA PB 03/09 + Gazeta/RTBD RJ 02/09. G1, Folha, Poder360, CNN, O Globo, Ipsos, Gazeta do Povo. Rodada Quaest/Globo 24-27/08 + ondas anteriores: Genial/Quaest jul (10 UFs, PA ja estava), Datafolha SP 01-03/07, Genial/Quaest SP abr, Parana Pesquisas PR jul/ago. Quaest PA 29/08 ainda sem tabela.",
+  "asOf": "2026-09-06",
   "polls": [
+    {
+      "id": "quaest-ce-gov-09-04",
+      "office": "governor",
+      "uf": "CE",
+      "institute": "Quaest",
+      "date": "2026-09-04",
+      "fieldStart": "2026-08-31",
+      "fieldEnd": "2026-09-03",
+      "sample": 900,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "cirogomes": 45,
+        "elmanodefreitas": 34,
+        "delegadohuggo": 1
+      },
+      "secondRound": {
+        "cirogomes": 49,
+        "elmanodefreitas": 36
+      },
+      "notes": "G1 CE 04/09 TV Verdes Mares. TSE CE-01149/2026. https://g1.globo.com/ce/ceara/eleicoes/2026/noticia/2026/09/04/quaest-ce-governador-4-setembro.ghtml"
+    },
     {
       "id": "atlas-pb-gov-09-03",
       "office": "governor",
@@ -2058,13 +2080,18 @@
       "fieldEnd": "2026-09-03",
       "fieldStart": "2026-08-31",
       "sample": 900,
-      "moe": 3.3,
+      "moe": 3,
       "mode": "presencial",
       "firstRound": {
-        "capitaowagner": 17,
-        "cidgomes": 45
+        "cidgomes": 23,
+        "capitaowagner": 20,
+        "luiziannelins": 13,
+        "pralcidesfernandes": 5,
+        "catarinamatos": 1,
+        "reginaldo50": 1,
+        "generaltheophilo": 1
       },
-      "notes": "Auto quaest. TSE CE-01149/2026. https://g1.globo.com/ba/bahia/eleicoes/2026/noticia/2026/09/02/candidato-ao-governo-da-bahia-e-atingido-por-bala-de-borracha-em-protesto-e-acusa-pm.ghtml"
+      "notes": "G1 CE 04/09 combinacao 1a+2a vaga. TSE CE-01149/2026. https://g1.globo.com/ce/ceara/eleicoes/2026/noticia/2026/09/04/quaest-ce-senado-4-setembro.ghtml"
     }
   ]
 }

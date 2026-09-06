@@ -1,5 +1,394 @@
 [
   {
+    "id": "quaest-rn-08-24",
+    "institute": "Quaest/Globo",
+    "date": "2026-08-24",
+    "fieldStart": "2026-08-20",
+    "fieldEnd": "2026-08-23",
+    "sample": 804,
+    "moe": 3,
+    "mode": "presencial",
+    "national": false,
+    "uf": "RN",
+    "firstRound": {
+      "lula": 54,
+      "flavio": 20,
+      "renan": 2,
+      "caiado": 2,
+      "cury": 1,
+      "zema": 1
+    },
+    "notes": "G1 RN 24/08. TSE RN-00876/2026.",
+    "source": {
+      "tseProtocol": "RN-00876/2026",
+      "url": "https://g1.globo.com/rn/rio-grande-do-norte/eleicoes/2026/noticia/2026/08/24/quaest-no-rn-presidente-24-de-agosto.ghtml",
+      "publisher": "G1 RN 24/08",
+      "publishedAt": "2026-08-24",
+      "capturedAt": "2026-09-06T16:00:09.000Z"
+    }
+  },
+  {
+    "id": "quaest-ma-08-24",
+    "institute": "Quaest/Globo",
+    "date": "2026-08-24",
+    "fieldStart": "2026-08-20",
+    "fieldEnd": "2026-08-23",
+    "sample": 900,
+    "moe": 3,
+    "mode": "presencial",
+    "national": false,
+    "uf": "MA",
+    "firstRound": {
+      "lula": 58,
+      "flavio": 20,
+      "caiado": 2,
+      "renan": 2,
+      "cury": 1
+    },
+    "notes": "G1 MA 24/08. TSE BR-01389/2026.",
+    "source": {
+      "tseProtocol": "BR-01389/2026",
+      "url": "https://g1.globo.com/ma/maranhao/eleicoes/2026/noticia/2026/08/24/quaest-ma-presidente-24-agosto.ghtml",
+      "publisher": "G1 MA 24/08",
+      "publishedAt": "2026-08-24",
+      "capturedAt": "2026-09-06T16:00:09.000Z"
+    }
+  },
+  {
+    "id": "quaest-al-08-24",
+    "institute": "Quaest/Globo",
+    "date": "2026-08-24",
+    "fieldStart": "2026-08-20",
+    "fieldEnd": "2026-08-23",
+    "sample": 804,
+    "moe": 3,
+    "mode": "presencial",
+    "national": false,
+    "uf": "AL",
+    "firstRound": {
+      "lula": 44,
+      "flavio": 29,
+      "renan": 2,
+      "caiado": 1,
+      "cury": 1
+    },
+    "notes": "G1 AL 24/08. TSE BR-09091/2026.",
+    "source": {
+      "tseProtocol": "BR-09091/2026",
+      "url": "https://g1.globo.com/al/alagoas/eleicoes/2026/noticia/2026/08/24/quaest-al-presidente-24-agosto.ghtml",
+      "publisher": "G1 AL 24/08",
+      "publishedAt": "2026-08-24",
+      "capturedAt": "2026-09-06T16:00:09.000Z"
+    }
+  },
+  {
+    "id": "quaest-to-08-25",
+    "institute": "Quaest/Globo",
+    "date": "2026-08-25",
+    "fieldStart": "2026-08-21",
+    "fieldEnd": "2026-08-24",
+    "sample": 804,
+    "moe": 3,
+    "mode": "presencial",
+    "national": false,
+    "uf": "TO",
+    "firstRound": {
+      "lula": 37,
+      "flavio": 32,
+      "caiado": 7,
+      "renan": 3,
+      "cury": 2,
+      "zema": 1
+    },
+    "notes": "G1 TO 25/08. TSE TO-02161/2026.",
+    "source": {
+      "tseProtocol": "TO-02161/2026",
+      "url": "https://g1.globo.com/to/tocantins/eleicoes/2026/noticia/2026/08/25/quaest-to-presidente-25-agosto.ghtml",
+      "publisher": "G1 TO 25/08",
+      "publishedAt": "2026-08-25",
+      "capturedAt": "2026-09-06T16:00:09.000Z"
+    }
+  },
+  {
+    "id": "quaest-ro-08-25",
+    "institute": "Quaest/Globo",
+    "date": "2026-08-25",
+    "fieldStart": "2026-08-21",
+    "fieldEnd": "2026-08-24",
+    "sample": 804,
+    "moe": 3,
+    "mode": "presencial",
+    "national": false,
+    "uf": "RO",
+    "firstRound": {
+      "flavio": 45,
+      "lula": 25,
+      "renan": 3,
+      "caiado": 3,
+      "zema": 2,
+      "cury": 1
+    },
+    "notes": "G1 RO 25/08. TSE BR-00490/2026.",
+    "source": {
+      "tseProtocol": "BR-00490/2026",
+      "url": "https://g1.globo.com/ro/rondonia/eleicoes/2026/noticia/2026/08/25/quaest-ro-presidente-25-de-agosto.ghtml",
+      "publisher": "G1 RO 25/08",
+      "publishedAt": "2026-08-25",
+      "capturedAt": "2026-09-06T16:00:09.000Z"
+    }
+  },
+  {
+    "id": "quaest-pe-08-25",
+    "institute": "Quaest/Globo",
+    "date": "2026-08-25",
+    "fieldStart": "2026-08-21",
+    "fieldEnd": "2026-08-24",
+    "sample": 1302,
+    "moe": 3,
+    "mode": "presencial",
+    "national": false,
+    "uf": "PE",
+    "firstRound": {
+      "lula": 54,
+      "flavio": 19,
+      "caiado": 3,
+      "renan": 2,
+      "cury": 1,
+      "zema": 1
+    },
+    "notes": "G1 PE 25/08. TSE PE-07828/2026.",
+    "source": {
+      "tseProtocol": "PE-07828/2026",
+      "url": "https://g1.globo.com/pe/pernambuco/eleicoes/2026/noticia/2026/08/25/quaest-pe-presidente-25-agosto.ghtml",
+      "publisher": "G1 PE 25/08",
+      "publishedAt": "2026-08-25",
+      "capturedAt": "2026-09-06T16:00:09.000Z"
+    }
+  },
+  {
+    "id": "quaest-pb-08-25",
+    "institute": "Quaest/Globo",
+    "date": "2026-08-25",
+    "fieldStart": "2026-08-21",
+    "fieldEnd": "2026-08-24",
+    "sample": 804,
+    "moe": 3,
+    "mode": "presencial",
+    "national": false,
+    "uf": "PB",
+    "firstRound": {
+      "lula": 50,
+      "flavio": 21,
+      "caiado": 3,
+      "renan": 2,
+      "zema": 1,
+      "cury": 1
+    },
+    "notes": "G1 PB 25/08. TSE PB-07850/2026.",
+    "source": {
+      "tseProtocol": "PB-07850/2026",
+      "url": "https://g1.globo.com/pb/paraiba/eleicoes/2026/noticia/2026/08/25/quaest-pb-presidente-25-agosto.ghtml",
+      "publisher": "G1 PB 25/08",
+      "publishedAt": "2026-08-25",
+      "capturedAt": "2026-09-06T16:00:09.000Z"
+    }
+  },
+  {
+    "id": "quaest-mt-08-25",
+    "institute": "Quaest/Globo",
+    "date": "2026-08-25",
+    "fieldStart": "2026-08-21",
+    "fieldEnd": "2026-08-24",
+    "sample": 804,
+    "moe": 3,
+    "mode": "presencial",
+    "national": false,
+    "uf": "MT",
+    "firstRound": {
+      "flavio": 43,
+      "lula": 26,
+      "caiado": 4,
+      "renan": 3,
+      "zema": 2,
+      "cury": 1
+    },
+    "notes": "G1 MT 25/08. TSE BR-00817/2026.",
+    "source": {
+      "tseProtocol": "BR-00817/2026",
+      "url": "https://g1.globo.com/mt/mato-grosso/eleicoes/2026/noticia/2026/08/25/quaest-mt-presidente-25-agosto.ghtml",
+      "publisher": "G1 MT 25/08",
+      "publishedAt": "2026-08-25",
+      "capturedAt": "2026-09-06T16:00:09.000Z"
+    }
+  },
+  {
+    "id": "quaest-ms-08-25",
+    "institute": "Quaest/Globo",
+    "date": "2026-08-25",
+    "fieldStart": "2026-08-21",
+    "fieldEnd": "2026-08-24",
+    "sample": 804,
+    "moe": 3,
+    "mode": "presencial",
+    "national": false,
+    "uf": "MS",
+    "firstRound": {
+      "flavio": 33,
+      "lula": 27,
+      "caiado": 5,
+      "renan": 4,
+      "cury": 3,
+      "zema": 2
+    },
+    "notes": "G1 MS 25/08. TSE BR-04312/2026.",
+    "source": {
+      "tseProtocol": "BR-04312/2026",
+      "url": "https://g1.globo.com/ms/mato-grosso-do-sul/eleicoes/2026/noticia/2026/08/25/quaest-ms-presidente-25-agosto.ghtml",
+      "publisher": "G1 MS 25/08",
+      "publishedAt": "2026-08-25",
+      "capturedAt": "2026-09-06T16:00:09.000Z"
+    }
+  },
+  {
+    "id": "quaest-df-08-25",
+    "institute": "Quaest/Globo",
+    "date": "2026-08-25",
+    "fieldStart": "2026-08-21",
+    "fieldEnd": "2026-08-24",
+    "sample": 1104,
+    "moe": 3,
+    "mode": "presencial",
+    "national": false,
+    "uf": "DF",
+    "firstRound": {
+      "lula": 28,
+      "flavio": 26,
+      "caiado": 13,
+      "cury": 3,
+      "zema": 3,
+      "renan": 3
+    },
+    "notes": "G1 DF 25/08. TSE DF-06256/2026.",
+    "source": {
+      "tseProtocol": "DF-06256/2026",
+      "url": "https://g1.globo.com/df/distrito-federal/eleicoes/2026/noticia/2026/08/25/quaest-df-presidente-25-agosto.ghtml",
+      "publisher": "G1 DF 25/08",
+      "publishedAt": "2026-08-25",
+      "capturedAt": "2026-09-06T16:00:09.000Z"
+    }
+  },
+  {
+    "id": "quaest-ap-08-25",
+    "institute": "Quaest/Globo",
+    "date": "2026-08-25",
+    "fieldStart": "2026-08-21",
+    "fieldEnd": "2026-08-24",
+    "sample": 804,
+    "moe": 3,
+    "mode": "presencial",
+    "national": false,
+    "uf": "AP",
+    "firstRound": {
+      "lula": 36,
+      "flavio": 33,
+      "renan": 3,
+      "caiado": 2,
+      "cury": 2,
+      "zema": 1
+    },
+    "notes": "G1 AP 25/08. TSE BR-08827/2026.",
+    "source": {
+      "tseProtocol": "BR-08827/2026",
+      "url": "https://g1.globo.com/ap/amapa/noticia/2026/08/25/quaest-ap-presidente-25-agosto.ghtml",
+      "publisher": "G1 AP 25/08",
+      "publishedAt": "2026-08-25",
+      "capturedAt": "2026-09-06T16:00:09.000Z"
+    }
+  },
+  {
+    "id": "quaest-am-08-25",
+    "institute": "Quaest/Globo",
+    "date": "2026-08-25",
+    "fieldStart": "2026-08-21",
+    "fieldEnd": "2026-08-24",
+    "sample": 804,
+    "moe": 3,
+    "mode": "presencial",
+    "national": false,
+    "uf": "AM",
+    "firstRound": {
+      "lula": 38,
+      "flavio": 33,
+      "renan": 3,
+      "cury": 3,
+      "caiado": 2,
+      "zema": 1
+    },
+    "notes": "G1 AM 25/08. TSE BR-06252/2026.",
+    "source": {
+      "tseProtocol": "BR-06252/2026",
+      "url": "https://g1.globo.com/am/amazonas/eleicoes/2026/noticia/2026/08/25/quaest-am-presidente-25-agosto.ghtml",
+      "publisher": "G1 AM 25/08",
+      "publishedAt": "2026-08-25",
+      "capturedAt": "2026-09-06T16:00:09.000Z"
+    }
+  },
+  {
+    "id": "quaest-pa-08-29",
+    "institute": "Quaest/Globo",
+    "date": "2026-08-29",
+    "fieldStart": "2026-08-25",
+    "fieldEnd": "2026-08-28",
+    "sample": 804,
+    "moe": 3,
+    "mode": "presencial",
+    "national": false,
+    "uf": "PA",
+    "firstRound": {
+      "lula": 37,
+      "flavio": 29,
+      "cury": 5,
+      "renan": 3,
+      "caiado": 2,
+      "zema": 1
+    },
+    "notes": "G1 PA 29/08. TSE BR-05309/2026.",
+    "source": {
+      "tseProtocol": "BR-05309/2026",
+      "url": "https://g1.globo.com/pa/para/eleicoes/2026/noticia/2026/08/29/quaest-no-pa-lula-presidente-29-agosto.ghtml",
+      "publisher": "G1 PA 29/08",
+      "publishedAt": "2026-08-29",
+      "capturedAt": "2026-09-06T16:00:09.000Z"
+    }
+  },
+  {
+    "id": "quaest-ce-09-04",
+    "institute": "Quaest/Globo",
+    "date": "2026-09-04",
+    "fieldStart": "2026-08-31",
+    "fieldEnd": "2026-09-03",
+    "sample": 900,
+    "moe": 3,
+    "mode": "presencial",
+    "national": false,
+    "uf": "CE",
+    "firstRound": {
+      "lula": 54,
+      "flavio": 16,
+      "cury": 10,
+      "renan": 2,
+      "caiado": 1
+    },
+    "notes": "G1 CE 04/09. TV Verdes Mares. TSE BR-04576/2026. Presidente no estado.",
+    "source": {
+      "tseProtocol": "BR-04576/2026",
+      "url": "https://g1.globo.com/ce/ceara/eleicoes/2026/noticia/2026/09/04/quaest-ce-presidente-4-setembro.ghtml",
+      "publisher": "G1 CE 04/09",
+      "publishedAt": "2026-09-04",
+      "capturedAt": "2026-09-06T16:00:09.000Z"
+    }
+  },
+  {
     "id": "atlas-pb-09-03",
     "institute": "AtlasIntel",
     "date": "2026-09-03",
