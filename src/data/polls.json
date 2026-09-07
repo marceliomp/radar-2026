@@ -26,7 +26,7 @@
         "a": "lula",
         "b": "cury",
         "aPct": 35.6,
-        "bPct": 27.0
+        "bPct": 27
       },
       {
         "a": "lula",
@@ -2519,5 +2519,33 @@
       "capturedAt": "2026-09-04T21:00:19.375Z"
     },
     "notes": "CNN 04/09 · TSE BR-07411/2026 · Atlas CE n=1834 campo 28/08-02/09 moe ±2. Presidente no estado, nao nacional."
+  },
+  {
+    "id": "quaest-09-07-01720",
+    "institute": "Quaest",
+    "date": "2026-09-07",
+    "fieldEnd": "2026-09-06",
+    "sample": 2004,
+    "moe": 2.2,
+    "mode": "presencial",
+    "national": true,
+    "firstRound": {
+      "lula": 36,
+      "flavio": 29,
+      "cury": 10
+    },
+    "source": {
+      "tseProtocol": "BR-01720/2026",
+      "url": "https://www.cnnbrasil.com.br/eleicoes/quaest-no-1o-turno-lula-tem-36-flavio-29-e-cury-8/",
+      "publisher": "cnnbrasil.com.br",
+      "publishedAt": "2026-09-07",
+      "capturedAt": "2026-09-07T22:00:21.206Z"
+    },
+    "notes": "2004 entrevistas. Allowlist quaest.",
+    "fieldStart": "2026-09-03",
+    "secondRound": {
+      "lula": 40,
+      "flavio": 28
+    }
   }
 ]
