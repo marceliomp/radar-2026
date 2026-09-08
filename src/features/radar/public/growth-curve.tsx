@@ -390,7 +390,7 @@ function CurvePlot({
   return (
     <div className={`${heightClass} w-full min-w-0`}>
       <ResponsiveContainer width="100%" height="100%">
-        <ComposedChart data={data} margin={{ left: 0, right: 8, top: 10, bottom: hideX ? 0 : 4 }}>
+        <ComposedChart data={data} margin={{ left: 0, right: 8, top: hideX ? 4 : 6, bottom: hideX ? 0 : 2 }}>
           <CartesianGrid strokeDasharray="3 3" stroke={CHART.grid} />
           <XAxis
             {...XAXIS}
@@ -398,7 +398,7 @@ function CurvePlot({
             ticks={ticks}
             allowDataOverflow
             tick={hideX ? false : XAXIS.tick}
-            height={hideX ? 6 : XAXIS.height}
+            height={hideX ? 0 : XAXIS.height}
           />
           <YAxis
             domain={domain}
@@ -747,7 +747,7 @@ export function GrowthCurve({
           </div>
         ) : null}
         {splitOthers ? (
-          <div className="mt-3 flex flex-col gap-2">
+          <div className="mt-2">
             <CurvePlot
               data={plotted}
               domain={raceDomain}
@@ -757,19 +757,21 @@ export function GrowthCurve({
               houseFocus={houseFocus}
               kind="race"
               hideX
-              heightClass="h-56 sm:h-72"
+              heightClass="h-48 sm:h-56"
             />
-            <p className="text-[11px] font-medium text-cream/70">Os outros</p>
-            <CurvePlot
-              data={plotted}
-              domain={othersDomain}
-              xMin={xMin}
-              xMax={xMax}
-              ticks={ticks}
-              houseFocus={houseFocus}
-              kind="others"
-              heightClass="h-36 sm:h-44"
-            />
+            <div className="relative border-t border-border/70">
+              <p className="pointer-events-none absolute left-11 top-1 z-10 text-[10px] font-medium text-cream/70">Os outros</p>
+              <CurvePlot
+                data={plotted}
+                domain={othersDomain}
+                xMin={xMin}
+                xMax={xMax}
+                ticks={ticks}
+                houseFocus={houseFocus}
+                kind="others"
+                heightClass="h-28 sm:h-36"
+              />
+            </div>
           </div>
         ) : (
           <div className="mt-3">

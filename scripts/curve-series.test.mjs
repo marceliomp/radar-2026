@@ -242,6 +242,10 @@ test("first-round curve plots the other names", () => {
   assert.match(curve, /splitOthers/);
   assert.match(curve, /kind="others"/);
   assert.match(curve, /Os outros/);
+  assert.match(curve, /h-48 sm:h-56/);
+  assert.match(curve, /h-28 sm:h-36/);
+  assert.doesNotMatch(curve, /h-56 sm:h-72/);
+  assert.doesNotMatch(curve, /h-36 sm:h-44/);
   assert.doesNotMatch(curve, /<Fragment>/);
   assert.equal((curve.match(/\{showRace \?/g) || []).length, 4);
   assert.match(curve, /paddedDomain/);
