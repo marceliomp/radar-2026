@@ -242,6 +242,8 @@ test("first-round curve plots the other names", () => {
   assert.match(curve, /splitOthers/);
   assert.match(curve, /kind="others"/);
   assert.match(curve, /Os outros/);
+  assert.doesNotMatch(curve, /<Fragment>/);
+  assert.equal((curve.match(/\{showRace \?/g) || []).length, 4);
   assert.match(curve, /paddedDomain/);
   assert.match(curve, /avgOnFirstOfDay/);
   assert.match(curve, /lulaLine/);

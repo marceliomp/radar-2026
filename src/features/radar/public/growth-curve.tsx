@@ -1,4 +1,4 @@
-import { Fragment, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import {
   CartesianGrid,
   ComposedChart,
@@ -416,7 +416,6 @@ function CurvePlot({
             wrapperStyle={{ pointerEvents: "none" }}
           />
           {showRace ? (
-            <Fragment>
               <Line
                 type="linear"
                 dataKey="lulaPoll"
@@ -431,6 +430,8 @@ function CurvePlot({
                 activeDot={false}
                 isAnimationActive={false}
               />
+          ) : null}
+          {showRace ? (
               <Line
                 type="linear"
                 dataKey="flavioPoll"
@@ -445,6 +446,8 @@ function CurvePlot({
                 activeDot={false}
                 isAnimationActive={false}
               />
+          ) : null}
+          {showRace ? (
               <Line
                 type={houseFocus ? "linear" : "monotone"}
                 dataKey={houseFocus ? "lulaAvg" : "lulaLine"}
@@ -456,6 +459,8 @@ function CurvePlot({
                 activeDot={{ r: 4, fill: CHART.lula, strokeWidth: 0 }}
                 isAnimationActive={false}
               />
+          ) : null}
+          {showRace ? (
               <Line
                 type={houseFocus ? "linear" : "monotone"}
                 dataKey={houseFocus ? "flavioAvg" : "flavioLine"}
@@ -467,7 +472,6 @@ function CurvePlot({
                 activeDot={{ r: 4, fill: CHART.flavio, strokeWidth: 0 }}
                 isAnimationActive={false}
               />
-            </Fragment>
           ) : null}
           {showOtherDots
             ? OTHERS.map((other) => (
