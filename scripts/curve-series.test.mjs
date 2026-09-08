@@ -241,6 +241,8 @@ test("first-round curve plots the other names", () => {
   assert.match(curve, /showOthers = active === "1" && houseFocus/);
   assert.match(curve, /paddedDomain/);
   assert.match(curve, /avgOnFirstOfDay/);
+  assert.match(curve, /lulaLine/);
+  assert.match(curve, /lula=\{row.lulaAvg\}/);
   assert.match(curve, /Cury/);
   assert.match(curve, /connectNulls/);
   assert.doesNotMatch(curve, /\[0, 50\]/);

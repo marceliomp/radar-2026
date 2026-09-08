@@ -84,6 +84,8 @@ type CurveRow = {
   flavioPoll: number | null;
   lulaAvg: number | null;
   flavioAvg: number | null;
+  lulaLine: number | null;
+  flavioLine: number | null;
   curyPoll: number | null;
   renanPoll: number | null;
   caiadoPoll: number | null;
@@ -102,19 +104,13 @@ type CurveRow = {
 function avgOnFirstOfDay(rows: CurveRow[]): CurveRow[] {
   const seen = new Set<string>();
   return rows.map((row) => {
-    if (seen.has(row.published)) {
-      return {
-        ...row,
-        lulaAvg: null,
-        flavioAvg: null,
-        curyAvg: null,
-        renanAvg: null,
-        caiadoAvg: null,
-        zemaAvg: null,
-      };
-    }
-    seen.add(row.published);
-    return row;
+    const first = !seen.has(row.published);
+    if (first) seen.add(row.published);
+    return {
+      ...row,
+      lulaLine: first ? row.lulaAvg : null,
+      flavioLine: first ? row.flavioAvg : null,
+    };
   });
 }
 
@@ -392,6 +388,8 @@ export function GrowthCurve({
           flavioPoll,
           lulaAvg: house ? lulaPoll : (day?.lula ?? null),
           flavioAvg: house ? flavioPoll : (day?.flavio ?? null),
+          lulaLine: house ? lulaPoll : (day?.lula ?? null),
+          flavioLine: house ? flavioPoll : (day?.flavio ?? null),
           curyPoll,
           renanPoll,
           caiadoPoll,
@@ -610,7 +608,7 @@ export function GrowthCurve({
               />
               <Line
                 type={houseFocus ? "linear" : "monotone"}
-                dataKey="lulaAvg"
+                dataKey={houseFocus ? "lulaAvg" : "lulaLine"}
                 legendType="none"
                 stroke={CHART.lula}
                 strokeWidth={houseFocus ? 3.2 : 4}
@@ -621,7 +619,7 @@ export function GrowthCurve({
               />
               <Line
                 type={houseFocus ? "linear" : "monotone"}
-                dataKey="flavioAvg"
+                dataKey={houseFocus ? "flavioAvg" : "flavioLine"}
                 legendType="none"
                 stroke={CHART.flavio}
                 strokeWidth={houseFocus ? 3.2 : 4}
