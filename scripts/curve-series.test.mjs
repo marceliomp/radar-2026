@@ -238,10 +238,19 @@ test("asOfDayAverages does not treat a missing third name as 0", async () => {
 test("first-round curve plots the other names", () => {
   const curve = readFileSync("src/features/radar/public/growth-curve.tsx", "utf8");
   assert.match(curve, /curyAvg/);
-  assert.match(curve, /showOthers/);
-  assert.match(curve, /\[0, 50\]/);
+  assert.match(curve, /showOthers = active === "1" && houseFocus/);
+  assert.match(curve, /paddedDomain/);
+  assert.match(curve, /avgOnFirstOfDay/);
   assert.match(curve, /Cury/);
   assert.match(curve, /connectNulls/);
+  assert.doesNotMatch(curve, /\[0, 50\]/);
+});
+
+test("paddedDomain zooms to the race and keeps a floor", async () => {
+  const { paddedDomain } = await import("../src/lib/forecast/curve-series.ts");
+  assert.deepEqual(paddedDomain([38, 29, 41, 33], [22, 52]), [26, 44]);
+  assert.deepEqual(paddedDomain([48.8, 27.6], [22, 52]), [24, 52]);
+  assert.deepEqual(paddedDomain([40], [22, 52]), [22, 52]);
 });
 
 test("home curve uses the slider half-life", () => {

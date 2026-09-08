@@ -21,6 +21,7 @@ import {
 import {
   asOfDayAverages,
   monthTicks,
+  paddedDomain,
   houseFilterKey,
   houseFilterOptions,
   modeFilterKey,
@@ -97,6 +98,37 @@ type CurveRow = {
   dLula?: number | null;
   dFlavio?: number | null;
 };
+
+function avgOnFirstOfDay(rows: CurveRow[]): CurveRow[] {
+  const seen = new Set<string>();
+  return rows.map((row) => {
+    if (seen.has(row.published)) {
+      return {
+        ...row,
+        lulaAvg: null,
+        flavioAvg: null,
+        curyAvg: null,
+        renanAvg: null,
+        caiadoAvg: null,
+        zemaAvg: null,
+      };
+    }
+    seen.add(row.published);
+    return row;
+  });
+}
+
+function valuesForDomain(rows: CurveRow[], extra: boolean): Array<number | null> {
+  const out: Array<number | null> = [];
+  for (const row of rows) {
+    out.push(row.lulaPoll, row.flavioPoll, row.lulaAvg, row.flavioAvg);
+    if (extra) {
+      out.push(row.curyPoll, row.renanPoll, row.caiadoPoll, row.zemaPoll);
+    }
+  }
+  return out;
+}
+
 
 type TipRow = {
   dataKey?: string | number;
@@ -406,12 +438,16 @@ export function GrowthCurve({
   const active: RoundKey = round === "2" && canSecond ? "2" : "1";
   const data = active === "2" ? second : first;
   if (data.length < 1) return null;
+  const houseFocus = Boolean(house);
+  const plotted = houseFocus ? data : avgOnFirstOfDay(data);
   const ticks = monthTicks(YEAR_START, asOf);
   const xMin = isoDayUtc(YEAR_START);
   const xMax = isoDayUtc(asOf);
-  const domain: [number, number] = active === "2" ? [35, 52] : [0, 50];
-  const houseFocus = Boolean(house);
-  const showOthers = active === "1";
+  const showOthers = active === "1" && houseFocus;
+  const domain = paddedDomain(
+    valuesForDomain(plotted, showOthers),
+    active === "2" ? [35, 52] : [22, 52],
+  );
 
   return (
     <section id="curva" className="mb-6 scroll-mt-24">
@@ -423,9 +459,9 @@ export function GrowthCurve({
               {active === "2" ? "2º turno, Lula × Flávio" : "1º turno"}
             </p>
             <p className="mt-1 max-w-xl text-xs font-medium leading-relaxed text-cream/85">
-              {active === "2" ? "Só pesquisas que perguntaram o par. " : "Nome só entra se a casa perguntou. "}
+              {active === "2" ? "Só pesquisas que perguntaram o par. " : ""}
               {houseFocus
-                ? `Só ${house}. A linha liga as ondas desta casa.`
+                ? `Só ${house}. Nome só entra se a casa perguntou. A linha liga as ondas desta casa.`
                 : mode
                   ? `Só ${modeFilterLabel(mode).toLowerCase()}. De janeiro até hoje. Pontos são cada casa. A linha é a média.`
                   : "De janeiro até hoje. Pontos são cada casa. A linha é a média do período."}
@@ -524,16 +560,17 @@ export function GrowthCurve({
             ))}
           </div>
         ) : null}
-        <div className="mt-3 h-72 w-full min-w-0 sm:h-80">
+        <div className="mt-3 h-80 w-full min-w-0 sm:h-96">
           <ResponsiveContainer width="100%" height="100%">
-            <ComposedChart data={data} margin={{ left: 0, right: 12, top: 8, bottom: 4 }}>
+            <ComposedChart data={plotted} margin={{ left: 0, right: 8, top: 10, bottom: 4 }}>
               <CartesianGrid strokeDasharray="3 3" stroke={CHART.grid} />
               <XAxis {...XAXIS} domain={[xMin, xMax]} ticks={ticks} allowDataOverflow />
               <YAxis
                 domain={domain}
                 tick={{ fill: CHART.axis, fontSize: 12, fontWeight: 500 }}
                 unit="%"
-                width={36}
+                width={40}
+                allowDecimals={false}
                 axisLine={false}
                 tickLine={false}
               />
@@ -549,9 +586,9 @@ export function GrowthCurve({
                 legendType="none"
                 stroke="none"
                 dot={{
-                  r: houseFocus ? 3.2 : 2.4,
+                  r: houseFocus ? 3.2 : 2,
                   fill: CHART.lula,
-                  fillOpacity: houseFocus ? 0.9 : 0.42,
+                  fillOpacity: houseFocus ? 0.9 : 0.3,
                   strokeWidth: 0,
                 }}
                 activeDot={false}
@@ -563,9 +600,9 @@ export function GrowthCurve({
                 legendType="none"
                 stroke="none"
                 dot={{
-                  r: houseFocus ? 3.2 : 2.4,
+                  r: houseFocus ? 3.2 : 2,
                   fill: CHART.flavio,
-                  fillOpacity: houseFocus ? 0.9 : 0.42,
+                  fillOpacity: houseFocus ? 0.9 : 0.3,
                   strokeWidth: 0,
                 }}
                 activeDot={false}
@@ -576,7 +613,8 @@ export function GrowthCurve({
                 dataKey="lulaAvg"
                 legendType="none"
                 stroke={CHART.lula}
-                strokeWidth={3.6}
+                strokeWidth={houseFocus ? 3.2 : 4}
+                connectNulls
                 dot={false}
                 activeDot={{ r: 4, fill: CHART.lula, strokeWidth: 0 }}
                 isAnimationActive={false}
@@ -586,7 +624,8 @@ export function GrowthCurve({
                 dataKey="flavioAvg"
                 legendType="none"
                 stroke={CHART.flavio}
-                strokeWidth={3.6}
+                strokeWidth={houseFocus ? 3.2 : 4}
+                connectNulls
                 dot={false}
                 activeDot={{ r: 4, fill: CHART.flavio, strokeWidth: 0 }}
                 isAnimationActive={false}

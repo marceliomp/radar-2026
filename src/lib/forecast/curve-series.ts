@@ -130,6 +130,25 @@ export function axisTicks(values: number[], maxTicks = 6): number[] {
   return [...new Set(picked)].sort((a, b) => a - b);
 }
 
+/** Tight Y range around the race, 2pp steps, with padding. */
+export function paddedDomain(
+  values: Iterable<number | null | undefined>,
+  fallback: [number, number],
+): [number, number] {
+  const nums: number[] = [];
+  for (const value of values) {
+    if (typeof value === "number" && Number.isFinite(value)) nums.push(value);
+  }
+  if (nums.length < 2) return fallback;
+  const lo = Math.min(...nums);
+  const hi = Math.max(...nums);
+  const pad = Math.max(2, (hi - lo) * 0.14);
+  const min = Math.max(0, Math.floor((lo - pad) / 2) * 2);
+  const max = Math.min(100, Math.ceil((hi + pad) / 2) * 2);
+  if (max - min < 8) return fallback;
+  return [min, max];
+}
+
 /** First of each month from fromIso through toIso. */
 export function monthTicks(fromIso: string, toIso: string): number[] {
   const from = isoDayUtc(fromIso);
