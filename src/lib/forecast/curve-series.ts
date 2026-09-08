@@ -130,6 +130,23 @@ export function axisTicks(values: number[], maxTicks = 6): number[] {
   return [...new Set(picked)].sort((a, b) => a - b);
 }
 
+/** First of each month from fromIso through toIso. */
+export function monthTicks(fromIso: string, toIso: string): number[] {
+  const from = isoDayUtc(fromIso);
+  const to = isoDayUtc(toIso);
+  if (!Number.isFinite(from) || !Number.isFinite(to) || to < from) return [];
+  const y = Number(fromIso.slice(0, 4));
+  const m0 = Number(fromIso.slice(5, 7)) - 1;
+  if (![y, m0].every(Number.isFinite)) return [];
+  const ticks: number[] = [];
+  for (let month = 0; ; month++) {
+    const t = Date.UTC(y, m0 + month, 1);
+    if (t > to) break;
+    if (t >= from) ticks.push(t);
+  }
+  return ticks;
+}
+
 export function houseFilterKey(name: string): string {
   const resolved = resolveInstitute(name);
   if (resolved === "Genial/Quaest" || resolved === "Quaest") return "Quaest";

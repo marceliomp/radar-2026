@@ -16,11 +16,11 @@ import {
   fmtDelta,
   fmtNum,
   isoDayUtc,
-  utcMsToDayBr,
+  utcMsToMonthBr,
 } from "@/lib/format";
 import {
   asOfDayAverages,
-  axisTicks,
+  monthTicks,
   houseFilterKey,
   houseFilterOptions,
   modeFilterKey,
@@ -31,24 +31,18 @@ import {
 import { buildNationalTrend } from "@/lib/forecast/trends";
 import type { ForecastPoll } from "@/lib/forecast/engine";
 import { pollsOnDate } from "@/lib/latest-day";
+import { YEAR_START } from "@/lib/period";
 
-function timeDomain([min, max]: [number, number]): [number, number] {
-  const span = Math.max(max - min, 86_400_000);
-  const pad = span * 0.04;
-  return [min - pad, max + pad];
-}
-
-function tickDay(value: number | string) {
-  return utcMsToDayBr(Number(value));
+function tickMonth(value: number | string) {
+  return utcMsToMonthBr(Number(value));
 }
 
 const XAXIS = {
   type: "number" as const,
   dataKey: "t" as const,
-  domain: timeDomain,
-  tickFormatter: tickDay,
+  tickFormatter: tickMonth,
   interval: 0 as const,
-  minTickGap: 28,
+  minTickGap: 0,
   tick: { fill: CHART.axis, fontSize: 11, fontWeight: 500 },
   axisLine: false,
   tickLine: false,
@@ -412,7 +406,9 @@ export function GrowthCurve({
   const active: RoundKey = round === "2" && canSecond ? "2" : "1";
   const data = active === "2" ? second : first;
   if (data.length < 1) return null;
-  const ticks = axisTicks(data.map((row) => row.t));
+  const ticks = monthTicks(YEAR_START, asOf);
+  const xMin = isoDayUtc(YEAR_START);
+  const xMax = isoDayUtc(asOf);
   const domain: [number, number] = active === "2" ? [35, 52] : [0, 50];
   const houseFocus = Boolean(house);
   const showOthers = active === "1";
@@ -431,8 +427,8 @@ export function GrowthCurve({
               {houseFocus
                 ? `Só ${house}. A linha liga as ondas desta casa.`
                 : mode
-                  ? `Só ${modeFilterLabel(mode).toLowerCase()}. Pontos são cada casa. A linha é a média do período.`
-                  : "Pontos são cada casa. A linha é a média do período."}
+                  ? `Só ${modeFilterLabel(mode).toLowerCase()}. De janeiro até hoje. Pontos são cada casa. A linha é a média.`
+                  : "De janeiro até hoje. Pontos são cada casa. A linha é a média do período."}
             </p>
           </div>
           <SegGroup ariaLabel="Turno da curva">
@@ -532,7 +528,7 @@ export function GrowthCurve({
           <ResponsiveContainer width="100%" height="100%">
             <ComposedChart data={data} margin={{ left: 0, right: 12, top: 8, bottom: 4 }}>
               <CartesianGrid strokeDasharray="3 3" stroke={CHART.grid} />
-              <XAxis {...XAXIS} ticks={ticks} />
+              <XAxis {...XAXIS} domain={[xMin, xMax]} ticks={ticks} allowDataOverflow />
               <YAxis
                 domain={domain}
                 tick={{ fill: CHART.axis, fontSize: 12, fontWeight: 500 }}
@@ -595,7 +591,7 @@ export function GrowthCurve({
                 activeDot={{ r: 4, fill: CHART.flavio, strokeWidth: 0 }}
                 isAnimationActive={false}
               />
-              {showOthers
+              {showOthers && houseFocus
                 ? OTHERS.map((other) => (
                     <Line
                       key={`${other.key}-poll`}
@@ -605,9 +601,9 @@ export function GrowthCurve({
                       stroke="none"
                       connectNulls={false}
                       dot={{
-                        r: houseFocus ? 2.6 : 2,
+                        r: 2.6,
                         fill: other.color,
-                        fillOpacity: houseFocus ? 0.85 : 0.5,
+                        fillOpacity: 0.85,
                         strokeWidth: 0,
                       }}
                       activeDot={false}
@@ -623,8 +619,8 @@ export function GrowthCurve({
                       dataKey={`${other.key}Avg`}
                       legendType="none"
                       stroke={other.color}
-                      strokeWidth={3.6}
-                      strokeOpacity={0.9}
+                      strokeWidth={2}
+                      strokeOpacity={0.75}
                       connectNulls
                       dot={false}
                       activeDot={{ r: 3.5, fill: other.color, strokeWidth: 0 }}

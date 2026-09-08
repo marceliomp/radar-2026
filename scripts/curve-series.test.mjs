@@ -132,7 +132,7 @@ test("axisTicks stays chronological and never puts 24/08 after 30/08", async () 
 test("curve hover tracks the date on a vertical cursor", () => {
   const curve = readFileSync("src/features/radar/public/growth-curve.tsx", "utf8");
   assert.match(curve, /ticks=\{ticks\}/);
-  assert.match(curve, /axisTicks/);
+  assert.match(curve, /monthTicks/);
   assert.match(curve, /cursor=\{\{ stroke: CHART.axis/);
   assert.doesNotMatch(curve, /cursor=\{false\}/);
   assert.doesNotMatch(curve, /data=\{daily\}/);
@@ -249,4 +249,14 @@ test("home curve uses the slider half-life", () => {
   assert.match(curve, /asOfDayAverages\(focused, asOf, halfLifeDays, false\)/);
   assert.match(curve, /asOfDayAverages\(focused, asOf, halfLifeDays, true\)/);
   assert.match(curve, /halfLifeDays, house, mode/);
+});
+
+test("monthTicks covers January through asOf", async () => {
+  const { isoDayUtc } = await import("../src/lib/format.ts");
+  const { monthTicks } = await import("../src/lib/forecast/curve-series.ts");
+  const ticks = monthTicks("2026-01-01", "2026-09-08");
+  assert.equal(ticks[0], isoDayUtc("2026-01-01"));
+  assert.equal(ticks[1], isoDayUtc("2026-02-01"));
+  assert.equal(ticks.at(-1), isoDayUtc("2026-09-01"));
+  assert.equal(ticks.length, 9);
 });

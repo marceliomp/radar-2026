@@ -155,8 +155,10 @@ test("curve x axis is calendar time, not house names", () => {
   const curve = readFileSync("src/features/radar/public/growth-curve.tsx", "utf8");
   assert.match(curve, /type: "number"/);
   assert.match(curve, /isoDayUtc/);
-  assert.match(curve, /utcMsToDayBr/);
+  assert.match(curve, /utcMsToMonthBr/);
   assert.match(curve, /dataKey: "t"/);
+  assert.match(curve, /YEAR_START/);
+  assert.match(curve, /monthTicks/);
   assert.doesNotMatch(curve, /equidistantPreserveStart/);
   assert.doesNotMatch(curve, /angle: -40/);
   assert.doesNotMatch(curve, /dataKey: "label"/);

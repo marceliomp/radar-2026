@@ -63,5 +63,8 @@ test("curve axis keeps the calendar day in UTC", async () => {
   assert.equal(isoDayUtc("2026-09-03"), isoDayUtc("2026-09-03"));
   assert.ok(isoDayUtc("2026-09-03") > isoDayUtc("2026-08-31"));
   assert.equal(utcMsToDayBr(Number.NaN), "");
+  const { utcMsToMonthBr } = await load();
+  assert.equal(utcMsToMonthBr(isoDayUtc("2026-01-01")), "jan");
+  assert.equal(utcMsToMonthBr(isoDayUtc("2026-09-08")), "set");
   assert.ok(Number.isNaN(isoDayUtc("")));
 });

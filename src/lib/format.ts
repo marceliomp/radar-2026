@@ -88,6 +88,17 @@ export function utcMsToDayBr(ms: number): string {
   return `${d}/${m}`;
 }
 
+const MONTHS_BR = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"];
+
+/** Epoch ms → jan, fev, mar. */
+export function utcMsToMonthBr(ms: number): string {
+  const t = Number(ms);
+  if (!Number.isFinite(t)) return "";
+  const dt = new Date(t);
+  if (Number.isNaN(dt.getTime())) return "";
+  return MONTHS_BR[dt.getUTCMonth()] ?? "";
+}
+
 /** Só as datas: 30/08 a 01/09. Um dia só: 01/09. */
 export function fieldRangeLabel(start?: string | null, end?: string | null): string {
   const from = dateBr(start);
