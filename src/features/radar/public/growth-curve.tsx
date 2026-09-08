@@ -86,6 +86,10 @@ type CurveRow = {
   flavioAvg: number | null;
   lulaLine: number | null;
   flavioLine: number | null;
+  curyLine: number | null;
+  renanLine: number | null;
+  caiadoLine: number | null;
+  zemaLine: number | null;
   curyPoll: number | null;
   renanPoll: number | null;
   caiadoPoll: number | null;
@@ -110,6 +114,10 @@ function avgOnFirstOfDay(rows: CurveRow[]): CurveRow[] {
       ...row,
       lulaLine: first ? row.lulaAvg : null,
       flavioLine: first ? row.flavioAvg : null,
+      curyLine: first ? row.curyAvg : null,
+      renanLine: first ? row.renanAvg : null,
+      caiadoLine: first ? row.caiadoAvg : null,
+      zemaLine: first ? row.zemaAvg : null,
     };
   });
 }
@@ -398,6 +406,10 @@ export function GrowthCurve({
           renanAvg: key === "1" ? (house ? renanPoll : (day?.renan ?? null)) : null,
           caiadoAvg: key === "1" ? (house ? caiadoPoll : (day?.caiado ?? null)) : null,
           zemaAvg: key === "1" ? (house ? zemaPoll : (day?.zema ?? null)) : null,
+          curyLine: key === "1" ? (house ? curyPoll : (day?.cury ?? null)) : null,
+          renanLine: key === "1" ? (house ? renanPoll : (day?.renan ?? null)) : null,
+          caiadoLine: key === "1" ? (house ? caiadoPoll : (day?.caiado ?? null)) : null,
+          zemaLine: key === "1" ? (house ? zemaPoll : (day?.zema ?? null)) : null,
           sameDay: housesOnCurveDay(focused, point.published, asOf, key),
           houseFocus: Boolean(house),
         };
@@ -441,11 +453,13 @@ export function GrowthCurve({
   const ticks = monthTicks(YEAR_START, asOf);
   const xMin = isoDayUtc(YEAR_START);
   const xMax = isoDayUtc(asOf);
-  const showOthers = active === "1" && houseFocus;
-  const domain = paddedDomain(
-    valuesForDomain(plotted, showOthers),
-    active === "2" ? [35, 52] : [22, 52],
-  );
+  const showOthers = active === "1";
+  const raceFallback: [number, number] = active === "2" ? [35, 52] : [22, 52];
+  const raceDomain = paddedDomain(valuesForDomain(plotted, false), raceFallback);
+  const domain: [number, number] =
+    showOthers && !houseFocus
+      ? [0, raceDomain[1]]
+      : paddedDomain(valuesForDomain(plotted, showOthers), raceDomain);
 
   return (
     <section id="curva" className="mb-6 scroll-mt-24">
@@ -457,9 +471,9 @@ export function GrowthCurve({
               {active === "2" ? "2º turno, Lula × Flávio" : "1º turno"}
             </p>
             <p className="mt-1 max-w-xl text-xs font-medium leading-relaxed text-cream/85">
-              {active === "2" ? "Só pesquisas que perguntaram o par. " : ""}
+              {active === "2" ? "Só pesquisas que perguntaram o par. " : "Nome só entra se a casa perguntou. "}
               {houseFocus
-                ? `Só ${house}. Nome só entra se a casa perguntou. A linha liga as ondas desta casa.`
+                ? `Só ${house}. A linha liga as ondas desta casa.`
                 : mode
                   ? `Só ${modeFilterLabel(mode).toLowerCase()}. De janeiro até hoje. Pontos são cada casa. A linha é a média.`
                   : "De janeiro até hoje. Pontos são cada casa. A linha é a média do período."}
@@ -653,7 +667,7 @@ export function GrowthCurve({
                     <Line
                       key={`${other.key}-avg`}
                       type={houseFocus ? "linear" : "monotone"}
-                      dataKey={`${other.key}Avg`}
+                      dataKey={houseFocus ? `${other.key}Avg` : `${other.key}Line`}
                       legendType="none"
                       stroke={other.color}
                       strokeWidth={2}

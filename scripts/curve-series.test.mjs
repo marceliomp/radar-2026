@@ -238,7 +238,8 @@ test("asOfDayAverages does not treat a missing third name as 0", async () => {
 test("first-round curve plots the other names", () => {
   const curve = readFileSync("src/features/radar/public/growth-curve.tsx", "utf8");
   assert.match(curve, /curyAvg/);
-  assert.match(curve, /showOthers = active === "1" && houseFocus/);
+  assert.match(curve, /const showOthers = active === "1";/);
+  assert.match(curve, /showOthers && houseFocus/);
   assert.match(curve, /paddedDomain/);
   assert.match(curve, /avgOnFirstOfDay/);
   assert.match(curve, /lulaLine/);
