@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { Fragment, useMemo, useState } from "react";
 import {
   CartesianGrid,
   ComposedChart,
@@ -129,6 +129,23 @@ function valuesForDomain(rows: CurveRow[], extra: boolean): Array<number | null>
     if (extra) {
       out.push(row.curyPoll, row.renanPoll, row.caiadoPoll, row.zemaPoll);
     }
+  }
+  return out;
+}
+
+function valuesForOthers(rows: CurveRow[]): Array<number | null> {
+  const out: Array<number | null> = [];
+  for (const row of rows) {
+    out.push(
+      row.curyAvg,
+      row.renanAvg,
+      row.caiadoAvg,
+      row.zemaAvg,
+      row.curyLine,
+      row.renanLine,
+      row.caiadoLine,
+      row.zemaLine,
+    );
   }
   return out;
 }
@@ -346,6 +363,155 @@ function CurveKey({ houseFocus, showOthers }: { houseFocus: boolean; showOthers:
   );
 }
 
+function CurvePlot({
+  data,
+  domain,
+  xMin,
+  xMax,
+  ticks,
+  houseFocus,
+  kind,
+  hideX,
+  heightClass,
+}: {
+  data: CurveRow[];
+  domain: [number, number];
+  xMin: number;
+  xMax: number;
+  ticks: number[];
+  houseFocus: boolean;
+  kind: "race" | "others" | "all";
+  hideX?: boolean;
+  heightClass: string;
+}) {
+  const showRace = kind === "race" || kind === "all";
+  const drawOthersAvg = kind === "others" || kind === "all";
+  const showOtherDots = kind === "all" && houseFocus;
+  return (
+    <div className={`${heightClass} w-full min-w-0`}>
+      <ResponsiveContainer width="100%" height="100%">
+        <ComposedChart data={data} margin={{ left: 0, right: 8, top: 10, bottom: hideX ? 0 : 4 }}>
+          <CartesianGrid strokeDasharray="3 3" stroke={CHART.grid} />
+          <XAxis
+            {...XAXIS}
+            domain={[xMin, xMax]}
+            ticks={ticks}
+            allowDataOverflow
+            tick={hideX ? false : XAXIS.tick}
+            height={hideX ? 6 : XAXIS.height}
+          />
+          <YAxis
+            domain={domain}
+            tick={{ fill: CHART.axis, fontSize: 12, fontWeight: 500 }}
+            unit="%"
+            width={40}
+            allowDecimals={false}
+            axisLine={false}
+            tickLine={false}
+          />
+          <Tooltip
+            content={CurveTip}
+            cursor={{ stroke: CHART.axis, strokeWidth: 1, strokeOpacity: 0.45 }}
+            isAnimationActive={false}
+            wrapperStyle={{ pointerEvents: "none" }}
+          />
+          {showRace ? (
+            <Fragment>
+              <Line
+                type="linear"
+                dataKey="lulaPoll"
+                legendType="none"
+                stroke="none"
+                dot={{
+                  r: houseFocus ? 3.2 : 2,
+                  fill: CHART.lula,
+                  fillOpacity: houseFocus ? 0.9 : 0.3,
+                  strokeWidth: 0,
+                }}
+                activeDot={false}
+                isAnimationActive={false}
+              />
+              <Line
+                type="linear"
+                dataKey="flavioPoll"
+                legendType="none"
+                stroke="none"
+                dot={{
+                  r: houseFocus ? 3.2 : 2,
+                  fill: CHART.flavio,
+                  fillOpacity: houseFocus ? 0.9 : 0.3,
+                  strokeWidth: 0,
+                }}
+                activeDot={false}
+                isAnimationActive={false}
+              />
+              <Line
+                type={houseFocus ? "linear" : "monotone"}
+                dataKey={houseFocus ? "lulaAvg" : "lulaLine"}
+                legendType="none"
+                stroke={CHART.lula}
+                strokeWidth={houseFocus ? 3.2 : 4}
+                connectNulls
+                dot={false}
+                activeDot={{ r: 4, fill: CHART.lula, strokeWidth: 0 }}
+                isAnimationActive={false}
+              />
+              <Line
+                type={houseFocus ? "linear" : "monotone"}
+                dataKey={houseFocus ? "flavioAvg" : "flavioLine"}
+                legendType="none"
+                stroke={CHART.flavio}
+                strokeWidth={houseFocus ? 3.2 : 4}
+                connectNulls
+                dot={false}
+                activeDot={{ r: 4, fill: CHART.flavio, strokeWidth: 0 }}
+                isAnimationActive={false}
+              />
+            </Fragment>
+          ) : null}
+          {showOtherDots
+            ? OTHERS.map((other) => (
+                <Line
+                  key={`${other.key}-poll`}
+                  type="linear"
+                  dataKey={`${other.key}Poll`}
+                  legendType="none"
+                  stroke="none"
+                  connectNulls={false}
+                  dot={{
+                    r: 2.6,
+                    fill: other.color,
+                    fillOpacity: 0.85,
+                    strokeWidth: 0,
+                  }}
+                  activeDot={false}
+                  isAnimationActive={false}
+                />
+              ))
+            : null}
+          {drawOthersAvg
+            ? OTHERS.map((other) => (
+                <Line
+                  key={`${other.key}-avg`}
+                  type={houseFocus ? "linear" : "monotone"}
+                  dataKey={houseFocus ? `${other.key}Avg` : `${other.key}Line`}
+                  legendType="none"
+                  stroke={other.color}
+                  strokeWidth={2}
+                  strokeOpacity={0.85}
+                  connectNulls
+                  dot={false}
+                  activeDot={{ r: 3.5, fill: other.color, strokeWidth: 0 }}
+                  isAnimationActive={false}
+                />
+              ))
+            : null}
+        </ComposedChart>
+      </ResponsiveContainer>
+    </div>
+  );
+}
+
 export function GrowthCurve({
   polls,
   asOf,
@@ -454,12 +620,16 @@ export function GrowthCurve({
   const xMin = isoDayUtc(YEAR_START);
   const xMax = isoDayUtc(asOf);
   const showOthers = active === "1";
+  const splitOthers = showOthers && !houseFocus;
   const raceFallback: [number, number] = active === "2" ? [35, 52] : [22, 52];
   const raceDomain = paddedDomain(valuesForDomain(plotted, false), raceFallback);
-  const domain: [number, number] =
-    showOthers && !houseFocus
-      ? [0, raceDomain[1]]
-      : paddedDomain(valuesForDomain(plotted, showOthers), raceDomain);
+  const domain: [number, number] = splitOthers
+    ? raceDomain
+    : paddedDomain(valuesForDomain(plotted, showOthers), raceDomain);
+  const othersDomain: [number, number] = [
+    0,
+    paddedDomain(valuesForOthers(plotted), [0, 16])[1],
+  ];
 
   return (
     <section id="curva" className="mb-6 scroll-mt-24">
@@ -471,7 +641,7 @@ export function GrowthCurve({
               {active === "2" ? "2º turno, Lula × Flávio" : "1º turno"}
             </p>
             <p className="mt-1 max-w-xl text-xs font-medium leading-relaxed text-cream/85">
-              {active === "2" ? "Só pesquisas que perguntaram o par. " : "Nome só entra se a casa perguntou. "}
+              {active === "2" ? "Só pesquisas que perguntaram o par. " : splitOthers ? "Cima: Lula e Flávio. Baixo: os outros. " : "Nome só entra se a casa perguntou. "}
               {houseFocus
                 ? `Só ${house}. A linha liga as ondas desta casa.`
                 : mode
@@ -572,116 +742,45 @@ export function GrowthCurve({
             ))}
           </div>
         ) : null}
-        <div className="mt-3 h-80 w-full min-w-0 sm:h-96">
-          <ResponsiveContainer width="100%" height="100%">
-            <ComposedChart data={plotted} margin={{ left: 0, right: 8, top: 10, bottom: 4 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke={CHART.grid} />
-              <XAxis {...XAXIS} domain={[xMin, xMax]} ticks={ticks} allowDataOverflow />
-              <YAxis
-                domain={domain}
-                tick={{ fill: CHART.axis, fontSize: 12, fontWeight: 500 }}
-                unit="%"
-                width={40}
-                allowDecimals={false}
-                axisLine={false}
-                tickLine={false}
-              />
-              <Tooltip
-                content={CurveTip}
-                cursor={{ stroke: CHART.axis, strokeWidth: 1, strokeOpacity: 0.45 }}
-                isAnimationActive={false}
-                wrapperStyle={{ pointerEvents: "none" }}
-              />
-              <Line
-                type="linear"
-                dataKey="lulaPoll"
-                legendType="none"
-                stroke="none"
-                dot={{
-                  r: houseFocus ? 3.2 : 2,
-                  fill: CHART.lula,
-                  fillOpacity: houseFocus ? 0.9 : 0.3,
-                  strokeWidth: 0,
-                }}
-                activeDot={false}
-                isAnimationActive={false}
-              />
-              <Line
-                type="linear"
-                dataKey="flavioPoll"
-                legendType="none"
-                stroke="none"
-                dot={{
-                  r: houseFocus ? 3.2 : 2,
-                  fill: CHART.flavio,
-                  fillOpacity: houseFocus ? 0.9 : 0.3,
-                  strokeWidth: 0,
-                }}
-                activeDot={false}
-                isAnimationActive={false}
-              />
-              <Line
-                type={houseFocus ? "linear" : "monotone"}
-                dataKey={houseFocus ? "lulaAvg" : "lulaLine"}
-                legendType="none"
-                stroke={CHART.lula}
-                strokeWidth={houseFocus ? 3.2 : 4}
-                connectNulls
-                dot={false}
-                activeDot={{ r: 4, fill: CHART.lula, strokeWidth: 0 }}
-                isAnimationActive={false}
-              />
-              <Line
-                type={houseFocus ? "linear" : "monotone"}
-                dataKey={houseFocus ? "flavioAvg" : "flavioLine"}
-                legendType="none"
-                stroke={CHART.flavio}
-                strokeWidth={houseFocus ? 3.2 : 4}
-                connectNulls
-                dot={false}
-                activeDot={{ r: 4, fill: CHART.flavio, strokeWidth: 0 }}
-                isAnimationActive={false}
-              />
-              {showOthers && houseFocus
-                ? OTHERS.map((other) => (
-                    <Line
-                      key={`${other.key}-poll`}
-                      type="linear"
-                      dataKey={`${other.key}Poll`}
-                      legendType="none"
-                      stroke="none"
-                      connectNulls={false}
-                      dot={{
-                        r: 2.6,
-                        fill: other.color,
-                        fillOpacity: 0.85,
-                        strokeWidth: 0,
-                      }}
-                      activeDot={false}
-                      isAnimationActive={false}
-                    />
-                  ))
-                : null}
-              {showOthers
-                ? OTHERS.map((other) => (
-                    <Line
-                      key={`${other.key}-avg`}
-                      type={houseFocus ? "linear" : "monotone"}
-                      dataKey={houseFocus ? `${other.key}Avg` : `${other.key}Line`}
-                      legendType="none"
-                      stroke={other.color}
-                      strokeWidth={2}
-                      strokeOpacity={0.75}
-                      connectNulls
-                      dot={false}
-                      activeDot={{ r: 3.5, fill: other.color, strokeWidth: 0 }}
-                      isAnimationActive={false}
-                    />
-                  ))
-                : null}
-            </ComposedChart>
-          </ResponsiveContainer>
-        </div>
+        {splitOthers ? (
+          <div className="mt-3 flex flex-col gap-2">
+            <CurvePlot
+              data={plotted}
+              domain={raceDomain}
+              xMin={xMin}
+              xMax={xMax}
+              ticks={ticks}
+              houseFocus={houseFocus}
+              kind="race"
+              hideX
+              heightClass="h-56 sm:h-72"
+            />
+            <p className="text-[11px] font-medium text-cream/70">Os outros</p>
+            <CurvePlot
+              data={plotted}
+              domain={othersDomain}
+              xMin={xMin}
+              xMax={xMax}
+              ticks={ticks}
+              houseFocus={houseFocus}
+              kind="others"
+              heightClass="h-36 sm:h-44"
+            />
+          </div>
+        ) : (
+          <div className="mt-3">
+            <CurvePlot
+              data={plotted}
+              domain={domain}
+              xMin={xMin}
+              xMax={xMax}
+              ticks={ticks}
+              houseFocus={houseFocus}
+              kind={showOthers ? "all" : "race"}
+              heightClass="h-80 sm:h-96"
+            />
+          </div>
+        )}
       </div>
     </section>
   );

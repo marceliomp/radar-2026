@@ -239,7 +239,9 @@ test("first-round curve plots the other names", () => {
   const curve = readFileSync("src/features/radar/public/growth-curve.tsx", "utf8");
   assert.match(curve, /curyAvg/);
   assert.match(curve, /const showOthers = active === "1";/);
-  assert.match(curve, /showOthers && houseFocus/);
+  assert.match(curve, /splitOthers/);
+  assert.match(curve, /kind="others"/);
+  assert.match(curve, /Os outros/);
   assert.match(curve, /paddedDomain/);
   assert.match(curve, /avgOnFirstOfDay/);
   assert.match(curve, /lulaLine/);

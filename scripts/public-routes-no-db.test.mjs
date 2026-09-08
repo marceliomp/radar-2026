@@ -75,8 +75,9 @@ test("hero states chance not vote intention", () => {
 
 test("curve key sits above the chart", () => {
   const curve = readFileSync("src/features/radar/public/growth-curve.tsx", "utf8");
-  const keyAt = curve.indexOf("<CurveKey");
-  const chartAt = curve.indexOf("<ResponsiveContainer");
+  const render = curve.slice(curve.indexOf("export function GrowthCurve"));
+  const keyAt = render.indexOf("<CurveKey");
+  const chartAt = render.indexOf("<CurvePlot");
   assert.ok(keyAt >= 0 && chartAt >= 0 && keyAt < chartAt, "legend must sit above the chart");
 });
 
