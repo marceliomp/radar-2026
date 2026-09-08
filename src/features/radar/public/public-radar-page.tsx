@@ -319,12 +319,17 @@ export function PublicRadarPage() {
           hl={halfLife}
           newestId={latestDayPolls.map((poll) => poll.id).sort().join("|")}
         />
-        <div className="hook-rail">
-          <a href="#media" className="hook-link">Intenção</a>
-          <a href="#novo" className="hook-link">O que entrou</a>
-          <a href="#curva" className="hook-link">A curva</a>
-          <a href="#mapa" className="hook-link">O mapa</a>
-          <a href="#metodo" className="hook-link">Método</a>
+        <div className="hero-share">
+          <ShareBar
+            compact
+            asOf={fmtDateBr(config.asOf)}
+            lula1={first.lula.mean}
+            flavio1={first.flavio.mean}
+            lula2={second?.lula.mean ?? 0}
+            flavio2={second?.flavio.mean ?? 0}
+            pLula={probs.lulaWinsElection}
+            pFlavio={probs.flavioWinsElection}
+          />
         </div>
       </section>
 
@@ -361,15 +366,6 @@ export function PublicRadarPage() {
               <span className="inline-flex items-center gap-1.5"><CalendarDays className="size-4 shrink-0 text-primary" />Atualizado {fmtDateBr(config.asOf)}</span>
               <span className="inline-flex items-center gap-1.5"><Radio className="size-4 shrink-0 text-primary" />{rows.length} no arquivo · recência {halfLife}d</span>
             </div>
-            <ShareBar
-              asOf={fmtDateBr(config.asOf)}
-              lula1={first.lula.mean}
-              flavio1={first.flavio.mean}
-              lula2={second?.lula.mean ?? 0}
-              flavio2={second?.flavio.mean ?? 0}
-              pLula={probs.lulaWinsElection}
-              pFlavio={probs.flavioWinsElection}
-            />
           </div>
         </section>
 

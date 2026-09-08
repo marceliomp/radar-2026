@@ -12,6 +12,7 @@ type Props = {
   flavio2: number;
   pLula: number;
   pFlavio: number;
+  compact?: boolean;
 };
 
 export function sharePayload({
@@ -36,6 +37,13 @@ export function sharePayload({
 export function ShareBar(props: Props) {
   const [copied, setCopied] = useState(false);
   const text = sharePayload(props);
+  const compact = Boolean(props.compact);
+  const shell = compact
+    ? "flex flex-wrap items-center gap-2"
+    : "grid grid-cols-1 gap-2 sm:flex sm:flex-wrap";
+  const btn = compact
+    ? "inline-flex min-h-10 items-center justify-center gap-2 rounded-full px-3.5 py-1.5 text-xs font-semibold sm:min-h-11 sm:px-4 sm:text-sm"
+    : "inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-full px-4 py-2 text-sm font-semibold sm:w-auto";
 
   function tweet() {
     const u =
@@ -60,18 +68,18 @@ export function ShareBar(props: Props) {
   }
 
   return (
-    <div className="grid grid-cols-1 gap-2 sm:flex sm:flex-wrap">
+    <div className={shell}>
       <button
         type="button"
         onClick={whatsapp}
-        className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-full bg-primary px-4 py-2 text-sm font-semibold text-ink sm:w-auto"
+        className={`${btn} bg-primary text-ink`}
       >
         Mandar no WhatsApp
       </button>
       <button
         type="button"
         onClick={copy}
-        className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-full border border-border bg-surface-2 px-4 py-2 text-sm font-semibold text-fg sm:w-auto"
+        className={`${btn} border border-border bg-surface-2 text-fg`}
       >
         {copied ? <Check className="size-4 text-primary" /> : <Copy className="size-4" />}
         {copied ? "Copiado" : "Copiar texto"}
@@ -79,7 +87,7 @@ export function ShareBar(props: Props) {
       <button
         type="button"
         onClick={tweet}
-        className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-full border border-border bg-surface-2 px-4 py-2 text-sm font-semibold text-fg sm:w-auto"
+        className={`${btn} border border-border bg-surface-2 text-fg`}
       >
         Postar no X
       </button>

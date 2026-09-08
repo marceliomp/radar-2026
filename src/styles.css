@@ -415,6 +415,12 @@
     transform: translateX(-100%);
   }
 
+  .hero-share {
+    padding: 0.55rem 1rem 0.85rem;
+    border-top: 1px solid var(--color-border);
+    background: color-mix(in oklab, var(--color-bg) 88%, transparent);
+  }
+
   .hero-mast .hook-rail {
     position: static;
     padding: 0.55rem 1rem 0.75rem;
@@ -492,7 +498,7 @@
 
     .hero-col {
       min-height: 52dvh;
-      padding: 5.5rem 2rem 7.25rem;
+      padding: 5.5rem 2rem 8.75rem;
     }
 
     .hero-col-l {
@@ -526,7 +532,7 @@
     .hero-fresh {
       position: absolute;
       right: 0;
-      bottom: 4.15rem;
+      bottom: 6.1rem;
       left: 0;
       z-index: 10;
       padding-inline: 2rem;
@@ -535,10 +541,19 @@
     .hero-pulse {
       position: absolute;
       right: 0;
-      bottom: 2.55rem;
+      bottom: 4.55rem;
       left: 0;
       z-index: 10;
       padding-inline: 2rem;
+    }
+
+    .hero-share {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 10;
+      padding: 0.7rem 1.5rem 0.9rem;
     }
 
     .hero-mast .hook-rail {

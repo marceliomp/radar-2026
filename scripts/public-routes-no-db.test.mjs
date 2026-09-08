@@ -50,7 +50,7 @@ test("capa mounts the national growth curve", () => {
   const page = readFileSync("src/features/radar/public/public-radar-page.tsx", "utf8");
   const curve = readFileSync("src/features/radar/public/growth-curve.tsx", "utf8");
   assert.match(page, /GrowthCurve/);
-  assert.match(page, /#curva/);
+  assert.match(curve, /id="curva"/);
   assert.match(curve, /seg-btn/);
   assert.match(curve, /Média · pesquisas novas pesam mais/);
   assert.match(curve, /ponto: nesta pesquisa/);
@@ -203,6 +203,17 @@ test("governor hero is intention, not a 99,5% win number glued to the ballot", (
   assert.doesNotMatch(results, /2º \{fmtProb\(result\.goesToSecond\)\}/);
 });
 
+
+test("home share sits on the hero under the score", () => {
+  const page = readFileSync("src/features/radar/public/public-radar-page.tsx", "utf8");
+  const scoreAt = page.indexOf("hero-score");
+  const shareAt = page.indexOf("<ShareBar");
+  const mainAt = page.indexOf('id="conteudo"');
+  assert.ok(scoreAt >= 0 && shareAt > scoreAt && shareAt < mainAt, "share must sit on the hero");
+  assert.equal(page.split("<ShareBar").length - 1, 1, "one share on the public home");
+  assert.match(page, /compact/);
+  assert.doesNotMatch(page, /hook-rail/);
+});
 test("share bar is WhatsApp first and pastes brasilradar.com.br", () => {
   const bar = readFileSync("src/components/share-bar.tsx", "utf8");
   const root = readFileSync("src/routes/__root.tsx", "utf8");
