@@ -1,12 +1,16 @@
 import { useNavigate, useSearch } from "@tanstack/react-router";
+import { todayAsOf } from "@/lib/forecast/engine";
+import { clampHalfLife, yearToDateDays } from "@/lib/period";
 
-export const HL_MIN = 5;
-export const HL_MAX = 40;
-export const DEFAULT_HALF_LIFE = 14;
+export {
+  clampHalfLife,
+  HL_MAX,
+  HL_MIN,
+  YEAR_START,
+  yearToDateDays,
+} from "@/lib/period";
 
-export function clampHalfLife(n: number): number {
-  return Math.round(Math.min(HL_MAX, Math.max(HL_MIN, n)));
-}
+export const DEFAULT_HALF_LIFE = yearToDateDays(todayAsOf());
 
 export function parseHalfLifeParam(raw: unknown): number | undefined {
   if (typeof raw === "number" && Number.isFinite(raw)) {

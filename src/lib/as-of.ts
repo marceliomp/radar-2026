@@ -2,7 +2,7 @@ import { useNavigate, useSearch } from "@tanstack/react-router";
 import { todayAsOf } from "@/lib/forecast/engine";
 import { parseHalfLifeSearch } from "@/lib/half-life";
 
-export const ASOF_MIN = "2026-06-01";
+export const ASOF_MIN = "2026-01-01";
 const ISO = /^\d{4}-\d{2}-\d{2}$/;
 
 export function parseAsOfParam(raw: unknown): string | undefined {

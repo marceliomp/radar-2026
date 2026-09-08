@@ -27,7 +27,7 @@ export function HalfLifeSlider({ id }: { id?: string }) {
       />
       <div className="hl-ends">
         <span>{HL_MIN}d só o recente</span>
-        <span>{HL_MAX}d período longo</span>
+        <span>desde janeiro</span>
       </div>
     </div>
   );
