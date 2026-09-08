@@ -2633,5 +2633,1572 @@
         "bPct": 39
       }
     ]
+  },
+  {
+    "id": "quaest-01-11-00835",
+    "institute": "Genial/Quaest",
+    "date": "2026-01-14",
+    "fieldStart": "2026-01-08",
+    "fieldEnd": "2026-01-11",
+    "sample": 2004,
+    "moe": 2,
+    "mode": "presencial",
+    "national": true,
+    "firstRound": {
+      "lula": 38,
+      "flavio": 31,
+      "renan": 2,
+      "caiado": 5,
+      "zema": 5
+    },
+    "notes": "Wikipedia 1T. TSE BR-00835/2026. Sem parser CNN.",
+    "source": {
+      "tseProtocol": "BR-00835/2026",
+      "url": "https://g1.globo.com/politica/noticia/2026/01/14/quaest-cenarios-1o-turno-janeiro.ghtml?utm_source=twitter&utm_medium=social&utm_campaign=g1",
+      "publisher": "Wikipedia",
+      "publishedAt": "2026-01-14",
+      "capturedAt": "2026-09-08T12:22:59.000Z"
+    },
+    "secondRound": {
+      "lula": 45,
+      "flavio": 38
+    }
+  },
+  {
+    "id": "meio-ideia-01-12",
+    "institute": "Meio/Ideia",
+    "date": "2026-01-13",
+    "fieldStart": "2026-01-08",
+    "fieldEnd": "2026-01-12",
+    "sample": 2000,
+    "moe": 2.2,
+    "mode": "presencial",
+    "national": true,
+    "firstRound": {
+      "lula": 39.6,
+      "flavio": 27.6,
+      "renan": 0.7,
+      "caiado": 5.5,
+      "zema": 5.4
+    },
+    "notes": "Wikipedia 1T jan-ago 2026. Cruzado com TSE pending. Sem parser CNN.",
+    "source": {
+      "tseProtocol": null,
+      "url": "https://www.cnnbrasil.com.br/blogs/iuri-pitta/eleicoes/meio-ideia-lula-lidera-cenarios-de-1o-turno-e-empata-com-tarcisio-no-2o/",
+      "publisher": "Wikipedia",
+      "publishedAt": "2026-01-13",
+      "capturedAt": "2026-09-08T12:22:59.000Z"
+    },
+    "secondRound": {
+      "lula": 46.2,
+      "flavio": 36
+    }
+  },
+  {
+    "id": "futura-apex-01-19",
+    "institute": "Futura/Apex",
+    "date": "2026-01-22",
+    "fieldStart": "2026-01-15",
+    "fieldEnd": "2026-01-19",
+    "sample": 2000,
+    "moe": 2.2,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 38.7,
+      "flavio": 43.8,
+      "renan": 2.8
+    },
+    "notes": "Wikipedia 1T jan-ago 2026. Cruzado com TSE pending. Sem parser CNN.",
+    "source": {
+      "tseProtocol": null,
+      "url": "https://www.cnnbrasil.com.br/eleicoes/apex-futura-lula-e-flavio-lideram-cenarios-de-1o-turno/",
+      "publisher": "Wikipedia",
+      "publishedAt": "2026-01-22",
+      "capturedAt": "2026-09-08T12:22:59.000Z"
+    },
+    "secondRound": {
+      "lula": 41.9,
+      "flavio": 48.1
+    }
+  },
+  {
+    "id": "atlas-01-20-02804",
+    "institute": "AtlasIntel",
+    "date": "2026-01-21",
+    "fieldStart": "2026-01-15",
+    "fieldEnd": "2026-01-20",
+    "sample": 5418,
+    "moe": 1,
+    "mode": "online",
+    "national": true,
+    "firstRound": {
+      "lula": 48.8,
+      "flavio": 35,
+      "renan": 3.4,
+      "caiado": 4.3,
+      "zema": 2.8
+    },
+    "notes": "Wikipedia 1T. TSE BR-02804/2026. Sem parser CNN.",
+    "source": {
+      "tseProtocol": "BR-02804/2026",
+      "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/pesquisa-atlasintel-presidente-janeiro-2026/",
+      "publisher": "Wikipedia",
+      "publishedAt": "2026-01-21",
+      "capturedAt": "2026-09-08T12:22:59.000Z"
+    },
+    "secondRound": {
+      "lula": 49,
+      "flavio": 45
+    }
+  },
+  {
+    "id": "gerp-02-02-04519",
+    "institute": "Gerp",
+    "date": "2026-02-04",
+    "fieldStart": "2026-01-28",
+    "fieldEnd": "2026-02-02",
+    "sample": 2000,
+    "moe": 2.24,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 39,
+      "flavio": 35,
+      "renan": 0,
+      "caiado": 2,
+      "zema": 2
+    },
+    "notes": "Wikipedia 1T. TSE BR-04519/2026. Sem parser CNN.",
+    "source": {
+      "tseProtocol": "BR-04519/2026",
+      "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/pesquisa-instituto-gerp-presidente-da-republica-fevereiro-2026/",
+      "publisher": "Wikipedia",
+      "publishedAt": "2026-02-04",
+      "capturedAt": "2026-09-08T12:22:59.000Z"
+    },
+    "secondRound": {
+      "lula": 45,
+      "flavio": 45
+    }
+  },
+  {
+    "id": "meio-ideia-02-02",
+    "institute": "Meio/Ideia",
+    "date": "2026-02-04",
+    "fieldStart": "2026-01-30",
+    "fieldEnd": "2026-02-02",
+    "sample": 1500,
+    "moe": 2.5,
+    "mode": "presencial",
+    "national": true,
+    "firstRound": {
+      "lula": 39.5,
+      "flavio": 33,
+      "renan": 0.7,
+      "caiado": 5.1,
+      "zema": 6
+    },
+    "notes": "Wikipedia 1T jan-ago 2026. Cruzado com TSE pending. Sem parser CNN.",
+    "source": {
+      "tseProtocol": null,
+      "url": "https://www.poder360.com.br/poder-eleicoes/lula-lidera-em-5-de-7-cenarios-no-1o-turno-diz-pesquisa/",
+      "publisher": "Wikipedia",
+      "publishedAt": "2026-02-04",
+      "capturedAt": "2026-09-08T12:22:59.000Z"
+    },
+    "secondRound": {
+      "lula": 45.8,
+      "flavio": 41.1
+    }
+  },
+  {
+    "id": "futura-apex-02-07",
+    "institute": "Futura/Apex",
+    "date": "2026-02-10",
+    "fieldStart": "2026-02-03",
+    "fieldEnd": "2026-02-07",
+    "sample": 2000,
+    "moe": 2.2,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 36.7,
+      "flavio": 34.2,
+      "renan": 3.2,
+      "zema": 4
+    },
+    "notes": "Wikipedia 1T jan-ago 2026. Cruzado com TSE pending. Sem parser CNN.",
+    "source": {
+      "tseProtocol": null,
+      "url": "https://exame.com/brasil/flavio-tem-372-e-lula-359-no-1o-turno-diz-futura/",
+      "publisher": "Wikipedia",
+      "publishedAt": "2026-02-10",
+      "capturedAt": "2026-09-08T12:22:59.000Z"
+    },
+    "secondRound": {
+      "lula": 42.4,
+      "flavio": 48.2
+    }
+  },
+  {
+    "id": "quaest-02-09-00249",
+    "institute": "Genial/Quaest",
+    "date": "2026-02-11",
+    "fieldStart": "2026-02-05",
+    "fieldEnd": "2026-02-09",
+    "sample": 2004,
+    "moe": 2,
+    "mode": "presencial",
+    "national": true,
+    "firstRound": {
+      "lula": 37,
+      "flavio": 33,
+      "renan": 2
+    },
+    "notes": "Wikipedia 1T. TSE BR-00249/2026. Sem parser CNN.",
+    "source": {
+      "tseProtocol": "BR-00249/2026",
+      "url": "https://exame.com/brasil/no-1o-turno-lula-tem-35-e-flavio-bolsonaro-29-diz-genial-quaest/",
+      "publisher": "Wikipedia",
+      "publishedAt": "2026-02-11",
+      "capturedAt": "2026-09-08T12:22:59.000Z"
+    },
+    "secondRound": {
+      "lula": 43,
+      "flavio": 38
+    }
+  },
+  {
+    "id": "atlas-02-24-07600",
+    "institute": "AtlasIntel",
+    "date": "2026-02-25",
+    "fieldStart": "2026-02-19",
+    "fieldEnd": "2026-02-24",
+    "sample": 4986,
+    "moe": 1,
+    "mode": "online",
+    "national": true,
+    "firstRound": {
+      "lula": 47.1,
+      "flavio": 33.1,
+      "renan": 3.3,
+      "caiado": 4.1,
+      "zema": 1.5
+    },
+    "notes": "Wikipedia 1T. TSE BR-07600/2026. Sem parser CNN.",
+    "source": {
+      "tseProtocol": "BR-07600/2026",
+      "url": "https://exame.com/brasil/no-1o-turno-lula-tem-45-e-flavio-379-diz-atlasintel/",
+      "publisher": "Wikipedia",
+      "publishedAt": "2026-02-25",
+      "capturedAt": "2026-09-08T12:22:59.000Z"
+    },
+    "secondRound": {
+      "lula": 46.2,
+      "flavio": 46.3
+    }
+  },
+  {
+    "id": "datafolha-03-05-03715",
+    "institute": "Datafolha",
+    "date": "2026-03-07",
+    "fieldStart": "2026-03-03",
+    "fieldEnd": "2026-03-05",
+    "sample": 2004,
+    "moe": 2,
+    "mode": "presencial",
+    "national": true,
+    "firstRound": {
+      "lula": 38,
+      "flavio": 32,
+      "renan": 3,
+      "zema": 4
+    },
+    "notes": "Wikipedia 1T. TSE BR-03715/2026. Sem parser CNN.",
+    "source": {
+      "tseProtocol": "BR-03715/2026",
+      "url": "https://g1.globo.com/politica/eleicoes/2026/noticia/2026/03/07/datafolha-lula-tem-46percent-e-flavio-bolsonaro-43percent-das-intencoes-de-voto-no-2o-turno-diz-pesquisa.ghtml",
+      "publisher": "Wikipedia",
+      "publishedAt": "2026-03-07",
+      "capturedAt": "2026-09-08T12:22:59.000Z"
+    },
+    "secondRound": {
+      "lula": 46,
+      "flavio": 43
+    }
+  },
+  {
+    "id": "futura-apex-03-06",
+    "institute": "Futura/Apex",
+    "date": "2026-03-11",
+    "fieldStart": "2026-03-02",
+    "fieldEnd": "2026-03-06",
+    "sample": 2000,
+    "moe": 2.2,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 35.2,
+      "flavio": 41.2,
+      "renan": 3.8
+    },
+    "notes": "Wikipedia 1T jan-ago 2026. Cruzado com TSE pending. Sem parser CNN.",
+    "source": {
+      "tseProtocol": null,
+      "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/futura-inteligencia-presidente-marco-2026/",
+      "publisher": "Wikipedia",
+      "publishedAt": "2026-03-11",
+      "capturedAt": "2026-09-08T12:22:59.000Z"
+    },
+    "secondRound": {
+      "lula": 40.5,
+      "flavio": 48.8
+    }
+  },
+  {
+    "id": "quaest-03-09-05809",
+    "institute": "Genial/Quaest",
+    "date": "2026-03-11",
+    "fieldStart": "2026-03-06",
+    "fieldEnd": "2026-03-09",
+    "sample": 2004,
+    "moe": 2,
+    "mode": "presencial",
+    "national": true,
+    "firstRound": {
+      "lula": 36,
+      "flavio": 35,
+      "renan": 2
+    },
+    "notes": "Wikipedia 1T. TSE BR-05809/2026. Sem parser CNN.",
+    "source": {
+      "tseProtocol": "BR-05809/2026",
+      "url": "https://www.cnnbrasil.com.br/eleicoes/quaest-lula-e-flavio-empatam-em-maioria-de-cenarios-de-1o-turno/",
+      "publisher": "Wikipedia",
+      "publishedAt": "2026-03-11",
+      "capturedAt": "2026-09-08T12:22:59.000Z"
+    },
+    "secondRound": {
+      "lula": 41,
+      "flavio": 41
+    }
+  },
+  {
+    "id": "meio-ideia-03-10",
+    "institute": "Meio/Ideia",
+    "date": "2026-03-11",
+    "fieldStart": "2026-03-06",
+    "fieldEnd": "2026-03-10",
+    "sample": 1500,
+    "moe": 2.5,
+    "mode": "presencial",
+    "national": true,
+    "firstRound": {
+      "lula": 40,
+      "flavio": 35,
+      "renan": 2,
+      "caiado": 5,
+      "zema": 5
+    },
+    "notes": "Wikipedia 1T jan-ago 2026. Cruzado com TSE pending. Sem parser CNN.",
+    "source": {
+      "tseProtocol": null,
+      "url": "https://www.poder360.com.br/poder-eleicoes/lula-empata-com-flavio-e-tarcisio-no-2o-turno-diz-meio-ideia/",
+      "publisher": "Wikipedia",
+      "publishedAt": "2026-03-11",
+      "capturedAt": "2026-09-08T12:22:59.000Z"
+    },
+    "secondRound": {
+      "lula": 47,
+      "flavio": 45
+    }
+  },
+  {
+    "id": "atlas-03-23-04227",
+    "institute": "AtlasIntel",
+    "date": "2026-03-25",
+    "fieldStart": "2026-03-18",
+    "fieldEnd": "2026-03-23",
+    "sample": 5028,
+    "moe": 1,
+    "mode": "online",
+    "national": true,
+    "firstRound": {
+      "lula": 45.7,
+      "flavio": 35.8,
+      "renan": 4.3,
+      "caiado": 2.8,
+      "zema": 1.6
+    },
+    "notes": "Wikipedia 1T. TSE BR-04227/2026. Sem parser CNN.",
+    "source": {
+      "tseProtocol": "BR-04227/2026",
+      "url": "https://www.poder360.com.br/poder-pesquisas/lula-lidera-em-todos-os-cenarios-de-1o-turno-diz-atlasintel/",
+      "publisher": "Wikipedia",
+      "publishedAt": "2026-03-25",
+      "capturedAt": "2026-09-08T12:22:59.000Z"
+    },
+    "secondRound": {
+      "lula": 46.6,
+      "flavio": 47.6
+    }
+  },
+  {
+    "id": "gerp-03-25-02846",
+    "institute": "Gerp",
+    "date": "2026-03-27",
+    "fieldStart": "2026-03-20",
+    "fieldEnd": "2026-03-25",
+    "sample": 2000,
+    "moe": 2.24,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 38,
+      "flavio": 40,
+      "renan": 1,
+      "zema": 5
+    },
+    "notes": "Wikipedia 1T. TSE BR-02846/2026. Sem parser CNN.",
+    "source": {
+      "tseProtocol": "BR-02846/2026",
+      "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/gerp-presidente-marco-2026/",
+      "publisher": "Wikipedia",
+      "publishedAt": "2026-03-27",
+      "capturedAt": "2026-09-08T12:22:59.000Z"
+    },
+    "secondRound": {
+      "lula": 45,
+      "flavio": 48
+    }
+  },
+  {
+    "id": "nexus-btg-03-29-07875",
+    "institute": "Nexus/BTG",
+    "date": "2026-03-30",
+    "fieldStart": "2026-03-27",
+    "fieldEnd": "2026-03-29",
+    "sample": 2000,
+    "moe": 2,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 42,
+      "flavio": 39,
+      "renan": 3,
+      "zema": 6
+    },
+    "notes": "Wikipedia 1T. TSE BR-07875/2026. Sem parser CNN.",
+    "source": {
+      "tseProtocol": "BR-07875/2026",
+      "url": "https://noticias.uol.com.br/ultimas-noticias/agencia-estado/2026/03/30/btgnexus-lula-e-flavio-bolsonaro-empatam-em-46-em-eventual-2-turno-da-corrida-presidencial.htm",
+      "publisher": "Wikipedia",
+      "publishedAt": "2026-03-30",
+      "capturedAt": "2026-09-08T12:22:59.000Z"
+    },
+    "secondRound": {
+      "lula": 46,
+      "flavio": 46
+    }
+  },
+  {
+    "id": "meio-ideia-04-07",
+    "institute": "Meio/Ideia",
+    "date": "2026-04-07",
+    "fieldStart": "2026-04-03",
+    "fieldEnd": "2026-04-07",
+    "sample": 1500,
+    "moe": 2.5,
+    "mode": "presencial",
+    "national": true,
+    "firstRound": {
+      "lula": 40.4,
+      "flavio": 37,
+      "renan": 3,
+      "caiado": 6.5,
+      "zema": 3
+    },
+    "notes": "Wikipedia 1T jan-ago 2026. Cruzado com TSE pending. Sem parser CNN.",
+    "source": {
+      "tseProtocol": null,
+      "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/meio-ideia-pesquisa-presidente-abril-2026/",
+      "publisher": "Wikipedia",
+      "publishedAt": "2026-04-07",
+      "capturedAt": "2026-09-08T12:22:59.000Z"
+    },
+    "secondRound": {
+      "lula": 45.5,
+      "flavio": 45.8
+    }
+  },
+  {
+    "id": "datafolha-04-09-03770",
+    "institute": "Datafolha",
+    "date": "2026-04-11",
+    "fieldStart": "2026-04-07",
+    "fieldEnd": "2026-04-09",
+    "sample": 2004,
+    "moe": 2,
+    "mode": "presencial",
+    "national": true,
+    "firstRound": {
+      "lula": 39,
+      "flavio": 35,
+      "renan": 2,
+      "caiado": 5,
+      "zema": 4
+    },
+    "notes": "Wikipedia 1T. TSE BR-03770/2026. Sem parser CNN.",
+    "source": {
+      "tseProtocol": "BR-03770/2026",
+      "url": "https://www1.folha.uol.com.br/poder/2026/04/datafolha-lula-perde-vantagem-e-empata-com-flavio-caiado-e-zema-no-2o-turno.shtml",
+      "publisher": "Wikipedia",
+      "publishedAt": "2026-04-11",
+      "capturedAt": "2026-09-08T12:22:59.000Z"
+    },
+    "secondRound": {
+      "lula": 45,
+      "flavio": 46
+    }
+  },
+  {
+    "id": "futura-apex-04-11",
+    "institute": "Futura/Apex",
+    "date": "2026-04-14",
+    "fieldStart": "2026-04-07",
+    "fieldEnd": "2026-04-11",
+    "sample": 2000,
+    "moe": 2.2,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 38.4,
+      "flavio": 38.2,
+      "cury": 1.9,
+      "renan": 2,
+      "caiado": 6
+    },
+    "notes": "Wikipedia 1T jan-ago 2026. Cruzado com TSE pending. Sem parser CNN.",
+    "source": {
+      "tseProtocol": null,
+      "url": "https://www.cnnbrasil.com.br/eleicoes/futura-apex-lula-e-flavio-empatam-em-cenarios-de-1o-turno/",
+      "publisher": "Wikipedia",
+      "publishedAt": "2026-04-14",
+      "capturedAt": "2026-09-08T12:22:59.000Z"
+    },
+    "secondRound": {
+      "lula": 42.6,
+      "flavio": 48
+    }
+  },
+  {
+    "id": "cnt-mda-04-12",
+    "institute": "CNT/MDA",
+    "date": "2026-04-14",
+    "fieldStart": "2026-04-08",
+    "fieldEnd": "2026-04-12",
+    "sample": 2002,
+    "moe": 2.2,
+    "mode": "presencial",
+    "national": true,
+    "firstRound": {
+      "lula": 39.2,
+      "flavio": 30.2,
+      "renan": 1.8,
+      "caiado": 4.6,
+      "zema": 3.3
+    },
+    "notes": "Wikipedia 1T jan-ago 2026. Cruzado com TSE pending. Sem parser CNN.",
+    "source": {
+      "tseProtocol": null,
+      "url": "https://www.cartacapital.com.br/politica/lula-lidera-a-disputa-contra-flavio-bolsonaro-no-1o-e-2o-turnos-mostra-pesquisa/",
+      "publisher": "Wikipedia",
+      "publishedAt": "2026-04-14",
+      "capturedAt": "2026-09-08T12:22:59.000Z"
+    },
+    "secondRound": {
+      "lula": 44.9,
+      "flavio": 40.2
+    }
+  },
+  {
+    "id": "quaest-04-13-09285",
+    "institute": "Genial/Quaest",
+    "date": "2026-04-15",
+    "fieldStart": "2026-04-09",
+    "fieldEnd": "2026-04-13",
+    "sample": 2004,
+    "moe": 2,
+    "mode": "presencial",
+    "national": true,
+    "firstRound": {
+      "lula": 37,
+      "flavio": 32,
+      "cury": 2,
+      "renan": 2,
+      "caiado": 6,
+      "zema": 3
+    },
+    "notes": "Wikipedia 1T. TSE BR-09285/2026. Sem parser CNN.",
+    "source": {
+      "tseProtocol": "BR-09285/2026",
+      "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/quaest-presidente-abril-2026/",
+      "publisher": "Wikipedia",
+      "publishedAt": "2026-04-15",
+      "capturedAt": "2026-09-08T12:22:59.000Z"
+    },
+    "secondRound": {
+      "lula": 40,
+      "flavio": 42
+    }
+  },
+  {
+    "id": "nexus-btg-04-26-01075",
+    "institute": "Nexus/BTG",
+    "date": "2026-04-27",
+    "fieldStart": "2026-04-24",
+    "fieldEnd": "2026-04-26",
+    "sample": 2028,
+    "moe": 2,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 41,
+      "flavio": 38,
+      "renan": 4,
+      "caiado": 6
+    },
+    "notes": "Wikipedia 1T. TSE BR-01075/2026. Sem parser CNN.",
+    "source": {
+      "tseProtocol": "BR-01075/2026",
+      "url": "https://www.cartacapital.com.br/politica/a-disputa-pela-presidencia-no-1o-turno-segundo-nova-pesquisa-nexus/",
+      "publisher": "Wikipedia",
+      "publishedAt": "2026-04-27",
+      "capturedAt": "2026-09-08T12:22:59.000Z"
+    },
+    "secondRound": {
+      "lula": 46,
+      "flavio": 45
+    }
+  },
+  {
+    "id": "atlas-04-27-07992",
+    "institute": "AtlasIntel",
+    "date": "2026-04-28",
+    "fieldStart": "2026-04-22",
+    "fieldEnd": "2026-04-27",
+    "sample": 5008,
+    "moe": 1,
+    "mode": "online",
+    "national": true,
+    "firstRound": {
+      "lula": 46.7,
+      "flavio": 39.7,
+      "cury": 1,
+      "renan": 5.3,
+      "caiado": 3.3,
+      "zema": 3.1
+    },
+    "notes": "Wikipedia 1T. TSE BR-07992/2026. Sem parser CNN.",
+    "source": {
+      "tseProtocol": "BR-07992/2026",
+      "url": "https://www.cartacapital.com.br/politica/o-que-diz-a-nova-pesquisa-atlasintel-sobre-as-intencoes-de-voto-para-presidente-no-1o-turno/",
+      "publisher": "Wikipedia",
+      "publishedAt": "2026-04-28",
+      "capturedAt": "2026-09-08T12:22:59.000Z"
+    },
+    "secondRound": {
+      "lula": 47.5,
+      "flavio": 47.8
+    }
+  },
+  {
+    "id": "meio-ideia-05-05",
+    "institute": "Meio/Ideia",
+    "date": "2026-05-06",
+    "fieldStart": "2026-05-01",
+    "fieldEnd": "2026-05-05",
+    "sample": 1500,
+    "moe": 2.5,
+    "mode": "presencial",
+    "national": true,
+    "firstRound": {
+      "lula": 40,
+      "flavio": 36,
+      "cury": 1.5,
+      "renan": 1.4,
+      "caiado": 5.6,
+      "zema": 3
+    },
+    "notes": "Wikipedia 1T jan-ago 2026. Cruzado com TSE pending. Sem parser CNN.",
+    "source": {
+      "tseProtocol": null,
+      "url": "https://www.cnnbrasil.com.br/eleicoes/meio-ideia-lula-tem-40-e-flavio-36-no-1o-turno/",
+      "publisher": "Wikipedia",
+      "publishedAt": "2026-05-06",
+      "capturedAt": "2026-09-08T12:22:59.000Z"
+    },
+    "secondRound": {
+      "lula": 44.7,
+      "flavio": 45.3
+    }
+  },
+  {
+    "id": "futura-apex-05-08",
+    "institute": "Futura/Apex",
+    "date": "2026-05-11",
+    "fieldStart": "2026-05-04",
+    "fieldEnd": "2026-05-08",
+    "sample": 2000,
+    "moe": 2.2,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 38.1,
+      "flavio": 37.4,
+      "cury": 1.5,
+      "renan": 2.3,
+      "caiado": 5.7
+    },
+    "notes": "Wikipedia 1T jan-ago 2026. Cruzado com TSE pending. Sem parser CNN.",
+    "source": {
+      "tseProtocol": null,
+      "url": "https://www.cnnbrasil.com.br/eleicoes/futura-apex-lula-e-flavio-tem-empate-tecnico-no-1o-turno/",
+      "publisher": "Wikipedia",
+      "publishedAt": "2026-05-11",
+      "capturedAt": "2026-09-08T12:22:59.000Z"
+    },
+    "secondRound": {
+      "lula": 44.4,
+      "flavio": 46.9
+    }
+  },
+  {
+    "id": "quaest-05-11-03598",
+    "institute": "Genial/Quaest",
+    "date": "2026-05-13",
+    "fieldStart": "2026-05-08",
+    "fieldEnd": "2026-05-11",
+    "sample": 2004,
+    "moe": 2,
+    "mode": "presencial",
+    "national": true,
+    "firstRound": {
+      "lula": 39,
+      "flavio": 33,
+      "cury": 1,
+      "renan": 2,
+      "caiado": 4,
+      "zema": 4
+    },
+    "notes": "Wikipedia 1T. TSE BR-03598/2026. Sem parser CNN.",
+    "source": {
+      "tseProtocol": "BR-03598/2026",
+      "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/genial-quaest-presidente-maio-2026/",
+      "publisher": "Wikipedia",
+      "publishedAt": "2026-05-13",
+      "capturedAt": "2026-09-08T12:22:59.000Z"
+    },
+    "secondRound": {
+      "lula": 42,
+      "flavio": 41
+    }
+  },
+  {
+    "id": "gerp-05-12-03369",
+    "institute": "Gerp",
+    "date": "2026-05-14",
+    "fieldStart": "2026-05-08",
+    "fieldEnd": "2026-05-12",
+    "sample": 2000,
+    "moe": 2.24,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 34,
+      "flavio": 36,
+      "cury": 1,
+      "renan": 1,
+      "caiado": 1,
+      "zema": 5
+    },
+    "notes": "Wikipedia 1T. TSE BR-03369/2026. Sem parser CNN.",
+    "source": {
+      "tseProtocol": "BR-03369/2026",
+      "url": "https://www.poder360.com.br/poder-eleicoes/flavio-tem-50-e-lula-43-no-2o-turno-diz-pesquisa/",
+      "publisher": "Wikipedia",
+      "publishedAt": "2026-05-14",
+      "capturedAt": "2026-09-08T12:22:59.000Z"
+    },
+    "secondRound": {
+      "lula": 43,
+      "flavio": 50
+    }
+  },
+  {
+    "id": "datafolha-05-14-00290",
+    "institute": "Datafolha",
+    "date": "2026-05-16",
+    "fieldStart": "2026-05-12",
+    "fieldEnd": "2026-05-14",
+    "sample": 2004,
+    "moe": 2,
+    "mode": "presencial",
+    "national": true,
+    "firstRound": {
+      "lula": 38,
+      "flavio": 35,
+      "cury": 2,
+      "renan": 2,
+      "caiado": 3,
+      "zema": 3
+    },
+    "notes": "Wikipedia 1T. TSE BR-00290/2026. Sem parser CNN.",
+    "source": {
+      "tseProtocol": "BR-00290/2026",
+      "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/datafolha-presidente-maio-2026/",
+      "publisher": "Wikipedia",
+      "publishedAt": "2026-05-16",
+      "capturedAt": "2026-09-08T12:22:59.000Z"
+    },
+    "secondRound": {
+      "lula": 45,
+      "flavio": 45
+    }
+  },
+  {
+    "id": "verita-05-15",
+    "institute": "Veritá",
+    "date": "2026-05-17",
+    "fieldStart": "2026-05-11",
+    "fieldEnd": "2026-05-15",
+    "sample": 3404,
+    "moe": 2,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 37.2,
+      "flavio": 37,
+      "cury": 2.3,
+      "renan": 2.3,
+      "caiado": 2.9,
+      "zema": 6.5
+    },
+    "notes": "Wikipedia 1T jan-ago 2026. Cruzado com TSE pending. Sem parser CNN.",
+    "source": {
+      "tseProtocol": null,
+      "url": "https://www.leiaja.com/politica/2026/05/17/instituto-verita-leiaja-lula-e-flavio-bolsonaro-aparecem-empatados-no-1o-turno/",
+      "publisher": "Wikipedia",
+      "publishedAt": "2026-05-17",
+      "capturedAt": "2026-09-08T12:22:59.000Z"
+    }
+  },
+  {
+    "id": "atlas-05-18-06939",
+    "institute": "AtlasIntel",
+    "date": "2026-05-19",
+    "fieldStart": "2026-05-13",
+    "fieldEnd": "2026-05-18",
+    "sample": 5032,
+    "moe": 1,
+    "mode": "online",
+    "national": true,
+    "firstRound": {
+      "lula": 47,
+      "flavio": 34.3,
+      "cury": 0.4,
+      "renan": 6.9,
+      "caiado": 2.7,
+      "zema": 5.2
+    },
+    "notes": "Wikipedia 1T. TSE BR-06939/2026. Sem parser CNN.",
+    "source": {
+      "tseProtocol": "BR-06939/2026",
+      "url": "https://www.poder360.com.br/poder-eleicoes/lula-tem-489-contra-418-de-flavio-no-2o-turno-diz-atlasintel/",
+      "publisher": "Wikipedia",
+      "publishedAt": "2026-05-19",
+      "capturedAt": "2026-09-08T12:22:59.000Z"
+    },
+    "secondRound": {
+      "lula": 48.9,
+      "flavio": 41.8
+    }
+  },
+  {
+    "id": "futura-apex-05-20",
+    "institute": "Futura/Apex",
+    "date": "2026-05-22",
+    "fieldStart": "2026-05-15",
+    "fieldEnd": "2026-05-20",
+    "sample": 2000,
+    "moe": 2.2,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 42.7,
+      "flavio": 35.6,
+      "cury": 0.9,
+      "renan": 1.7,
+      "caiado": 3.3,
+      "zema": 3.9
+    },
+    "notes": "Wikipedia 1T jan-ago 2026. Cruzado com TSE pending. Sem parser CNN.",
+    "source": {
+      "tseProtocol": null,
+      "url": "https://noticias.uol.com.br/politica/ultimas-noticias/2026/05/22/futuraapex-lula-aparecem-a-frente-de-flavio-em-1-e-2-turnos.ghtm",
+      "publisher": "Wikipedia",
+      "publishedAt": "2026-05-22",
+      "capturedAt": "2026-09-08T12:22:59.000Z"
+    },
+    "secondRound": {
+      "lula": 47.7,
+      "flavio": 42.2
+    }
+  },
+  {
+    "id": "datafolha-05-21-07489",
+    "institute": "Datafolha",
+    "date": "2026-05-22",
+    "fieldStart": "2026-05-20",
+    "fieldEnd": "2026-05-21",
+    "sample": 2004,
+    "moe": 2,
+    "mode": "presencial",
+    "national": true,
+    "firstRound": {
+      "lula": 40,
+      "flavio": 31,
+      "cury": 2,
+      "renan": 3,
+      "caiado": 4,
+      "zema": 3
+    },
+    "notes": "Wikipedia 1T. TSE BR-07489/2026. Sem parser CNN.",
+    "source": {
+      "tseProtocol": "BR-07489/2026",
+      "url": "https://g1.globo.com/politica/eleicoes/2026/noticia/2026/05/22/datafolha-2o-turno-lula-flavio.ghtml",
+      "publisher": "Wikipedia",
+      "publishedAt": "2026-05-22",
+      "capturedAt": "2026-09-08T12:22:59.000Z"
+    },
+    "secondRound": {
+      "lula": 47,
+      "flavio": 43
+    }
+  },
+  {
+    "id": "gerp-05-21-07971",
+    "institute": "Gerp",
+    "date": "2026-05-22",
+    "fieldStart": "2026-05-18",
+    "fieldEnd": "2026-05-21",
+    "sample": 2000,
+    "moe": 2.2,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 38,
+      "flavio": 38,
+      "cury": 1,
+      "renan": 3,
+      "caiado": 2,
+      "zema": 3
+    },
+    "notes": "Wikipedia 1T. TSE BR-07971/2026. Sem parser CNN.",
+    "source": {
+      "tseProtocol": "BR-07971/2026",
+      "url": "https://www.poder360.com.br/poder-eleicoes/flavio-tem-47-e-lula-44-no-2o-turno-diz-pesquisa/",
+      "publisher": "Wikipedia",
+      "publishedAt": "2026-05-22",
+      "capturedAt": "2026-09-08T12:22:59.000Z"
+    },
+    "secondRound": {
+      "lula": 44,
+      "flavio": 47
+    }
+  },
+  {
+    "id": "nexus-btg-05-24-04193",
+    "institute": "Nexus/BTG",
+    "date": "2026-05-25",
+    "fieldStart": "2026-05-22",
+    "fieldEnd": "2026-05-24",
+    "sample": 2045,
+    "moe": 2,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 41,
+      "flavio": 35,
+      "renan": 4,
+      "caiado": 5,
+      "zema": 4
+    },
+    "notes": "Wikipedia 1T. TSE BR-04193/2026. Sem parser CNN.",
+    "source": {
+      "tseProtocol": "BR-04193/2026",
+      "url": "https://www.cartacapital.com.br/politica/os-numeros-da-nova-pesquisa-nexus-btg-a-presidencia/",
+      "publisher": "Wikipedia",
+      "publishedAt": "2026-05-25",
+      "capturedAt": "2026-09-08T12:22:59.000Z"
+    },
+    "secondRound": {
+      "lula": 47,
+      "flavio": 43
+    }
+  },
+  {
+    "id": "verita-05-26",
+    "institute": "Veritá",
+    "date": "2026-06-02",
+    "fieldStart": "2026-05-22",
+    "fieldEnd": "2026-05-26",
+    "sample": 3330,
+    "moe": 2,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 40.6,
+      "flavio": 42.6,
+      "cury": 2.1,
+      "renan": 3.7,
+      "caiado": 3,
+      "zema": 6.3
+    },
+    "notes": "Wikipedia 1T jan-ago 2026. Cruzado com TSE pending. Sem parser CNN.",
+    "source": {
+      "tseProtocol": null,
+      "url": "https://www.instagram.com/p/DZD7vnKIEcf/?img_index=1&igsh=eWtvZ2c1aG94MTc0",
+      "publisher": "Wikipedia",
+      "publishedAt": "2026-06-02",
+      "capturedAt": "2026-09-08T12:22:59.000Z"
+    }
+  },
+  {
+    "id": "meio-ideia-05-27",
+    "institute": "Meio/Ideia",
+    "date": "2026-05-28",
+    "fieldStart": "2026-05-23",
+    "fieldEnd": "2026-05-27",
+    "sample": 1500,
+    "moe": 2.5,
+    "mode": "presencial",
+    "national": true,
+    "firstRound": {
+      "lula": 38.5,
+      "flavio": 31.5,
+      "renan": 2.1,
+      "caiado": 5.5,
+      "zema": 2.4
+    },
+    "notes": "Wikipedia 1T jan-ago 2026. Cruzado com TSE pending. Sem parser CNN.",
+    "source": {
+      "tseProtocol": null,
+      "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/meio-ideia-presidente-maio-2026-2/",
+      "publisher": "Wikipedia",
+      "publishedAt": "2026-05-28",
+      "capturedAt": "2026-09-08T12:22:59.000Z"
+    },
+    "secondRound": {
+      "lula": 46.5,
+      "flavio": 41.4
+    }
+  },
+  {
+    "id": "poderdata-aya-05-28-04882",
+    "institute": "PoderData/Aya",
+    "date": "2026-05-29",
+    "fieldStart": "2026-05-25",
+    "fieldEnd": "2026-05-28",
+    "sample": 2400,
+    "moe": 2,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 40,
+      "flavio": 35,
+      "cury": 3,
+      "renan": 3,
+      "caiado": 3,
+      "zema": 4
+    },
+    "notes": "Wikipedia 1T. TSE BR-04882/2026. Sem parser CNN.",
+    "source": {
+      "tseProtocol": "BR-04882/2026",
+      "url": "https://www.cartacapital.com.br/politica/os-numeros-da-primeira-pesquisa-poder-aya-para-a-presidencia/",
+      "publisher": "Wikipedia",
+      "publishedAt": "2026-05-29",
+      "capturedAt": "2026-09-08T12:22:59.000Z"
+    },
+    "secondRound": {
+      "lula": 46,
+      "flavio": 42
+    }
+  },
+  {
+    "id": "gerp-06-05-01792",
+    "institute": "Gerp",
+    "date": "2026-06-09",
+    "fieldStart": "2026-06-02",
+    "fieldEnd": "2026-06-05",
+    "sample": 2000,
+    "moe": 2.24,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 34,
+      "flavio": 35,
+      "cury": 1,
+      "renan": 4,
+      "caiado": 2,
+      "zema": 2
+    },
+    "notes": "Wikipedia 1T. TSE BR-01792/2026. Sem parser CNN.",
+    "source": {
+      "tseProtocol": "BR-01792/2026",
+      "url": "https://www.poder360.com.br/poder-eleicoes/flavio-bolsonaro-vence-lula-no-2o-turno-diz-pesquisa-gerp/",
+      "publisher": "Wikipedia",
+      "publishedAt": "2026-06-09",
+      "capturedAt": "2026-09-08T12:22:59.000Z"
+    },
+    "secondRound": {
+      "lula": 39.1,
+      "flavio": 44.7
+    }
+  },
+  {
+    "id": "quaest-06-08-07661",
+    "institute": "Quaest",
+    "date": "2026-06-10",
+    "fieldStart": "2026-06-05",
+    "fieldEnd": "2026-06-08",
+    "sample": 2004,
+    "moe": 2,
+    "mode": "presencial",
+    "national": true,
+    "firstRound": {
+      "lula": 39,
+      "flavio": 29,
+      "cury": 1,
+      "renan": 3,
+      "caiado": 3,
+      "zema": 2
+    },
+    "notes": "Wikipedia 1T. TSE BR-07661/2026. Sem parser CNN.",
+    "source": {
+      "tseProtocol": "BR-07661/2026",
+      "url": "https://www.poder360.com.br/poder-eleicoes/lula-tem-44-contra-38-de-flavio-diz-quaest/",
+      "publisher": "Wikipedia",
+      "publishedAt": "2026-06-10",
+      "capturedAt": "2026-09-08T12:22:59.000Z"
+    },
+    "secondRound": {
+      "lula": 44,
+      "flavio": 38
+    }
+  },
+  {
+    "id": "futura-apex-06-12",
+    "institute": "Futura/Apex",
+    "date": "2026-06-16",
+    "fieldStart": "2026-06-08",
+    "fieldEnd": "2026-06-12",
+    "sample": 2000,
+    "moe": 2.2,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 41.6,
+      "flavio": 34.1,
+      "cury": 0.9,
+      "renan": 2.3,
+      "caiado": 4.5,
+      "zema": 3.5
+    },
+    "notes": "Wikipedia 1T jan-ago 2026. Cruzado com TSE pending. Sem parser CNN.",
+    "source": {
+      "tseProtocol": null,
+      "url": "https://www.poder360.com.br/poder-pesquisas/lula-tem-481-e-flavio-429-em-eventual-2o-turno-diz-pesquisa/",
+      "publisher": "Wikipedia",
+      "publishedAt": "2026-06-16",
+      "capturedAt": "2026-09-08T12:22:59.000Z"
+    },
+    "secondRound": {
+      "lula": 48.1,
+      "flavio": 42.9
+    }
+  },
+  {
+    "id": "cnt-mda-06-14",
+    "institute": "CNT/MDA",
+    "date": "2026-06-17",
+    "fieldStart": "2026-06-10",
+    "fieldEnd": "2026-06-14",
+    "sample": 2002,
+    "moe": 2.2,
+    "mode": "presencial",
+    "national": true,
+    "firstRound": {
+      "lula": 41.8,
+      "flavio": 28.2,
+      "cury": 1.8,
+      "renan": 2,
+      "caiado": 4,
+      "zema": 2.8
+    },
+    "notes": "Wikipedia 1T jan-ago 2026. Cruzado com TSE pending. Sem parser CNN.",
+    "source": {
+      "tseProtocol": null,
+      "url": "https://www.poder360.com.br/poder-pesquisas/cnt-42-dizem-votar-em-lula-mas-so-21-se-veem-como-de-esquerda/",
+      "publisher": "Wikipedia",
+      "publishedAt": "2026-06-17",
+      "capturedAt": "2026-09-08T12:22:59.000Z"
+    },
+    "secondRound": {
+      "lula": 49.3,
+      "flavio": 36.8
+    }
+  },
+  {
+    "id": "nexus-btg-06-14-06645",
+    "institute": "Nexus/BTG",
+    "date": "2026-06-15",
+    "fieldStart": "2026-06-12",
+    "fieldEnd": "2026-06-14",
+    "sample": 2017,
+    "moe": 2,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 42,
+      "flavio": 33,
+      "cury": 2,
+      "renan": 4,
+      "caiado": 4,
+      "zema": 2
+    },
+    "notes": "Wikipedia 1T. TSE BR-06645/2026. Sem parser CNN.",
+    "source": {
+      "tseProtocol": "BR-06645/2026",
+      "url": "https://www.poder360.com.br/poder-eleicoes/lula-tem-49-contra-43-de-flavio-no-2o-turno-diz-nexus/",
+      "publisher": "Wikipedia",
+      "publishedAt": "2026-06-15",
+      "capturedAt": "2026-09-08T12:22:59.000Z"
+    },
+    "secondRound": {
+      "lula": 49,
+      "flavio": 43
+    }
+  },
+  {
+    "id": "gerp-06-20-09657",
+    "institute": "Gerp",
+    "date": "2026-06-24",
+    "fieldStart": "2026-06-15",
+    "fieldEnd": "2026-06-20",
+    "sample": 2000,
+    "moe": 2.19,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 37,
+      "flavio": 34,
+      "cury": 1,
+      "renan": 3,
+      "caiado": 4,
+      "zema": 3
+    },
+    "notes": "Wikipedia 1T. TSE BR-09657/2026. Sem parser CNN.",
+    "source": {
+      "tseProtocol": "BR-09657/2026",
+      "url": "https://www.poder360.com.br/poder-pesquisas/flavio-e-lula-empatam-no-2o-turno-diz-pesquisa/",
+      "publisher": "Wikipedia",
+      "publishedAt": "2026-06-24",
+      "capturedAt": "2026-09-08T12:22:59.000Z"
+    },
+    "secondRound": {
+      "lula": 40,
+      "flavio": 42
+    }
+  },
+  {
+    "id": "nexus-btg-06-28-08521",
+    "institute": "Nexus/BTG",
+    "date": "2026-06-29",
+    "fieldStart": "2026-06-26",
+    "fieldEnd": "2026-06-28",
+    "sample": 2009,
+    "moe": 2,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 42,
+      "flavio": 35,
+      "cury": 1,
+      "renan": 4,
+      "caiado": 5,
+      "zema": 3
+    },
+    "notes": "Wikipedia 1T. TSE BR-08521/2026. Sem parser CNN.",
+    "source": {
+      "tseProtocol": "BR-08521/2026",
+      "url": "https://www.cartacapital.com.br/politica/os-numeros-da-nova-pesquisa-nexus-btg-para-o-primeiro-turno-da-eleicao-presidencial/",
+      "publisher": "Wikipedia",
+      "publishedAt": "2026-06-29",
+      "capturedAt": "2026-09-08T12:22:59.000Z"
+    },
+    "secondRound": {
+      "lula": 47,
+      "flavio": 44
+    }
+  },
+  {
+    "id": "atlas-06-30-04582",
+    "institute": "AtlasIntel",
+    "date": "2026-07-01",
+    "fieldStart": "2026-06-26",
+    "fieldEnd": "2026-06-30",
+    "sample": 4999,
+    "moe": 1,
+    "mode": "online",
+    "national": true,
+    "firstRound": {
+      "lula": 46.3,
+      "flavio": 36.6,
+      "cury": 0.5,
+      "renan": 7.8,
+      "caiado": 2.9,
+      "zema": 2
+    },
+    "notes": "Wikipedia 1T. TSE BR-04582/2026. Sem parser CNN.",
+    "source": {
+      "tseProtocol": "BR-04582/2026",
+      "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/atlasintel-presidente-julho-2026/",
+      "publisher": "Wikipedia",
+      "publishedAt": "2026-07-01",
+      "capturedAt": "2026-09-08T12:22:59.000Z"
+    },
+    "secondRound": {
+      "lula": 48.8,
+      "flavio": 42.3
+    }
+  },
+  {
+    "id": "meio-ideia-07-06",
+    "institute": "Meio/Ideia",
+    "date": "2026-07-08",
+    "fieldStart": "2026-07-03",
+    "fieldEnd": "2026-07-06",
+    "sample": 2000,
+    "moe": 2.5,
+    "mode": "presencial",
+    "national": true,
+    "firstRound": {
+      "lula": 40.4,
+      "flavio": 32,
+      "cury": 1.5,
+      "renan": 2,
+      "caiado": 4,
+      "zema": 2.5
+    },
+    "notes": "Wikipedia 1T jan-ago 2026. Cruzado com TSE pending. Sem parser CNN.",
+    "source": {
+      "tseProtocol": null,
+      "url": "https://www.poder360.com.br/poder-eleicoes/lula-e-flavio-estao-tecnicamente-empatados-no-2o-turno-diz-pesquisa/",
+      "publisher": "Wikipedia",
+      "publishedAt": "2026-07-08",
+      "capturedAt": "2026-09-08T12:22:59.000Z"
+    },
+    "secondRound": {
+      "lula": 45,
+      "flavio": 40
+    }
+  },
+  {
+    "id": "gerp-07-07-03067",
+    "institute": "Gerp",
+    "date": "2026-07-08",
+    "fieldStart": "2026-07-03",
+    "fieldEnd": "2026-07-07",
+    "sample": 2000,
+    "moe": 2.2,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 36,
+      "flavio": 36,
+      "cury": 1,
+      "renan": 2,
+      "caiado": 4,
+      "zema": 2
+    },
+    "notes": "Wikipedia 1T. TSE BR-03067/2026. Sem parser CNN.",
+    "source": {
+      "tseProtocol": "BR-03067/2026",
+      "url": "https://www.poder360.com.br/poder-eleicoes/flavio-tem-45-e-lula-42-em-eventual-2o-turno-diz-pesquisa/",
+      "publisher": "Wikipedia",
+      "publishedAt": "2026-07-08",
+      "capturedAt": "2026-09-08T12:22:59.000Z"
+    },
+    "secondRound": {
+      "lula": 42,
+      "flavio": 45
+    }
+  },
+  {
+    "id": "nexus-btg-07-12-07981",
+    "institute": "Nexus/BTG",
+    "date": "2026-07-13",
+    "fieldStart": "2026-07-10",
+    "fieldEnd": "2026-07-12",
+    "sample": 2003,
+    "moe": 2,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 40,
+      "flavio": 34,
+      "cury": 2,
+      "renan": 4,
+      "caiado": 5,
+      "zema": 4
+    },
+    "notes": "Wikipedia 1T. TSE BR-07981/2026. Sem parser CNN.",
+    "source": {
+      "tseProtocol": "BR-07981/2026",
+      "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/nexus-btg-pactual-presidente-julho-2026/",
+      "publisher": "Wikipedia",
+      "publishedAt": "2026-07-13",
+      "capturedAt": "2026-09-08T12:22:59.000Z"
+    },
+    "secondRound": {
+      "lula": 47,
+      "flavio": 44
+    }
+  },
+  {
+    "id": "gerp-07-17-05026",
+    "institute": "Gerp",
+    "date": "2026-07-22",
+    "fieldStart": "2026-07-15",
+    "fieldEnd": "2026-07-17",
+    "sample": 2000,
+    "moe": 2.19,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 38,
+      "flavio": 38,
+      "cury": 1,
+      "renan": 3,
+      "caiado": 3,
+      "zema": 3
+    },
+    "notes": "Wikipedia 1T. TSE BR-05026/2026. Sem parser CNN.",
+    "source": {
+      "tseProtocol": "BR-05026/2026",
+      "url": "https://www.poder360.com.br/poder-eleicoes-2026/flavio-e-lula-tem-empate-tecnico-no-2o-turno-diz-pesquisa/",
+      "publisher": "Wikipedia",
+      "publishedAt": "2026-07-22",
+      "capturedAt": "2026-09-08T12:22:59.000Z"
+    },
+    "secondRound": {
+      "lula": 45,
+      "flavio": 46
+    }
+  },
+  {
+    "id": "nexus-btg-07-26-01489",
+    "institute": "Nexus/BTG",
+    "date": "2026-07-27",
+    "fieldStart": "2026-07-24",
+    "fieldEnd": "2026-07-26",
+    "sample": 2004,
+    "moe": 2,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 42,
+      "flavio": 33,
+      "cury": 2,
+      "renan": 5,
+      "caiado": 6,
+      "zema": 3
+    },
+    "notes": "Wikipedia 1T. TSE BR-01489/2026. Sem parser CNN.",
+    "source": {
+      "tseProtocol": "BR-01489/2026",
+      "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/nexus-btg-pactual-presidente-julho-2026-2/",
+      "publisher": "Wikipedia",
+      "publishedAt": "2026-07-27",
+      "capturedAt": "2026-09-08T12:22:59.000Z"
+    },
+    "secondRound": {
+      "lula": 47,
+      "flavio": 43
+    }
+  },
+  {
+    "id": "atlas-07-27-08602",
+    "institute": "AtlasIntel",
+    "date": "2026-07-29",
+    "fieldStart": "2026-07-22",
+    "fieldEnd": "2026-07-27",
+    "sample": 5021,
+    "moe": 1,
+    "mode": "online",
+    "national": true,
+    "firstRound": {
+      "lula": 44.9,
+      "flavio": 35.8,
+      "cury": 1.6,
+      "renan": 7.8,
+      "caiado": 3.1,
+      "zema": 2.8
+    },
+    "notes": "Wikipedia 1T. TSE BR-08602/2026. Sem parser CNN.",
+    "source": {
+      "tseProtocol": "BR-08602/2026",
+      "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/atlasintel-presidente-julho-2026-2/",
+      "publisher": "Wikipedia",
+      "publishedAt": "2026-07-29",
+      "capturedAt": "2026-09-08T12:22:59.000Z"
+    },
+    "secondRound": {
+      "lula": 49.2,
+      "flavio": 42.9
+    }
+  },
+  {
+    "id": "nexus-btg-08-02-02874",
+    "institute": "Nexus/BTG",
+    "date": "2026-08-03",
+    "fieldStart": "2026-07-31",
+    "fieldEnd": "2026-08-02",
+    "sample": 2002,
+    "moe": 2,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 41,
+      "flavio": 37,
+      "cury": 1,
+      "renan": 4,
+      "caiado": 5,
+      "zema": 3
+    },
+    "notes": "Wikipedia 1T. TSE BR-02874/2026. Sem parser CNN.",
+    "source": {
+      "tseProtocol": "BR-02874/2026",
+      "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/nexus-btg-pactual-presidente-agosto-2026/",
+      "publisher": "Wikipedia",
+      "publishedAt": "2026-08-03",
+      "capturedAt": "2026-09-08T12:22:59.000Z"
+    },
+    "secondRound": {
+      "lula": 46,
+      "flavio": 45
+    }
   }
 ]
