@@ -2547,5 +2547,29 @@
       "lula": 40,
       "flavio": 28
     }
+  },
+  {
+    "id": "nexus-btg-09-08-06790",
+    "institute": "Nexus/BTG",
+    "date": "2026-09-08",
+    "fieldEnd": "2026-09-07",
+    "sample": 2000,
+    "moe": 2,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 39,
+      "flavio": 34,
+      "cury": 9
+    },
+    "source": {
+      "tseProtocol": "BR-06790/2026",
+      "url": "https://www.cnnbrasil.com.br/eleicoes/nexus-btg-lula-tem-39-no-1o-turno-flavio-tem-34/",
+      "publisher": "cnnbrasil.com.br",
+      "publishedAt": "2026-09-08",
+      "capturedAt": "2026-09-08T11:00:17.325Z"
+    },
+    "notes": "2000 entrevistas. Allowlist nexus.",
+    "fieldStart": "2026-09-04"
   }
 ]
