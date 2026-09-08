@@ -2526,50 +2526,112 @@
     "date": "2026-09-07",
     "fieldEnd": "2026-09-06",
     "sample": 2004,
-    "moe": 2.2,
+    "moe": 2,
     "mode": "presencial",
     "national": true,
     "firstRound": {
       "lula": 36,
       "flavio": 29,
-      "cury": 10
+      "cury": 8,
+      "renan": 3,
+      "caiado": 3,
+      "zema": 2
     },
     "source": {
       "tseProtocol": "BR-01720/2026",
-      "url": "https://www.cnnbrasil.com.br/eleicoes/quaest-no-1o-turno-lula-tem-36-flavio-29-e-cury-8/",
-      "publisher": "cnnbrasil.com.br",
+      "url": "https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/noticia/2026/09/07/quaest-2-turno-7-de-setembro.ghtml",
+      "publisher": "g1",
       "publishedAt": "2026-09-07",
-      "capturedAt": "2026-09-07T22:00:21.206Z"
+      "capturedAt": "2026-09-08T11:50:15.000Z"
     },
-    "notes": "2004 entrevistas. Allowlist quaest.",
+    "notes": "G1 07/09 · TSE BR-01720/2026 · presencial n=2004 campo 03-06/09 moe ±2. 1T sem Marçal. 2T Lula 41 x Flavio 41 (empate numérico). Parser CNN tinha gravado Cury 10 e 2T 40x28; corrigido pela fonte G1.",
     "fieldStart": "2026-09-03",
     "secondRound": {
-      "lula": 40,
-      "flavio": 28
-    }
+      "lula": 41,
+      "flavio": 41
+    },
+    "secondPairs": [
+      {
+        "a": "lula",
+        "b": "caiado",
+        "aPct": 41,
+        "bPct": 38
+      },
+      {
+        "a": "lula",
+        "b": "cury",
+        "aPct": 39,
+        "bPct": 35
+      },
+      {
+        "a": "lula",
+        "b": "renan",
+        "aPct": 42,
+        "bPct": 37
+      },
+      {
+        "a": "lula",
+        "b": "zema",
+        "aPct": 44,
+        "bPct": 33
+      }
+    ]
   },
   {
     "id": "nexus-btg-09-08-06790",
     "institute": "Nexus/BTG",
     "date": "2026-09-08",
     "fieldEnd": "2026-09-07",
-    "sample": 2000,
+    "sample": 2002,
     "moe": 2,
     "mode": "telefone",
     "national": true,
     "firstRound": {
       "lula": 39,
-      "flavio": 34,
-      "cury": 9
+      "flavio": 35,
+      "cury": 9,
+      "caiado": 4,
+      "renan": 4,
+      "zema": 1
     },
     "source": {
       "tseProtocol": "BR-06790/2026",
-      "url": "https://www.cnnbrasil.com.br/eleicoes/nexus-btg-lula-tem-39-no-1o-turno-flavio-tem-34/",
-      "publisher": "cnnbrasil.com.br",
+      "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/nexus-btg-pactual-presidente-setembro-2026/",
+      "publisher": "gazetadopovo.com.br",
       "publishedAt": "2026-09-08",
-      "capturedAt": "2026-09-08T11:00:17.325Z"
+      "capturedAt": "2026-09-08T11:50:15.000Z"
     },
-    "notes": "2000 entrevistas. Allowlist nexus.",
-    "fieldStart": "2026-09-04"
+    "notes": "Gazeta 08/09 · TSE BR-06790/2026 · telefone n=2002 campo 04-07/09 moe ±2. 1T estimulado SEM Marçal (39x35x9). 2T Flavio 46 x Lula 45 (1ª vez Flavio na frente na série Nexus). Lula x Cury 43x45. Parser CNN tinha só 1T com Marçal 39x34 e 2T vazio.",
+    "fieldStart": "2026-09-04",
+    "secondRound": {
+      "lula": 45,
+      "flavio": 46
+    },
+    "secondPairs": [
+      {
+        "a": "lula",
+        "b": "caiado",
+        "aPct": 46,
+        "bPct": 43
+      },
+      {
+        "a": "lula",
+        "b": "cury",
+        "aPct": 43,
+        "bPct": 45
+      },
+      {
+        "a": "lula",
+        "b": "zema",
+        "aPct": 47,
+        "bPct": 40
+      },
+      {
+        "a": "lula",
+        "b": "renan",
+        "aPct": 47,
+        "bPct": 39
+      }
+    ]
   }
 ]
