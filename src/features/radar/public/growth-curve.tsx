@@ -503,7 +503,8 @@ function CurvePlot({
             content={CurveTip}
             cursor={{ stroke: CHART.axis, strokeWidth: 1, strokeOpacity: 0.35 }}
             isAnimationActive={false}
-            wrapperStyle={{ pointerEvents: "none" }}
+            allowEscapeViewBox={{ x: true, y: true }}
+            wrapperStyle={{ pointerEvents: "none", zIndex: 30, overflow: "visible" }}
           />
           {showRace ? (
               <Line
@@ -862,7 +863,7 @@ export function GrowthCurve({
           </div>
         ) : null}
         {splitOthers ? (
-          <div className="mt-2">
+          <div className="relative z-10 mt-2 overflow-visible">
             <CurvePlot
               data={plotted}
               domain={raceDomain}

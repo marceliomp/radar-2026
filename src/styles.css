@@ -1063,7 +1063,12 @@
 
   .curve-stage {
     position: relative;
-    overflow: hidden;
+    overflow: visible;
+  }
+
+  .curve-stage .recharts-wrapper,
+  .curve-stage .recharts-surface {
+    overflow: visible !important;
   }
 
   .curve-stage .recharts-curve {
