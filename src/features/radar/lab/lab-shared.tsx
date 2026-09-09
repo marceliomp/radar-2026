@@ -70,6 +70,9 @@ import { cn } from "@/lib/utils";
 import { ChartTip } from "@/components/chart-tooltip";
 import { CHART } from "@/lib/chart-theme";
 import { ShareBar } from "@/components/share-bar";
+import { useI18n } from "@/lib/i18n";
+import { messages } from "@/lib/i18n/messages";
+import type { Locale } from "@/lib/i18n/locale";
 
 export function fmtDateBr(iso: string) {
   return `${iso.slice(8)}/${iso.slice(5, 7)}/${iso.slice(0, 4)}`;
@@ -80,16 +83,18 @@ export function gapPlain(
   a: number | undefined,
   b: number | undefined,
   se?: number,
+  locale: Locale = "pt",
 ) {
-  if (a == null || b == null) return "Ainda poucas pesquisas perguntaram o 2º.";
+  const copy = messages(locale).home;
+  if (a == null || b == null) return copy.fewSecond;
   const gap = shownGap(a, b);
-  const pts = fmtNum(Math.abs(gap));
+  const pts = fmtNum(Math.abs(gap), 1, locale);
   const honest = se != null ? isShownTie(a, b, se) : Boolean(tie) && Math.abs(gap) <= 3;
   if (honest) {
-    return `Empate técnico: ${pts} pontos de diferença, cabe na margem.`;
+    return copy.technicalTie(pts);
   }
   const who = gap > 0 ? "Lula" : "Flávio";
-  return `${who} à frente por ${pts} pontos de intenção.`;
+  return copy.aheadIntent(who, pts);
 }
 
 export function nextUpcoming(asOf: string) {
@@ -285,6 +290,7 @@ export function SecondRoundScenarios({
   } | null;
   pollsForPairs: (Pick<ForecastPoll, "secondRound" | "secondPairs"> & { weight?: number })[];
 }) {
+  const { m, fmt, locale } = useI18n();
   const scenarios = useMemo(
     () =>
       buildRunoffScenarios({
@@ -302,7 +308,7 @@ export function SecondRoundScenarios({
   if (!hero && rest.length === 0) {
     return (
       <p className="mt-2 text-sm font-medium text-fg">
-        Ainda poucas pesquisas perguntaram o 2º.
+        {m.lab.fewSecond}
       </p>
     );
   }
@@ -339,7 +345,7 @@ export function SecondRoundScenarios({
       ) : null}
       {hero ? (
         <p className="mt-2 font-mono text-[11px] uppercase tracking-[0.1em] text-cream/85">
-          {hero.nAsked} pesquisas · par {pairChance(hero.pPair)} no 1º
+          {m.lab.pollsPair(hero.nAsked, pairChance(hero.pPair))}
         </p>
       ) : null}
       {rest.length > 0 ? (

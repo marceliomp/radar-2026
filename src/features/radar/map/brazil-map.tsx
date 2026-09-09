@@ -6,6 +6,7 @@ import { runAllStateForecasts } from "@/lib/forecast/states";
 import { mapRoundView } from "@/lib/forecast/map-round";
 import type { EngineConfig } from "@/lib/forecast/engine";
 import { fmtPct } from "@/lib/format";
+import { useI18n } from "@/lib/i18n";
 import { tipCopy2022 } from "./map-helpers";
 import { MapLayerToggle, SegGroup, type MapLayer } from "./map-layer-toggle";
 import { BrazilMapSvg } from "./brazil-map-svg";
@@ -21,6 +22,7 @@ export function BrazilMap({
   config: EngineConfig;
   layer?: MapLayer;
 }) {
+  const { locale, m } = useI18n();
   const wrapRef = useRef<HTMLDivElement>(null);
   const [sel, setSel] = useState("SP");
   const [round, setRound] = useState<RoundKey>(1);
@@ -30,7 +32,7 @@ export function BrazilMap({
   const row2022 = ELECTION_2022[sel];
   const f = forecasts[sel];
   const meta = UF_META[sel];
-  const m = f ? mapRoundView(f, round) : undefined;
+  const mv = f ? mapRoundView(f, round) : undefined;
   const ufsWith = Object.keys(forecasts);
   const scored = ufsWith.map((uf) => mapRoundView(forecasts[uf]!, round)).filter((x) => x.polled);
   const flavioLead = scored.filter((x) => !isCardTie(x.flavio - x.lula, x.se) && x.flavio > x.lula).length;
@@ -54,64 +56,62 @@ export function BrazilMap({
     if (!box) return;
     const sc = forecasts[uf] ? mapRoundView(forecasts[uf]!, round) : undefined;
     const text = is2022
-      ? tipCopy2022(uf)
+      ? tipCopy2022(uf, locale)
       : sc && sc.polled
-        ? `${UF_META[uf]?.name ?? uf}: Lula ${fmtPct(sc.lula)} × Flávio ${fmtPct(sc.flavio)}`
-        : `${UF_META[uf]?.name ?? uf}: sem pesquisa`;
+        ? m.map.tip2026(UF_META[uf]?.name ?? uf, fmtPct(sc.lula, 1, locale), fmtPct(sc.flavio, 1, locale))
+        : m.map.noPollTip(UF_META[uf]?.name ?? uf);
     const x = Math.min(Math.max(8, e.clientX - box.left + 12), box.width - 180);
     const y = Math.min(Math.max(8, e.clientY - box.top + 12), box.height - 48);
     setTip({ text, x, y });
   }
 
-  const statusLabel = m?.polled
-    ? isCardTie(m.flavio - m.lula, m.se)
-      ? "empate"
-      : m.flavio > m.lula
+  const statusLabel = mv?.polled
+    ? isCardTie(mv.flavio - mv.lula, mv.se)
+      ? m.map.tie
+      : mv.flavio > mv.lula
         ? "Flávio"
         : "Lula"
     : round === 2
-      ? "sem 2º"
-      : "sem dado";
+      ? m.map.noSecond
+      : m.map.noData;
 
   return (
     <div className="space-y-3">
       {!is2022 && (
         <div className="flex flex-wrap items-center gap-3">
-          <SegGroup ariaLabel="Turno no mapa">
+          <SegGroup ariaLabel={m.map.roundAria}>
             <button
               type="button"
               aria-pressed={round === 1}
-              aria-label="1º turno presidente"
+              aria-label={m.map.firstAria}
               onClick={() => setRound(1)}
               className="seg-btn"
             >
-              <span className="seg-label">1º turno</span>
+              <span className="seg-label">{m.map.first}</span>
             </button>
             <button
               type="button"
               aria-pressed={round === 2}
-              aria-label="2º turno presidente"
+              aria-label={m.map.secondAria}
               onClick={() => setRound(2)}
               className="seg-btn"
             >
-              <span className="seg-label">2º turno</span>
+              <span className="seg-label">{m.map.second}</span>
             </button>
           </SegGroup>
           <span className="self-center text-[11px] font-medium text-gold">
-            estado · presidente
+            {m.map.statePres}
           </span>
         </div>
       )}
       {is2022 && (
         <p className="text-xs font-medium leading-relaxed text-muted">
-          2022 urna: cor pela margem do 2º (Lula × Bolsonaro). Passe o mouse ou
-          clique na UF.
+          {m.map.urnaHint}
         </p>
       )}
       {round === 2 && !is2022 && (
         <p className="text-xs font-medium leading-relaxed text-muted">
-          2º turno: cor cheia = o instituto perguntou. Tom claro = two-way do 1º,
-          nao e 2º medido. Nao use o print cinza como se fosse 2º turno.
+          {m.map.impliedHint}
         </p>
       )}
 
@@ -137,7 +137,7 @@ export function BrazilMap({
           ties={ties}
           lulaLead={lulaLead}
           f={f}
-          m={m}
+          view={mv}
           meta={meta}
           statusLabel={statusLabel}
           round={round}

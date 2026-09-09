@@ -1,35 +1,24 @@
 import { Link } from "@tanstack/react-router";
 import { fmtNum } from "@/lib/format";
-import { houseSplit, tightGovernorRaces } from "@/lib/race-hooks";
-
-function radarKeep(prev: Record<string, unknown>): { asOf?: string; hl?: number } {
-  const out: { asOf?: string; hl?: number } = {};
-  if (typeof prev.asOf === "string" && prev.asOf) out.asOf = prev.asOf;
-  if (typeof prev.hl === "number" && Number.isFinite(prev.hl)) out.hl = prev.hl;
-  else if (typeof prev.hl === "string" && prev.hl.trim()) {
-    const n = Number(prev.hl);
-    if (Number.isFinite(n)) out.hl = n;
-  }
-  return out;
-}
+import { keepRadarSearch, useI18n } from "@/lib/i18n";
+import { exampleGovernorUfs, ufTemCasas, tightGovernorRaces } from "@/lib/race-hooks";
 
 export function TightRaces() {
+  const { locale, m, fmt } = useI18n();
   const races = tightGovernorRaces(6);
-  const split = houseSplit();
-  const oneEx = split.one.includes("SC") ? "SC" : split.one[0];
-  const twoEx = split.two.includes("SP") ? "SP" : split.two[0];
+  const { one: oneEx, two: twoEx } = exampleGovernorUfs();
 
   if (races.length === 0) return null;
 
   return (
-    <section className="tight-block" aria-label="Corridas apertadas">
-      <p className="tight-title">Corridas apertadas</p>
+    <section className="tight-block" aria-label={m.tight.aria}>
+      <p className="tight-title">{m.tight.title}</p>
       <p className="tight-lede">
-        Última casa, não chance. Quase todo estado tem 1 instituto.
+        {m.tight.lede}
         {oneEx && twoEx ? (
           <>
             {" "}
-            {oneEx} tem 1 casa, {twoEx} tem 2. Compara.
+            {ufTemCasas(oneEx, locale)}, {ufTemCasas(twoEx, locale)}. {locale === "en" ? "Compare." : "Compara."}
           </>
         ) : null}
       </p>
@@ -41,7 +30,7 @@ export function TightRaces() {
               search={(prev) => ({
                 uf: r.uf,
                 cargo: "governador" as const,
-                ...radarKeep(prev as Record<string, unknown>),
+                ...keepRadarSearch(prev as Record<string, unknown>),
               })}
               className="tight-row"
             >
@@ -50,10 +39,10 @@ export function TightRaces() {
                 {r.aName} × {r.bName}
               </span>
               <span className="tight-score">
-                {fmtNum(r.aPct, 0)}×{fmtNum(r.bPct, 0)}
+                {fmt.num(r.aPct, 0)}×{fmt.num(r.bPct, 0)}
               </span>
               <span className="tight-meta">
-                {r.houses === 1 ? "1 casa" : `${r.houses} casas`}
+                {r.houses === 1 ? m.tight.oneHouse : m.tight.nHouses(r.houses)}
               </span>
             </Link>
           </li>
@@ -66,11 +55,11 @@ export function TightRaces() {
             search={(prev) => ({
               uf: oneEx,
               cargo: "governador" as const,
-              ...radarKeep(prev as Record<string, unknown>),
+              ...keepRadarSearch(prev as Record<string, unknown>),
             })}
             className="hook-link"
           >
-            Só 1 casa em {oneEx}
+            {m.tight.onlyOne(oneEx)}
           </Link>
           <span className="text-cream/35"> · </span>
           <Link
@@ -78,11 +67,11 @@ export function TightRaces() {
             search={(prev) => ({
               uf: twoEx,
               cargo: "governador" as const,
-              ...radarKeep(prev as Record<string, unknown>),
+              ...keepRadarSearch(prev as Record<string, unknown>),
             })}
             className="hook-link"
           >
-            {twoEx} tem 2, compara
+            {m.tight.compare(ufTemCasas(twoEx, locale))}
           </Link>
         </p>
       ) : null}

@@ -172,6 +172,39 @@
     border-bottom-color: transparent;
   }
 
+  .mast-lang {
+    margin-left: auto;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.35rem;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .mast-lang button {
+    background: none;
+    border: 0;
+    padding: 0.1rem 0;
+    color: color-mix(in oklab, var(--color-cream) 55%, transparent);
+    border-bottom: 1px solid transparent;
+    font: inherit;
+    letter-spacing: inherit;
+    text-transform: inherit;
+    cursor: pointer;
+  }
+
+  .mast-lang button[aria-pressed="true"] {
+    color: var(--color-cream);
+    border-bottom-color: var(--color-primary);
+  }
+
+  .mast-lang-sep {
+    color: color-mix(in oklab, var(--color-cream) 35%, transparent);
+  }
+
   /* Refero/538: ticker de proximo clique, nao CTA de landing. */
   .hook-rail {
     display: flex;

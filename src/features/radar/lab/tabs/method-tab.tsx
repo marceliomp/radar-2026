@@ -8,6 +8,7 @@ import { UF_META } from "@/data/calendar";
 import { CHART } from "@/lib/chart-theme";
 import { fmtNum, fmtPct, shownGap } from "@/lib/format";
 import type { ForecastPoll } from "@/lib/forecast/engine";
+import { useI18n } from "@/lib/i18n";
 
 export function MethodTab({
   barData,
@@ -16,12 +17,26 @@ export function MethodTab({
   barData: { name: string; value: number; fill: string }[];
   statePolls: ForecastPoll[];
 }) {
+  const { locale, m, fmt } = useI18n();
   return (
         <TabsContent value="modelo" className="mt-4 space-y-4">
+          <Card>
+            <CardHeader>
+              <CardTitle>{m.lab.notPoll}</CardTitle>
+              <CardDescription>
+                {m.lab.notPollDesc}
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-2 text-sm font-medium leading-relaxed text-cream/85">
+              <p>{m.lab.recency}</p>
+              <p>{m.lab.cap}</p>
+              <p>{m.lab.track}</p>
+            </CardContent>
+          </Card>
           <div className="grid gap-4 lg:grid-cols-2">
             <Card>
               <CardHeader>
-                <CardTitle>1º turno, campo completo</CardTitle>
+                <CardTitle>{m.lab.firstFull}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="h-64 w-full min-w-0">
@@ -63,10 +78,10 @@ export function MethodTab({
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <MapPin className="size-4 text-primary" />
-                  Radar estadual
+                  {m.lab.stateRadar}
                 </CardTitle>
                 <CardDescription>
-                  Fora do agregador nacional. Peso = eleitorado aproximado.
+                  {m.lab.stateRadarDesc}
                 </CardDescription>
               </CardHeader>
               <CardContent className="grid gap-3 sm:grid-cols-2">

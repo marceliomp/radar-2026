@@ -5,12 +5,14 @@ import { STATE_BY_UF, cardMarginPp, type RoundKey } from "@/data/state-polls";
 import { mapRoundView, shareBarPct } from "@/lib/forecast/map-round";
 import { runAllStateForecasts } from "@/lib/forecast/states";
 import { fmtNum, fmtPct } from "@/lib/format";
-import { leadLine, radarKeep } from "./map-helpers";
+import { keepRadarSearch, useI18n } from "@/lib/i18n";
+import { leadLine } from "./map-helpers";
 
 type Forecasts = ReturnType<typeof runAllStateForecasts>;
 type RoundView = ReturnType<typeof mapRoundView>;
 
 function ShareBar({ lula, flavio }: { lula: number; flavio: number }) {
+  const { m } = useI18n();
   const bar = shareBarPct(lula, flavio);
   return (
     <div className="h-2 overflow-hidden bg-surface-2">
@@ -37,14 +39,14 @@ function ShareBar({ lula, flavio }: { lula: number; flavio: number }) {
           background: "var(--color-cream)",
           float: "left",
         }}
-        title="resto ate 100%"
+        title={m.map.restTitle}
       />
     </div>
   );
 }
 
-
 export function Urna2022Card({ uf, row }: { uf: string; row: Election2022Uf }) {
+  const { locale, m, fmt } = useI18n();
   const meta = UF_META[uf];
   const elec = UF_META[uf]?.electorateM;
   const won2 = leader2t(row);
@@ -55,37 +57,37 @@ export function Urna2022Card({ uf, row }: { uf: string; row: Election2022Uf }) {
           {uf} · {meta?.name ?? uf}
         </p>
         <p className="text-xs font-semibold uppercase tracking-wide text-cream/80">
-          Presidente 2022 · {won2} no 2º
+          {m.map.pres2022(won2)}
         </p>
       </div>
       <div className="space-y-3 text-sm">
         {elec != null && (
           <p className="text-xs font-medium text-gold">
-            ~{fmtNum(elec, 1)} mi eleitores (TSE 2024/26)
+            {m.map.voters(fmt.num(elec, 1))}
           </p>
         )}
         <div>
           <p className="text-[11px] font-semibold uppercase tracking-wide text-muted">
-            1º turno 2022
+            {m.map.first2022}
           </p>
           <div className="mt-1 flex justify-between tabular-nums">
-            <span className="num-lula font-semibold">Lula {fmtPct(row.lula1, 2)}</span>
+            <span className="num-lula font-semibold">Lula {fmtPct(row.lula1, 2, locale)}</span>
             <span className="num-flavio font-semibold">
-              Bolsonaro {fmtPct(row.bolsonaro1, 2)}
+              Bolsonaro {fmtPct(row.bolsonaro1, 2, locale)}
             </span>
           </div>
           <p className="mt-0.5 text-xs font-medium text-gold">
-            {leadLine(leader1t(row), gap1t(row))}
+            {leadLine(leader1t(row), gap1t(row), locale)}
           </p>
         </div>
         <div>
           <p className="text-[11px] font-semibold uppercase tracking-wide text-muted">
-            2º turno 2022
+            {m.map.second2022}
           </p>
           <div className="mt-1 flex justify-between tabular-nums">
-            <span className="num-lula font-semibold">Lula {fmtPct(row.lula2, 2)}</span>
+            <span className="num-lula font-semibold">Lula {fmtPct(row.lula2, 2, locale)}</span>
             <span className="num-flavio font-semibold">
-              Bolsonaro {fmtPct(row.bolsonaro2, 2)}
+              Bolsonaro {fmtPct(row.bolsonaro2, 2, locale)}
             </span>
           </div>
           <div className="mt-1 h-2 overflow-hidden bg-bg">
@@ -107,11 +109,11 @@ export function Urna2022Card({ uf, row }: { uf: string; row: Election2022Uf }) {
             />
           </div>
           <p className="mt-1 text-xs font-medium text-gold">
-            {leadLine(won2, gap2t(row))}
+            {leadLine(won2, gap2t(row), locale)}
           </p>
         </div>
         <p className="text-xs font-medium leading-relaxed text-muted">
-          TSE, votos validos. Urna, nao pesquisa.
+          {m.map.urnaNote}
         </p>
       </div>
     </div>
@@ -128,7 +130,7 @@ export function SelectedStatePanel({
   ties,
   lulaLead,
   f,
-  m,
+  view,
   meta,
   statusLabel,
   round,
@@ -142,11 +144,12 @@ export function SelectedStatePanel({
   ties: number;
   lulaLead: number;
   f: Forecasts[string] | undefined;
-  m: RoundView | undefined;
+  view: RoundView | undefined;
   meta: (typeof UF_META)[string] | undefined;
   statusLabel: string;
   round: RoundKey;
 }) {
+  const { locale, m, fmt } = useI18n();
   return (
         <div className="space-y-3">
           {is2022 ? (
@@ -154,30 +157,30 @@ export function SelectedStatePanel({
               <p className="map-tally">
                 <span className="num-flavio">{urnaBolso} Bolsonaro</span>
                 <span className="num-lula">{urnaLula} Lula</span>
-                <span className="text-muted">no 2º turno</span>
+                <span className="text-muted">{m.map.inSecond}</span>
               </p>
               {row2022 ? (
                 <Urna2022Card uf={sel} row={row2022} />
               ) : (
-                <p className="text-sm font-medium text-muted">Sem urna 2022 nesta UF.</p>
+                <p className="text-sm font-medium text-muted">{m.map.noUrna}</p>
               )}
               <Link
                 to="/candidatos"
                 search={(prev) => ({
                   uf: sel,
                   cargo: "governador" as const,
-                  ...radarKeep(prev as Record<string, unknown>),
+                  ...keepRadarSearch(prev as Record<string, unknown>),
                 })}
                 className="hook-link mt-3 inline-block"
               >
-                Ver governadores de {sel}
+                {m.map.seeGov(sel)}
               </Link>
             </>
           ) : (
             <>
               <p className="map-tally">
                 <span className="num-flavio">{flavioLead} Flávio</span>
-                <span className="text-gold">{ties} empate</span>
+                <span className="text-gold">{ties} {m.map.tie}</span>
                 <span className="num-lula">{lulaLead} Lula</span>
               </p>
 
@@ -187,36 +190,36 @@ export function SelectedStatePanel({
                     {sel} · {meta?.name ?? sel}
                   </p>
                   <p className="text-xs font-semibold uppercase tracking-wide text-cream/80">
-                    Presidente · {statusLabel}
-                    {m?.implied ? " · 1º" : ""}
+                    {m.map.president} · {statusLabel}
+                    {view?.implied ? ` · ${m.map.firstRoundShort}` : ""}
                   </p>
                 </div>
-                {f && m ? (
+                {f && view ? (
                   <div className="space-y-2 text-sm">
                     <p className="text-xs font-medium text-gold">
-                      {f.n === 1 ? "1 pesquisa no 1º" : `${f.n} pesquisas no 1º`}
-                      {f.n2 ? ` · ${f.n2} com 2º perguntado` : " · 2º nao perguntado"}
-                      {meta ? ` · ~${fmtNum(meta.electorateM, 1)} mi eleitores` : ""}
+                      {m.map.nFirst(f.n)}
+                      {f.n2 ? ` · ${m.map.withSecond(f.n2)}` : ` · ${m.map.noSecondAsked}`}
+                      {meta ? ` · ${m.map.votersShort(fmt.num(meta.electorateM, 1))}` : ""}
                     </p>
-                    {round === 2 && m.implied && (
+                    {round === 2 && view.implied && (
                       <p className="text-xs font-medium text-muted">
-                        2º nao perguntado · two-way do 1º
+                        {m.map.impliedLine}
                       </p>
                     )}
-                    {m.polled && (
+                    {view.polled && (
                       <>
                         <div className="flex justify-between tabular-nums">
                           <span className="num-lula font-semibold">
-                            Lula {fmtPct(m.lula)}
+                            Lula {fmtPct(view.lula, 1, locale)}
                           </span>
                           <span className="num-flavio font-semibold">
-                            Flávio {fmtPct(m.flavio)}
+                            Flávio {fmtPct(view.flavio, 1, locale)}
                           </span>
                         </div>
-                        <ShareBar lula={m.lula} flavio={m.flavio} />
+                        <ShareBar lula={view.lula} flavio={view.flavio} />
                         <p className="text-xs font-medium text-gold">
-                          Margem ~ ±{fmtNum(cardMarginPp(m.se), 1)} pp
-                          {m.implied ? " · 2º não perguntado, two-way do 1º" : ""}
+                          {m.map.margin(fmt.num(cardMarginPp(view.se), 1))}
+                          {view.implied ? m.map.impliedMargin : ""}
                         </p>
                       </>
                     )}
@@ -227,18 +230,18 @@ export function SelectedStatePanel({
                     )}
                   </div>
                 ) : (
-                  <p className="text-sm font-medium text-muted">Sem pesquisa neste estado.</p>
+                  <p className="text-sm font-medium text-muted">{m.map.noPoll}</p>
                 )}
                 <Link
                   to="/candidatos"
                   search={(prev) => ({
                     uf: sel,
                     cargo: "governador" as const,
-                    ...radarKeep(prev as Record<string, unknown>),
+                    ...keepRadarSearch(prev as Record<string, unknown>),
                   })}
                   className="hook-link mt-3 inline-block"
                 >
-                  Ver governadores de {sel}
+                  {m.map.seeGov(sel)}
                 </Link>
               </div>
 
@@ -246,7 +249,7 @@ export function SelectedStatePanel({
                 <ul className="max-h-56 space-y-1 overflow-y-auto text-xs">
                   {f.snapshot.rows
                     .filter((r) =>
-                      round === 1 || m?.implied
+                      round === 1 || view?.implied
                         ? true
                         : Boolean(r.poll.secondRound && r.adjFlavio2 != null && r.adjLula2 != null),
                     )
@@ -258,18 +261,22 @@ export function SelectedStatePanel({
                       <span className="min-w-0 truncate font-medium">
                         {r.poll.institute.split("/")[0]} {r.poll.date.slice(8)}/
                         {r.poll.date.slice(5, 7)}
-                        {r.poll.secondRound ? "" : " · 1º"}
+                        {r.poll.secondRound ? "" : ` · ${m.map.firstRoundShort}`}
                       </span>
                       <span className="shrink-0 tabular-nums">
                         <span className="num-flavio">
                           {fmtNum(
-                            round === 2 && !m?.implied ? r.adjFlavio2! : r.adjFlavio1,
+                            round === 2 && !view?.implied ? r.adjFlavio2! : r.adjFlavio1,
+                            1,
+                            locale,
                           )}
                         </span>
                         <span className="mx-1 opacity-40">×</span>
                         <span className="num-lula">
                           {fmtNum(
-                            round === 2 && !m?.implied ? r.adjLula2! : r.adjLula1,
+                            round === 2 && !view?.implied ? r.adjLula2! : r.adjLula1,
+                            1,
+                            locale,
                           )}
                         </span>
                       </span>

@@ -1,11 +1,7 @@
 import { type ReactNode } from "react";
+import { useI18n } from "@/lib/i18n";
 
 export type MapLayer = "agg2026" | "urna2022";
-
-const LAYER_BTNS: { id: MapLayer; label: string; meta: string }[] = [
-  { id: "agg2026", label: "2026", meta: "presidente" },
-  { id: "urna2022", label: "2022", meta: "urna" },
-];
 
 export function SegGroup({
   ariaLabel,
@@ -28,9 +24,14 @@ export function MapLayerToggle({
   layer: MapLayer;
   onChange: (layer: MapLayer) => void;
 }) {
+  const { m } = useI18n();
+  const buttons: { id: MapLayer; label: string; meta: string }[] = [
+    { id: "agg2026", label: "2026", meta: m.map.layerPres },
+    { id: "urna2022", label: "2022", meta: m.map.layerUrna },
+  ];
   return (
-    <SegGroup ariaLabel="Camada do mapa">
-      {LAYER_BTNS.map((b) => (
+    <SegGroup ariaLabel={m.map.layerAria}>
+      {buttons.map((b) => (
         <button
           key={b.id}
           type="button"

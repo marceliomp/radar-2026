@@ -1,4 +1,6 @@
-import { dateBr, fieldPeriodLine, fmtDelta, round } from "./format.ts";
+import { dateShort, fieldPeriodLine, fmtDelta, round } from "./format.ts";
+import type { Locale } from "./i18n/locale.ts";
+import { messages } from "./i18n/messages.ts";
 
 export const VISIT_KEY = "radar2026.visit.v1";
 
@@ -42,8 +44,8 @@ export function writeVisit(snap: VisitSnap): string {
   return JSON.stringify(snap);
 }
 
-function chanceLine(dLula: number): string {
-  return `Lula ${fmtDelta(dLula)} pp de chance`;
+function chanceLine(dLula: number, locale: Locale): string {
+  return messages(locale).visit.chance(fmtDelta(dLula, 1, locale));
 }
 
 export function latestDayKey(ids: string[]): string {
@@ -59,7 +61,9 @@ export function visitView(
     newestId: string;
     nowMs?: number;
   },
+  locale: Locale = "pt",
 ): VisitView {
+  const copy = messages(locale).visit;
   const nowMs = now.nowMs ?? Date.now();
   const dLula = prev ? round(now.pLula - prev.pLula, 1) : 0;
   const dFlavio = prev ? round(now.pFlavio - prev.pFlavio, 1) : 0;
@@ -70,7 +74,7 @@ export function visitView(
   if (!prev) {
     return {
       kind: "first",
-      line: "A média só anda quando entra pesquisa no arquivo. Volte depois do próximo campo.",
+      line: copy.first,
       dLula: 0,
       dFlavio: 0,
       hours: 0,
@@ -80,9 +84,7 @@ export function visitView(
   if (newPoll) {
     return {
       kind: "new-poll",
-      line: moved
-        ? `Pesquisa nova no arquivo. ${chanceLine(dLula)}.`
-        : "Pesquisa nova no arquivo. O placar quase não andou.",
+      line: moved ? copy.newMoved(chanceLine(dLula, locale)) : copy.newFlat,
       dLula,
       dFlavio,
       hours,
@@ -92,7 +94,7 @@ export function visitView(
   if (prev.hl !== now.hl && moved) {
     return {
       kind: "hl",
-      line: `Período ${now.hl} dias: ${chanceLine(dLula)} vs a visita anterior.`,
+      line: copy.hl(now.hl, chanceLine(dLula, locale)),
       dLula,
       dFlavio,
       hours,
@@ -102,7 +104,7 @@ export function visitView(
   if (moved && hours >= 1) {
     return {
       kind: "moved",
-      line: `Desde a sua última visita: ${chanceLine(dLula)}.`,
+      line: copy.moved(chanceLine(dLula, locale)),
       dLula,
       dFlavio,
       hours,
@@ -112,7 +114,7 @@ export function visitView(
   if (hours < 0.5) {
     return {
       kind: "stale",
-      line: "Reload agora não muda o placar. Sem pesquisa nova no arquivo.",
+      line: copy.reload,
       dLula,
       dFlavio,
       hours,
@@ -121,10 +123,7 @@ export function visitView(
 
   return {
     kind: "stale",
-    line:
-      hours >= 24
-        ? "Desde a sua última visita o arquivo não mudou. Placar igual."
-        : "Sem pesquisa nova no arquivo. O placar é o mesmo.",
+    line: hours >= 24 ? copy.staleDay : copy.stale,
     dLula,
     dFlavio,
     hours,
@@ -150,18 +149,16 @@ export function fileStamp(
         fieldEnd: string;
       }
     | null,
+  locale: Locale = "pt",
 ): string {
+  const copy = messages(locale).visit;
   const rows = !polls ? [] : Array.isArray(polls) ? polls : [polls];
-  if (!rows.length) return "Nenhuma pesquisa nacional no arquivo.";
+  if (!rows.length) return copy.none;
   const houses = rows.map((poll) => shortHouse(poll.institute));
   if (rows.length === 1) {
-    const periodo = fieldPeriodLine(rows[0]!.fieldStart, rows[0]!.fieldEnd);
-    return periodo
-      ? `Última no arquivo: ${houses[0]}. ${periodo}.`
-      : `Última no arquivo: ${houses[0]}.`;
+    const periodo = fieldPeriodLine(rows[0]!.fieldStart, rows[0]!.fieldEnd, locale);
+    return copy.last(houses[0]!, periodo);
   }
-  const day = dateBr(rows[0]?.date);
-  return day
-    ? `Últimas no arquivo, ${day}: ${houses.join(", ")}.`
-    : `Últimas no arquivo: ${houses.join(", ")}.`;
+  const day = dateShort(rows[0]?.date, locale);
+  return day ? copy.lastsDay(day, houses.join(", ")) : copy.lasts(houses.join(", "));
 }

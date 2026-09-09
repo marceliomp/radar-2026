@@ -2,17 +2,20 @@ import { Link } from "@tanstack/react-router";
 import type { RaceForecastResult } from "@/lib/forecast/race-engine";
 import { fmtPct, fmtProb } from "@/lib/format";
 import { partyTone } from "@/lib/chart-theme";
+import { keepRadarSearch, useI18n } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
+import { exampleGovernorUfs, ufTemCasas } from "@/lib/race-hooks";
 import {
-  OFFICE_LABEL,
   type HeroLeader,
   type RaceOffice,
 } from "./race-types";
 
-function fmtHeroProb(probability: number) {
-  if (probability >= 0.995) return "99,5";
+const COMPARE_GOV_UF = exampleGovernorUfs().two;
+
+function fmtHeroProb(probability: number, locale: "pt" | "en") {
+  if (probability >= 0.995) return locale === "en" ? "99.5" : "99,5";
   if (probability < 0.005) return "<1";
-  return fmtProb(probability).replace("%", "");
+  return fmtProb(probability, 1, locale).replace("%", "");
 }
 
 export function RaceHero({
@@ -26,34 +29,34 @@ export function RaceHero({
   leaders: HeroLeader[];
   result: RaceForecastResult | null;
 }) {
+  const { locale, m } = useI18n();
+  const officeLabel = office === "senator" ? m.race.senator : m.race.governor;
   if (!result || leaders.length === 0) {
     return (
       <section className="border-b border-border px-4 py-8 md:px-6">
-        <p className="kicker">{ufName} · {OFFICE_LABEL[office]}</p>
+        <p className="kicker">{ufName} · {officeLabel}</p>
         <p className="mt-2 font-mono text-2xl font-semibold tabular-nums tracking-[-0.03em] text-cream">n/d</p>
-        <p className="mt-2 max-w-xl text-sm font-medium text-muted">Sem agregado nesta cadeira. Lista TSE abaixo.</p>
+        <p className="mt-2 max-w-xl text-sm font-medium text-muted">{m.race.noAgg}</p>
         <p className="tight-next mt-4">
           <Link
             to="/"
-            search={(prev) => {
-              const current = prev as Record<string, unknown>;
-              const out: Record<string, unknown> = {};
-              if (typeof current.asOf === "string") out.asOf = current.asOf;
-              if (typeof current.hl === "number") out.hl = current.hl;
-              return out;
-            }}
+            search={(prev) => keepRadarSearch(prev as Record<string, unknown>)}
             className="hook-link"
           >
-            Volta ao presidente
+            {m.race.backPres}
           </Link>
-          <span className="text-cream/35"> · </span>
-          <Link
-            to="/candidatos"
-            search={(prev) => ({ ...prev, uf: "SP", cargo: "governador" as const })}
-            className="hook-link"
-          >
-            SP tem 2 casas. Compara.
-          </Link>
+          {COMPARE_GOV_UF ? (
+            <>
+              <span className="text-cream/35"> · </span>
+              <Link
+                to="/candidatos"
+                search={(prev) => ({ ...prev, uf: COMPARE_GOV_UF, cargo: "governador" as const })}
+                className="hook-link"
+              >
+                {ufTemCasas(COMPARE_GOV_UF, locale)}. {m.curve.compare}
+              </Link>
+            </>
+          ) : null}
         </p>
       </section>
     );
@@ -61,7 +64,7 @@ export function RaceHero({
 
   const columns = Math.max(leaders.length, 1);
   const publish = result.evidence.canPublishProbability;
-  const chanceLabel = office === "senator" ? "chance de uma cadeira" : "chance da cadeira";
+  const chanceLabel = office === "senator" ? m.race.chanceSenate : m.race.chanceSeat;
   return (
     <>
       <section
@@ -94,23 +97,23 @@ export function RaceHero({
                   color: tone.fg,
                 }}
               >
-                <span className="tabular-nums">{fmtPct(leader.firstMean).replace("%", "")}</span>
+                <span className="tabular-nums">{fmtPct(leader.firstMean, 1, locale).replace("%", "")}</span>
                 <span className="mb-[0.08em] font-mono text-[0.28em] font-semibold tracking-[0.08em]">%</span>
               </p>
               <p className="mt-2 font-mono text-[10px] uppercase tracking-[0.12em] text-[#eaeaea]/65">
-                Intenção agregada
+                {m.race.intent}
               </p>
               {publish ? (
                 <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.12em] text-[#eaeaea]/80">
                   {chanceLabel}{" "}
                   <span className="tabular-nums" style={{ color: tone.fg }}>
-                    {fmtHeroProb(leader.pWin)}%
+                    {fmtHeroProb(leader.pWin, locale)}%
                   </span>
                 </p>
               ) : null}
               <p className="mt-3 font-mono text-[11px] uppercase tracking-[0.14em] text-[#eaeaea]/75">
                 {leader.party ? <span>{leader.party}</span> : null}
-                {leader.number ? <span>{leader.party ? " · " : ""}nº {leader.number}</span> : null}
+                {leader.number ? <span>{leader.party ? " · " : ""}{m.race.num(leader.number)}</span> : null}
               </p>
             </div>
           );
@@ -118,7 +121,7 @@ export function RaceHero({
       </section>
       {!publish ? (
         <p className="border-b border-border bg-gold/8 px-4 py-3 font-mono text-xs uppercase tracking-[0.1em] text-gold md:px-6">
-          Evidência insuficiente para publicar chance · {result.evidence.houses} instituto
+          {m.race.thin(result.evidence.houses)}
         </p>
       ) : null}
     </>

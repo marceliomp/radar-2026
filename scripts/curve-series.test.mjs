@@ -59,8 +59,8 @@ test("poll series stays dots and the line is the period average", () => {
   assert.match(curve, /asOfDayAverages/);
   assert.match(curve, /halfLifeDays/);
   assert.doesNotMatch(curve, /CURVE_PERIOD_DAYS/);
-  assert.match(curve, /Média · pesquisas novas pesam mais/);
-  assert.match(curve, /linha: média do período/);
+  assert.match(curve, /m\.curve\.avgTip/);
+  assert.match(curve, /m\.curve\.lineAvg/);
   assert.match(curve, /monotone/);
   assert.doesNotMatch(curve, /média das 3 últimas/);
   assert.doesNotMatch(curve, /2 últimos com pesquisa/);
@@ -141,7 +141,7 @@ test("curve hover tracks the date on a vertical cursor", () => {
 
 test("tooltip puts period average above the houses", () => {
   const curve = readFileSync("src/features/radar/public/growth-curve.tsx", "utf8");
-  const avgAt = curve.indexOf("Média · pesquisas novas pesam mais");
+  const avgAt = curve.indexOf("m.curve.avgTip");
   const housesAt = curve.indexOf("{houses.map");
   assert.ok(avgAt > 0 && housesAt > avgAt, "average must sit above the house list");
 });
@@ -169,8 +169,8 @@ test("houseFilterKey groups Genial/Quaest as Quaest", async () => {
 
 test("curve can filter by house inside the card", () => {
   const curve = readFileSync("src/features/radar/public/growth-curve.tsx", "utf8");
-  assert.match(curve, /Filtrar por casa/);
-  assert.match(curve, /Todas/);
+  assert.match(curve, /m\.curve\.filterHouse/);
+  assert.match(curve, /m\.curve\.allHouses/);
   assert.match(curve, /houseFocus/);
   assert.match(curve, /prevPublished/);
 });
@@ -197,8 +197,8 @@ test("modeFilterKey groups phone modes and keeps a stable order", async () => {
 
 test("curve can filter by poll mode", () => {
   const curve = readFileSync("src/features/radar/public/growth-curve.tsx", "utf8");
-  assert.match(curve, /Filtrar por tipo de pesquisa/);
-  assert.match(curve, /Todos os tipos/);
+  assert.match(curve, /m\.curve\.filterMode/);
+  assert.match(curve, /m\.curve\.allModes/);
   assert.match(curve, /modeFilterKey/);
   assert.match(curve, /modeFilterLabel/);
   assert.match(curve, /setMode/);

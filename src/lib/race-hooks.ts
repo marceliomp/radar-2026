@@ -1,6 +1,8 @@
 import { UF_META } from "@/data/calendar";
 import { CANDIDATES } from "@/data/candidates";
 import { RACE_POLLS } from "@/data/race-polls";
+import type { Locale } from "@/lib/i18n/locale";
+import { messages } from "@/lib/i18n/messages";
 
 export type TightRace = {
   uf: string;
@@ -86,4 +88,22 @@ export function houseSplit(): { one: string[]; two: string[] } {
     else one.push(uf);
   }
   return { one, two };
+}
+
+export function governorHouseCount(uf: string): number {
+  return governorHousesByUf()[uf] ?? 0;
+}
+
+export function ufTemCasas(uf: string, locale: Locale = "pt"): string {
+  const n = governorHouseCount(uf);
+  return messages(locale).houses.ufHas(uf, n);
+}
+
+/** Exemplos reais: 1 casa (prefere SC) e 2+ casas (prefere SP). */
+export function exampleGovernorUfs(): { one?: string; two?: string } {
+  const { one, two } = houseSplit();
+  return {
+    one: one.includes("SC") ? "SC" : one[0],
+    two: two.includes("SP") ? "SP" : two[0],
+  };
 }

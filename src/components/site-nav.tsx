@@ -1,5 +1,6 @@
 import { Link, useRouterState, useSearch } from "@tanstack/react-router";
 import { UF_ORDER } from "@/data/candidates";
+import { LangSwitch, keepRadarSearch, useI18n } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
 const UF_SET = new Set(UF_ORDER);
@@ -19,21 +20,8 @@ function lastUf(prevUf: unknown): string {
   return "SC";
 }
 
-function radarFrom(prev: Record<string, unknown>): {
-  asOf?: string;
-  hl?: number;
-} {
-  const out: { asOf?: string; hl?: number } = {};
-  if (typeof prev.asOf === "string" && prev.asOf) out.asOf = prev.asOf;
-  if (typeof prev.hl === "number" && Number.isFinite(prev.hl)) out.hl = prev.hl;
-  else if (typeof prev.hl === "string" && prev.hl.trim()) {
-    const n = Number(prev.hl);
-    if (Number.isFinite(n)) out.hl = n;
-  }
-  return out;
-}
-
 export function SiteNav({ className }: { className?: string }) {
+  const { m } = useI18n();
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const search = useSearch({ strict: false }) as {
     asOf?: string;
@@ -48,17 +36,17 @@ export function SiteNav({ className }: { className?: string }) {
   const isLab = pathname === "/lab";
 
   return (
-    <nav className={cn("mast", className)} aria-label="Radar 2026">
+    <nav className={cn("mast", className)} aria-label={m.nav.aria}>
       <Link to="/" className="mast-mark">
-        Radar 2026
+        {m.nav.mark}
       </Link>
       <div className="mast-links">
         <Link
           to="/"
-          search={(prev) => radarFrom(prev as Record<string, unknown>)}
+          search={(prev) => keepRadarSearch(prev as Record<string, unknown>)}
           className={cn(linkClass, isPres ? "mast-link-active" : "mast-link-idle")}
         >
-          Presidente
+          {m.nav.president}
         </Link>
         <Link
           to="/candidatos"
@@ -67,12 +55,12 @@ export function SiteNav({ className }: { className?: string }) {
             return {
               uf: lastUf(p.uf),
               cargo: "governador" as const,
-              ...radarFrom(p),
+              ...keepRadarSearch(p),
             };
           }}
           className={cn(linkClass, isGov ? "mast-link-active" : "mast-link-idle")}
         >
-          Governadores
+          {m.nav.governors}
         </Link>
         <Link
           to="/candidatos"
@@ -81,21 +69,22 @@ export function SiteNav({ className }: { className?: string }) {
             return {
               uf: lastUf(p.uf),
               cargo: "senador" as const,
-              ...radarFrom(p),
+              ...keepRadarSearch(p),
             };
           }}
           className={cn(linkClass, isSen ? "mast-link-active" : "mast-link-idle")}
         >
-          Senadores
+          {m.nav.senators}
         </Link>
         <Link
           to="/lab"
-          search={(prev) => radarFrom(prev as Record<string, unknown>)}
+          search={(prev) => keepRadarSearch(prev as Record<string, unknown>)}
           className={cn(linkClass, isLab ? "mast-link-active" : "mast-link-idle")}
         >
-          Método
+          {m.nav.method}
         </Link>
       </div>
+      <LangSwitch />
     </nav>
   );
 }

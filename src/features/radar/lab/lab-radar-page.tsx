@@ -23,6 +23,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ShareBar } from "@/components/share-bar";
 import { SiteNav } from "@/components/site-nav";
+import { useI18n } from "@/lib/i18n";
 import {
   FIRST_KEYS,
   FirstRoundField,
@@ -44,6 +45,8 @@ import { WeightsTab } from "./tabs/weights-tab";
 import { ControlsTab } from "./tabs/controls-tab";
 
 export function LabRadarPage() {
+  const { locale, m, fmt } = useI18n();
+
   const [asOf] = useAsOf();
   const [halfLife, setHalfLife] = useHalfLife();
   const [includeOnline, setIncludeOnline] = useState(true);
@@ -202,21 +205,21 @@ export function LabRadarPage() {
       <header className="mb-6 space-y-4">
         <div className="board-split">
           <div className="board-card border-0 sm:border-r sm:border-border">
-            <p className="kicker">1º turno</p>
+            <p className="kicker">{m.lab.first}</p>
             <FirstRoundField first={first} />
             <p className="mt-3 text-xs font-medium leading-relaxed text-cream/85">
-              {gapPlain(first.technicalTie, first.lula.mean, first.flavio.mean, first.seGap)}
+              {gapPlain(first.technicalTie, first.lula.mean, first.flavio.mean, first.seGap, locale)}
               {" · "}
-              Lula lidera o 1º em {fmtProb(probs.lulaLeadsFirst)} das simulações
+              {m.lab.leadsFirst(fmt.prob(probs.lulaLeadsFirst))}
             </p>
             <p className="mt-3">
               <a href="#pares" className="hook-link">
-                E no 2º turno?
+                {m.lab.toSecond}
               </a>
             </p>
           </div>
           <div className="board-card border-0 border-t border-border sm:border-t-0">
-            <p className="kicker" id="pares">2º turno</p>
+            <p className="kicker" id="pares">{m.lab.second}</p>
             <SecondRoundScenarios
               first={first}
               second={second}
@@ -224,7 +227,7 @@ export function LabRadarPage() {
             />
             <p className="mt-3">
               <a href="#mapa" className="hook-link">
-                E no seu estado?
+                {m.lab.toState}
               </a>
             </p>
           </div>
@@ -233,15 +236,15 @@ export function LabRadarPage() {
           <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm font-medium text-fg">
             <span className="inline-flex items-center gap-1.5">
               <CalendarDays className="size-4 shrink-0 text-primary" />
-              Atualizado {fmtDateBr(config.asOf)}
+              {m.lab.updated(fmt.date(config.asOf))}
             </span>
             <span className="inline-flex items-center gap-1.5">
               <Radio className="size-4 shrink-0 text-primary" />
-              {rows.length} pesquisas nacionais
+              {m.lab.nationalPolls(rows.length)}
             </span>
           </div>
           <ShareBar
-            asOf={fmtDateBr(config.asOf)}
+            asOf={fmt.date(config.asOf)}
             lula1={first.lula.mean}
             flavio1={first.flavio.mean}
             lula2={second?.lula.mean ?? 0}
@@ -259,10 +262,10 @@ export function LabRadarPage() {
               <span className="text-gold">{i + 1}.</span>
               {r.institute}
               <span className="tabular-nums text-cream/80">
-                {fmtPct(r.share * 100, 0)} do peso
+                {fmt.pct(r.share * 100, 0)} {m.lab.ofWeight}
               </span>
               <span className="tabular-nums text-primary">
-                ×{fmtMult(r.quality)}
+                ×{fmtMult(r.quality, 2, locale)}
               </span>
             </span>
           ))}
@@ -274,7 +277,7 @@ export function LabRadarPage() {
           <div className="board-card">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
               <div className="space-y-1.5">
-                <p className="eyebrow">Nova pesquisa</p>
+                <p className="eyebrow">{m.lab.newPoll}</p>
                 <p className="font-display text-xl font-semibold">
                   {latestNational.institute}
                 </p>
@@ -292,7 +295,7 @@ export function LabRadarPage() {
               </div>
               <div className="grid gap-6 sm:grid-cols-[minmax(0,16rem)_minmax(0,1fr)]">
                 <div>
-                  <p className="text-xs font-medium text-gold">1º turno</p>
+                  <p className="text-xs font-medium text-gold">{m.lab.first}</p>
                   <ul className="mt-1 space-y-0.5 text-sm font-semibold tabular-nums">
                     {pollFirstRoundRows(latestNational)
                       .filter((r) => r.asked)
@@ -305,7 +308,7 @@ export function LabRadarPage() {
                   </ul>
                 </div>
                 <div>
-                  <p className="text-xs font-medium text-gold">2º turno</p>
+                  <p className="text-xs font-medium text-gold">{m.lab.second}</p>
                   {pollAskedPairs(latestNational).length ? (
                     <ul className="mt-1">
                       {pollAskedPairs(latestNational).map((pair) => {
@@ -328,11 +331,11 @@ export function LabRadarPage() {
                       })}
                     </ul>
                   ) : (
-                    <p className="mt-1 text-sm font-medium text-cream/70">sem 2º</p>
+                    <p className="mt-1 text-sm font-medium text-cream/70">{m.lab.noSecond}</p>
                   )}
                   <p className="mt-3">
                     <a href="#pares" className="hook-link">
-                      E no agregado dos pares?
+                      {m.lab.toPairs}
                     </a>
                   </p>
                 </div>
@@ -346,7 +349,7 @@ export function LabRadarPage() {
         <Card className="border-flavio/35 glow-flavio bg-gradient-to-br from-surface to-flavio/5">
           <CardContent className="pt-4">
             <p className="text-xs font-medium text-gold">
-              Flávio no 1º, pesquisas antigas → recentes
+              {m.lab.flavioOldNew}
             </p>
             <p className="num-flavio mt-1 font-display text-2xl font-semibold tabular-nums">
               {fmtDelta(mom.dFlavio1)} pp
@@ -359,7 +362,7 @@ export function LabRadarPage() {
         <Card className="border-lula/35 glow-lula bg-gradient-to-br from-surface to-lula/5">
           <CardContent className="pt-4">
             <p className="text-xs font-medium text-gold">
-              Lula no 1º, pesquisas antigas → recentes
+              {m.lab.lulaOldNew}
             </p>
             <p className="num-lula mt-1 font-display text-2xl font-semibold tabular-nums">
               {fmtDelta(mom.dLula1)} pp
@@ -372,7 +375,7 @@ export function LabRadarPage() {
         <Card className="border-accent/35 bg-gradient-to-br from-surface to-accent/5">
           <CardContent className="pt-4">
             <p className="text-xs font-medium text-gold">
-              Diferença no 1º (caiu = mais colado)
+              {m.lab.gapOldNew}
             </p>
             <p className="num-accent mt-1 font-display text-2xl font-semibold tabular-nums">
               {fmtDelta(mom.dGap1)} pp
@@ -383,18 +386,18 @@ export function LabRadarPage() {
           </CardContent>
         </Card>
       </section>
-      <Tabs defaultValue="mapa" className="w-full">
+      <Tabs defaultValue="modelo" className="w-full">
         <div className="-mx-4 overflow-x-auto px-4 pb-1 sm:mx-0 sm:px-0">
           <TabsList className="inline-flex h-auto min-h-11 w-max min-w-0 flex-nowrap">
-            <TabsTrigger value="mapa">Mapa</TabsTrigger>
-            <TabsTrigger value="agenda">Agenda</TabsTrigger>
-            <TabsTrigger value="track">Acerto</TabsTrigger>
-            <TabsTrigger value="crescimento">Curva</TabsTrigger>
-            <TabsTrigger value="segundo">2º turno</TabsTrigger>
-            <TabsTrigger value="melhora">Casas</TabsTrigger>
-            <TabsTrigger value="modelo">Método</TabsTrigger>
-            <TabsTrigger value="weights">Pesos</TabsTrigger>
-            <TabsTrigger value="controls">Ajustes</TabsTrigger>
+            <TabsTrigger value="modelo">{m.lab.tabMethod}</TabsTrigger>
+            <TabsTrigger value="weights">{m.lab.tabWeights}</TabsTrigger>
+            <TabsTrigger value="mapa">{m.lab.tabMap}</TabsTrigger>
+            <TabsTrigger value="agenda">{m.lab.tabAgenda}</TabsTrigger>
+            <TabsTrigger value="track">{m.lab.tabTrack}</TabsTrigger>
+            <TabsTrigger value="crescimento">{m.lab.tabCurve}</TabsTrigger>
+            <TabsTrigger value="segundo">{m.lab.tabSecond}</TabsTrigger>
+            <TabsTrigger value="melhora">{m.lab.tabHouses}</TabsTrigger>
+            <TabsTrigger value="controls">{m.lab.tabControls}</TabsTrigger>
           </TabsList>
         </div>
 
@@ -427,7 +430,7 @@ export function LabRadarPage() {
 
 
       <footer className="mt-10 border-t border-border pt-6 text-center text-xs font-medium text-muted">
-        v3 · portal independente · peso 2014, 2018 e 2022 · não é instituto oficial
+        {m.lab.footer}
       </footer>
     </div>
     </div>

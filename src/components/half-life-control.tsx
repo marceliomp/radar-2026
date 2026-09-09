@@ -1,16 +1,18 @@
 import { HL_MAX, HL_MIN, useHalfLife } from "@/lib/half-life";
+import { useI18n } from "@/lib/i18n";
 
 export function HalfLifeSlider({ id }: { id?: string }) {
   const [halfLife, setHalfLife] = useHalfLife();
+  const { m } = useI18n();
   const pct = ((halfLife - HL_MIN) / (HL_MAX - HL_MIN)) * 100;
 
   return (
     <div>
       <div className="hl-meta">
-        <label htmlFor={id}>Período</label>
-        <span className="hl-val">{halfLife} dias</span>
+        <label htmlFor={id}>{m.period.label}</label>
+        <span className="hl-val">{m.period.days(halfLife)}</span>
       </div>
-      <p className="hl-copy">Pesquisas novas pesam mais. Não é corte de calendário.</p>
+      <p className="hl-copy">{m.period.copy}</p>
       <input
         id={id}
         type="range"
@@ -23,11 +25,11 @@ export function HalfLifeSlider({ id }: { id?: string }) {
         aria-valuemin={HL_MIN}
         aria-valuemax={HL_MAX}
         aria-valuenow={halfLife}
-        aria-valuetext={`período de ${halfLife} dias`}
+        aria-valuetext={m.period.valuetext(halfLife)}
       />
       <div className="hl-ends">
-        <span>{HL_MIN}d só o recente</span>
-        <span>desde janeiro</span>
+        <span>{m.period.recent(HL_MIN)}</span>
+        <span>{m.period.long(HL_MAX)}</span>
       </div>
     </div>
   );

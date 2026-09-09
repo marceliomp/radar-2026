@@ -22,38 +22,24 @@ import {
   type RunoffKey,
 } from "@/lib/forecast/runoff-scenarios";
 import { bottomUpNational } from "@/lib/forecast/states";
-import { fieldPeriodLine, fmtMult, fmtNum, fmtPct, fmtProb, isShownTie, pairTightnessLine, shownGap } from "@/lib/format";
+import { fieldPeriodLine, fmtMult, isShownTie, pairTightnessLine, shownGap } from "@/lib/format";
 import { useHalfLife } from "@/lib/half-life";
+import { useI18n } from "@/lib/i18n";
 import { fileStamp } from "@/lib/visit-delta";
 import { pollsOnLatestDay } from "@/lib/latest-day";
-import { CHART } from "@/lib/chart-theme";
+import { exampleGovernorUfs, ufTemCasas } from "@/lib/race-hooks";
 import { cn } from "@/lib/utils";
+
+const COMPARE_GOV_UF = exampleGovernorUfs().two;
 
 const FIELD_KEYS = ["lula", "flavio", "renan", "caiado", "zema", "cury"] as const;
 
-function fmtDateBr(iso: string) {
-  return `${iso.slice(8)}/${iso.slice(5, 7)}/${iso.slice(0, 4)}`;
-}
-
-function gapPlain(a: number | undefined, b: number | undefined, se?: number) {
-  if (a == null || b == null) return "Ainda poucas pesquisas perguntaram o 2º.";
-  const gap = shownGap(a, b);
-  const pts = fmtNum(Math.abs(gap));
-  if (se != null && isShownTie(a, b, se)) {
-    return `Empate técnico: ${pts} pontos de diferença, cabe na margem.`;
-  }
-  return `${gap > 0 ? "Lula" : "Flávio"} à frente por ${pts} pontos de intenção.`;
-}
-
-function leadPlain(lulaLead: number, flavioLead: number) {
-  const lula = lulaLead >= flavioLead;
-  return `${lula ? "Lula" : "Flávio"} lidera o 1º em ${fmtProb(lula ? lulaLead : flavioLead)} das simulações`;
-}
-
 function FirstRoundField({
   first,
+  fmtPct,
 }: {
   first: Record<(typeof FIELD_KEYS)[number], { mean: number; nPolls?: number }>;
+  fmtPct: (n: number) => string;
 }) {
   const rows = FIELD_KEYS.map((key) => ({
     key,
@@ -90,7 +76,7 @@ function FirstRoundField({
   );
 }
 
-function pairChance(probability: number) {
+function pairChance(probability: number, fmtProb: (p: number) => string) {
   if (probability >= 0.995) return ">99%";
   if (probability < 0.005) return "<1%";
   return fmtProb(probability);
@@ -105,6 +91,7 @@ function SecondRoundScenarios({
   second: Record<RunoffKey, { mean: number; se: number; nPolls: number }> | null;
   pollsForPairs: (Pick<ForecastPoll, "secondRound" | "secondPairs"> & { weight?: number })[];
 }) {
+  const { m, fmt } = useI18n();
   const scenarios = useMemo(
     () => buildRunoffScenarios({ first, second, polls: pollsForPairs }),
     [first, second, pollsForPairs],
@@ -118,7 +105,7 @@ function SecondRoundScenarios({
   );
 
   if (!hero) {
-    return <p className="mt-2 text-sm font-medium text-fg">Ainda poucas pesquisas perguntaram o 2º.</p>;
+    return <p className="mt-2 text-sm font-medium text-fg">{m.home.fewSecond}</p>;
   }
 
   const left = CANDIDATE_META[hero.a];
@@ -130,18 +117,18 @@ function SecondRoundScenarios({
           <div>
             <p className="text-sm font-semibold" style={{ color: left.color }}>{left.name}</p>
             <p className="font-mono text-[11px] uppercase tracking-[0.1em] text-cream">{left.party}</p>
-            <p className="matchup-num mt-1" style={{ color: left.color }}>{fmtPct(hero.a2)}</p>
+            <p className="matchup-num mt-1" style={{ color: left.color }}>{fmt.pct(hero.a2)}</p>
           </div>
           <p className="pb-3 font-mono text-xs text-cream/40">×</p>
           <div className="text-right">
             <p className="text-sm font-semibold" style={{ color: right.color }}>{right.name}</p>
             <p className="font-mono text-[11px] uppercase tracking-[0.1em] text-cream">{right.party}</p>
-            <p className="matchup-num mt-1" style={{ color: right.color }}>{fmtPct(hero.b2)}</p>
+            <p className="matchup-num mt-1" style={{ color: right.color }}>{fmt.pct(hero.b2)}</p>
           </div>
         </div>
       ) : null}
       <p className="mt-2 font-mono text-[11px] uppercase tracking-[0.1em] text-cream/85">
-        {hero.nAsked} pesquisas · par {pairChance(hero.pPair)} no 1º
+        {m.home.pollsPair(hero.nAsked, pairChance(hero.pPair, fmt.prob))}
       </p>
       {rest.length > 0 ? (
         <ol className="mt-3">
@@ -158,11 +145,11 @@ function SecondRoundScenarios({
                 <span className="shrink-0 text-right font-mono text-xs tabular-nums">
                   {scenario.a2 != null && scenario.b2 != null ? (
                     <>
-                      <span style={{ color: a.color }}>{fmtPct(scenario.a2)}</span>
+                      <span style={{ color: a.color }}>{fmt.pct(scenario.a2)}</span>
                       <span className="text-cream/40"> × </span>
-                      <span style={{ color: b.color }}>{fmtPct(scenario.b2)}</span>
+                      <span style={{ color: b.color }}>{fmt.pct(scenario.b2)}</span>
                       <span className="ml-2 text-cream/50">
-                        {scenario.nAsked} · par {pairChance(scenario.pPair)}
+                        {scenario.nAsked} · par {pairChance(scenario.pPair, fmt.prob)}
                       </span>
                     </>
                   ) : null}
@@ -189,20 +176,21 @@ function latestPairRows(poll: ForecastPoll) {
 }
 
 function LatestHouseCard({ poll }: { poll: ForecastPoll }) {
+  const { locale, m, fmt } = useI18n();
   return (
     <div className="board-card">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div className="space-y-1.5">
           <p className="font-display text-xl font-semibold">{poll.institute}</p>
           <p className="text-sm font-medium text-gold">
-            {fieldPeriodLine(poll.fieldStart, poll.fieldEnd)}
+            {fieldPeriodLine(poll.fieldStart, poll.fieldEnd, locale)}
           </p>
           <p className="text-sm font-medium text-cream/80">
             {poll.mode}
             {" · "}
-            {poll.sample.toLocaleString("pt-BR")} pessoas
-            {" · margem ±"}
-            {fmtNum(poll.moe)} pp
+            {poll.sample.toLocaleString(locale === "en" ? "en-US" : "pt-BR")} {m.home.people}
+            {" · "}{m.home.moe}
+            {fmt.num(poll.moe)} pp
           </p>
           {poll.source?.tseProtocol ? (
             <p className="font-mono text-xs font-medium text-cream/80">
@@ -217,13 +205,14 @@ function LatestHouseCard({ poll }: { poll: ForecastPoll }) {
                 poll.secondRound.lula,
                 poll.secondRound.flavio,
                 poll.moe,
+                locale,
               )}
             </p>
           ) : null}
         </div>
         <div className="grid gap-6 sm:grid-cols-[minmax(0,16rem)_minmax(0,1fr)]">
           <div>
-            <p className="text-xs font-medium text-gold">1º turno</p>
+            <p className="text-xs font-medium text-gold">{m.home.firstRound}</p>
             <ul className="mt-1 space-y-0.5 text-sm font-semibold tabular-nums">
               {FIELD_KEYS
                 .filter((key) => poll.firstRound[key] != null)
@@ -231,13 +220,13 @@ function LatestHouseCard({ poll }: { poll: ForecastPoll }) {
                 .map((key) => (
                   <li key={key} className="flex justify-between gap-3">
                     <span style={{ color: CANDIDATE_META[key].color }}>{CANDIDATE_META[key].name}</span>
-                    <span style={{ color: CANDIDATE_META[key].color }}>{fmtPct(poll.firstRound[key] ?? 0)}</span>
+                    <span style={{ color: CANDIDATE_META[key].color }}>{fmt.pct(poll.firstRound[key] ?? 0)}</span>
                   </li>
                 ))}
             </ul>
           </div>
           <div>
-            <p className="text-xs font-medium text-gold">2º turno</p>
+            <p className="text-xs font-medium text-gold">{m.home.secondRound}</p>
             <ul className="mt-1">
               {latestPairRows(poll).map((pair) => (
                 <li key={`${pair.a}|${pair.b}`} className="score-row py-1">
@@ -246,7 +235,7 @@ function LatestHouseCard({ poll }: { poll: ForecastPoll }) {
                     <span className="text-cream/40"> × </span>
                     <span style={{ color: CANDIDATE_META[pair.b].color }}>{CANDIDATE_META[pair.b].name}</span>
                   </span>
-                  <span className="shrink-0 font-mono text-xs tabular-nums">{fmtPct(pair.aPct)} × {fmtPct(pair.bPct)}</span>
+                  <span className="shrink-0 font-mono text-xs tabular-nums">{fmt.pct(pair.aPct)} × {fmt.pct(pair.bPct)}</span>
                 </li>
               ))}
             </ul>
@@ -258,6 +247,7 @@ function LatestHouseCard({ poll }: { poll: ForecastPoll }) {
 }
 
 export function PublicRadarPage() {
+  const { locale, m, fmt } = useI18n();
   const [asOf] = useAsOf();
   const [halfLife] = useHalfLife();
   const [mapLayer, setMapLayer] = useState<MapLayer>("agg2026");
@@ -281,38 +271,79 @@ export function PublicRadarPage() {
   const latestDayPolls = useMemo(() => pollsOnLatestDay(polls, asOf), [asOf]);
   const pLula = Math.round(probs.lulaWinsElection * 1000) / 10;
   const pFlavio = Math.round(probs.flavioWinsElection * 1000) / 10;
+  const heroBoard = useMemo(() => {
+    const rows = [
+      { key: "lula" as const, p: probs.lulaWinsElection },
+      { key: "flavio" as const, p: probs.flavioWinsElection },
+      { key: "cury" as const, p: probs.curyWinsElection ?? 0 },
+      { key: "caiado" as const, p: probs.caiadoWinsElection ?? 0 },
+      { key: "renan" as const, p: probs.renanWinsElection ?? 0 },
+      { key: "zema" as const, p: probs.zemaWinsElection ?? 0 },
+    ];
+    const always = rows.filter((r) => r.key === "lula" || r.key === "flavio");
+    const extras = rows
+      .filter((r) => r.key !== "lula" && r.key !== "flavio" && r.p >= 0.01)
+      .sort((a, b) => b.p - a.p);
+    const picked = [...always, ...extras].sort((a, b) => b.p - a.p).slice(0, 3);
+    return picked;
+  }, [probs]);
+
+  function gapPlain(a: number | undefined, b: number | undefined, se?: number) {
+    if (a == null || b == null) return m.home.fewSecond;
+    const gap = shownGap(a, b);
+    const pts = fmt.num(Math.abs(gap));
+    if (se != null && isShownTie(a, b, se)) {
+      return m.home.technicalTie(pts);
+    }
+    return m.home.aheadIntent(gap > 0 ? "Lula" : "Flávio", pts);
+  }
+
+  function leadPlain(lulaLead: number, flavioLead: number) {
+    const lula = lulaLead >= flavioLead;
+    return m.home.leadsFirst(lula ? "Lula" : "Flávio", fmt.prob(lula ? lulaLead : flavioLead));
+  }
 
   return (
     <div className="pb-[max(4rem,env(safe-area-inset-bottom))]">
-      <a href="#conteudo" className="skip-link">Ir ao conteúdo</a>
+      <a href="#conteudo" className="skip-link">{m.skip}</a>
       <section className="hero-mast">
         <div className="hero-chrome">
           <div className="flex min-w-0 items-start justify-between gap-3">
             <SiteNav className="min-w-0 flex-1" />
-            <span className="hero-badge">Não é pesquisa</span>
+            <span className="hero-badge">{m.badge}</span>
           </div>
         </div>
         <h1 className="hero-method">
-          Chance de ser presidente
-          <span className="hero-method-sub">Simulação do Radar. Não é intenção de voto.</span>
+          {m.hero.chance}
+          <span className="hero-method-sub">{m.hero.sub}</span>
         </h1>
-        <div className="hero-score">
-          <div className="hero-col hero-col-l">
-            <p className="hero-kicker" style={{ color: CHART.lula }}>Lula</p>
-            <p className="hero-num" style={{ color: CHART.lula }}>
-              {fmtProb(probs.lulaWinsElection).replace("%", "")}
-              <span className="hero-unit">%</span>
-            </p>
-          </div>
-          <div className="hero-col hero-col-f">
-            <p className="hero-kicker" style={{ color: CHART.flavio }}>Flávio</p>
-            <p className="hero-num" style={{ color: CHART.flavio }}>
-              {fmtProb(probs.flavioWinsElection).replace("%", "")}
-              <span className="hero-unit">%</span>
-            </p>
-          </div>
+        <div className="hero-score" data-cols={heroBoard.length}>
+          {heroBoard.map((row, index) => {
+            const meta = CANDIDATE_META[row.key];
+            const align =
+              heroBoard.length === 2
+                ? index === 0
+                  ? "hero-col-l"
+                  : "hero-col-f"
+                : index === 0
+                  ? "hero-col-l"
+                  : index === heroBoard.length - 1
+                    ? "hero-col-f"
+                    : "hero-col-m";
+            return (
+              <div key={row.key} className={`hero-col ${align}`}>
+                <p className="hero-kicker" style={{ color: meta.color }}>
+                  {row.key === "flavio" ? "Flávio" : row.key === "lula" ? "Lula" : meta.name.split(" ").pop()}
+                </p>
+                <p className="hero-num" style={{ color: meta.color }}>
+                  {fmt.prob(row.p).replace("%", "")}
+                  <span className="hero-unit">%</span>
+                </p>
+              </div>
+            );
+          })}
         </div>
-        <p className="hero-fresh">{fileStamp(latestDayPolls)}</p>
+        <p className="hero-fresh">{fileStamp(latestDayPolls, locale)}</p>
         <VisitHook
           pLula={pLula}
           pFlavio={pFlavio}
@@ -322,7 +353,7 @@ export function PublicRadarPage() {
         <div className="hero-share">
           <ShareBar
             compact
-            asOf={fmtDateBr(config.asOf)}
+            asOf={fmt.date(config.asOf)}
             lula1={first.lula.mean}
             flavio1={first.flavio.mean}
             lula2={second?.lula.mean ?? 0}
@@ -338,33 +369,33 @@ export function PublicRadarPage() {
         <GrowthCurve polls={polls} asOf={asOf} halfLifeDays={halfLife} />
         <section id="media" className="mb-6 space-y-4 scroll-mt-24">
           <div className="story-head">
-            <p className="kicker">Média das pesquisas</p>
-            <h2 className="story-title">Intenção de voto</h2>
-            <p className="story-lede">Não é a chance de ganhar. É a mesma média da chance. Pesquisa velha entra com menos peso.</p>
+            <p className="kicker">{m.home.avgKicker}</p>
+            <h2 className="story-title">{m.home.avgTitle}</h2>
+            <p className="story-lede">{m.home.avgLede}</p>
           </div>
           <div className="board-split">
             <div className="board-card border-0 sm:border-r sm:border-border">
-              <p className="kicker">1º turno</p>
-              <FirstRoundField first={first} />
+              <p className="kicker">{m.home.firstRound}</p>
+              <FirstRoundField first={first} fmtPct={fmt.pct} />
               <p className="mt-3 text-xs font-medium leading-relaxed text-cream/85">
                 {gapPlain(first.lula.mean, first.flavio.mean, first.seGap)} · {leadPlain(probs.lulaLeadsFirst, probs.flavioLeadsFirst)}
               </p>
-              <p className="mt-3"><a href="#pares" className="hook-link">E no 2º turno?</a></p>
+              <p className="mt-3"><a href="#pares" className="hook-link">{m.home.toSecond}</a></p>
             </div>
             <div className="board-card border-0 border-t border-border sm:border-t-0">
-              <p className="kicker" id="pares">2º turno</p>
+              <p className="kicker" id="pares">{m.home.secondRound}</p>
               <SecondRoundScenarios
                 first={first}
                 second={second}
                 pollsForPairs={rows.map((row) => ({ ...row.poll, weight: row.weight }))}
               />
-              <p className="mt-3"><a href="#mapa" className="hook-link">E no seu estado?</a></p>
+              <p className="mt-3"><a href="#mapa" className="hook-link">{m.home.toState}</a></p>
             </div>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
             <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm font-medium text-fg">
-              <span className="inline-flex items-center gap-1.5"><CalendarDays className="size-4 shrink-0 text-primary" />Atualizado {fmtDateBr(config.asOf)}</span>
-              <span className="inline-flex items-center gap-1.5"><Radio className="size-4 shrink-0 text-primary" />{rows.length} no arquivo · recência {halfLife}d</span>
+              <span className="inline-flex items-center gap-1.5"><CalendarDays className="size-4 shrink-0 text-primary" />{m.home.updated(fmt.date(config.asOf))}</span>
+              <span className="inline-flex items-center gap-1.5"><Radio className="size-4 shrink-0 text-primary" />{m.home.inFile(rows.length, halfLife)}</span>
             </div>
           </div>
         </section>
@@ -372,9 +403,9 @@ export function PublicRadarPage() {
         {latestDayPolls.length > 0 ? (
           <section id="novo" className="mb-6 space-y-3">
             <div className="story-head mb-0">
-              <p className="eyebrow">{latestDayPolls.length > 1 ? "Neste dia" : "Nova pesquisa"}</p>
+              <p className="eyebrow">{latestDayPolls.length > 1 ? m.home.thisDay : m.home.newPoll}</p>
               {latestDayPolls.length > 1 ? (
-                <h2 className="story-title">{latestDayPolls.length} pesquisas no mesmo dia</h2>
+                <h2 className="story-title">{m.home.sameDay(latestDayPolls.length)}</h2>
               ) : null}
             </div>
             {latestDayPolls.map((poll) => (
@@ -386,47 +417,49 @@ export function PublicRadarPage() {
         <TightRaces />
         <section id="mapa" className="space-y-3 scroll-mt-24">
           <div className="story-head">
-            <p className="kicker">Território</p>
-            <h2 className="story-title">E no seu estado?</h2>
-            <p className="story-lede">Clique no estado. Presidente neste estado. Governador no link do dossiê.</p>
+            <p className="kicker">{m.home.territory}</p>
+            <h2 className="story-title">{m.home.yourState}</h2>
+            <p className="story-lede">{m.home.mapLede}</p>
           </div>
           <MapLayerToggle layer={mapLayer} onChange={setMapLayer} />
           <BrazilMap config={config} layer={mapLayer} />
-          <p className="tight-next">
-            <Link to="/candidatos" search={{ uf: "SP", cargo: "governador", asOf, hl: halfLife }} className="hook-link">
-              SP tem 2 casas. Compara.
-            </Link>
-          </p>
+          {COMPARE_GOV_UF ? (
+            <p className="tight-next">
+              <Link to="/candidatos" search={{ uf: COMPARE_GOV_UF, cargo: "governador", asOf, hl: halfLife }} className="hook-link">
+                {ufTemCasas(COMPARE_GOV_UF, locale)}. {locale === "en" ? "Compare." : "Compara."}
+              </Link>
+            </p>
+          ) : null}
         </section>
         <section id="metodo" className="mb-6 mt-8 space-y-4 scroll-mt-24">
           <div className="story-head">
-            <p className="kicker">Método</p>
-            <h2 className="story-title">Como a média pesa</h2>
-            <p className="story-lede">Pesquisas novas pesam mais. O laboratório tem pesos e acerto histórico.</p>
+            <p className="kicker">{m.home.methodKicker}</p>
+            <h2 className="story-title">{m.home.methodTitle}</h2>
+            <p className="story-lede">{m.home.methodLede}</p>
           </div>
           <div className="board-card">
             <div className="chip-row -mx-4 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:flex-wrap sm:px-0">
               {housesInAverage(rows).slice(0, 6).map((house, index) => (
                 <span key={house.institute} className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-border bg-surface px-3 py-1.5 text-xs font-semibold text-fg">
                   <span className="text-gold">{index + 1}.</span>{house.institute}
-                  <span className="tabular-nums text-cream/80">{fmtPct(house.share * 100, 0)} do peso</span>
-                  <span className="tabular-nums text-primary">×{fmtMult(house.quality)}</span>
+                  <span className="tabular-nums text-cream/80">{fmt.pct(house.share * 100, 0)} {m.home.ofWeight}</span>
+                  <span className="tabular-nums text-primary">×{fmtMult(house.quality, 2, locale)}</span>
                 </span>
               ))}
             </div>
             <p className="mt-4">
-              <Link to="/lab" className="hook-link">Pesos, acerto histórico e o motor</Link>
+              <Link to="/lab" className="hook-link">{m.home.methodLink}</Link>
             </p>
           </div>
         </section>
         <footer className="mt-10 border-t border-border pt-6 text-center text-xs font-medium text-muted">
-          <nav aria-label="Rodapé" className="mb-3 flex flex-wrap justify-center gap-x-4 gap-y-1">
-            <Link to="/" className="hook-link">Presidente</Link>
-            <Link to="/candidatos" search={{ uf: "SP", cargo: "governador", asOf, hl: halfLife }} className="hook-link">Governadores</Link>
-            <Link to="/candidatos" search={{ uf: "SP", cargo: "senador", asOf, hl: halfLife }} className="hook-link">Senadores</Link>
-            <Link to="/lab" className="hook-link">Método</Link>
+          <nav aria-label={m.home.footerNav} className="mb-3 flex flex-wrap justify-center gap-x-4 gap-y-1">
+            <Link to="/" className="hook-link">{m.nav.president}</Link>
+            <Link to="/candidatos" search={{ uf: "SP", cargo: "governador", asOf, hl: halfLife }} className="hook-link">{m.nav.governors}</Link>
+            <Link to="/candidatos" search={{ uf: "SP", cargo: "senador", asOf, hl: halfLife }} className="hook-link">{m.nav.senators}</Link>
+            <Link to="/lab" className="hook-link">{m.nav.method}</Link>
           </nav>
-          <p>v3 · portal independente · peso 2014, 2018 e 2022 · não é instituto oficial</p>
+          <p>{m.home.footer}</p>
         </footer>
       </main>
     </div>

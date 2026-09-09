@@ -1,16 +1,19 @@
-/** pt-BR number formatting — vírgula decimal, sem lixo de float. */
+/** Number and date formatting. Default locale is pt-BR. */
+
+import type { Locale } from "./i18n/locale.ts";
+import { localeTag } from "./i18n/locale.ts";
+import { messages } from "./i18n/messages.ts";
 
 export function round(n: number, digits = 1): number {
   if (!Number.isFinite(n)) return 0;
   const f = 10 ** digits;
   const r = Math.round((n + Number.EPSILON) * f) / f;
-  // avoid -0
   return Object.is(r, -0) ? 0 : r;
 }
 
-/** 40.2 → "40,2" */
-export function fmtNum(n: number, digits = 1): string {
-  return round(n, digits).toLocaleString("pt-BR", {
+/** 40.2 → "40,2" (pt) or "40.2" (en) */
+export function fmtNum(n: number, digits = 1, locale: Locale = "pt"): string {
+  return round(n, digits).toLocaleString(localeTag(locale), {
     minimumFractionDigits: digits,
     maximumFractionDigits: digits,
   });
@@ -38,33 +41,63 @@ export function isShownTie(
 }
 
 /** 40.2 → "40,2%" */
-export function fmtPct(n: number, digits = 1): string {
-  return `${fmtNum(n, digits)}%`;
+export function fmtPct(n: number, digits = 1, locale: Locale = "pt"): string {
+  return `${fmtNum(n, digits, locale)}%`;
 }
 
 /** 0.884 → "88,4%" (probabilidade 0–1) */
-export function fmtProb(p: number, digits = 1): string {
-  return fmtPct(p * 100, digits);
+export function fmtProb(p: number, digits = 1, locale: Locale = "pt"): string {
+  return fmtPct(p * 100, digits, locale);
 }
 
 /** +3.8 → "+3,8" · -4 → "−4,0" (minus tipográfico) */
-export function fmtDelta(n: number, digits = 1): string {
+export function fmtDelta(n: number, digits = 1, locale: Locale = "pt"): string {
   const r = round(n, digits);
-  const body = fmtNum(Math.abs(r), digits);
+  const body = fmtNum(Math.abs(r), digits, locale);
   if (r > 0) return `+${body}`;
   if (r < 0) return `−${body}`;
   return body;
 }
 
 /** peso 1.28 → "1,28" */
-export function fmtMult(n: number, digits = 2): string {
-  return fmtNum(n, digits);
+export function fmtMult(n: number, digits = 2, locale: Locale = "pt"): string {
+  return fmtNum(n, digits, locale);
 }
 
 /** ISO YYYY-MM-DD → 01/09 */
 export function dateBr(iso?: string | null): string {
   if (!iso || iso.length < 10) return "";
   return `${iso.slice(8, 10)}/${iso.slice(5, 7)}`;
+}
+
+const MONTHS_BR = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"];
+const MONTHS_EN = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+function monthName(monthIndex: number, locale: Locale): string {
+  const names = locale === "en" ? MONTHS_EN : MONTHS_BR;
+  return names[monthIndex] ?? "";
+}
+
+/** ISO YYYY-MM-DD → 01/09 (pt) or 1 Sep (en) */
+export function dateShort(iso?: string | null, locale: Locale = "pt"): string {
+  if (!iso || iso.length < 10) return "";
+  if (locale === "en") {
+    const d = Number(iso.slice(8, 10));
+    const m = Number(iso.slice(5, 7));
+    if (!Number.isFinite(d) || !Number.isFinite(m)) return "";
+    return `${d} ${monthName(m - 1, "en")}`;
+  }
+  return dateBr(iso);
+}
+
+/** ISO YYYY-MM-DD → 01/09/2026 (pt) or 1 Sep 2026 (en) */
+export function dateFull(iso?: string | null, locale: Locale = "pt"): string {
+  if (!iso || iso.length < 10) return "";
+  if (locale === "en") {
+    const short = dateShort(iso, "en");
+    return short ? `${short} ${iso.slice(0, 4)}` : "";
+  }
+  return `${iso.slice(8, 10)}/${iso.slice(5, 7)}/${iso.slice(0, 4)}`;
 }
 
 /** Date-only UTC ms so the curve axis does not shift the calendar day. */
@@ -88,33 +121,56 @@ export function utcMsToDayBr(ms: number): string {
   return `${d}/${m}`;
 }
 
-const MONTHS_BR = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"];
-
-/** Epoch ms → jan, fev, mar. */
-export function utcMsToMonthBr(ms: number): string {
+export function utcMsToDay(ms: number, locale: Locale = "pt"): string {
   const t = Number(ms);
   if (!Number.isFinite(t)) return "";
   const dt = new Date(t);
   if (Number.isNaN(dt.getTime())) return "";
-  return MONTHS_BR[dt.getUTCMonth()] ?? "";
+  if (locale === "en") {
+    return `${dt.getUTCDate()} ${monthName(dt.getUTCMonth(), "en")}`;
+  }
+  return utcMsToDayBr(ms);
+}
+
+/** Epoch ms → jan, fev, mar. */
+export function utcMsToMonthBr(ms: number): string {
+  return utcMsToMonth(ms, "pt");
+}
+
+export function utcMsToMonth(ms: number, locale: Locale = "pt"): string {
+  const t = Number(ms);
+  if (!Number.isFinite(t)) return "";
+  const dt = new Date(t);
+  if (Number.isNaN(dt.getTime())) return "";
+  return monthName(dt.getUTCMonth(), locale);
 }
 
 /** Só as datas: 30/08 a 01/09. Um dia só: 01/09. */
-export function fieldRangeLabel(start?: string | null, end?: string | null): string {
-  const from = dateBr(start);
-  const to = dateBr(end);
-  if (from && to && from !== to) return `${from} a ${to}`;
+export function fieldRangeLabel(
+  start?: string | null,
+  end?: string | null,
+  locale: Locale = "pt",
+): string {
+  const from = dateShort(start, locale);
+  const to = dateShort(end, locale);
+  const copy = messages(locale).format;
+  if (from && to && from !== to) return copy.range(from, to);
   return to || from;
 }
 
 /** Linha pública do período: "Entrevistas de 30/08 a 01/09". */
-export function fieldPeriodLine(start?: string | null, end?: string | null): string {
-  const from = dateBr(start);
-  const to = dateBr(end);
-  if (from && to && from !== to) return `Entrevistas de ${from} a ${to}`;
-  if (from && to) return `Entrevistas em ${to}`;
-  if (to) return `Entrevistas em ${to}`;
-  if (from) return `Entrevistas em ${from}`;
+export function fieldPeriodLine(
+  start?: string | null,
+  end?: string | null,
+  locale: Locale = "pt",
+): string {
+  const from = dateShort(start, locale);
+  const to = dateShort(end, locale);
+  const copy = messages(locale).format;
+  if (from && to && from !== to) return copy.interviewsRange(from, to);
+  if (from && to) return copy.interviewsOn(to);
+  if (to) return copy.interviewsOn(to);
+  if (from) return copy.interviewsOn(from);
   return "";
 }
 
@@ -140,12 +196,14 @@ export function pairTightnessLine(
   aPct: number,
   bPct: number,
   moe: number,
+  locale: Locale = "pt",
 ): string {
   const t = pairTightness(aPct, bPct, moe);
-  const left = `${aName} ${fmtPct(aPct)} × ${bName} ${fmtPct(bPct)}`;
-  if (t.kind === "tie") return `${left}: empate nesta casa.`;
+  const copy = messages(locale).format;
+  const left = `${aName} ${fmtPct(aPct, 1, locale)} × ${bName} ${fmtPct(bPct, 1, locale)}`;
+  if (t.kind === "tie") return copy.tieHouse(left);
   const who = t.leader === "a" ? aName : bName;
-  const unit = t.gap === 1 ? "ponto" : "pontos";
-  const where = t.kind === "inside" ? "dentro da margem" : "fora da margem";
-  return `${left}: ${who} com ${fmtNum(t.gap)} ${unit} de vantagem, ${where} de ${fmtNum(moe)}.`;
+  const unit = t.gap === 1 ? copy.ponto : copy.pontos;
+  const where = t.kind === "inside" ? copy.inside : copy.outside;
+  return copy.tightness(left, who, fmtNum(t.gap, 1, locale), unit, where, fmtNum(moe, 1, locale));
 }

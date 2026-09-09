@@ -1,6 +1,7 @@
 import { useNavigate, useSearch } from "@tanstack/react-router";
 import { todayAsOf } from "@/lib/forecast/engine";
 import { parseHalfLifeSearch } from "@/lib/half-life";
+import { parseLangSearch } from "@/lib/i18n/locale";
 
 export const ASOF_MIN = "2026-01-01";
 const ISO = /^\d{4}-\d{2}-\d{2}$/;
@@ -22,11 +23,13 @@ export function clampAsOf(iso: string): string {
 export function parseAsOfSearch(search: Record<string, unknown>): {
   asOf?: string;
   hl?: number;
+  lang?: "pt" | "en";
 } {
   const asOf = parseAsOfParam(search.asOf);
   const hl = parseHalfLifeSearch(search);
-  if (!asOf || asOf === todayAsOf()) return hl;
-  return { asOf, ...hl };
+  const lang = parseLangSearch(search);
+  if (!asOf || asOf === todayAsOf()) return { ...hl, ...lang };
+  return { asOf, ...hl, ...lang };
 }
 
 /** Recorte: so o que ja estava em campo e publicado ate a data. */

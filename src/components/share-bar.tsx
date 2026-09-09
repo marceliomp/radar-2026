@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Check, Copy } from "lucide-react";
 import { fmtPct, fmtProb } from "@/lib/format";
+import { useI18n, type Locale } from "@/lib/i18n";
+import { messages } from "@/lib/i18n/messages";
 
 const SITE = "https://brasilradar.com.br";
 
@@ -8,35 +10,46 @@ type Props = {
   asOf?: string;
   lula1: number;
   flavio1: number;
-  lula2: number;
-  flavio2: number;
+  lula2?: number;
+  flavio2?: number;
   pLula: number;
   pFlavio: number;
   compact?: boolean;
+  url?: string;
 };
 
-export function sharePayload({
-  asOf,
-  lula1,
-  flavio1,
-  lula2,
-  flavio2,
-  pLula,
-  pFlavio,
-}: Props): string {
-  return (
-    `Radar 2026 · não é pesquisa` +
+function hasSecondShare(lula2?: number, flavio2?: number): boolean {
+  return (lula2 ?? 0) > 0 || (flavio2 ?? 0) > 0;
+}
+
+function shareHref(url?: string): string {
+  if (!url) return SITE;
+  if (/^https?:\/\//i.test(url)) return url;
+  return `${SITE}${url.startsWith("/") ? url : `/${url}`}`;
+}
+
+export function sharePayload(
+  props: Props,
+  locale: Locale = "pt",
+): string {
+  const { asOf, lula1, flavio1, lula2, flavio2, pLula, pFlavio, url } = props;
+  const m = messages(locale).share;
+  let text =
+    m.headline +
     (asOf ? ` · ${asOf}` : "") +
-    `\nChance de ganhar: Lula ${fmtProb(pLula)} · Flávio ${fmtProb(pFlavio)}` +
-    `\nIntenção recente: Lula ${fmtPct(lula1)} × Flávio ${fmtPct(flavio1)}` +
-    `\n2º Lula ${fmtPct(lula2)} × Flávio ${fmtPct(flavio2)}` +
-    `\n${SITE}`
-  );
+    `\n${m.chance(fmtProb(pLula, 1, locale), fmtProb(pFlavio, 1, locale))}` +
+    `\n${m.intent(fmtPct(lula1, 1, locale), fmtPct(flavio1, 1, locale))}`;
+  if (hasSecondShare(lula2, flavio2)) {
+    text += `\n${m.runoff(fmtPct(lula2 ?? 0, 1, locale), fmtPct(flavio2 ?? 0, 1, locale))}`;
+  }
+  text += `\n${shareHref(url)}`;
+  return text;
 }
 
 export function ShareBar(props: Props) {
+  const { locale, m } = useI18n();
   const [copied, setCopied] = useState(false);
-  const text = sharePayload(props);
+  const text = sharePayload(props, locale);
   const compact = Boolean(props.compact);
   const shell = compact
     ? "flex flex-wrap items-center gap-2"
@@ -74,7 +87,7 @@ export function ShareBar(props: Props) {
         onClick={whatsapp}
         className={`${btn} bg-primary text-ink`}
       >
-        Mandar no WhatsApp
+        {m.share.whatsapp}
       </button>
       <button
         type="button"
@@ -82,14 +95,14 @@ export function ShareBar(props: Props) {
         className={`${btn} border border-border bg-surface-2 text-fg`}
       >
         {copied ? <Check className="size-4 text-primary" /> : <Copy className="size-4" />}
-        {copied ? "Copiado" : "Copiar texto"}
+        {copied ? m.share.copied : m.share.copy}
       </button>
       <button
         type="button"
         onClick={tweet}
         className={`${btn} border border-border bg-surface-2 text-fg`}
       >
-        Postar no X
+        {m.share.tweet}
       </button>
     </div>
   );

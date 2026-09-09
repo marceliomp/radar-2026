@@ -11,13 +11,14 @@ import {
 import { SegGroup } from "@/features/radar/map/map-layer-toggle";
 import { CHART, tipStyle } from "@/lib/chart-theme";
 import {
-  dateBr,
+  dateShort,
   fieldPeriodLine,
   fmtDelta,
   fmtNum,
   isoDayUtc,
-  utcMsToMonthBr,
+  utcMsToMonth,
 } from "@/lib/format";
+import { useI18n } from "@/lib/i18n";
 import {
   asOfDayAverages,
   densifyDayAverages,
@@ -37,8 +38,15 @@ import type { ForecastPoll } from "@/lib/forecast/engine";
 import { pollsOnDate } from "@/lib/latest-day";
 import { YEAR_START } from "@/lib/period";
 
-function tickMonth(value: number | string) {
-  return utcMsToMonthBr(Number(value));
+function tickMonth(value: number | string, locale: "pt" | "en" = "pt") {
+  return utcMsToMonth(Number(value), locale);
+}
+
+function modeLabel(key: ModeFilterKey, m: ReturnType<typeof useI18n>["m"]) {
+  if (key === "telefone") return m.curve.modeTelefone;
+  if (key === "online") return m.curve.modeOnline;
+  if (key === "modelo") return m.curve.modeModelo;
+  return m.curve.modePresencial;
 }
 
 function usePrefersReducedMotion(): boolean {
@@ -62,7 +70,7 @@ function softActive(color: string, r = 4.5) {
 const XAXIS = {
   type: "number" as const,
   dataKey: "t" as const,
-  tickFormatter: tickMonth,
+  tickFormatter: (value: number | string) => tickMonth(value, (typeof document !== "undefined" && document.documentElement.lang === "en") ? "en" : "pt"),
   interval: 0 as const,
   minTickGap: 0,
   tick: { fill: CHART.axis, fontSize: 11, fontWeight: 500 },
@@ -304,6 +312,7 @@ function housesOnCurveDay(
 }
 
 function CurveTip({ active, payload }: { active?: boolean; payload?: TipRow[] }) {
+  const { locale, m, fmt } = useI18n();
   if (!active || !payload?.length) return null;
   const row = payload[0]?.payload;
   if (!row) return null;
@@ -332,10 +341,10 @@ function CurveTip({ active, payload }: { active?: boolean; payload?: TipRow[] })
     return (
       <div style={{ ...tipStyle, padding: "10px 12px", width: 236, maxWidth: "calc(100vw - 2rem)", color: CHART.fg }}>
         <p className="m-0 text-sm font-semibold" style={{ color: CHART.fg }}>
-          {house?.institute ?? row.institute} · {dateBr(row.published)}
+          {house?.institute ?? row.institute} · {dateShort(row.published, locale)}
         </p>
         <p className="m-0 mt-0.5 text-[11px] font-medium text-cream/55">
-          {fieldPeriodLine(house?.fieldStart ?? row.fieldStart, house?.fieldEnd ?? row.fieldEnd)}
+          {fieldPeriodLine(house?.fieldStart ?? row.fieldStart, house?.fieldEnd ?? row.fieldEnd, locale)}
         </p>
         <ScoreGrid
           featured
@@ -350,10 +359,10 @@ function CurveTip({ active, payload }: { active?: boolean; payload?: TipRow[] })
         />
         {row.prevPublished && row.dLula != null && row.dFlavio != null ? (
           <p className="m-0 mt-2 text-[12px] font-medium text-cream/80">
-            vs {dateBr(row.prevPublished)}: Lula {fmtDelta(row.dLula)} · Flávio {fmtDelta(row.dFlavio)}
+            vs {dateShort(row.prevPublished, locale)}: Lula {fmtDelta(row.dLula, 1, locale)} · Flávio {fmtDelta(row.dFlavio, 1, locale)}
           </p>
         ) : (
-          <p className="m-0 mt-2 text-[11px] font-medium text-cream/55">Primeira onda desta casa no arquivo</p>
+          <p className="m-0 mt-2 text-[11px] font-medium text-cream/55">{m.curve.firstWave}</p>
         )}
       </div>
     );
@@ -361,11 +370,11 @@ function CurveTip({ active, payload }: { active?: boolean; payload?: TipRow[] })
   return (
     <div style={{ ...tipStyle, padding: "10px 12px", width: 236, maxWidth: "calc(100vw - 2rem)", color: CHART.fg }}>
       <p className="m-0 text-sm font-semibold" style={{ color: CHART.fg }}>
-        {dateBr(row.published)}
-        {many ? ` · ${houses.length} pesquisas` : ""}
+        {dateShort(row.published, locale)}
+        {many ? ` · ${m.curve.pollsOnDay(houses.length)}` : ""}
       </p>
       <p className="m-0 mt-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-gold">
-        Média · pesquisas novas pesam mais. Não é corte.
+        {m.curve.avgTip}
       </p>
       <ScoreGrid
         featured
@@ -382,7 +391,7 @@ function CurveTip({ active, payload }: { active?: boolean; payload?: TipRow[] })
         <div key={`${house.institute}-${i}`} className={i === 0 ? "mt-3" : "mt-2"}>
           <p className="m-0 text-[12px] font-medium text-cream/80">{house.institute}</p>
           <p className="m-0 mt-0.5 text-[11px] font-medium text-cream/55">
-            {fieldPeriodLine(house.fieldStart, house.fieldEnd)}
+            {fieldPeriodLine(house.fieldStart, house.fieldEnd, locale)}
           </p>
           <ScoreGrid
             lula={house.lulaPoll}
@@ -401,6 +410,7 @@ function CurveTip({ active, payload }: { active?: boolean; payload?: TipRow[] })
 }
 
 function CurveKey({ houseFocus, showOthers }: { houseFocus: boolean; showOthers: boolean }) {
+  const { m } = useI18n();
   return (
     <div className="mt-3 flex flex-col gap-2 text-xs font-medium sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
       <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
@@ -426,13 +436,13 @@ function CurveKey({ houseFocus, showOthers }: { houseFocus: boolean; showOthers:
           <svg width="12" height="10" viewBox="0 0 12 10" aria-hidden>
             <circle cx="6" cy="5" r="2.2" fill={CHART.axis} opacity="0.45" />
           </svg>
-          ponto: nesta pesquisa
+          {m.curve.point}
         </span>
         <span className="inline-flex items-center gap-1.5">
           <svg width="30" height="10" viewBox="0 0 30 10" aria-hidden>
             <line x1="2" y1="5" x2="28" y2="5" stroke={CHART.axis} strokeWidth="3.4" />
           </svg>
-          {houseFocus ? "linha: esta casa" : "linha: média do período"}
+          {houseFocus ? m.curve.lineHouse : m.curve.lineAvg}
         </span>
       </div>
     </div>
@@ -462,6 +472,8 @@ function CurvePlot({
   hideX?: boolean;
   heightClass: string;
 }) {
+  const { locale } = useI18n();
+
   const reduceMotion = usePrefersReducedMotion();
   const animateAvg = !reduceMotion;
   const [flipX, setFlipX] = useState(false);
@@ -642,6 +654,8 @@ export function GrowthCurve({
   asOf: string;
   halfLifeDays: number;
 }) {
+  const { locale, m } = useI18n();
+
   const [round, setRound] = useState<RoundKey>("1");
   const [house, setHouse] = useState<string | null>(null);
   const [mode, setMode] = useState<ModeFilterKey | null>(null);
@@ -769,20 +783,20 @@ export function GrowthCurve({
       <div className="board-card">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
           <div>
-            <p className="kicker">Linha de crescimento</p>
+            <p className="kicker">{m.curve.kicker}</p>
             <p className="mt-1 font-display text-xl font-semibold">
-              {active === "2" ? "2º turno, Lula × Flávio" : "1º turno"}
+              {active === "2" ? m.curve.second : m.curve.first}
             </p>
             <p className="mt-1 max-w-xl text-xs font-medium leading-relaxed text-cream/85">
-              {active === "2" ? "Só pesquisas que perguntaram o par. " : splitOthers ? "Cima: Lula e Flávio. Baixo: os outros. " : "Nome só entra se a casa perguntou. "}
+              {active === "2" ? m.curve.onlyAsked : splitOthers ? m.curve.split : m.curve.askedOnly}
               {houseFocus
-                ? `Só ${house}. A linha liga as ondas desta casa.`
+                ? m.curve.onlyHouse(house ?? "")
                 : mode
-                  ? `Só ${modeFilterLabel(mode).toLowerCase()}. De janeiro até hoje. Pontos são cada casa. A linha é a média.`
-                  : "De janeiro até hoje. Pontos são cada casa. A linha é a média do período."}
+                  ? m.curve.onlyMode(modeLabel(mode, m).toLowerCase())
+                  : m.curve.default}
             </p>
           </div>
-          <SegGroup ariaLabel="Turno da curva">
+          <SegGroup ariaLabel={m.curve.roundAria}>
             <button
               type="button"
               className="seg-btn"
@@ -790,7 +804,7 @@ export function GrowthCurve({
               onClick={() => setRound("1")}
             >
               <span className="seg-label">1º</span>
-              <span className="seg-meta">turno</span>
+              <span className="seg-meta">{m.curve.roundMeta}</span>
             </button>
             <button
               type="button"
@@ -801,7 +815,7 @@ export function GrowthCurve({
               onClick={() => canSecond && setRound("2")}
             >
               <span className="seg-label">2º</span>
-              <span className="seg-meta">turno</span>
+              <span className="seg-meta">{m.curve.roundMeta}</span>
             </button>
           </SegGroup>
         </div>
@@ -810,7 +824,7 @@ export function GrowthCurve({
           <div
             className="chip-row mt-3 -mx-1 flex gap-2 overflow-x-auto px-1 pb-1 sm:flex-wrap"
             role="group"
-            aria-label="Filtrar por tipo de pesquisa"
+            aria-label={m.curve.filterMode}
           >
             <button
               type="button"
@@ -820,7 +834,7 @@ export function GrowthCurve({
                 !mode ? "border-gold bg-gold/10 text-gold" : "border-border bg-surface text-fg hover:border-cream/35"
               }`}
             >
-              Todos os tipos
+              {m.curve.allModes}
             </button>
             {modeOpts.map((key) => (
               <button
@@ -837,7 +851,7 @@ export function GrowthCurve({
                     : "border-border bg-surface text-fg hover:border-cream/35"
                 }`}
               >
-                {modeFilterLabel(key)}
+                {modeLabel(key, m)}
               </button>
             ))}
           </div>
@@ -846,7 +860,7 @@ export function GrowthCurve({
           <div
             className="chip-row mt-3 -mx-1 flex gap-2 overflow-x-auto px-1 pb-1 sm:flex-wrap"
             role="group"
-            aria-label="Filtrar por casa"
+            aria-label={m.curve.filterHouse}
           >
             <button
               type="button"
@@ -856,7 +870,7 @@ export function GrowthCurve({
                 !house ? "border-gold bg-gold/10 text-gold" : "border-border bg-surface text-fg hover:border-cream/35"
               }`}
             >
-              Todas
+              {m.curve.allHouses}
             </button>
             {houseOpts.map((name) => (
               <button

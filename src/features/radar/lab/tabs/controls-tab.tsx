@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { TabsContent } from "@/components/ui/tabs";
 import { HalfLifeSlider } from "@/components/half-life-control";
 import { Toggle } from "../lab-shared";
+import { useI18n } from "@/lib/i18n";
 
 export function ControlsTab({
   includeOnline, setIncludeOnline,
@@ -19,13 +20,14 @@ export function ControlsTab({
   useTrackRecord: boolean; setUseTrackRecord: (v: boolean) => void;
   useTrackHouse: boolean; setUseTrackHouse: (v: boolean) => void;
 }) {
+  const { m } = useI18n();
   return (
         <TabsContent value="controls" className="mt-4">
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Settings2 className="size-4 text-primary" />
-                Controles
+                {m.lab.controls}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-5">
@@ -34,32 +36,32 @@ export function ControlsTab({
                 <Toggle
                   checked={includeOnline}
                   onChange={setIncludeOnline}
-                  label="Incluir online"
+                  label={m.lab.includeOnline}
                 />
                 <Toggle
                   checked={includeRemoto}
                   onChange={setIncludeRemoto}
-                  label="Incluir remoto"
+                  label={m.lab.includeRemote}
                 />
                 <Toggle
                   checked={includeModelo}
                   onChange={setIncludeModelo}
-                  label="Modelos pessoais"
+                  label={m.lab.includeModel}
                 />
                 <Toggle
                   checked={houseOn}
                   onChange={setHouseOn}
-                  label="Ajuste por casa (fica desligado)"
+                  label={m.lab.houseAdj}
                 />
                 <Toggle
                   checked={useTrackRecord}
                   onChange={setUseTrackRecord}
-                  label="Peso por acerto 2014/2018/2022"
+                  label={m.lab.trackOn}
                 />
                 <Toggle
                   checked={useTrackHouse}
                   onChange={setUseTrackHouse}
-                  label="Ajuste extra por casa (não usado)"
+                  label={m.lab.houseExtra}
                 />
               </div>
             </CardContent>

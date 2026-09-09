@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { RacePage } from "@/features/races/race-page";
 import { parseAsOfParam } from "@/lib/as-of";
 import { parseHalfLifeSearch } from "@/lib/half-life";
+import { parseLangSearch, type Locale } from "@/lib/i18n/locale";
 import { UF_ORDER } from "@/data/candidates";
 
 const UF_SET = new Set(UF_ORDER);
@@ -11,6 +12,7 @@ export type CandidatosSearch = {
   cargo?: "governador" | "senador";
   asOf?: string;
   hl?: number;
+  lang?: Locale;
 };
 
 function parseCandidatosSearch(
@@ -29,6 +31,7 @@ function parseCandidatosSearch(
     cargo,
     ...(asOf ? { asOf } : {}),
     ...parseHalfLifeSearch(search),
+    ...parseLangSearch(search),
   };
 }
 

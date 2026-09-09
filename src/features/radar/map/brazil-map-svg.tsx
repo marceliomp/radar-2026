@@ -4,6 +4,7 @@ import { ELECTION_2022 } from "@/data/election-2022";
 import { cardMarginPp, stateFillFromGap, type RoundKey } from "@/data/state-polls";
 import { mapRoundView } from "@/lib/forecast/map-round";
 import { runAllStateForecasts } from "@/lib/forecast/states";
+import { useI18n } from "@/lib/i18n";
 
 const UFS = Object.keys(BR_PATHS);
 const UF_MUTED = "#8fb0aa";
@@ -33,6 +34,7 @@ export function BrazilMapSvg({
   placeTip: (uf: string, e: MouseEvent<SVGPathElement>) => void;
   setTip: (tip: { text: string; x: number; y: number } | null) => void;
 }) {
+  const { m } = useI18n();
   return (
         <div
           ref={wrapRef}
@@ -42,11 +44,7 @@ export function BrazilMapSvg({
             viewBox={`0 0 ${BR_VIEW.w} ${BR_VIEW.h}`}
             className="h-auto w-full"
             role="img"
-            aria-label={
-              is2022
-                ? "Mapa urna 2022 por unidade da federacao"
-                : "Mapa agregador por estado"
-            }
+            aria-label={is2022 ? m.map.svgUrna : m.map.svgAgg}
             onMouseLeave={() => setTip(null)}
           >
             {UFS.map((uf) => {
@@ -114,7 +112,7 @@ export function BrazilMapSvg({
             {!is2022 && (
               <span className="inline-flex items-center gap-1.5">
                 <i className="inline-block size-2.5" style={{ background: "#5f7358" }} />
-                Empate técnico
+                {m.map.technicalTie}
               </span>
             )}
             <span className="inline-flex items-center gap-1.5">
@@ -122,7 +120,7 @@ export function BrazilMapSvg({
               Lula
             </span>
             {round === 2 && !is2022 && (
-              <span>Tom claro = 2º nao perguntado (two-way do 1º)</span>
+              <span>{m.map.paleImplied}</span>
             )}
           </div>
         </div>
