@@ -94,8 +94,9 @@ test("hero states chance not vote intention", () => {
   assert.match(page, /m\.hero\.sub/);
   assert.match(page, /skip-link/);
   assert.match(page, /id="conteudo"/);
-  const chanceAt = page.indexOf("m.hero.chance");
-  const scoreAt = page.indexOf("hero-score");
+  const render = page.slice(page.indexOf("export function PublicRadarPage"));
+  const chanceAt = render.indexOf("m.hero.chance");
+  const scoreAt = render.indexOf("HeroScoreColumns");
   assert.ok(chanceAt >= 0 && chanceAt < scoreAt, "chance title must sit above the score");
 });
 
@@ -335,3 +336,10 @@ test("map 2º copy is perguntado vs estimado, not two-way jargon", () => {
   assert.doesNotMatch(card, /\u2014/);
 });
 
+
+test("period slider does not rerun the engine on every drag tick", () => {
+  const src = readFileSync("src/components/half-life-control.tsx", "utf8");
+  assert.match(src, /onPointerUp/);
+  assert.match(src, /onInput/);
+  assert.doesNotMatch(src, /onChange=\{\(e\) => setHalfLife/);
+});

@@ -26,7 +26,7 @@ import { fieldPeriodLine, fmtMult, isShownTie, pairTightnessLine, shownGap } fro
 import { useHalfLife } from "@/lib/half-life";
 import { useI18n } from "@/lib/i18n";
 import { fileStamp } from "@/lib/visit-delta";
-import { buildHeroBoard, leadPairOrder } from "@/lib/hero-board";
+import { buildHeroBoard, leadPairOrder, type HeroRow } from "@/lib/hero-board";
 import { useHeroFlip, useTweenedProb } from "@/features/radar/public/use-hero-flip";
 import { pollsOnLatestDay } from "@/lib/latest-day";
 import { exampleGovernorUfs, ufTemCasas } from "@/lib/race-hooks";
@@ -51,6 +51,66 @@ function HeroColSlide({ children }: { children: ReactNode }) {
 }
 
 
+
+
+function HeroScoreColumns({
+  board,
+  othersLabel,
+  formatProb,
+}: {
+  board: HeroRow[];
+  othersLabel: string;
+  formatProb: (p: number) => string;
+}) {
+  const shownP = {
+    lula: useTweenedProb(board.find((row) => row.key === "lula")?.p ?? 0),
+    flavio: useTweenedProb(board.find((row) => row.key === "flavio")?.p ?? 0),
+    outros: useTweenedProb(board.find((row) => row.key === "outros")?.p ?? 0),
+  };
+  return (
+    <div className="hero-score" data-cols={board.length}>
+      {board.map((row, index) => {
+        const meta = row.key === "outros" ? null : CANDIDATE_META[row.key];
+        const color = meta ? meta.color : "var(--color-cream)";
+        const label =
+          row.key === "outros"
+            ? othersLabel
+            : row.key === "flavio"
+              ? "Flávio"
+              : row.key === "lula"
+                ? "Lula"
+                : (meta?.name.split(" ").pop() ?? "");
+        const align =
+          board.length === 2
+            ? index === 0
+              ? "hero-col-l"
+              : "hero-col-f"
+            : index === 0
+              ? "hero-col-l"
+              : index === board.length - 1
+                ? "hero-col-f"
+                : "hero-col-m";
+        const shown =
+          row.key === "lula" || row.key === "flavio" || row.key === "outros"
+            ? shownP[row.key]
+            : row.p;
+        return (
+          <div key={row.key} className={`hero-col ${align}`} data-hero-key={row.key}>
+            <HeroColSlide>
+              <p className="hero-kicker" style={{ color }}>
+                {label}
+              </p>
+              <p className="hero-num" style={{ color }}>
+                {formatProb(shown).replace("%", "")}
+                <span className="hero-unit">%</span>
+              </p>
+            </HeroColSlide>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
 
 const FIELD_KEYS = ["lula", "flavio", "renan", "caiado", "zema", "cury"] as const;
 
@@ -293,14 +353,6 @@ export function PublicRadarPage() {
   const pFlavio = Math.round(probs.flavioWinsElection * 1000) / 10;
   const heroBoard = useMemo(() => buildHeroBoard(probs), [probs]);
   const heroFlipRef = useHeroFlip(leadPairOrder(heroBoard.map((row) => row.key)));
-  const pLulaHero = heroBoard.find((row) => row.key === "lula")?.p ?? 0;
-  const pFlavioHero = heroBoard.find((row) => row.key === "flavio")?.p ?? 0;
-  const pOutrosHero = heroBoard.find((row) => row.key === "outros")?.p ?? 0;
-  const shownP = {
-    lula: useTweenedProb(pLulaHero),
-    flavio: useTweenedProb(pFlavioHero),
-    outros: useTweenedProb(pOutrosHero),
-  };
 
   function gapPlain(a: number | undefined, b: number | undefined, se?: number) {
     if (a == null || b == null) return m.home.fewSecond;
@@ -331,43 +383,7 @@ export function PublicRadarPage() {
           {m.hero.chance}
           <span className="hero-method-sub">{m.hero.sub}</span>
         </h1>
-        <div className="hero-score" data-cols={heroBoard.length}>
-          {heroBoard.map((row, index) => {
-            const meta = row.key === "outros" ? null : CANDIDATE_META[row.key];
-            const color = meta ? meta.color : "var(--color-cream)";
-            const label =
-              row.key === "outros"
-                ? m.hero.others
-                : row.key === "flavio"
-                  ? "Flávio"
-                  : row.key === "lula"
-                    ? "Lula"
-                    : (meta?.name.split(" ").pop() ?? "");
-            const align =
-              heroBoard.length === 2
-                ? index === 0
-                  ? "hero-col-l"
-                  : "hero-col-f"
-                : index === 0
-                  ? "hero-col-l"
-                  : index === heroBoard.length - 1
-                    ? "hero-col-f"
-                    : "hero-col-m";
-            return (
-              <div key={row.key} className={`hero-col ${align}`} data-hero-key={row.key}>
-                <HeroColSlide>
-                  <p className="hero-kicker" style={{ color }}>
-                    {label}
-                  </p>
-                  <p className="hero-num" style={{ color }}>
-                    {fmt.prob((row.key === "lula" || row.key === "flavio" || row.key === "outros" ? shownP[row.key] : row.p)).replace("%", "")}
-                    <span className="hero-unit">%</span>
-                  </p>
-                </HeroColSlide>
-              </div>
-            );
-          })}
-        </div>
+        <HeroScoreColumns board={heroBoard} othersLabel={m.hero.others} formatProb={fmt.prob} />
         <p className="hero-fresh">{fileStamp(latestDayPolls, locale)}</p>
         <VisitHook
           pLula={pLula}
