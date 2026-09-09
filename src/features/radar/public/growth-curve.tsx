@@ -406,15 +406,20 @@ function CurvePlot({
   const animateAvg = !reduceMotion;
   const showRace = kind === "race" || kind === "all";
   const drawOthersAvg = kind === "others" || kind === "all";
-  // Ponto = pesquisa isolada; linha = média. Pontos bem leves para não poluir.
-  const showOtherDots = kind === "others" || kind === "all";
+  // Split "Os outros": só a média (linha). Pontos no foco de casa / painel único.
+  const showOtherDots = kind === "all" || (kind === "others" && houseFocus);
   const lulaKey = houseFocus ? "lulaAvg" : "lulaLine";
   const flavioKey = houseFocus ? "flavioAvg" : "flavioLine";
   return (
     <div className={`curve-stage ${heightClass} w-full min-w-0`}>
       <ResponsiveContainer width="100%" height="100%">
         <ComposedChart data={data} margin={{ left: 0, right: 8, top: hideX ? 4 : 6, bottom: hideX ? 0 : 2 }}>
-          <CartesianGrid strokeDasharray="3 3" stroke={CHART.grid} strokeOpacity={0.4} />
+          <CartesianGrid
+            strokeDasharray="3 3"
+            stroke={CHART.grid}
+            strokeOpacity={0.32}
+            vertical={false}
+          />
           <XAxis
             {...XAXIS}
             domain={[xMin, xMax]}
@@ -431,10 +436,11 @@ function CurvePlot({
             allowDecimals={false}
             axisLine={false}
             tickLine={false}
+            allowDataOverflow={false}
           />
           <Tooltip
             content={CurveTip}
-            cursor={{ stroke: CHART.axis, strokeWidth: 1, strokeOpacity: 0.4 }}
+            cursor={{ stroke: CHART.axis, strokeWidth: 1, strokeOpacity: 0.35 }}
             isAnimationActive={false}
             wrapperStyle={{ pointerEvents: "none" }}
           />
@@ -445,9 +451,9 @@ function CurvePlot({
                 legendType="none"
                 stroke="none"
                 dot={{
-                  r: houseFocus ? 3 : 1.8,
+                  r: houseFocus ? 3 : 1.5,
                   fill: CHART.lula,
-                  fillOpacity: houseFocus ? 0.85 : 0.22,
+                  fillOpacity: houseFocus ? 0.85 : 0.14,
                   strokeWidth: 0,
                 }}
                 activeDot={false}
@@ -461,9 +467,9 @@ function CurvePlot({
                 legendType="none"
                 stroke="none"
                 dot={{
-                  r: houseFocus ? 3 : 1.8,
+                  r: houseFocus ? 3 : 1.5,
                   fill: CHART.flavio,
-                  fillOpacity: houseFocus ? 0.85 : 0.22,
+                  fillOpacity: houseFocus ? 0.85 : 0.14,
                   strokeWidth: 0,
                 }}
                 activeDot={false}
@@ -476,7 +482,7 @@ function CurvePlot({
                 dataKey={lulaKey}
                 legendType="none"
                 stroke={CHART.lula}
-                strokeWidth={houseFocus ? 3 : 3.5}
+                strokeWidth={houseFocus ? 3 : 4}
                 connectNulls
                 dot={false}
                 activeDot={softActive(CHART.lula)}
@@ -491,7 +497,7 @@ function CurvePlot({
                 dataKey={flavioKey}
                 legendType="none"
                 stroke={CHART.flavio}
-                strokeWidth={houseFocus ? 3 : 3.5}
+                strokeWidth={houseFocus ? 3 : 4}
                 connectNulls
                 dot={false}
                 activeDot={softActive(CHART.flavio)}
@@ -510,9 +516,9 @@ function CurvePlot({
                   stroke="none"
                   connectNulls={false}
                   dot={{
-                    r: houseFocus ? 2.4 : 1.5,
+                    r: houseFocus ? 2.4 : 1.4,
                     fill: other.color,
-                    fillOpacity: houseFocus ? 0.8 : 0.2,
+                    fillOpacity: houseFocus ? 0.8 : 0.16,
                     strokeWidth: 0,
                   }}
                   activeDot={false}
@@ -528,8 +534,8 @@ function CurvePlot({
                   dataKey={houseFocus ? `${other.key}Avg` : `${other.key}Line`}
                   legendType="none"
                   stroke={other.color}
-                  strokeWidth={houseFocus ? 2.2 : 2.25}
-                  strokeOpacity={0.88}
+                  strokeWidth={houseFocus ? 2.2 : 2.1}
+                  strokeOpacity={0.92}
                   connectNulls
                   dot={false}
                   activeDot={softActive(other.color, 3.5)}
@@ -544,6 +550,7 @@ function CurvePlot({
     </div>
   );
 }
+
 
 export function GrowthCurve({
   polls,
@@ -654,8 +661,13 @@ export function GrowthCurve({
   const xMax = isoDayUtc(asOf);
   const showOthers = active === "1";
   const splitOthers = showOthers && !houseFocus;
-  const raceFallback: [number, number] = active === "2" ? [35, 52] : [22, 52];
-  const raceDomain = paddedDomain(valuesForDomain(plotted, false), raceFallback);
+  const raceFallback: [number, number] = active === "2" ? [35, 52] : [20, 52];
+  const raceDomainRaw = paddedDomain(valuesForDomain(plotted, false), raceFallback);
+  // Keep early Flávio inside the race pane (don't bleed into "Os outros").
+  const raceDomain: [number, number] =
+    active === "1"
+      ? [Math.min(raceDomainRaw[0], 22), raceDomainRaw[1]]
+      : raceDomainRaw;
   const domain: [number, number] = splitOthers
     ? raceDomain
     : paddedDomain(valuesForDomain(plotted, showOthers), raceDomain);
