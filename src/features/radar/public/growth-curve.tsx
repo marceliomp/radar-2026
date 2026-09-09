@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
 import {
-  Area,
   CartesianGrid,
   ComposedChart,
   Line,
@@ -51,16 +50,10 @@ function usePrefersReducedMotion(): boolean {
   return reduced;
 }
 
-const LINE_ANIM_MS = 820;
+const LINE_ANIM_MS = 700;
 
-function ringDot(color: string, r = 5) {
-  return {
-    r,
-    fill: color,
-    stroke: CHART.fg,
-    strokeWidth: 2,
-    strokeOpacity: 0.85,
-  };
+function softActive(color: string, r = 4.5) {
+  return { r, fill: color, strokeWidth: 0 };
 }
 
 const XAXIS = {
@@ -413,7 +406,7 @@ function CurvePlot({
   const animateAvg = !reduceMotion;
   const showRace = kind === "race" || kind === "all";
   const drawOthersAvg = kind === "others" || kind === "all";
-  // Ponto = pesquisa isolada; vale no painel "Os outros" e no modo all.
+  // Ponto = pesquisa isolada; linha = média. Pontos bem leves para não poluir.
   const showOtherDots = kind === "others" || kind === "all";
   const lulaKey = houseFocus ? "lulaAvg" : "lulaLine";
   const flavioKey = houseFocus ? "flavioAvg" : "flavioLine";
@@ -421,17 +414,7 @@ function CurvePlot({
     <div className={`curve-stage ${heightClass} w-full min-w-0`}>
       <ResponsiveContainer width="100%" height="100%">
         <ComposedChart data={data} margin={{ left: 0, right: 8, top: hideX ? 4 : 6, bottom: hideX ? 0 : 2 }}>
-          <defs>
-            <linearGradient id="curveFillLula" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor={CHART.lula} stopOpacity={0.28} />
-              <stop offset="100%" stopColor={CHART.lula} stopOpacity={0} />
-            </linearGradient>
-            <linearGradient id="curveFillFlavio" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor={CHART.flavio} stopOpacity={0.26} />
-              <stop offset="100%" stopColor={CHART.flavio} stopOpacity={0} />
-            </linearGradient>
-          </defs>
-          <CartesianGrid strokeDasharray="4 6" stroke={CHART.grid} strokeOpacity={0.55} />
+          <CartesianGrid strokeDasharray="3 3" stroke={CHART.grid} strokeOpacity={0.4} />
           <XAxis
             {...XAXIS}
             domain={[xMin, xMax]}
@@ -451,36 +434,10 @@ function CurvePlot({
           />
           <Tooltip
             content={CurveTip}
-            cursor={{ stroke: CHART.axis, strokeWidth: 1.25, strokeOpacity: 0.55, strokeDasharray: "4 4" }}
+            cursor={{ stroke: CHART.axis, strokeWidth: 1, strokeOpacity: 0.4 }}
             isAnimationActive={false}
             wrapperStyle={{ pointerEvents: "none" }}
           />
-          {showRace && !houseFocus ? (
-            <Area
-              type="monotone"
-              dataKey={lulaKey}
-              legendType="none"
-              stroke="none"
-              fill="url(#curveFillLula)"
-              connectNulls
-              isAnimationActive={animateAvg}
-              animationDuration={LINE_ANIM_MS}
-              animationEasing="ease-out"
-            />
-          ) : null}
-          {showRace && !houseFocus ? (
-            <Area
-              type="monotone"
-              dataKey={flavioKey}
-              legendType="none"
-              stroke="none"
-              fill="url(#curveFillFlavio)"
-              connectNulls
-              isAnimationActive={animateAvg}
-              animationDuration={LINE_ANIM_MS}
-              animationEasing="ease-out"
-            />
-          ) : null}
           {showRace ? (
               <Line
                 type="linear"
@@ -488,9 +445,9 @@ function CurvePlot({
                 legendType="none"
                 stroke="none"
                 dot={{
-                  r: houseFocus ? 3.2 : 2.15,
+                  r: houseFocus ? 3 : 1.8,
                   fill: CHART.lula,
-                  fillOpacity: houseFocus ? 0.9 : 0.34,
+                  fillOpacity: houseFocus ? 0.85 : 0.22,
                   strokeWidth: 0,
                 }}
                 activeDot={false}
@@ -504,9 +461,9 @@ function CurvePlot({
                 legendType="none"
                 stroke="none"
                 dot={{
-                  r: houseFocus ? 3.2 : 2.15,
+                  r: houseFocus ? 3 : 1.8,
                   fill: CHART.flavio,
-                  fillOpacity: houseFocus ? 0.9 : 0.34,
+                  fillOpacity: houseFocus ? 0.85 : 0.22,
                   strokeWidth: 0,
                 }}
                 activeDot={false}
@@ -519,10 +476,10 @@ function CurvePlot({
                 dataKey={lulaKey}
                 legendType="none"
                 stroke={CHART.lula}
-                strokeWidth={houseFocus ? 3.2 : 4}
+                strokeWidth={houseFocus ? 3 : 3.5}
                 connectNulls
                 dot={false}
-                activeDot={ringDot(CHART.lula)}
+                activeDot={softActive(CHART.lula)}
                 isAnimationActive={animateAvg}
                 animationDuration={LINE_ANIM_MS}
                 animationEasing="ease-out"
@@ -534,10 +491,10 @@ function CurvePlot({
                 dataKey={flavioKey}
                 legendType="none"
                 stroke={CHART.flavio}
-                strokeWidth={houseFocus ? 3.2 : 4}
+                strokeWidth={houseFocus ? 3 : 3.5}
                 connectNulls
                 dot={false}
-                activeDot={ringDot(CHART.flavio)}
+                activeDot={softActive(CHART.flavio)}
                 isAnimationActive={animateAvg}
                 animationDuration={LINE_ANIM_MS}
                 animationEasing="ease-out"
@@ -553,9 +510,9 @@ function CurvePlot({
                   stroke="none"
                   connectNulls={false}
                   dot={{
-                    r: houseFocus ? 2.8 : 2.1,
+                    r: houseFocus ? 2.4 : 1.5,
                     fill: other.color,
-                    fillOpacity: houseFocus ? 0.9 : 0.4,
+                    fillOpacity: houseFocus ? 0.8 : 0.2,
                     strokeWidth: 0,
                   }}
                   activeDot={false}
@@ -571,11 +528,11 @@ function CurvePlot({
                   dataKey={houseFocus ? `${other.key}Avg` : `${other.key}Line`}
                   legendType="none"
                   stroke={other.color}
-                  strokeWidth={houseFocus ? 2.6 : 2.85}
-                  strokeOpacity={0.9}
+                  strokeWidth={houseFocus ? 2.2 : 2.25}
+                  strokeOpacity={0.88}
                   connectNulls
                   dot={false}
-                  activeDot={ringDot(other.color, 4)}
+                  activeDot={softActive(other.color, 3.5)}
                   isAnimationActive={animateAvg}
                   animationDuration={LINE_ANIM_MS}
                   animationEasing="ease-out"
@@ -709,7 +666,7 @@ export function GrowthCurve({
 
   return (
     <section id="curva" className="mb-6 scroll-mt-24">
-      <div className="board-card curve-board animate-in fade-in duration-500">
+      <div className="board-card">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
           <div>
             <p className="kicker">Linha de crescimento</p>

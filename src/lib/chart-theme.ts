@@ -20,13 +20,12 @@ export const CHART = {
 export const tipStyle = {
   background: CHART.tooltipBg,
   backgroundColor: CHART.tooltipBg,
-  border: `1px solid color-mix(in oklab, ${CHART.tooltipBorder} 70%, #c4a574)`,
-  borderRadius: 12,
+  border: `1px solid ${CHART.tooltipBorder}`,
+  borderRadius: 10,
   fontSize: 13,
   fontWeight: 500,
   color: CHART.fg,
-  boxShadow:
-    "0 18px 44px -16px hsl(178 50% 6% / 0.72), inset 0 1px 0 hsl(40 35% 70% / 0.08)",
+  boxShadow: "0 16px 40px -14px hsl(178 50% 6% / 0.65)",
 };
 
 /** Recharts DefaultTooltipContent ignores wrapper `color`; set item/label explicitly. */

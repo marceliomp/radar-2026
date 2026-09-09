@@ -1061,21 +1061,8 @@
     padding: var(--space-4) 1.125rem var(--space-5);
   }
 
-  .curve-board {
-    background:
-      linear-gradient(
-        180deg,
-        color-mix(in oklab, var(--color-surface-2) 55%, transparent) 0%,
-        var(--color-surface) 42%
-      );
-  }
-
   .curve-stage {
     position: relative;
-  }
-
-  .curve-stage .recharts-surface {
-    overflow: visible;
   }
 
   .score-row {
