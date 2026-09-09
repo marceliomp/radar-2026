@@ -56,7 +56,7 @@ export function keepRadarSearch(prev: Record<string, unknown>): RadarSearchKeep 
     if (Number.isFinite(n)) out.hl = n;
   }
   const lang = parseLocale(prev.lang);
-  if (lang && lang !== DEFAULT_LOCALE) out.lang = lang;
+  if (lang) out.lang = lang;
   return out;
 }
 
@@ -64,6 +64,6 @@ export function parseLangSearch(search: Record<string, unknown>): {
   lang?: Locale;
 } {
   const lang = parseLocale(search.lang);
-  if (!lang || lang === DEFAULT_LOCALE) return {};
+  if (!lang) return {};
   return { lang };
 }

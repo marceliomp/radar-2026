@@ -64,8 +64,8 @@ export function LangProvider({ children }: { children: ReactNode }) {
       go({
         search: (prev) => {
           const merged = { ...prev };
-          if (next === DEFAULT_LOCALE) delete merged.lang;
-          else merged.lang = next;
+          // retainSearchParams copies the previous lang if the key is missing.
+          merged.lang = next;
           return merged;
         },
         replace: true,

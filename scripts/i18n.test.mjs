@@ -44,7 +44,20 @@ test("parseLocale accepts en and pt aliases", async () => {
   assert.equal(parseLocale("pt-BR"), "pt");
   assert.equal(parseLocale("fr"), undefined);
   assert.deepEqual(parseLangSearch({ lang: "en" }), { lang: "en" });
-  assert.deepEqual(parseLangSearch({ lang: "pt" }), {});
+  assert.deepEqual(parseLangSearch({ lang: "pt" }), { lang: "pt" });
+  assert.deepEqual(parseLangSearch({}), {});
+});
+
+test("switching back to PT keeps lang=pt so retainSearchParams cannot restore en", async () => {
+  const { parseLangSearch, keepRadarSearch } = await loadLocale();
+  assert.deepEqual(parseLangSearch({ lang: "pt", hl: 5 }), { lang: "pt" });
+  assert.equal(keepRadarSearch({ lang: "pt", hl: 14 }).lang, "pt");
+  assert.equal(keepRadarSearch({ lang: "en" }).lang, "en");
+  const react = await import("node:fs").then((fs) =>
+    fs.readFileSync("src/lib/i18n/react.tsx", "utf8"),
+  );
+  assert.match(react, /merged\.lang = next/);
+  assert.doesNotMatch(react, /delete merged\.lang/);
 });
 
 test("english numbers and dates", async () => {
