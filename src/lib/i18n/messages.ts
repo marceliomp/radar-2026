@@ -20,6 +20,7 @@ export const pt = {
   hero: {
     chance: "Chance de ser presidente",
     sub: "Simulação do Radar. Não é intenção de voto.",
+    others: "Outros",
   },
   share: {
     headline: "Radar 2026 · não é pesquisa",
@@ -387,6 +388,7 @@ export const en: Messages = {
   hero: {
     chance: "Chance of winning the presidency",
     sub: "Radar simulation. Not vote intention.",
+    others: "Others",
   },
   share: {
     headline: "Radar 2026 · not a poll",

@@ -283,6 +283,10 @@
     grid-template-columns: 1fr 1fr 1fr;
   }
 
+  .hero-score[data-cols="3"] .hero-num {
+    font-size: clamp(1.65rem, 8.5vw, 2.45rem);
+  }
+
   .hero-col-m {
     align-items: center;
     background: #101612;
@@ -539,6 +543,14 @@
 
     .hero-score {
       display: contents;
+    }
+
+    .hero-mast:has(.hero-score[data-cols="3"]) {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    .hero-score[data-cols="3"] .hero-num {
+      font-size: clamp(3.1rem, 11vw, 7.2rem);
     }
 
     .hero-col {

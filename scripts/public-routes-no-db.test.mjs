@@ -61,6 +61,15 @@ test("capa mounts the national growth curve", () => {
   assert.doesNotMatch(curve, /Lula, pesquisa/);
 });
 
+test("hero board can show Outros remainder", () => {
+  const page = readFileSync("src/features/radar/public/public-radar-page.tsx", "utf8");
+  const board = readFileSync("src/lib/hero-board.ts", "utf8");
+  assert.match(page, /buildHeroBoard/);
+  assert.match(page, /m\.hero\.others/);
+  assert.match(board, /outros/);
+  assert.match(board, /rest >= 0\.1/);
+});
+
 test("hero states chance not vote intention", () => {
   const page = readFileSync("src/features/radar/public/public-radar-page.tsx", "utf8");
   assert.match(page, /<h1 className="hero-method">/);

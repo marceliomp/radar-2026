@@ -26,6 +26,7 @@ import { fieldPeriodLine, fmtMult, isShownTie, pairTightnessLine, shownGap } fro
 import { useHalfLife } from "@/lib/half-life";
 import { useI18n } from "@/lib/i18n";
 import { fileStamp } from "@/lib/visit-delta";
+import { buildHeroBoard } from "@/lib/hero-board";
 import { pollsOnLatestDay } from "@/lib/latest-day";
 import { exampleGovernorUfs, ufTemCasas } from "@/lib/race-hooks";
 import { cn } from "@/lib/utils";
@@ -271,22 +272,7 @@ export function PublicRadarPage() {
   const latestDayPolls = useMemo(() => pollsOnLatestDay(polls, asOf), [asOf]);
   const pLula = Math.round(probs.lulaWinsElection * 1000) / 10;
   const pFlavio = Math.round(probs.flavioWinsElection * 1000) / 10;
-  const heroBoard = useMemo(() => {
-    const rows = [
-      { key: "lula" as const, p: probs.lulaWinsElection },
-      { key: "flavio" as const, p: probs.flavioWinsElection },
-      { key: "cury" as const, p: probs.curyWinsElection ?? 0 },
-      { key: "caiado" as const, p: probs.caiadoWinsElection ?? 0 },
-      { key: "renan" as const, p: probs.renanWinsElection ?? 0 },
-      { key: "zema" as const, p: probs.zemaWinsElection ?? 0 },
-    ];
-    const always = rows.filter((r) => r.key === "lula" || r.key === "flavio");
-    const extras = rows
-      .filter((r) => r.key !== "lula" && r.key !== "flavio" && r.p >= 0.01)
-      .sort((a, b) => b.p - a.p);
-    const picked = [...always, ...extras].sort((a, b) => b.p - a.p).slice(0, 3);
-    return picked;
-  }, [probs]);
+  const heroBoard = useMemo(() => buildHeroBoard(probs), [probs]);
 
   function gapPlain(a: number | undefined, b: number | undefined, se?: number) {
     if (a == null || b == null) return m.home.fewSecond;
@@ -319,7 +305,16 @@ export function PublicRadarPage() {
         </h1>
         <div className="hero-score" data-cols={heroBoard.length}>
           {heroBoard.map((row, index) => {
-            const meta = CANDIDATE_META[row.key];
+            const meta = row.key === "outros" ? null : CANDIDATE_META[row.key];
+            const color = meta ? meta.color : "var(--color-cream)";
+            const label =
+              row.key === "outros"
+                ? m.hero.others
+                : row.key === "flavio"
+                  ? "Flávio"
+                  : row.key === "lula"
+                    ? "Lula"
+                    : (meta?.name.split(" ").pop() ?? "");
             const align =
               heroBoard.length === 2
                 ? index === 0
@@ -332,10 +327,10 @@ export function PublicRadarPage() {
                     : "hero-col-m";
             return (
               <div key={row.key} className={`hero-col ${align}`}>
-                <p className="hero-kicker" style={{ color: meta.color }}>
-                  {row.key === "flavio" ? "Flávio" : row.key === "lula" ? "Lula" : meta.name.split(" ").pop()}
+                <p className="hero-kicker" style={{ color }}>
+                  {label}
                 </p>
-                <p className="hero-num" style={{ color: meta.color }}>
+                <p className="hero-num" style={{ color }}>
                   {fmt.prob(row.p).replace("%", "")}
                   <span className="hero-unit">%</span>
                 </p>
