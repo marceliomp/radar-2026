@@ -330,7 +330,7 @@ function CurveTip({ active, payload }: { active?: boolean; payload?: TipRow[] })
   if (row.houseFocus) {
     const house = houses[0];
     return (
-      <div style={{ ...tipStyle, padding: "10px 12px", minWidth: 228, maxWidth: 320, color: CHART.fg }}>
+      <div style={{ ...tipStyle, padding: "10px 12px", width: 236, maxWidth: "calc(100vw - 2rem)", color: CHART.fg }}>
         <p className="m-0 text-sm font-semibold" style={{ color: CHART.fg }}>
           {house?.institute ?? row.institute} · {dateBr(row.published)}
         </p>
@@ -359,7 +359,7 @@ function CurveTip({ active, payload }: { active?: boolean; payload?: TipRow[] })
     );
   }
   return (
-    <div style={{ ...tipStyle, padding: "10px 12px", minWidth: 228, maxWidth: 320, color: CHART.fg }}>
+    <div style={{ ...tipStyle, padding: "10px 12px", width: 236, maxWidth: "calc(100vw - 2rem)", color: CHART.fg }}>
       <p className="m-0 text-sm font-semibold" style={{ color: CHART.fg }}>
         {dateBr(row.published)}
         {many ? ` · ${houses.length} pesquisas` : ""}
@@ -379,7 +379,7 @@ function CurveTip({ active, payload }: { active?: boolean; payload?: TipRow[] })
         ]}
       />
       {houses.map((house, i) => (
-        <div key={`${house.institute}-${i}`} className={i === 0 ? "mt-3" : "mt-2.5"}>
+        <div key={`${house.institute}-${i}`} className={i === 0 ? "mt-3" : "mt-2"}>
           <p className="m-0 text-[12px] font-medium text-cream/80">{house.institute}</p>
           <p className="m-0 mt-0.5 text-[11px] font-medium text-cream/55">
             {fieldPeriodLine(house.fieldStart, house.fieldEnd)}
@@ -464,6 +464,7 @@ function CurvePlot({
 }) {
   const reduceMotion = usePrefersReducedMotion();
   const animateAvg = !reduceMotion;
+  const [flipX, setFlipX] = useState(false);
   const showRace = kind === "race" || kind === "all";
   const drawOthersAvg = kind === "others" || kind === "all";
   const showOtherDots = kind === "all" || (kind === "others" && houseFocus);
@@ -472,7 +473,17 @@ function CurvePlot({
   return (
     <div className={`curve-stage ${heightClass} w-full min-w-0`}>
       <ResponsiveContainer width="100%" height="100%">
-        <ComposedChart data={data} margin={{ left: 0, right: 8, top: hideX ? 4 : 6, bottom: hideX ? 0 : 2 }}>
+        <ComposedChart
+          data={data}
+          margin={{ left: 0, right: 8, top: hideX ? 4 : 6, bottom: hideX ? 0 : 2 }}
+          onMouseMove={(state) => {
+            const x = state?.chartX;
+            const width = state?.offset?.width;
+            if (typeof x !== "number" || typeof width !== "number" || width <= 0) return;
+            const next = x > width * 0.5;
+            setFlipX((prev) => (prev === next ? prev : next));
+          }}
+        >
           <CartesianGrid
             strokeDasharray="3 3"
             stroke={CHART.grid}
@@ -503,8 +514,10 @@ function CurvePlot({
             content={CurveTip}
             cursor={{ stroke: CHART.axis, strokeWidth: 1, strokeOpacity: 0.35 }}
             isAnimationActive={false}
-            allowEscapeViewBox={{ x: true, y: true }}
-            wrapperStyle={{ pointerEvents: "none", zIndex: 30, overflow: "visible" }}
+            allowEscapeViewBox={{ x: false, y: true }}
+            reverseDirection={{ x: flipX }}
+            offset={12}
+            wrapperStyle={{ pointerEvents: "none", zIndex: 40 }}
           />
           {showRace ? (
               <Line

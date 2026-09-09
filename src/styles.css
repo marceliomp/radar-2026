@@ -1066,9 +1066,13 @@
     overflow: visible;
   }
 
-  .curve-stage .recharts-wrapper,
-  .curve-stage .recharts-surface {
+  .curve-stage .recharts-wrapper {
     overflow: visible !important;
+  }
+
+  .curve-stage .recharts-tooltip-wrapper {
+    z-index: 40;
+    max-width: min(15rem, calc(100% - 12px));
   }
 
   .curve-stage .recharts-curve {
