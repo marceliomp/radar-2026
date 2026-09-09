@@ -65,3 +65,10 @@ test("lead pair order ignores Outros and tracks who is on the left", async () =>
     false,
   );
 });
+
+test("ease-out cubic is 0 at start, 1 at end, and faster than linear in the middle", async () => {
+  const { easeOutCubic } = await import("../src/features/radar/public/use-hero-flip.ts");
+  assert.equal(easeOutCubic(0), 0);
+  assert.equal(easeOutCubic(1), 1);
+  assert.ok(easeOutCubic(0.5) > 0.5);
+});

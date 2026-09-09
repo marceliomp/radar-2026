@@ -302,6 +302,14 @@
     padding: 0.85rem 1rem 0.95rem;
   }
 
+  .hero-col-slide {
+    display: flex;
+    min-width: 0;
+    flex: 1;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+
   .hero-col[data-hero-key="lula"] {
     background: #161010;
   }
@@ -316,6 +324,7 @@
 
   .hero-col.is-crossing {
     z-index: 4;
+    will-change: transform;
   }
 
   .hero-col-l {
@@ -343,6 +352,7 @@
     font-weight: 400;
     line-height: 0.86;
     letter-spacing: -0.05em;
+    font-variant-numeric: tabular-nums;
   }
 
   .skip-link {

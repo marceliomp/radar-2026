@@ -80,6 +80,11 @@ test("hero swaps Lula and Flávio sides with a FLIP motion", () => {
   assert.match(flip, /translate3d/);
   assert.match(flip, /lula/);
   assert.match(flip, /flavio/);
+  assert.match(flip, /useTweenedProb/);
+  assert.match(page, /useTweenedProb/);
+  assert.match(page, /HeroColSlide/);
+  assert.match(flip, /DURATION_MS = 560/);
+  assert.match(page, /useTweenedProb/);
 });
 
 test("hero states chance not vote intention", () => {

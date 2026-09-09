@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useLayoutEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
 import { CalendarDays, Radio } from "lucide-react";
 import { BrazilMap, MapLayerToggle, type MapLayer } from "@/features/radar/map/brazil-map";
@@ -27,12 +27,30 @@ import { useHalfLife } from "@/lib/half-life";
 import { useI18n } from "@/lib/i18n";
 import { fileStamp } from "@/lib/visit-delta";
 import { buildHeroBoard, leadPairOrder } from "@/lib/hero-board";
-import { useHeroFlip } from "@/features/radar/public/use-hero-flip";
+import { useHeroFlip, useTweenedProb } from "@/features/radar/public/use-hero-flip";
 import { pollsOnLatestDay } from "@/lib/latest-day";
 import { exampleGovernorUfs, ufTemCasas } from "@/lib/race-hooks";
 import { cn } from "@/lib/utils";
 
 const COMPARE_GOV_UF = exampleGovernorUfs().two;
+function HeroColSlide({ children }: { children: ReactNode }) {
+  const ref = useRef<HTMLDivElement>(null);
+  useLayoutEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const flip = el.dataset.flip;
+    if (!flip) return;
+    const [x, y] = flip.split(",");
+    el.style.transform = `translate3d(${x}, ${y}, 0)`;
+  });
+  return (
+    <div className="hero-col-slide" ref={ref}>
+      {children}
+    </div>
+  );
+}
+
+
 
 const FIELD_KEYS = ["lula", "flavio", "renan", "caiado", "zema", "cury"] as const;
 
@@ -275,6 +293,14 @@ export function PublicRadarPage() {
   const pFlavio = Math.round(probs.flavioWinsElection * 1000) / 10;
   const heroBoard = useMemo(() => buildHeroBoard(probs), [probs]);
   const heroFlipRef = useHeroFlip(leadPairOrder(heroBoard.map((row) => row.key)));
+  const pLulaHero = heroBoard.find((row) => row.key === "lula")?.p ?? 0;
+  const pFlavioHero = heroBoard.find((row) => row.key === "flavio")?.p ?? 0;
+  const pOutrosHero = heroBoard.find((row) => row.key === "outros")?.p ?? 0;
+  const shownP = {
+    lula: useTweenedProb(pLulaHero),
+    flavio: useTweenedProb(pFlavioHero),
+    outros: useTweenedProb(pOutrosHero),
+  };
 
   function gapPlain(a: number | undefined, b: number | undefined, se?: number) {
     if (a == null || b == null) return m.home.fewSecond;
@@ -329,13 +355,15 @@ export function PublicRadarPage() {
                     : "hero-col-m";
             return (
               <div key={row.key} className={`hero-col ${align}`} data-hero-key={row.key}>
-                <p className="hero-kicker" style={{ color }}>
-                  {label}
-                </p>
-                <p className="hero-num" style={{ color }}>
-                  {fmt.prob(row.p).replace("%", "")}
-                  <span className="hero-unit">%</span>
-                </p>
+                <HeroColSlide>
+                  <p className="hero-kicker" style={{ color }}>
+                    {label}
+                  </p>
+                  <p className="hero-num" style={{ color }}>
+                    {fmt.prob((row.key === "lula" || row.key === "flavio" || row.key === "outros" ? shownP[row.key] : row.p)).replace("%", "")}
+                    <span className="hero-unit">%</span>
+                  </p>
+                </HeroColSlide>
               </div>
             );
           })}
