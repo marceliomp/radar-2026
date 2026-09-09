@@ -246,6 +246,17 @@
     min-width: 0;
   }
 
+  .hero-score[data-cols="3"] {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .hero-col-m {
+    align-items: center;
+    background: #101612;
+    text-align: center;
+    border-right: 1px solid var(--color-border);
+  }
+
   .hero-col {
     display: flex;
     min-width: 0;
@@ -436,7 +447,6 @@
       background: color-mix(in oklab, var(--color-bg) 55%, transparent);
     }
 
-    .hl-copy,
     .hl-ends {
       display: none;
     }
@@ -1049,6 +1059,23 @@
     border: 1px solid var(--color-border);
     background: var(--color-surface);
     padding: var(--space-4) 1.125rem var(--space-5);
+  }
+
+  .curve-board {
+    background:
+      linear-gradient(
+        180deg,
+        color-mix(in oklab, var(--color-surface-2) 55%, transparent) 0%,
+        var(--color-surface) 42%
+      );
+  }
+
+  .curve-stage {
+    position: relative;
+  }
+
+  .curve-stage .recharts-surface {
+    overflow: visible;
   }
 
   .score-row {

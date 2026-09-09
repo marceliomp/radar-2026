@@ -1,5 +1,6 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
+  Area,
   CartesianGrid,
   ComposedChart,
   Line,
@@ -36,6 +37,30 @@ import { YEAR_START } from "@/lib/period";
 
 function tickMonth(value: number | string) {
   return utcMsToMonthBr(Number(value));
+}
+
+function usePrefersReducedMotion(): boolean {
+  const [reduced, setReduced] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const sync = () => setReduced(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
+  return reduced;
+}
+
+const LINE_ANIM_MS = 820;
+
+function ringDot(color: string, r = 5) {
+  return {
+    r,
+    fill: color,
+    stroke: CHART.fg,
+    strokeWidth: 2,
+    strokeOpacity: 0.85,
+  };
 }
 
 const XAXIS = {
@@ -384,14 +409,29 @@ function CurvePlot({
   hideX?: boolean;
   heightClass: string;
 }) {
+  const reduceMotion = usePrefersReducedMotion();
+  const animateAvg = !reduceMotion;
   const showRace = kind === "race" || kind === "all";
   const drawOthersAvg = kind === "others" || kind === "all";
-  const showOtherDots = kind === "all" && houseFocus;
+  // Ponto = pesquisa isolada; vale no painel "Os outros" e no modo all.
+  const showOtherDots = kind === "others" || kind === "all";
+  const lulaKey = houseFocus ? "lulaAvg" : "lulaLine";
+  const flavioKey = houseFocus ? "flavioAvg" : "flavioLine";
   return (
-    <div className={`${heightClass} w-full min-w-0`}>
+    <div className={`curve-stage ${heightClass} w-full min-w-0`}>
       <ResponsiveContainer width="100%" height="100%">
         <ComposedChart data={data} margin={{ left: 0, right: 8, top: hideX ? 4 : 6, bottom: hideX ? 0 : 2 }}>
-          <CartesianGrid strokeDasharray="3 3" stroke={CHART.grid} />
+          <defs>
+            <linearGradient id="curveFillLula" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor={CHART.lula} stopOpacity={0.28} />
+              <stop offset="100%" stopColor={CHART.lula} stopOpacity={0} />
+            </linearGradient>
+            <linearGradient id="curveFillFlavio" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor={CHART.flavio} stopOpacity={0.26} />
+              <stop offset="100%" stopColor={CHART.flavio} stopOpacity={0} />
+            </linearGradient>
+          </defs>
+          <CartesianGrid strokeDasharray="4 6" stroke={CHART.grid} strokeOpacity={0.55} />
           <XAxis
             {...XAXIS}
             domain={[xMin, xMax]}
@@ -411,10 +451,36 @@ function CurvePlot({
           />
           <Tooltip
             content={CurveTip}
-            cursor={{ stroke: CHART.axis, strokeWidth: 1, strokeOpacity: 0.45 }}
+            cursor={{ stroke: CHART.axis, strokeWidth: 1.25, strokeOpacity: 0.55, strokeDasharray: "4 4" }}
             isAnimationActive={false}
             wrapperStyle={{ pointerEvents: "none" }}
           />
+          {showRace && !houseFocus ? (
+            <Area
+              type="monotone"
+              dataKey={lulaKey}
+              legendType="none"
+              stroke="none"
+              fill="url(#curveFillLula)"
+              connectNulls
+              isAnimationActive={animateAvg}
+              animationDuration={LINE_ANIM_MS}
+              animationEasing="ease-out"
+            />
+          ) : null}
+          {showRace && !houseFocus ? (
+            <Area
+              type="monotone"
+              dataKey={flavioKey}
+              legendType="none"
+              stroke="none"
+              fill="url(#curveFillFlavio)"
+              connectNulls
+              isAnimationActive={animateAvg}
+              animationDuration={LINE_ANIM_MS}
+              animationEasing="ease-out"
+            />
+          ) : null}
           {showRace ? (
               <Line
                 type="linear"
@@ -422,9 +488,9 @@ function CurvePlot({
                 legendType="none"
                 stroke="none"
                 dot={{
-                  r: houseFocus ? 3.2 : 2,
+                  r: houseFocus ? 3.2 : 2.15,
                   fill: CHART.lula,
-                  fillOpacity: houseFocus ? 0.9 : 0.3,
+                  fillOpacity: houseFocus ? 0.9 : 0.34,
                   strokeWidth: 0,
                 }}
                 activeDot={false}
@@ -438,9 +504,9 @@ function CurvePlot({
                 legendType="none"
                 stroke="none"
                 dot={{
-                  r: houseFocus ? 3.2 : 2,
+                  r: houseFocus ? 3.2 : 2.15,
                   fill: CHART.flavio,
-                  fillOpacity: houseFocus ? 0.9 : 0.3,
+                  fillOpacity: houseFocus ? 0.9 : 0.34,
                   strokeWidth: 0,
                 }}
                 activeDot={false}
@@ -450,27 +516,31 @@ function CurvePlot({
           {showRace ? (
               <Line
                 type={houseFocus ? "linear" : "monotone"}
-                dataKey={houseFocus ? "lulaAvg" : "lulaLine"}
+                dataKey={lulaKey}
                 legendType="none"
                 stroke={CHART.lula}
                 strokeWidth={houseFocus ? 3.2 : 4}
                 connectNulls
                 dot={false}
-                activeDot={{ r: 4, fill: CHART.lula, strokeWidth: 0 }}
-                isAnimationActive={false}
+                activeDot={ringDot(CHART.lula)}
+                isAnimationActive={animateAvg}
+                animationDuration={LINE_ANIM_MS}
+                animationEasing="ease-out"
               />
           ) : null}
           {showRace ? (
               <Line
                 type={houseFocus ? "linear" : "monotone"}
-                dataKey={houseFocus ? "flavioAvg" : "flavioLine"}
+                dataKey={flavioKey}
                 legendType="none"
                 stroke={CHART.flavio}
                 strokeWidth={houseFocus ? 3.2 : 4}
                 connectNulls
                 dot={false}
-                activeDot={{ r: 4, fill: CHART.flavio, strokeWidth: 0 }}
-                isAnimationActive={false}
+                activeDot={ringDot(CHART.flavio)}
+                isAnimationActive={animateAvg}
+                animationDuration={LINE_ANIM_MS}
+                animationEasing="ease-out"
               />
           ) : null}
           {showOtherDots
@@ -483,9 +553,9 @@ function CurvePlot({
                   stroke="none"
                   connectNulls={false}
                   dot={{
-                    r: 2.6,
+                    r: houseFocus ? 2.8 : 2.1,
                     fill: other.color,
-                    fillOpacity: 0.85,
+                    fillOpacity: houseFocus ? 0.9 : 0.4,
                     strokeWidth: 0,
                   }}
                   activeDot={false}
@@ -501,12 +571,14 @@ function CurvePlot({
                   dataKey={houseFocus ? `${other.key}Avg` : `${other.key}Line`}
                   legendType="none"
                   stroke={other.color}
-                  strokeWidth={2}
-                  strokeOpacity={0.85}
+                  strokeWidth={houseFocus ? 2.6 : 2.85}
+                  strokeOpacity={0.9}
                   connectNulls
                   dot={false}
-                  activeDot={{ r: 3.5, fill: other.color, strokeWidth: 0 }}
-                  isAnimationActive={false}
+                  activeDot={ringDot(other.color, 4)}
+                  isAnimationActive={animateAvg}
+                  animationDuration={LINE_ANIM_MS}
+                  animationEasing="ease-out"
                 />
               ))
             : null}
@@ -637,7 +709,7 @@ export function GrowthCurve({
 
   return (
     <section id="curva" className="mb-6 scroll-mt-24">
-      <div className="board-card">
+      <div className="board-card curve-board animate-in fade-in duration-500">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
           <div>
             <p className="kicker">Linha de crescimento</p>
@@ -687,8 +759,8 @@ export function GrowthCurve({
               type="button"
               aria-pressed={!mode}
               onClick={() => setMode(null)}
-              className={`inline-flex shrink-0 rounded-full border px-3 py-1.5 text-xs font-semibold ${
-                !mode ? "border-gold bg-gold/10 text-gold" : "border-border bg-surface text-fg"
+              className={`inline-flex shrink-0 rounded-full border px-3 py-1.5 text-xs font-semibold transition-colors duration-150 ${
+                !mode ? "border-gold bg-gold/10 text-gold" : "border-border bg-surface text-fg hover:border-cream/35"
               }`}
             >
               Todos os tipos
@@ -702,10 +774,10 @@ export function GrowthCurve({
                   setMode(key);
                   setHouse(null);
                 }}
-                className={`inline-flex shrink-0 rounded-full border px-3 py-1.5 text-xs font-semibold ${
+                className={`inline-flex shrink-0 rounded-full border px-3 py-1.5 text-xs font-semibold transition-colors duration-150 ${
                   mode === key
                     ? "border-gold bg-gold/10 text-gold"
-                    : "border-border bg-surface text-fg"
+                    : "border-border bg-surface text-fg hover:border-cream/35"
                 }`}
               >
                 {modeFilterLabel(key)}
@@ -723,8 +795,8 @@ export function GrowthCurve({
               type="button"
               aria-pressed={!house}
               onClick={() => setHouse(null)}
-              className={`inline-flex shrink-0 rounded-full border px-3 py-1.5 text-xs font-semibold ${
-                !house ? "border-gold bg-gold/10 text-gold" : "border-border bg-surface text-fg"
+              className={`inline-flex shrink-0 rounded-full border px-3 py-1.5 text-xs font-semibold transition-colors duration-150 ${
+                !house ? "border-gold bg-gold/10 text-gold" : "border-border bg-surface text-fg hover:border-cream/35"
               }`}
             >
               Todas
@@ -735,10 +807,10 @@ export function GrowthCurve({
                 type="button"
                 aria-pressed={house === name}
                 onClick={() => setHouse(name)}
-                className={`inline-flex shrink-0 rounded-full border px-3 py-1.5 text-xs font-semibold ${
+                className={`inline-flex shrink-0 rounded-full border px-3 py-1.5 text-xs font-semibold transition-colors duration-150 ${
                   house === name
                     ? "border-gold bg-gold/10 text-gold"
-                    : "border-border bg-surface text-fg"
+                    : "border-border bg-surface text-fg hover:border-cream/35"
                 }`}
               >
                 {name}
