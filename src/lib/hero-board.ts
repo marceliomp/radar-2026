@@ -42,3 +42,9 @@ export function buildHeroBoard(probs: HeroProbs): HeroRow[] {
   }
   return picked;
 }
+
+/** Visual order of the two main names, ignoring Outros. */
+export function leadPairOrder(keys: readonly HeroKey[]): string {
+  return keys.filter((key) => key === "lula" || key === "flavio").join("|");
+}
+

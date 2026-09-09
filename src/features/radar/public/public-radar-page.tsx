@@ -26,7 +26,8 @@ import { fieldPeriodLine, fmtMult, isShownTie, pairTightnessLine, shownGap } fro
 import { useHalfLife } from "@/lib/half-life";
 import { useI18n } from "@/lib/i18n";
 import { fileStamp } from "@/lib/visit-delta";
-import { buildHeroBoard } from "@/lib/hero-board";
+import { buildHeroBoard, leadPairOrder } from "@/lib/hero-board";
+import { useHeroFlip } from "@/features/radar/public/use-hero-flip";
 import { pollsOnLatestDay } from "@/lib/latest-day";
 import { exampleGovernorUfs, ufTemCasas } from "@/lib/race-hooks";
 import { cn } from "@/lib/utils";
@@ -273,6 +274,7 @@ export function PublicRadarPage() {
   const pLula = Math.round(probs.lulaWinsElection * 1000) / 10;
   const pFlavio = Math.round(probs.flavioWinsElection * 1000) / 10;
   const heroBoard = useMemo(() => buildHeroBoard(probs), [probs]);
+  const heroFlipRef = useHeroFlip(leadPairOrder(heroBoard.map((row) => row.key)));
 
   function gapPlain(a: number | undefined, b: number | undefined, se?: number) {
     if (a == null || b == null) return m.home.fewSecond;
@@ -292,7 +294,7 @@ export function PublicRadarPage() {
   return (
     <div className="pb-[max(4rem,env(safe-area-inset-bottom))]">
       <a href="#conteudo" className="skip-link">{m.skip}</a>
-      <section className="hero-mast">
+      <section className="hero-mast" ref={heroFlipRef}>
         <div className="hero-chrome">
           <div className="flex min-w-0 items-start justify-between gap-3">
             <SiteNav className="min-w-0 flex-1" />
@@ -326,7 +328,7 @@ export function PublicRadarPage() {
                     ? "hero-col-f"
                     : "hero-col-m";
             return (
-              <div key={row.key} className={`hero-col ${align}`}>
+              <div key={row.key} className={`hero-col ${align}`} data-hero-key={row.key}>
                 <p className="hero-kicker" style={{ color }}>
                   {label}
                 </p>

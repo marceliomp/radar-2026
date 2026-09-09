@@ -70,6 +70,18 @@ test("hero board can show Outros remainder", () => {
   assert.match(board, /rest >= 0\.1/);
 });
 
+test("hero swaps Lula and Flávio sides with a FLIP motion", () => {
+  const page = readFileSync("src/features/radar/public/public-radar-page.tsx", "utf8");
+  const flip = readFileSync("src/features/radar/public/use-hero-flip.ts", "utf8");
+  assert.match(page, /useHeroFlip/);
+  assert.match(page, /data-hero-key/);
+  assert.match(page, /leadPairOrder/);
+  assert.match(flip, /prefers-reduced-motion/);
+  assert.match(flip, /translate3d/);
+  assert.match(flip, /lula/);
+  assert.match(flip, /flavio/);
+});
+
 test("hero states chance not vote intention", () => {
   const page = readFileSync("src/features/radar/public/public-radar-page.tsx", "utf8");
   assert.match(page, /<h1 className="hero-method">/);

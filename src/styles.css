@@ -289,12 +289,12 @@
 
   .hero-col-m {
     align-items: center;
-    background: #101612;
     text-align: center;
     border-right: 1px solid var(--color-border);
   }
 
   .hero-col {
+    position: relative;
     display: flex;
     min-width: 0;
     flex-direction: column;
@@ -302,14 +302,28 @@
     padding: 0.85rem 1rem 0.95rem;
   }
 
-  .hero-col-l {
+  .hero-col[data-hero-key="lula"] {
     background: #161010;
+  }
+
+  .hero-col[data-hero-key="flavio"] {
+    background: #0d151c;
+  }
+
+  .hero-col[data-hero-key="outros"] {
+    background: #101612;
+  }
+
+  .hero-col.is-crossing {
+    z-index: 4;
+  }
+
+  .hero-col-l {
     border-right: 1px solid var(--color-border);
   }
 
   .hero-col-f {
     align-items: flex-end;
-    background: #0d151c;
     text-align: right;
   }
 

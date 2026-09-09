@@ -55,3 +55,13 @@ test("zero remainder does not invent Outros", async () => {
     ["lula", "flavio"],
   );
 });
+
+test("lead pair order ignores Outros and tracks who is on the left", async () => {
+  const { leadPairOrder } = await load();
+  assert.equal(leadPairOrder(["flavio", "lula", "outros"]), "flavio|lula");
+  assert.equal(leadPairOrder(["lula", "flavio"]), "lula|flavio");
+  assert.equal(
+    leadPairOrder(["flavio", "lula"]) === leadPairOrder(["lula", "flavio"]),
+    false,
+  );
+});
