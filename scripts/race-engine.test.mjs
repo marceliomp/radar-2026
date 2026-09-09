@@ -412,7 +412,8 @@ test("ondas anteriores: N_gov sobe fora do eixo SP/MG/RJ/RS", async () => {
     .filter((p) => p.office === "governor" && p.uf === "BA")
     .map((p) => p.date)
     .sort();
-  assert.deepEqual(baDates, ["2026-07-29", "2026-08-27"]);
+  assert.deepEqual(baDates, ["2026-07-29", "2026-08-27", "2026-09-09"]);
+  assert.ok(ids.has("rtbd-ba-gov-09-09"), "RTBD BA 09/09 nao pode sumir");
 });
 
 test("half-life diferencia duas ondas no mesmo estado", async () => {
