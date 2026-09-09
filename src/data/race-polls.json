@@ -1,7 +1,554 @@
 {
-  "source": "G1 mapa Quaest 05/09 (25 UFs+DF, sem PI) + Quaest CE gov/sen 04/09. CartaCapital/AtlasIntel 03/09 (RS GO PI RJ CE PB) + TMC/VEJA PB 03/09 + Gazeta/RTBD RJ 02/09. G1, Folha, Poder360, CNN, O Globo, Ipsos, Gazeta do Povo. Rodada Quaest/Globo 24-27/08 + ondas anteriores: Genial/Quaest jul (10 UFs, PA ja estava), Datafolha SP 01-03/07, Genial/Quaest SP abr, Parana Pesquisas PR jul/ago. Quaest PA 29/08 ainda sem tabela.",
-  "asOf": "2026-09-06",
+  "source": "RTBD 09/09 DF+BA (Gazeta) + ES (CNN/Poder360). Removidos auto-scrapes incompletos AL/DF 09/09. Atlas ES 03/09. Quaest/Globo 08/09 (SP MG PE RJ DF gov/sen) G1+Gazeta. AtlasIntel MG 08/09 CNN + RTBD MG 08/09 CNN. RTBD PE 03/09, Atlas DF 03/09, RTBD SE 04/09. G1 mapa Quaest 05/09 (25 UFs+DF, sem PI) + Quaest CE gov/sen 04/09. CartaCapital/AtlasIntel 03/09 (RS GO PI RJ CE PB) + TMC/VEJA PB 03/09 + Gazeta/RTBD RJ 02/09. G1, Folha, Poder360, CNN, O Globo, Ipsos, Gazeta do Povo. Rodada Quaest/Globo 24-27/08 + ondas anteriores: Genial/Quaest jul (10 UFs, PA ja estava), Datafolha SP 01-03/07, Genial/Quaest SP abr, Parana Pesquisas PR jul/ago. Quaest PA 29/08 ainda sem tabela.",
+  "asOf": "2026-09-09",
   "polls": [
+    {
+      "id": "rtbd-df-gov-09-09",
+      "office": "governor",
+      "uf": "DF",
+      "institute": "Real Time Big Data",
+      "date": "2026-09-09",
+      "fieldStart": "2026-09-04",
+      "fieldEnd": "2026-09-08",
+      "sample": 1600,
+      "moe": 2,
+      "mode": "telefone",
+      "firstRound": {
+        "celinaleao": 35,
+        "arruda": 20,
+        "leandrograss": 20,
+        "paulabelmonte": 7,
+        "ricardocappelli": 4
+      },
+      "secondRound": {
+        "celinaleao": 44,
+        "arruda": 29
+      },
+      "notes": "Gazeta do Povo 09/09. Telefone 04-08/09 n=1600 moe 2. TSE DF-09600/2026. Cenario com Arruda. 2T Celina x Grass 50x32. https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/real-time-big-data-governador-senador-distrito-federal-setembro-2026/"
+    },
+    {
+      "id": "rtbd-df-sen-09-09",
+      "office": "senator",
+      "uf": "DF",
+      "institute": "Real Time Big Data",
+      "date": "2026-09-09",
+      "fieldStart": "2026-09-04",
+      "fieldEnd": "2026-09-08",
+      "sample": 1600,
+      "moe": 2,
+      "mode": "telefone",
+      "firstRound": {
+        "michellebolsonaro": 26,
+        "leiladovolei": 17,
+        "erikakokay": 17,
+        "biakicis": 15,
+        "drsebastiao": 10,
+        "ronaldofonseca": 2,
+        "gutofeliciodossantos": 1
+      },
+      "notes": "Gazeta do Povo 09/09. Soma 1a+2a vaga base 100. TSE DF-09600/2026. https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/real-time-big-data-governador-senador-distrito-federal-setembro-2026/"
+    },
+    {
+      "id": "rtbd-ba-gov-09-09",
+      "office": "governor",
+      "uf": "BA",
+      "institute": "Real Time Big Data",
+      "date": "2026-09-09",
+      "fieldStart": "2026-09-04",
+      "fieldEnd": "2026-09-08",
+      "sample": 1600,
+      "moe": 2,
+      "mode": "telefone",
+      "firstRound": {
+        "jeronimo": 45,
+        "acmneto": 44,
+        "ronaldomansur": 1
+      },
+      "secondRound": {
+        "jeronimo": 46,
+        "acmneto": 45
+      },
+      "notes": "Gazeta do Povo 09/09. Telefone 04-08/09 n=1600 moe 2. TSE BA-01568/2026. https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/real-time-big-data-governador-senador-bahia-setembro-2026/"
+    },
+    {
+      "id": "rtbd-ba-sen-09-09",
+      "office": "senator",
+      "uf": "BA",
+      "institute": "Real Time Big Data",
+      "date": "2026-09-09",
+      "fieldStart": "2026-09-04",
+      "fieldEnd": "2026-09-08",
+      "sample": 1600,
+      "moe": 2,
+      "mode": "telefone",
+      "firstRound": {
+        "ruicosta2": 26,
+        "jaqueswagner": 19,
+        "joaoroma": 17,
+        "angelocoronel": 15,
+        "dellianaenois": 6,
+        "marcelocarvalho": 1,
+        "marcelosantana2": 1,
+        "carloseduardosodre": 1,
+        "gregoriogould": 0,
+        "marcelomillet": 0
+      },
+      "notes": "Gazeta do Povo 09/09. Soma 1a+2a vaga base 100. TSE BA-01568/2026. https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/real-time-big-data-governador-senador-bahia-setembro-2026/"
+    },
+    {
+      "id": "rtbd-es-gov-09-09",
+      "office": "governor",
+      "uf": "ES",
+      "institute": "Real Time Big Data",
+      "date": "2026-09-09",
+      "fieldStart": "2026-09-04",
+      "fieldEnd": "2026-09-08",
+      "sample": 1600,
+      "moe": 2,
+      "mode": "telefone",
+      "firstRound": {
+        "ricardoferraco": 43,
+        "lorenzopazolini": 33,
+        "heldersalomao": 13,
+        "brenobarcelos": 2,
+        "rafaeldemuner": 0
+      },
+      "secondRound": {
+        "ricardoferraco": 49,
+        "lorenzopazolini": 38
+      },
+      "notes": "CNN/Poder360 09/09. Telefone 04-08/09 n=1600 moe 2. TSE ES-01967/2026 e BR-08236/2026. 2T vs Salomao 58x26. https://www.cnnbrasil.com.br/eleicoes/real-time-ferraco-lidera-cenarios-de-1o-e-2o-turnos-ao-governo-do-es/"
+    },
+    {
+      "id": "atlas-es-gov-09-03",
+      "office": "governor",
+      "uf": "ES",
+      "institute": "AtlasIntel",
+      "date": "2026-09-03",
+      "fieldStart": "2026-08-26",
+      "fieldEnd": "2026-08-31",
+      "sample": 1194,
+      "moe": 3,
+      "mode": "online",
+      "firstRound": {
+        "lorenzopazolini": 41,
+        "ricardoferraco": 28.7,
+        "heldersalomao": 18.4,
+        "brenobarcelos": 6.8,
+        "rafaeldemuner": 0.3
+      },
+      "secondRound": {
+        "lorenzopazolini": 46,
+        "ricardoferraco": 39.2
+      },
+      "notes": "Gazeta do Povo/ES1 03/09. Recrutamento digital 26-31/08 n=1194 moe 3. TSE ES-00206/2026. Totais. https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/atlasintel-governador-espirito-santo-setembro-2026/"
+    },
+    {
+      "id": "quaest-sp-gov-09-08",
+      "office": "governor",
+      "uf": "SP",
+      "institute": "Quaest/Globo",
+      "date": "2026-09-08",
+      "fieldStart": "2026-09-04",
+      "fieldEnd": "2026-09-07",
+      "sample": 1800,
+      "moe": 2,
+      "mode": "presencial",
+      "firstRound": {
+        "tarcisio": 42,
+        "fernandohaddad": 27,
+        "policialedjane": 1,
+        "vera": 1,
+        "izadoradias": 1,
+        "carlosmachado": 1,
+        "vivianmendes": 0
+      },
+      "secondRound": {
+        "tarcisio": 48,
+        "fernandohaddad": 31
+      },
+      "notes": "G1 SP 08/09. Presencial 04-07/09 n=1800 moe 2. TSE SP-00959/2026. https://g1.globo.com/sp/sao-paulo/eleicoes/2026/noticia/2026/09/08/quaest-sp-governador-8-setembro.ghtml"
+    },
+    {
+      "id": "quaest-sp-sen-09-08",
+      "office": "senator",
+      "uf": "SP",
+      "institute": "Quaest/Globo",
+      "date": "2026-09-08",
+      "fieldStart": "2026-09-04",
+      "fieldEnd": "2026-09-07",
+      "sample": 1800,
+      "moe": 2,
+      "mode": "presencial",
+      "firstRound": {
+        "marinasilva": 14,
+        "capitaoderrite": 14,
+        "simonetebet": 12,
+        "andredoprado": 7,
+        "ricardosalles": 3,
+        "geraldorufino": 1,
+        "soninhafrancine": 1,
+        "mairadesouza": 1,
+        "draelianaferreira": 1,
+        "gutoschiavetto": 1
+      },
+      "notes": "G1 SP 08/09. Soma 1a+2a vaga base 100. TSE SP-00959/2026. https://g1.globo.com/sp/sao-paulo/eleicoes/2026/noticia/2026/09/08/quaest-sp-senado-8-setembro.ghtml"
+    },
+    {
+      "id": "quaest-mg-gov-09-08",
+      "office": "governor",
+      "uf": "MG",
+      "institute": "Quaest/Globo",
+      "date": "2026-09-08",
+      "fieldStart": "2026-09-04",
+      "fieldEnd": "2026-09-07",
+      "sample": 1506,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "cleitinho": 32,
+        "patrusananias": 11,
+        "kalil": 11,
+        "mateussimoesmg": 8,
+        "flavioroscoe": 3,
+        "gabriel": 3,
+        "benmendes": 2,
+        "indiraxavier": 1,
+        "professortuliolopes": 0,
+        "henriqueareas": 0,
+        "rafaelduda": 0
+      },
+      "secondRound": {
+        "cleitinho": 51,
+        "patrusananias": 26
+      },
+      "notes": "G1 MG 08/09. Presencial 04-07/09 n=1506 moe 3. TSE MG-04716/2026. 2T vs Kalil 49x27, vs Simoes 50x20. https://g1.globo.com/mg/minas-gerais/eleicoes/2026/noticia/2026/09/08/quaest-mg-governador-8-setembro.ghtml"
+    },
+    {
+      "id": "quaest-mg-sen-09-08",
+      "office": "senator",
+      "uf": "MG",
+      "institute": "Quaest/Globo",
+      "date": "2026-09-08",
+      "fieldStart": "2026-09-04",
+      "fieldEnd": "2026-09-07",
+      "sample": 1506,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "marilia": 13,
+        "aecioneves": 10,
+        "carlosviana": 8,
+        "domingossavio": 6,
+        "marceloaro": 4,
+        "aureacarolina": 2,
+        "marcoantoniosuperman": 1,
+        "carlindopcdob": 1,
+        "analuizadomlb": 1,
+        "arcanjopimenta": 1,
+        "fidelisalcantara": 1,
+        "victoriamellovic": 1,
+        "manoelcarvalho4": 1
+      },
+      "notes": "G1 MG 08/09. Soma 1a+2a vaga base 100. TSE MG-04716/2026. Inclui Aecio Neves. https://g1.globo.com/mg/minas-gerais/eleicoes/2026/noticia/2026/09/08/quaest-mg-senado-8-setembro.ghtml"
+    },
+    {
+      "id": "quaest-pe-gov-09-08",
+      "office": "governor",
+      "uf": "PE",
+      "institute": "Quaest/Globo",
+      "date": "2026-09-08",
+      "fieldStart": "2026-09-04",
+      "fieldEnd": "2026-09-07",
+      "sample": 1302,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "raquellyra": 43,
+        "joaocampos": 37,
+        "ivanmoraes": 1,
+        "renan45": 1
+      },
+      "secondRound": {
+        "raquellyra": 45,
+        "joaocampos": 39
+      },
+      "notes": "Gazeta do Povo/G1 08/09. Presencial 04-07/09 n=1302 moe 3. TSE PE-00285/2026. https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/quaest-governador-senador-pernambuco-setembro-2026/"
+    },
+    {
+      "id": "quaest-pe-sen-09-08",
+      "office": "senator",
+      "uf": "PE",
+      "institute": "Quaest/Globo",
+      "date": "2026-09-08",
+      "fieldStart": "2026-09-04",
+      "fieldEnd": "2026-09-07",
+      "sample": 1302,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "mariliaarraes": 17,
+        "humbertocosta2": 14,
+        "mendonafilho": 11,
+        "eduardodafonte": 7,
+        "tuliogadelha": 4,
+        "pastorgilvancosta": 1,
+        "carlossantanna": 1
+      },
+      "notes": "Gazeta do Povo 08/09. Soma 1a+2a vaga base 100. TSE PE-00285/2026. https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/quaest-governador-senador-pernambuco-setembro-2026/"
+    },
+    {
+      "id": "quaest-rj-gov-09-08",
+      "office": "governor",
+      "uf": "RJ",
+      "institute": "Quaest/Globo",
+      "date": "2026-09-08",
+      "fieldStart": "2026-09-04",
+      "fieldEnd": "2026-09-07",
+      "sample": 1302,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "eduardopaes": 39,
+        "douglasruas": 18,
+        "garotinho": 8,
+        "cyrogarcia": 2,
+        "williamsiri": 1,
+        "coronelbusnello": 1,
+        "julietepantoja": 0,
+        "luanmonteiro": 0,
+        "andremarinho": 0
+      },
+      "secondRound": {
+        "eduardopaes": 52,
+        "douglasruas": 26
+      },
+      "notes": "Gazeta do Povo 08/09. Presencial 04-07/09 n=1302 moe 3. TSE RJ-04768/2026. 2T vs Garotinho 53x17. https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/quaest-governador-senador-rio-de-janeiro-setembro-2026/"
+    },
+    {
+      "id": "quaest-rj-sen-09-08",
+      "office": "senator",
+      "uf": "RJ",
+      "institute": "Quaest/Globo",
+      "date": "2026-09-08",
+      "fieldStart": "2026-09-04",
+      "fieldEnd": "2026-09-07",
+      "sample": 1302,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "beneditadasilva": 15,
+        "marcelocrivella": 8,
+        "carlosjordy": 6,
+        "pedropaulo": 6,
+        "portinho": 6,
+        "monicabenicio": 4,
+        "waguinho75": 2,
+        "paulafalcao": 1,
+        "michellyxavier2": 1,
+        "heliosecco": 1
+      },
+      "notes": "Gazeta do Povo 08/09. Soma 1a+2a vaga base 100. TSE RJ-04768/2026. https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/quaest-governador-senador-rio-de-janeiro-setembro-2026/"
+    },
+    {
+      "id": "quaest-df-gov-09-08",
+      "office": "governor",
+      "uf": "DF",
+      "institute": "Quaest/Globo",
+      "date": "2026-09-08",
+      "fieldStart": "2026-09-04",
+      "fieldEnd": "2026-09-07",
+      "sample": 1104,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "celinaleao": 35,
+        "arruda": 18,
+        "leandrograss": 17,
+        "paulabelmonte": 4,
+        "ricardocappelli": 2,
+        "kikocaputo": 1,
+        "professorasamaramineiro": 1,
+        "elisson6": 0,
+        "robson4": 0,
+        "expeditomendonca": 0,
+        "aldericopinheiro": 0
+      },
+      "secondRound": {
+        "celinaleao": 47,
+        "arruda": 30
+      },
+      "notes": "G1 DF 08/09. Presencial 04-07/09 n=1104 moe 3. TSE DF-01987/2026 e BR-04442/2026. 2T Celina x Grass 52x29. https://g1.globo.com/df/distrito-federal/eleicoes/2026/noticia/2026/09/08/quaest-df-governador-8-setembro.ghtml"
+    },
+    {
+      "id": "quaest-df-sen-09-08",
+      "office": "senator",
+      "uf": "DF",
+      "institute": "Quaest/Globo",
+      "date": "2026-09-08",
+      "fieldStart": "2026-09-04",
+      "fieldEnd": "2026-09-07",
+      "sample": 1104,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "michellebolsonaro": 26,
+        "leiladovolei": 17,
+        "erikakokay": 13,
+        "biakicis": 11,
+        "drsebastiao": 2,
+        "professorguilhermeamorim": 1,
+        "ronaldofonseca": 1
+      },
+      "notes": "G1 DF 08/09. Soma 1a+2a vaga base 100. TSE DF-01987/2026. https://g1.globo.com/df/distrito-federal/eleicoes/2026/noticia/2026/09/08/quaest-df-senado-8-setembro.ghtml"
+    },
+    {
+      "id": "atlas-mg-gov-09-08",
+      "office": "governor",
+      "uf": "MG",
+      "institute": "AtlasIntel",
+      "date": "2026-09-08",
+      "fieldStart": "2026-08-30",
+      "fieldEnd": "2026-09-04",
+      "sample": 1804,
+      "moe": 2,
+      "mode": "online",
+      "firstRound": {
+        "cleitinho": 41,
+        "patrusananias": 30,
+        "kalil": 9.2,
+        "gabriel": 4.7,
+        "benmendes": 4,
+        "flavioroscoe": 4,
+        "mateussimoesmg": 4
+      },
+      "secondRound": {
+        "cleitinho": 53.4,
+        "patrusananias": 39.3
+      },
+      "notes": "CNN 08/09. Recrutamento digital 30/08-04/09 n=1804 moe 2. TSE MG-01579/2026 e BR-05852/2026. Totais. 2T vs Kalil 53.3x35.5. https://www.cnnbrasil.com.br/eleicoes/atlas-cleitinho-tem-41-patrus-30-e-kalil-9-no-1o-turno-em-mg/"
+    },
+    {
+      "id": "rtbd-mg-gov-09-08",
+      "office": "governor",
+      "uf": "MG",
+      "institute": "Real Time Big Data",
+      "date": "2026-09-08",
+      "fieldStart": "2026-09-03",
+      "fieldEnd": "2026-09-07",
+      "sample": 2000,
+      "moe": 2,
+      "mode": "telefone",
+      "firstRound": {
+        "cleitinho": 31,
+        "patrusananias": 17,
+        "kalil": 12,
+        "mateussimoesmg": 11,
+        "gabriel": 8,
+        "flavioroscoe": 7,
+        "benmendes": 2,
+        "indiraxavier": 1
+      },
+      "notes": "CNN 08/09. 03-07/09 n=2000 moe 2. TSE MG-00998/2026. https://www.cnnbrasil.com.br/eleicoes/real-time-cleitinho-lidera-cenario-de-1o-turno-ao-governo-de-minas/"
+    },
+    {
+      "id": "rtbd-pe-gov-09-03",
+      "office": "governor",
+      "uf": "PE",
+      "institute": "Real Time Big Data",
+      "date": "2026-09-03",
+      "fieldStart": "2026-08-29",
+      "fieldEnd": "2026-09-02",
+      "sample": 1600,
+      "moe": 2,
+      "mode": "telefone",
+      "firstRound": {
+        "raquellyra": 43,
+        "joaocampos": 43,
+        "renan45": 4,
+        "ivanmoraes": 2
+      },
+      "secondRound": {
+        "raquellyra": 44,
+        "joaocampos": 44
+      },
+      "notes": "SpaceMoney 03/09. 29/08-02/09 n=1600 moe 2. TSE PE-09116/2026. https://www.spacemoney.com.br/politica/campos-raquel-lyra-pesquisa-governo-pernambuco/"
+    },
+    {
+      "id": "atlas-df-gov-09-03",
+      "office": "governor",
+      "uf": "DF",
+      "institute": "AtlasIntel",
+      "date": "2026-09-03",
+      "fieldStart": "2026-08-27",
+      "fieldEnd": "2026-09-01",
+      "sample": 1193,
+      "moe": 3,
+      "mode": "online",
+      "firstRound": {
+        "celinaleao": 30.7,
+        "leandrograss": 29,
+        "arruda": 14.2,
+        "paulabelmonte": 8.2,
+        "ricardocappelli": 5.8,
+        "kikocaputo": 4.3,
+        "professorasamaramineiro": 1.3
+      },
+      "secondRound": {
+        "celinaleao": 43.6,
+        "leandrograss": 41.1
+      },
+      "notes": "GPS Brasilia 03/09. Recrutamento digital 27/08-01/09 n=1193 moe 3. TSE DF-02018/2026. Totais. https://gpsbrasilia.com.br/atlasintel-disputa-embolada-celina-grass-arruda/"
+    },
+    {
+      "id": "rtbd-se-gov-09-04",
+      "office": "governor",
+      "uf": "SE",
+      "institute": "Real Time Big Data",
+      "date": "2026-09-04",
+      "fieldStart": "2026-08-31",
+      "fieldEnd": "2026-09-03",
+      "sample": 1600,
+      "moe": 2,
+      "mode": "telefone",
+      "firstRound": {
+        "fabio": 45,
+        "valmirdefrancisquinho": 37,
+        "ricardomarques": 9,
+        "emanuelcacho": 2
+      },
+      "secondRound": {
+        "fabio": 47,
+        "valmirdefrancisquinho": 43
+      },
+      "notes": "Gazeta do Povo 04/09. 31/08-03/09 n=1600 moe 2. TSE SE-05776/2026. https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/real-time-big-data-governador-senador-sergipe-setembro-2026/"
+    },
+    {
+      "id": "rtbd-se-sen-09-04",
+      "office": "senator",
+      "uf": "SE",
+      "institute": "Real Time Big Data",
+      "date": "2026-09-04",
+      "fieldStart": "2026-08-31",
+      "fieldEnd": "2026-09-03",
+      "sample": 1600,
+      "moe": 2,
+      "mode": "telefone",
+      "firstRound": {
+        "delegadoandredavid": 18,
+        "andremoura": 12,
+        "dreduardoamorim": 10,
+        "delegadoalessandro": 10,
+        "edvaldo26": 10,
+        "rodrigovaladares": 9,
+        "rogeriocarvalho": 9,
+        "coronelrocha": 7,
+        "iranbarbosa": 2,
+        "paulinhodauniaotur": 1,
+        "renatinha39": 0
+      },
+      "notes": "Gazeta do Povo 04/09. Soma 1a+2a vaga base 100. TSE SE-05776/2026. https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/real-time-big-data-governador-senador-sergipe-setembro-2026/"
+    },
     {
       "id": "quaest-ce-gov-09-04",
       "office": "governor",

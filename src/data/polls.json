@@ -1,5 +1,255 @@
 [
   {
+    "id": "gerp-09-09-00251",
+    "institute": "Gerp",
+    "date": "2026-09-09",
+    "fieldStart": "2026-09-03",
+    "fieldEnd": "2026-09-08",
+    "sample": 2400,
+    "moe": 2,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "flavio": 37,
+      "lula": 34,
+      "cury": 6,
+      "caiado": 5,
+      "renan": 4,
+      "zema": 1
+    },
+    "secondRound": {
+      "flavio": 47,
+      "lula": 40
+    },
+    "notes": "Gazeta 09/09. TSE BR-00251/2026. Estimulado COM Marcal 2% (fora do catalogo do agregador). Espontanea Flavio 33 x Lula 30. https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/gerp-presidente-setembro-2026/",
+    "source": {
+      "tseProtocol": "BR-00251/2026",
+      "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/gerp-presidente-setembro-2026/",
+      "publisher": "gazetadopovo.com.br",
+      "publishedAt": "2026-09-09",
+      "capturedAt": "2026-09-09T11:45:53.609Z"
+    }
+  },
+  {
+    "id": "meio-ideia-09-09-07935",
+    "institute": "Meio/Ideia",
+    "date": "2026-09-09",
+    "fieldStart": "2026-09-04",
+    "fieldEnd": "2026-09-07",
+    "sample": 1500,
+    "moe": 2.5,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 38.4,
+      "flavio": 37.3,
+      "cury": 6.6,
+      "renan": 4,
+      "caiado": 4,
+      "zema": 1.5
+    },
+    "secondRound": {
+      "lula": 46,
+      "flavio": 46
+    },
+    "secondPairs": [
+      {
+        "a": "lula",
+        "b": "flavio",
+        "aPct": 46,
+        "bPct": 46
+      },
+      {
+        "a": "lula",
+        "b": "renan",
+        "aPct": 46,
+        "bPct": 40.3
+      },
+      {
+        "a": "lula",
+        "b": "zema",
+        "aPct": 46,
+        "bPct": 38
+      },
+      {
+        "a": "lula",
+        "b": "caiado",
+        "aPct": 46,
+        "bPct": 42
+      },
+      {
+        "a": "lula",
+        "b": "cury",
+        "aPct": 46,
+        "bPct": 40.9
+      }
+    ],
+    "notes": "Gazeta 09/09. TSE BR-07935/2026. Estimulado COM Marcal 1,5% (fora do catalogo). Empate numerico 2T 46x46. https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/meio-ideia-presidente-setembro-2026/",
+    "source": {
+      "tseProtocol": "BR-07935/2026",
+      "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/meio-ideia-presidente-setembro-2026/",
+      "publisher": "gazetadopovo.com.br",
+      "publishedAt": "2026-09-09",
+      "capturedAt": "2026-09-09T11:45:53.609Z"
+    }
+  },
+  {
+    "id": "rtbd-es-09-09",
+    "institute": "Real Time Big Data",
+    "date": "2026-09-09",
+    "fieldStart": "2026-09-04",
+    "fieldEnd": "2026-09-08",
+    "sample": 1600,
+    "moe": 2,
+    "mode": "telefone",
+    "national": false,
+    "uf": "ES",
+    "firstRound": {
+      "lula": 35,
+      "flavio": 35,
+      "cury": 6,
+      "renan": 6,
+      "caiado": 3,
+      "zema": 2
+    },
+    "secondRound": {
+      "flavio": 47,
+      "lula": 42
+    },
+    "notes": "CNN 09/09. TSE BR-08236/2026 e ES-01967/2026.",
+    "source": {
+      "tseProtocol": "BR-08236/2026",
+      "url": "https://www.cnnbrasil.com.br/eleicoes/real-time-ferraco-lidera-cenarios-de-1o-e-2o-turnos-ao-governo-do-es/",
+      "publisher": "CNN 09/09",
+      "publishedAt": "2026-09-09",
+      "capturedAt": "2026-09-09T11:29:14.681Z"
+    }
+  },
+  {
+    "id": "quaest-sp-09-08",
+    "institute": "Quaest/Globo",
+    "date": "2026-09-08",
+    "fieldStart": "2026-09-04",
+    "fieldEnd": "2026-09-07",
+    "sample": 1800,
+    "moe": 2,
+    "mode": "presencial",
+    "national": false,
+    "uf": "SP",
+    "firstRound": {
+      "flavio": 31,
+      "lula": 30,
+      "cury": 8,
+      "caiado": 4,
+      "renan": 2,
+      "zema": 1
+    },
+    "notes": "G1 SP 08/09. Cenario sem Marcal. TSE BR-04705/2026.",
+    "source": {
+      "tseProtocol": "BR-04705/2026",
+      "url": "https://g1.globo.com/sp/sao-paulo/eleicoes/2026/noticia/2026/09/08/quaest-sp-presidente-8-setembro.ghtml",
+      "publisher": "G1 SP 08/09",
+      "publishedAt": "2026-09-08",
+      "capturedAt": "2026-09-08T23:40:08.721Z"
+    }
+  },
+  {
+    "id": "quaest-mg-09-08",
+    "institute": "Quaest/Globo",
+    "date": "2026-09-08",
+    "fieldStart": "2026-09-04",
+    "fieldEnd": "2026-09-07",
+    "sample": 1506,
+    "moe": 3,
+    "mode": "presencial",
+    "national": false,
+    "uf": "MG",
+    "firstRound": {
+      "lula": 31,
+      "flavio": 27,
+      "cury": 8,
+      "zema": 6,
+      "caiado": 3,
+      "renan": 2
+    },
+    "secondRound": {
+      "flavio": 40,
+      "lula": 37
+    },
+    "notes": "G1 MG 08/09. Cenario sem Marcal. TSE MG-04716/2026 (mesmo registro da rodada estadual).",
+    "source": {
+      "tseProtocol": "MG-04716/2026",
+      "url": "https://g1.globo.com/mg/minas-gerais/eleicoes/2026/noticia/2026/09/08/quaest-mg-presidente-8-setembro.ghtml",
+      "publisher": "G1 MG 08/09",
+      "publishedAt": "2026-09-08",
+      "capturedAt": "2026-09-08T23:40:08.721Z"
+    }
+  },
+  {
+    "id": "atlas-mg-09-08",
+    "institute": "AtlasIntel",
+    "date": "2026-09-08",
+    "fieldStart": "2026-08-30",
+    "fieldEnd": "2026-09-04",
+    "sample": 1804,
+    "moe": 2,
+    "mode": "online",
+    "national": false,
+    "uf": "MG",
+    "firstRound": {
+      "lula": 44.3,
+      "flavio": 35.4,
+      "cury": 8.9,
+      "renan": 6.2,
+      "zema": 1.9,
+      "caiado": 1.4
+    },
+    "secondRound": {
+      "lula": 48.7,
+      "flavio": 42.1
+    },
+    "notes": "CNN 08/09. Recrutamento digital. TSE MG-01579/2026 e BR-05852/2026.",
+    "source": {
+      "tseProtocol": "BR-05852/2026",
+      "url": "https://www.cnnbrasil.com.br/eleicoes/atlas-em-mg-lula-tem-487-e-flavio-421-no-2o-turno/",
+      "publisher": "CNN 08/09",
+      "publishedAt": "2026-09-08",
+      "capturedAt": "2026-09-08T23:40:08.721Z"
+    }
+  },
+  {
+    "id": "rtbd-pe-09-03",
+    "institute": "Real Time Big Data",
+    "date": "2026-09-03",
+    "fieldStart": "2026-08-29",
+    "fieldEnd": "2026-09-02",
+    "sample": 1600,
+    "moe": 2,
+    "mode": "telefone",
+    "national": false,
+    "uf": "PE",
+    "firstRound": {
+      "lula": 56,
+      "flavio": 23,
+      "cury": 7,
+      "renan": 3,
+      "caiado": 2,
+      "zema": 1
+    },
+    "secondRound": {
+      "lula": 59,
+      "flavio": 35
+    },
+    "notes": "SpaceMoney 03/09. TSE BR-05862/2026. Marcal 3 citado na materia como Pablo Marcal.",
+    "source": {
+      "tseProtocol": "BR-05862/2026",
+      "url": "https://www.spacemoney.com.br/politica/campos-raquel-lyra-pesquisa-governo-pernambuco/",
+      "publisher": "SpaceMoney 03/09",
+      "publishedAt": "2026-09-03",
+      "capturedAt": "2026-09-08T23:40:08.721Z"
+    }
+  },
+  {
     "id": "verita-09-06",
     "institute": "Veritá",
     "date": "2026-09-06",

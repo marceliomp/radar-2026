@@ -1,10 +1,10 @@
 {
   "source": "TSE registro 2026 (espelho HubPolitico)",
-  "asOf": "2026-08-29",
-  "note": "Lista de urna. Situacao pode mudar por decisao da Justica Eleitoral.",
+  "asOf": "2026-09-08",
+  "note": "Lista de urna. Situacao pode mudar por decisao da Justica Eleitoral. Inclui Aecio Neves (PSDB-MG) apos Quaest Senado 08/09 (ainda sem numero de urna no espelho).",
   "counts": {
     "governor": 194,
-    "senator": 314,
+    "senator": 315,
     "president": 5
   },
   "candidates": [
@@ -5136,6 +5136,16 @@
       "number": "",
       "slug": "romeuzema",
       "gender": "",
+      "currentOffice": ""
+    },
+    {
+      "office": "senator",
+      "uf": "MG",
+      "name": "Aécio Neves",
+      "party": "PSDB",
+      "number": "",
+      "slug": "aecioneves",
+      "gender": "MASCULINO",
       "currentOffice": ""
     }
   ]
