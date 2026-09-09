@@ -280,3 +280,22 @@ test("monthTicks covers January through asOf", async () => {
   assert.equal(ticks.at(-1), isoDayUtc("2026-09-01"));
   assert.equal(ticks.length, 9);
 });
+
+test("densifyDayAverages fills every calendar day and holds after the last poll", async () => {
+  const { isoDayUtc } = await import("../src/lib/format.ts");
+  const { densifyDayAverages, niceYDomain } = await import("../src/lib/forecast/curve-series.ts");
+  const days = densifyDayAverages(
+    [
+      { date: "2026-09-01", t: isoDayUtc("2026-09-01"), lula: 40, flavio: 30, cury: 2, renan: 3, caiado: 4, zema: 1 },
+      { date: "2026-09-03", t: isoDayUtc("2026-09-03"), lula: 42, flavio: 34, cury: 4, renan: 3, caiado: 4, zema: 1 },
+    ],
+    "2026-09-05",
+  );
+  assert.equal(days.length, 5);
+  assert.equal(days[0].date, "2026-09-01");
+  assert.equal(days[1].date, "2026-09-02");
+  assert.equal(days[1].lula, 41);
+  assert.equal(days[4].date, "2026-09-05");
+  assert.equal(days[4].lula, 42);
+  assert.deepEqual(niceYDomain([31, 45], [24, 48]), [28, 48]);
+});

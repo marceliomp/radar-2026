@@ -1066,6 +1066,11 @@
     overflow: hidden;
   }
 
+  .curve-stage .recharts-curve {
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
   .score-row {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;

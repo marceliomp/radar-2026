@@ -20,7 +20,9 @@ import {
 } from "@/lib/format";
 import {
   asOfDayAverages,
+  densifyDayAverages,
   monthTicks,
+  niceYDomain,
   paddedDomain,
   houseFilterKey,
   houseFilterOptions,
@@ -28,6 +30,7 @@ import {
   modeFilterLabel,
   modeFilterOptions,
   type ModeFilterKey,
+  type DayAverage,
 } from "@/lib/forecast/curve-series";
 import { buildNationalTrend } from "@/lib/forecast/trends";
 import type { ForecastPoll } from "@/lib/forecast/engine";
@@ -143,12 +146,63 @@ function avgOnFirstOfDay(rows: CurveRow[]): CurveRow[] {
 function valuesForDomain(rows: CurveRow[], extra: boolean): Array<number | null> {
   const out: Array<number | null> = [];
   for (const row of rows) {
-    out.push(row.lulaPoll, row.flavioPoll, row.lulaAvg, row.flavioAvg);
+    out.push(row.lulaAvg, row.flavioAvg, row.lulaLine, row.flavioLine);
     if (extra) {
-      out.push(row.curyPoll, row.renanPoll, row.caiadoPoll, row.zemaPoll);
+      out.push(row.curyAvg, row.renanAvg, row.caiadoAvg, row.zemaAvg);
     }
   }
   return out;
+}
+
+function yTicks([min, max]: [number, number]): number[] {
+  const ticks: number[] = [];
+  for (let v = min; v <= max + 1e-6; v += 4) ticks.push(v);
+  return ticks.length ? ticks : [min, max];
+}
+
+function mergeLineAndPolls(daily: DayAverage[], polls: CurveRow[]): CurveRow[] {
+  const sameByDate = new Map<string, DayHouse[]>();
+  for (const poll of polls) {
+    if (poll.sameDay.length && !sameByDate.has(poll.published)) {
+      sameByDate.set(poll.published, poll.sameDay);
+    }
+  }
+  const lineRows: CurveRow[] = daily.map((day) => ({
+    t: day.t,
+    institute: "",
+    published: day.date,
+    fieldEnd: day.date,
+    lulaPoll: null,
+    flavioPoll: null,
+    lulaAvg: day.lula,
+    flavioAvg: day.flavio,
+    lulaLine: day.lula,
+    flavioLine: day.flavio,
+    curyPoll: null,
+    renanPoll: null,
+    caiadoPoll: null,
+    zemaPoll: null,
+    curyAvg: day.cury,
+    renanAvg: day.renan,
+    caiadoAvg: day.caiado,
+    zemaAvg: day.zema,
+    curyLine: day.cury,
+    renanLine: day.renan,
+    caiadoLine: day.caiado,
+    zemaLine: day.zema,
+    sameDay: sameByDate.get(day.date) ?? [],
+    houseFocus: false,
+  }));
+  const pollRows = polls.map((poll) => ({
+    ...poll,
+    lulaLine: null,
+    flavioLine: null,
+    curyLine: null,
+    renanLine: null,
+    caiadoLine: null,
+    zemaLine: null,
+  }));
+  return [...lineRows, ...pollRows].sort((a, b) => a.t - b.t);
 }
 
 function valuesForOthers(rows: CurveRow[]): Array<number | null> {
@@ -253,21 +307,25 @@ function CurveTip({ active, payload }: { active?: boolean; payload?: TipRow[] })
   if (!active || !payload?.length) return null;
   const row = payload[0]?.payload;
   if (!row) return null;
-  const houses = row.sameDay.length
-    ? row.sameDay
-    : [
-        {
-          institute: row.institute,
-          fieldStart: row.fieldStart,
-          fieldEnd: row.fieldEnd,
-          lulaPoll: row.lulaPoll,
-          flavioPoll: row.flavioPoll,
-          curyPoll: row.curyPoll,
-          renanPoll: row.renanPoll,
-          caiadoPoll: row.caiadoPoll,
-          zemaPoll: row.zemaPoll,
-        },
-      ];
+  const houses = (
+    row.sameDay.length
+      ? row.sameDay
+      : row.institute
+        ? [
+            {
+              institute: row.institute,
+              fieldStart: row.fieldStart,
+              fieldEnd: row.fieldEnd,
+              lulaPoll: row.lulaPoll,
+              flavioPoll: row.flavioPoll,
+              curyPoll: row.curyPoll,
+              renanPoll: row.renanPoll,
+              caiadoPoll: row.caiadoPoll,
+              zemaPoll: row.zemaPoll,
+            },
+          ]
+        : []
+  ).filter((house) => house.institute && (house.lulaPoll != null || house.flavioPoll != null));
   const many = houses.length > 1;
   if (row.houseFocus) {
     const house = houses[0];
@@ -387,6 +445,7 @@ function CurvePlot({
   xMin,
   xMax,
   ticks,
+  yTickValues,
   houseFocus,
   kind,
   hideX,
@@ -397,6 +456,7 @@ function CurvePlot({
   xMin: number;
   xMax: number;
   ticks: number[];
+  yTickValues: number[];
   houseFocus: boolean;
   kind: "race" | "others" | "all";
   hideX?: boolean;
@@ -406,7 +466,6 @@ function CurvePlot({
   const animateAvg = !reduceMotion;
   const showRace = kind === "race" || kind === "all";
   const drawOthersAvg = kind === "others" || kind === "all";
-  // Split "Os outros": só a média (linha). Pontos no foco de casa / painel único.
   const showOtherDots = kind === "all" || (kind === "others" && houseFocus);
   const lulaKey = houseFocus ? "lulaAvg" : "lulaLine";
   const flavioKey = houseFocus ? "flavioAvg" : "flavioLine";
@@ -417,7 +476,7 @@ function CurvePlot({
           <CartesianGrid
             strokeDasharray="3 3"
             stroke={CHART.grid}
-            strokeOpacity={0.32}
+            strokeOpacity={0.28}
             vertical={false}
           />
           <XAxis
@@ -430,6 +489,8 @@ function CurvePlot({
           />
           <YAxis
             domain={domain}
+            ticks={yTickValues}
+            interval={0}
             tick={{ fill: CHART.axis, fontSize: 12, fontWeight: 500 }}
             unit="%"
             width={40}
@@ -451,9 +512,9 @@ function CurvePlot({
                 legendType="none"
                 stroke="none"
                 dot={{
-                  r: houseFocus ? 3 : 1.5,
+                  r: houseFocus ? 3 : 2,
                   fill: CHART.lula,
-                  fillOpacity: houseFocus ? 0.85 : 0.14,
+                  fillOpacity: houseFocus ? 0.85 : 0.2,
                   strokeWidth: 0,
                 }}
                 activeDot={false}
@@ -467,9 +528,9 @@ function CurvePlot({
                 legendType="none"
                 stroke="none"
                 dot={{
-                  r: houseFocus ? 3 : 1.5,
+                  r: houseFocus ? 3 : 2,
                   fill: CHART.flavio,
-                  fillOpacity: houseFocus ? 0.85 : 0.14,
+                  fillOpacity: houseFocus ? 0.85 : 0.2,
                   strokeWidth: 0,
                 }}
                 activeDot={false}
@@ -482,7 +543,9 @@ function CurvePlot({
                 dataKey={lulaKey}
                 legendType="none"
                 stroke={CHART.lula}
-                strokeWidth={houseFocus ? 3 : 4}
+                strokeWidth={houseFocus ? 3 : 3.25}
+                strokeLinecap="round"
+                strokeLinejoin="round"
                 connectNulls
                 dot={false}
                 activeDot={softActive(CHART.lula)}
@@ -497,7 +560,9 @@ function CurvePlot({
                 dataKey={flavioKey}
                 legendType="none"
                 stroke={CHART.flavio}
-                strokeWidth={houseFocus ? 3 : 4}
+                strokeWidth={houseFocus ? 3 : 3.25}
+                strokeLinecap="round"
+                strokeLinejoin="round"
                 connectNulls
                 dot={false}
                 activeDot={softActive(CHART.flavio)}
@@ -516,9 +581,9 @@ function CurvePlot({
                   stroke="none"
                   connectNulls={false}
                   dot={{
-                    r: houseFocus ? 2.4 : 1.4,
+                    r: houseFocus ? 2.4 : 1.6,
                     fill: other.color,
-                    fillOpacity: houseFocus ? 0.8 : 0.16,
+                    fillOpacity: houseFocus ? 0.8 : 0.18,
                     strokeWidth: 0,
                   }}
                   activeDot={false}
@@ -534,8 +599,10 @@ function CurvePlot({
                   dataKey={houseFocus ? `${other.key}Avg` : `${other.key}Line`}
                   legendType="none"
                   stroke={other.color}
-                  strokeWidth={houseFocus ? 2.2 : 2.1}
-                  strokeOpacity={0.92}
+                  strokeWidth={houseFocus ? 2.2 : 2.4}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeOpacity={0.95}
                   connectNulls
                   dot={false}
                   activeDot={softActive(other.color, 3.5)}
@@ -564,7 +631,7 @@ export function GrowthCurve({
   const [round, setRound] = useState<RoundKey>("1");
   const [house, setHouse] = useState<string | null>(null);
   const [mode, setMode] = useState<ModeFilterKey | null>(null);
-  const { first, second, houseOpts, modeOpts } = useMemo(() => {
+  const { first, second, houseOpts, modeOpts, avg1, avg2 } = useMemo(() => {
     const visible = polls.filter(
       (poll) => poll.national && poll.date <= asOf && poll.fieldEnd <= asOf,
     );
@@ -646,6 +713,8 @@ export function GrowthCurve({
       second: secondDots,
       houseOpts: houseFilterOptions(byMode),
       modeOpts: modeFilterOptions(visible),
+      avg1,
+      avg2,
     };
   }, [polls, asOf, halfLifeDays, house, mode]);
 
@@ -655,26 +724,31 @@ export function GrowthCurve({
   const data = active === "2" ? second : first;
   if (data.length < 1) return null;
   const houseFocus = Boolean(house);
-  const plotted = houseFocus ? data : avgOnFirstOfDay(data);
+  const plotted = houseFocus
+    ? avgOnFirstOfDay(data)
+    : mergeLineAndPolls(densifyDayAverages(active === "2" ? avg2 : avg1, asOf), data);
   const ticks = monthTicks(YEAR_START, asOf);
   const xMin = isoDayUtc(YEAR_START);
   const xMax = isoDayUtc(asOf);
   const showOthers = active === "1";
   const splitOthers = showOthers && !houseFocus;
-  const raceFallback: [number, number] = active === "2" ? [35, 52] : [20, 52];
-  const raceDomainRaw = paddedDomain(valuesForDomain(plotted, false), raceFallback);
-  // Keep early Flávio inside the race pane (don't bleed into "Os outros").
-  const raceDomain: [number, number] =
-    active === "1"
-      ? [Math.min(raceDomainRaw[0], 22), raceDomainRaw[1]]
-      : raceDomainRaw;
+  const raceFallback: [number, number] = active === "2" ? [36, 52] : [24, 48];
+  const raceDomain = niceYDomain(
+    paddedDomain(valuesForDomain(plotted, false), raceFallback),
+    raceFallback,
+  );
   const domain: [number, number] = splitOthers
     ? raceDomain
-    : paddedDomain(valuesForDomain(plotted, showOthers), raceDomain);
-  const othersDomain: [number, number] = [
-    0,
-    paddedDomain(valuesForOthers(plotted), [0, 16])[1],
-  ];
+    : niceYDomain(
+        paddedDomain(valuesForDomain(plotted, showOthers), raceDomain),
+        raceDomain,
+      );
+  const othersDomain: [number, number] = niceYDomain(
+    [0, paddedDomain(valuesForOthers(plotted), [0, 16])[1]],
+    [0, 16],
+  );
+  const raceTicks = yTicks(splitOthers ? raceDomain : domain);
+  const otherTicks = yTicks(othersDomain);
 
   return (
     <section id="curva" className="mb-6 scroll-mt-24">
@@ -795,6 +869,7 @@ export function GrowthCurve({
               xMin={xMin}
               xMax={xMax}
               ticks={ticks}
+              yTickValues={raceTicks}
               houseFocus={houseFocus}
               kind="race"
               hideX
@@ -808,6 +883,7 @@ export function GrowthCurve({
                 xMin={xMin}
                 xMax={xMax}
                 ticks={ticks}
+                yTickValues={otherTicks}
                 houseFocus={houseFocus}
                 kind="others"
                 heightClass="h-28 sm:h-36"
@@ -822,6 +898,7 @@ export function GrowthCurve({
               xMin={xMin}
               xMax={xMax}
               ticks={ticks}
+              yTickValues={raceTicks}
               houseFocus={houseFocus}
               kind={showOthers ? "all" : "race"}
               heightClass="h-80 sm:h-96"

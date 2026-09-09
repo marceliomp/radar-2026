@@ -104,6 +104,67 @@ export function asOfDayAverages(
   return out;
 }
 
+function mixNum(a: number, b: number, w: number): number {
+  return round(a + (b - a) * w, 2);
+}
+
+function mixAsked(a: number | null, b: number | null, w: number): number | null {
+  if (a == null && b == null) return null;
+  if (a == null) return b;
+  if (b == null) return a;
+  return mixNum(a, b, w);
+}
+
+/** Daily series for the chart line. Interpolates between publication days; holds after the last poll. */
+export function densifyDayAverages(
+  days: DayAverage[],
+  toIso: string,
+): DayAverage[] {
+  if (days.length === 0) return [];
+  const sorted = [...days].sort((a, b) => a.date.localeCompare(b.date));
+  const out: DayAverage[] = [];
+  let cursor = sorted[0]!.date;
+  let i = 0;
+  while (cursor <= toIso) {
+    while (i < sorted.length - 1 && sorted[i + 1]!.date <= cursor) i++;
+    const left = sorted[i]!;
+    const right = sorted[i + 1];
+    if (!right || cursor <= left.date) {
+      out.push({ ...left, date: cursor, t: isoDayUtc(cursor) });
+    } else if (cursor >= right.date) {
+      out.push({ ...right, date: cursor, t: isoDayUtc(cursor) });
+    } else {
+      const span = isoDayUtc(right.date) - isoDayUtc(left.date);
+      const w = span <= 0 ? 0 : (isoDayUtc(cursor) - isoDayUtc(left.date)) / span;
+      out.push({
+        date: cursor,
+        t: isoDayUtc(cursor),
+        lula: mixNum(left.lula, right.lula, w),
+        flavio: mixNum(left.flavio, right.flavio, w),
+        cury: mixAsked(left.cury, right.cury, w),
+        renan: mixAsked(left.renan, right.renan, w),
+        caiado: mixAsked(left.caiado, right.caiado, w),
+        zema: mixAsked(left.zema, right.zema, w),
+      });
+    }
+    const next = new Date(`${cursor}T00:00:00Z`);
+    next.setUTCDate(next.getUTCDate() + 1);
+    cursor = next.toISOString().slice(0, 10);
+  }
+  return out;
+}
+
+/** Round a Y domain to even 4pp ticks so the axis does not look handmade. */
+export function niceYDomain(
+  domain: [number, number],
+  fallback: [number, number],
+): [number, number] {
+  const lo = Math.max(0, Math.floor(domain[0] / 4) * 4);
+  const hi = Math.min(100, Math.ceil(domain[1] / 4) * 4);
+  if (hi - lo < 8) return fallback;
+  return [lo, hi];
+}
+
 export function axisTicks(values: number[], maxTicks = 6): number[] {
   const unique = [...new Set(values.filter((ms) => Number.isFinite(ms)))].sort(
     (a, b) => a - b,
