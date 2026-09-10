@@ -1,6 +1,6 @@
 {
   "source": "RTBD 09/09 DF+BA (Gazeta) + ES (CNN/Poder360). Removidos auto-scrapes incompletos AL/DF 09/09. Atlas ES 03/09. Quaest/Globo 08/09 (SP MG PE RJ DF gov/sen) G1+Gazeta. AtlasIntel MG 08/09 CNN + RTBD MG 08/09 CNN. RTBD PE 03/09, Atlas DF 03/09, RTBD SE 04/09. G1 mapa Quaest 05/09 (25 UFs+DF, sem PI) + Quaest CE gov/sen 04/09. CartaCapital/AtlasIntel 03/09 (RS GO PI RJ CE PB) + TMC/VEJA PB 03/09 + Gazeta/RTBD RJ 02/09. G1, Folha, Poder360, CNN, O Globo, Ipsos, Gazeta do Povo. Rodada Quaest/Globo 24-27/08 + ondas anteriores: Genial/Quaest jul (10 UFs, PA ja estava), Datafolha SP 01-03/07, Genial/Quaest SP abr, Parana Pesquisas PR jul/ago. Quaest PA 29/08 ainda sem tabela.",
-  "asOf": "2026-09-09",
+  "asOf": "2026-09-10",
   "polls": [
     {
       "id": "rtbd-df-gov-09-09",
@@ -2639,6 +2639,40 @@
         "generaltheophilo": 1
       },
       "notes": "G1 CE 04/09 combinacao 1a+2a vaga. TSE CE-01149/2026. https://g1.globo.com/ce/ceara/eleicoes/2026/noticia/2026/09/04/quaest-ce-senado-4-setembro.ghtml"
+    },
+    {
+      "id": "real-time-big-data-rn-gov-09-10",
+      "office": "governor",
+      "uf": "RN",
+      "institute": "Real Time Big Data",
+      "date": "2026-09-10",
+      "fieldEnd": "2026-09-09",
+      "fieldStart": "2026-09-05",
+      "sample": 1600,
+      "moe": 2.5,
+      "mode": "telefone",
+      "firstRound": {
+        "rodrigovieira": 31,
+        "cadudelula": 30
+      },
+      "notes": "Auto realtime. TSE RN-08492/2026. https://g1.globo.com/sp/sao-paulo/eleicoes/2026/"
+    },
+    {
+      "id": "real-time-big-data-pa-sen-09-08",
+      "office": "senator",
+      "uf": "PA",
+      "institute": "Real Time Big Data",
+      "date": "2026-09-08",
+      "fieldEnd": "2026-09-07",
+      "fieldStart": "2026-09-03",
+      "sample": 1600,
+      "moe": 2.5,
+      "mode": "telefone",
+      "firstRound": {
+        "gizellebancadaamazonidas": 42,
+        "willemdasilva2": 14
+      },
+      "notes": "Auto realtime. TSE PA-00206/2026. https://g1.globo.com/sp/sao-paulo/eleicoes/2026/noticia/2026/09/08/quaest-sp-governador-8-setembro.ghtml"
     }
   ]
 }
