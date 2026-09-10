@@ -47,19 +47,48 @@ test("CE AtlasIntel 04/09 president is state, not national", () => {
   );
 });
 
-test("no AtlasIntel national newer than 31/08", () => {
+test("AtlasIntel/Bloomberg 10/09 national is in polls.json", () => {
   const polls = JSON.parse(readFileSync("src/data/polls.json", "utf8"));
+  const row = polls.find((poll) => poll.id === "atlas-09-10-01452");
+  assert.ok(row, "atlas-09-10-01452 missing");
+  assert.equal(row.national, true);
+  assert.equal(row.institute, "AtlasIntel/Bloomberg");
+  assert.equal(row.date, "2026-09-10");
+  assert.equal(row.fieldStart, "2026-09-04");
+  assert.equal(row.fieldEnd, "2026-09-09");
+  assert.equal(row.sample, 5000);
+  assert.equal(row.moe, 1);
+  assert.equal(row.mode, "online");
+  assert.equal(row.firstRound.lula, 43);
+  assert.equal(row.firstRound.flavio, 37.4);
+  assert.equal(row.firstRound.cury, 6.6);
+  assert.equal(row.firstRound.renan, 6.5);
+  assert.equal(row.firstRound.zema, 2.1);
+  assert.equal(row.firstRound.caiado, 1.1);
+  assert.equal(row.secondRound.lula, 46.2);
+  assert.equal(row.secondRound.flavio, 46.4);
+  const vsZema = row.secondPairs.find((pair) => pair.b === "zema");
+  assert.equal(vsZema.aPct, 46);
+  assert.equal(vsZema.bPct, 46.2);
+  const vsCaiado = row.secondPairs.find((pair) => pair.b === "caiado");
+  assert.equal(vsCaiado.aPct, 45.7);
+  assert.equal(vsCaiado.bPct, 45.7);
+  const vsCury = row.secondPairs.find((pair) => pair.b === "cury");
+  assert.equal(vsCury.aPct, 43.8);
+  assert.equal(vsCury.bPct, 41.1);
+  const vsRenan = row.secondPairs.find((pair) => pair.b === "renan");
+  assert.equal(vsRenan.aPct, 46);
+  assert.equal(vsRenan.bPct, 33.8);
+  assert.equal(row.source.tseProtocol, "BR-01452/2026");
+  assert.equal(row.firstRound.marcal, undefined);
+  assert.doesNotMatch(row.notes, /\u2014/);
   const later = polls.filter(
     (poll) =>
       poll.national !== false &&
       String(poll.institute ?? poll.id).toLowerCase().includes("atlas") &&
       poll.date > "2026-08-31",
   );
-  assert.deepEqual(later.map((p) => p.id), []);
-  const wave = polls.find((poll) => poll.id === "atlas-08-31");
-  assert.ok(wave);
-  assert.equal(wave.national, true);
-  assert.equal(wave.date, "2026-08-31");
+  assert.deepEqual(later.map((poll) => poll.id), ["atlas-09-10-01452"]);
 });
 
 test("PB AtlasIntel 03/09 governor is in the race file", () => {

@@ -4478,5 +4478,62 @@
       "lula": 45,
       "flavio": 47
     }
+  },
+  {
+    "id": "atlas-09-10-01452",
+    "institute": "AtlasIntel/Bloomberg",
+    "date": "2026-09-10",
+    "fieldEnd": "2026-09-09",
+    "sample": 5000,
+    "moe": 1,
+    "mode": "online",
+    "national": true,
+    "firstRound": {
+      "lula": 43,
+      "flavio": 37.4,
+      "cury": 6.6,
+      "renan": 6.5,
+      "zema": 2.1,
+      "caiado": 1.1
+    },
+    "secondRound": {
+      "lula": 46.2,
+      "flavio": 46.4
+    },
+    "secondPairs": [
+      {
+        "a": "lula",
+        "b": "zema",
+        "aPct": 46,
+        "bPct": 46.2
+      },
+      {
+        "a": "lula",
+        "b": "caiado",
+        "aPct": 45.7,
+        "bPct": 45.7
+      },
+      {
+        "a": "lula",
+        "b": "cury",
+        "aPct": 43.8,
+        "bPct": 41.1
+      },
+      {
+        "a": "lula",
+        "b": "renan",
+        "aPct": 46,
+        "bPct": 33.8
+      }
+    ],
+    "notes": "Estadao 10/09 · TSE BR-01452/2026 · Atlas RDR online, n=5000, campo 4-9/09, moe ±1 (CNN publicou ±2). 1T 43x37,4; Cury 6,6; Renan 6,5; Zema 2,1; Caiado 1,1. 2T Flavio 46,4 x Lula 46,2 (BN/NS 7,4). 2T Zema 46,2 x Lula 46; Caiado 45,7x45,7; Cury 43,8x41,1; Renan 46x33,8. Marcal 1% e Samara 1% no 1T (nao entram como chave). Aprovacao CNN: 53,8 desaprovam, 43,7 aprovam. Rejeicao: Lula 52,5, Flavio 49,6.",
+    "source": {
+      "tseProtocol": "BR-01452/2026",
+      "url": "https://www.estadao.com.br/politica/eleicoes/pesquisa-atlas-flavio-bolsonaro-tem-464-e-lula-462-no-segundo-turno/",
+      "publisher": "estadao.com.br",
+      "publishedAt": "2026-09-10",
+      "capturedAt": "2026-09-10T17:49:00.000Z"
+    },
+    "fieldStart": "2026-09-04"
   }
 ]
