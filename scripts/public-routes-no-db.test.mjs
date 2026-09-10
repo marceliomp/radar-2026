@@ -83,7 +83,9 @@ test("hero swaps Lula and Flávio sides with a FLIP motion", () => {
   assert.match(flip, /useTweenedProb/);
   assert.match(page, /useTweenedProb/);
   assert.match(page, /HeroColSlide/);
-  assert.match(flip, /DURATION_MS = 560/);
+  assert.match(flip, /DURATION_MS = 400/);
+  assert.match(flip, /TWEEN_MS = 260/);
+  assert.match(page, /tweenMs/);
   assert.match(page, /useTweenedProb/);
 });
 

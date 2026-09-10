@@ -26,7 +26,7 @@ import { useHalfLife } from "@/lib/half-life";
 import { useI18n } from "@/lib/i18n";
 import { fileStamp } from "@/lib/visit-delta";
 import { buildHeroBoard, leadPairOrder, type HeroRow } from "@/lib/hero-board";
-import { useHeroFlip, useTweenedProb } from "@/features/radar/public/use-hero-flip";
+import { TWEEN_MS, useHeroFlip, useTweenedProb } from "@/features/radar/public/use-hero-flip";
 import { pollsOnLatestDay } from "@/lib/latest-day";
 import { exampleGovernorUfs, ufTemCasas } from "@/lib/race-hooks";
 import { cn } from "@/lib/utils";
@@ -45,6 +45,18 @@ function useLaggedValue<T>(value: T, delayMs: number): T {
 }
 
 function HeroColSlide({ children }: { children: ReactNode }) {
+  return <div className="hero-col-slide">{children}</div>;
+}
+
+function HeroCol({
+  heroKey,
+  className,
+  children,
+}: {
+  heroKey: string;
+  className: string;
+  children: ReactNode;
+}) {
   const ref = useRef<HTMLDivElement>(null);
   useLayoutEffect(() => {
     const el = ref.current;
@@ -55,8 +67,8 @@ function HeroColSlide({ children }: { children: ReactNode }) {
     el.style.transform = `translate3d(${x}, ${y}, 0)`;
   });
   return (
-    <div className="hero-col-slide" ref={ref}>
-      {children}
+    <div ref={ref} className={className} data-hero-key={heroKey}>
+      <HeroColSlide>{children}</HeroColSlide>
     </div>
   );
 }
@@ -73,10 +85,14 @@ function HeroScoreColumns({
   othersLabel: string;
   formatProb: (p: number) => string;
 }) {
+  const order = leadPairOrder(board.map((row) => row.key));
+  const prevOrder = useRef(order);
+  const tweenMs = prevOrder.current !== order ? 0 : TWEEN_MS;
+  prevOrder.current = order;
   const shownP = {
-    lula: useTweenedProb(board.find((row) => row.key === "lula")?.p ?? 0),
-    flavio: useTweenedProb(board.find((row) => row.key === "flavio")?.p ?? 0),
-    outros: useTweenedProb(board.find((row) => row.key === "outros")?.p ?? 0),
+    lula: useTweenedProb(board.find((row) => row.key === "lula")?.p ?? 0, tweenMs),
+    flavio: useTweenedProb(board.find((row) => row.key === "flavio")?.p ?? 0, tweenMs),
+    outros: useTweenedProb(board.find((row) => row.key === "outros")?.p ?? 0, tweenMs),
   };
   return (
     <div className="hero-score" data-cols={board.length}>
@@ -106,8 +122,7 @@ function HeroScoreColumns({
             ? shownP[row.key]
             : row.p;
         return (
-          <div key={row.key} className={`hero-col ${align}`} data-hero-key={row.key}>
-            <HeroColSlide>
+          <HeroCol key={row.key} heroKey={row.key} className={`hero-col ${align}`}>
               <p className="hero-kicker" style={{ color }}>
                 {label}
               </p>
@@ -115,8 +130,7 @@ function HeroScoreColumns({
                 {formatProb(shown).replace("%", "")}
                 <span className="hero-unit">%</span>
               </p>
-            </HeroColSlide>
-          </div>
+          </HeroCol>
         );
       })}
     </div>
