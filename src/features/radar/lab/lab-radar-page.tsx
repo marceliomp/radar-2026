@@ -10,7 +10,7 @@ import {
   runForecast,
   type EngineConfig,
 } from "@/lib/forecast/engine";
-import { bottomUpNational } from "@/lib/forecast/states";
+import { extraVarCached } from "@/lib/forecast/extra-var";
 import {
   buildNationalTrend,
   rollingAverage,
@@ -70,11 +70,7 @@ export function LabRadarPage() {
       useTrackRecord,
       useTrackHouse: houseOn && useTrackHouse,
     };
-    const draft = runForecast(polls, { ...base, simulations: 400 });
-    const bu = bottomUpNational(base);
-    const disagree =
-      bu.weight1 > 0 && Math.abs(bu.lula1 - draft.first.lula.mean) > 2;
-    return { ...base, extraVarPp: disagree ? 1.8 : 1.15 };
+    return { ...base, extraVarPp: extraVarCached(base) };
   }, [
     halfLife,
     includeOnline,

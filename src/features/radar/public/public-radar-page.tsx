@@ -1,17 +1,16 @@
-import { useLayoutEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { memo, useEffect, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
 import { CalendarDays, Radio } from "lucide-react";
-import { BrazilMap, MapLayerToggle, type MapLayer } from "@/features/radar/map/brazil-map";
+import { BrazilMap as BrazilMapView, MapLayerToggle, type MapLayer } from "@/features/radar/map/brazil-map";
 import { HalfLifeControl } from "@/components/half-life-control";
 import { ShareBar } from "@/components/share-bar";
 import { SiteNav } from "@/components/site-nav";
 import { TightRaces } from "@/components/tight-races";
-import { GrowthCurve } from "@/features/radar/public/growth-curve";
+import { GrowthCurve as GrowthCurveView } from "@/features/radar/public/growth-curve";
 import { VisitHook } from "@/components/visit-hook";
 import { CANDIDATE_META, polls } from "@/data/polls";
 import { useAsOf } from "@/lib/as-of";
 import {
-  DEFAULT_CONFIG,
   housesInAverage,
   runForecast,
   type EngineConfig,
@@ -21,7 +20,7 @@ import {
   buildRunoffScenarios,
   type RunoffKey,
 } from "@/lib/forecast/runoff-scenarios";
-import { bottomUpNational } from "@/lib/forecast/states";
+import { extraVarCached, publicEngineConfig } from "@/lib/forecast/extra-var";
 import { fieldPeriodLine, fmtMult, isShownTie, pairTightnessLine, shownGap } from "@/lib/format";
 import { useHalfLife } from "@/lib/half-life";
 import { useI18n } from "@/lib/i18n";
@@ -33,6 +32,18 @@ import { exampleGovernorUfs, ufTemCasas } from "@/lib/race-hooks";
 import { cn } from "@/lib/utils";
 
 const COMPARE_GOV_UF = exampleGovernorUfs().two;
+const GrowthCurve = memo(GrowthCurveView);
+const BrazilMap = memo(BrazilMapView);
+
+function useLaggedValue<T>(value: T, delayMs: number): T {
+  const [lagged, setLagged] = useState(value);
+  useEffect(() => {
+    const id = window.setTimeout(() => setLagged(value), delayMs);
+    return () => window.clearTimeout(id);
+  }, [value, delayMs]);
+  return lagged;
+}
+
 function HeroColSlide({ children }: { children: ReactNode }) {
   const ref = useRef<HTMLDivElement>(null);
   useLayoutEffect(() => {
@@ -330,21 +341,22 @@ export function PublicRadarPage() {
   const { locale, m, fmt } = useI18n();
   const [asOf] = useAsOf();
   const [halfLife] = useHalfLife();
+  const curveHalfLife = useLaggedValue(halfLife, 240);
+  const mapHalfLife = useLaggedValue(halfLife, 520);
   const [mapLayer, setMapLayer] = useState<MapLayer>("agg2026");
 
-  const config = useMemo<EngineConfig>(() => {
-    const base: EngineConfig = {
-      ...DEFAULT_CONFIG,
-      asOf,
-      halfLifeDays: halfLife,
-      extraVarPp: 1.15,
-      useTrackRecord: true,
-    };
-    const draft = runForecast(polls, { ...base, simulations: 400 });
-    const bottomUp = bottomUpNational(base);
-    const disagree = bottomUp.weight1 > 0 && Math.abs(bottomUp.lula1 - draft.first.lula.mean) > 2;
-    return { ...base, extraVarPp: disagree ? 1.8 : 1.15 };
-  }, [asOf, halfLife]);
+  const extraVarPp = useMemo(
+    () => extraVarCached(publicEngineConfig(asOf, halfLife)),
+    [asOf],
+  );
+  const config = useMemo<EngineConfig>(
+    () => publicEngineConfig(asOf, halfLife, extraVarPp),
+    [asOf, halfLife, extraVarPp],
+  );
+  const deferredConfig = useMemo<EngineConfig>(
+    () => publicEngineConfig(asOf, mapHalfLife, extraVarPp),
+    [asOf, mapHalfLife, extraVarPp],
+  );
 
   const forecast = useMemo(() => runForecast(polls, config), [config]);
   const { probs, rows, first, second } = forecast;
@@ -407,7 +419,7 @@ export function PublicRadarPage() {
 
       <main id="conteudo" className="page-body mx-auto min-w-0 max-w-6xl overflow-x-clip px-4 pt-5 sm:px-6 sm:pt-8">
         <HalfLifeControl />
-        <GrowthCurve polls={polls} asOf={asOf} halfLifeDays={halfLife} />
+        <GrowthCurve polls={polls} asOf={asOf} halfLifeDays={curveHalfLife} />
         <section id="media" className="mb-6 space-y-4 scroll-mt-24">
           <div className="story-head">
             <p className="kicker">{m.home.avgKicker}</p>
@@ -463,7 +475,7 @@ export function PublicRadarPage() {
             <p className="story-lede">{m.home.mapLede}</p>
           </div>
           <MapLayerToggle layer={mapLayer} onChange={setMapLayer} />
-          <BrazilMap config={config} layer={mapLayer} />
+          <BrazilMap config={deferredConfig} layer={mapLayer} />
           {COMPARE_GOV_UF ? (
             <p className="tight-next">
               <Link to="/candidatos" search={{ uf: COMPARE_GOV_UF, cargo: "governador", asOf, hl: halfLife }} className="hook-link">

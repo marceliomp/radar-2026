@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { HL_MAX, HL_MIN, useHalfLife } from "@/lib/half-life";
 import { useI18n } from "@/lib/i18n";
 
@@ -7,16 +7,47 @@ export function HalfLifeSlider({ id }: { id?: string }) {
   const [preview, setPreview] = useState(halfLife);
   const { m } = useI18n();
   const pct = ((preview - HL_MIN) / (HL_MAX - HL_MIN)) * 100;
+  const inputRef = useRef<HTMLInputElement>(null);
+  const halfLifeRef = useRef(halfLife);
+  const setHalfLifeRef = useRef(setHalfLife);
+  const draggingRef = useRef(false);
+  halfLifeRef.current = halfLife;
+  setHalfLifeRef.current = setHalfLife;
 
   useEffect(() => {
     setPreview(halfLife);
   }, [halfLife]);
 
-  function commit(raw: string) {
+  function commitValue(raw: string) {
     const next = Number(raw);
+    if (!Number.isFinite(next)) return;
     setPreview(next);
-    if (next !== halfLife) setHalfLife(next);
+    if (next !== halfLifeRef.current) setHalfLifeRef.current(next);
   }
+
+  useEffect(() => {
+    const el = inputRef.current;
+    if (!el) return;
+
+    const onNativeChange = () => commitValue(el.value);
+    el.addEventListener("change", onNativeChange);
+
+    const endDrag = () => {
+      if (!draggingRef.current) return;
+      draggingRef.current = false;
+      commitValue(el.value);
+    };
+    window.addEventListener("pointerup", endDrag);
+    window.addEventListener("pointercancel", endDrag);
+    window.addEventListener("touchend", endDrag, { passive: true });
+
+    return () => {
+      el.removeEventListener("change", onNativeChange);
+      window.removeEventListener("pointerup", endDrag);
+      window.removeEventListener("pointercancel", endDrag);
+      window.removeEventListener("touchend", endDrag);
+    };
+  }, []);
 
   return (
     <div>
@@ -26,15 +57,22 @@ export function HalfLifeSlider({ id }: { id?: string }) {
       </div>
       <p className="hl-copy">{m.period.copy}</p>
       <input
+        ref={inputRef}
         id={id}
         type="range"
         min={HL_MIN}
         max={HL_MAX}
         value={preview}
+        onPointerDown={() => {
+          draggingRef.current = true;
+        }}
+        onPointerUp={(e) => {
+          draggingRef.current = false;
+          commitValue(e.currentTarget.value);
+        }}
         onInput={(e) => setPreview(Number(e.currentTarget.value))}
-        onPointerUp={(e) => commit(e.currentTarget.value)}
-        onKeyUp={(e) => commit(e.currentTarget.value)}
-        onBlur={(e) => commit(e.currentTarget.value)}
+        onKeyUp={(e) => commitValue(e.currentTarget.value)}
+        onBlur={(e) => commitValue(e.currentTarget.value)}
         className="hl-range"
         style={{ ["--hl-pct" as string]: `${pct}%` }}
         aria-valuemin={HL_MIN}

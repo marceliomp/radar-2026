@@ -119,7 +119,10 @@ test("public home scan path is chance, intention, news, method", () => {
   assert.match(page, /id="metodo"/);
   assert.match(page, /m\.home\.avgTitle/);
   assert.doesNotMatch(page, /periodMixInput/);
-  assert.match(page, /halfLifeDays={halfLife}/);
+  assert.match(page, /halfLifeDays={curveHalfLife}/);
+  assert.match(page, /useLaggedValue/);
+  assert.match(page, /extraVarCached/);
+  assert.doesNotMatch(page, /bottomUpNational/);
   const chrome = page.slice(page.indexOf("hero-chrome"), page.indexOf("hero-score"));
   assert.doesNotMatch(chrome, /HalfLifeControl/);
   assert.match(page, /<HalfLifeControl/);
@@ -342,4 +345,20 @@ test("period slider does not rerun the engine on every drag tick", () => {
   assert.match(src, /onPointerUp/);
   assert.match(src, /onInput/);
   assert.doesNotMatch(src, /onChange=\{\(e\) => setHalfLife/);
+});
+
+test("period slider commit also listens on window so a fast drag cannot miss pointerup", () => {
+  const src = readFileSync("src/components/half-life-control.tsx", "utf8");
+  const hook = readFileSync("src/lib/half-life.ts", "utf8");
+  assert.match(src, /addEventListener\("pointerup"/);
+  assert.match(src, /addEventListener\("touchend"/);
+  assert.match(hook, /startTransition/);
+});
+
+test("extra-var cache key ignores half-life", () => {
+  const src = readFileSync("src/lib/forecast/extra-var.ts", "utf8");
+  assert.match(src, /keyWithoutHalfLife/);
+  assert.match(src, /Cached without half-life/);
+  const keyFn = src.slice(src.indexOf("function keyWithoutHalfLife"), src.indexOf("export function extraVarFromMapGap"));
+  assert.doesNotMatch(keyFn, /halfLifeDays/);
 });

@@ -1,3 +1,4 @@
+import { startTransition } from "react";
 import { useNavigate, useSearch } from "@tanstack/react-router";
 import { todayAsOf } from "@/lib/forecast/engine";
 import { clampHalfLife, yearToDateDays } from "@/lib/period";
@@ -46,15 +47,17 @@ export function useHalfLife(): [number, (next: number) => void] {
       search: (prev: Record<string, unknown>) => Record<string, unknown>;
       replace: boolean;
     }) => void;
-    go({
-      search: (prev) => {
-        const merged = { ...prev };
-        delete merged.halfLife;
-        if (next === DEFAULT_HALF_LIFE) delete merged.hl;
-        else merged.hl = next;
-        return merged;
-      },
-      replace: true,
+    startTransition(() => {
+      go({
+        search: (prev) => {
+          const merged = { ...prev };
+          delete merged.halfLife;
+          if (next === DEFAULT_HALF_LIFE) delete merged.hl;
+          else merged.hl = next;
+          return merged;
+        },
+        replace: true,
+      });
     });
   };
 

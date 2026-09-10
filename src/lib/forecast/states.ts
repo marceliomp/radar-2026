@@ -40,7 +40,10 @@ function pollKey(p: ForecastPoll) {
   return `${p.uf ?? "BR"}|${p.institute.split("/")[0]}|${p.date}|${p.firstRound.lula}|${p.firstRound.flavio}`;
 }
 
+let allStatePollsCache: ForecastPoll[] | null = null;
+
 export function allStatePolls(): ForecastPoll[] {
+  if (allStatePollsCache) return allStatePollsCache;
   const fromFile = polls.filter((p) => !p.national && p.uf);
   const seen = new Set(fromFile.map(pollKey));
   const extra = STATE_SNAPSHOTS.map(snapshotToPoll).filter((p) => {
@@ -49,7 +52,8 @@ export function allStatePolls(): ForecastPoll[] {
     seen.add(k);
     return true;
   });
-  return [...fromFile, ...extra];
+  allStatePollsCache = [...fromFile, ...extra];
+  return allStatePollsCache;
 }
 
 export type StateForecast = {
@@ -65,11 +69,11 @@ export type StateForecast = {
   snapshot: ForecastSnapshot;
 };
 
-export function runStateForecast(
+function forecastFromPool(
   uf: string,
-  cfg: EngineConfig = DEFAULT_CONFIG,
+  pool: ForecastPoll[],
+  cfg: EngineConfig,
 ): StateForecast | null {
-  const pool = allStatePolls().filter((p) => p.uf === uf);
   if (!pool.length) return null;
   const snap = runForecast(pool, {
     ...cfg,
@@ -103,6 +107,17 @@ export function runStateForecast(
   };
 }
 
+export function runStateForecast(
+  uf: string,
+  cfg: EngineConfig = DEFAULT_CONFIG,
+): StateForecast | null {
+  return forecastFromPool(
+    uf,
+    allStatePolls().filter((p) => p.uf === uf),
+    cfg,
+  );
+}
+
 const cache = new Map<string, Record<string, StateForecast>>();
 
 export function runAllStateForecasts(
@@ -112,13 +127,15 @@ export function runAllStateForecasts(
   const hit = cache.get(key);
   if (hit) return hit;
   const out: Record<string, StateForecast> = {};
-  const ufs = new Set<string>();
-  for (const s of STATE_SNAPSHOTS) ufs.add(s.uf);
+  const byUf = new Map<string, ForecastPoll[]>();
   for (const p of allStatePolls()) {
-    if (p.uf) ufs.add(p.uf);
+    if (!p.uf) continue;
+    const arr = byUf.get(p.uf);
+    if (arr) arr.push(p);
+    else byUf.set(p.uf, [p]);
   }
-  for (const uf of ufs) {
-    const f = runStateForecast(uf, cfg);
+  for (const [uf, pool] of byUf) {
+    const f = forecastFromPool(uf, pool, cfg);
     if (f) out[uf] = f;
   }
   cache.set(key, out);

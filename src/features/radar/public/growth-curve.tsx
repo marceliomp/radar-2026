@@ -474,8 +474,7 @@ function CurvePlot({
 }) {
   const { locale } = useI18n();
 
-  const reduceMotion = usePrefersReducedMotion();
-  const animateAvg = !reduceMotion;
+  const animateAvg = false;
   const [flipX, setFlipX] = useState(false);
   const showRace = kind === "race" || kind === "all";
   const drawOthersAvg = kind === "others" || kind === "all";
