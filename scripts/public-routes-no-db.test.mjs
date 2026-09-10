@@ -342,10 +342,14 @@ test("map 2º copy is perguntado vs estimado, not two-way jargon", () => {
 });
 
 
-test("period slider does not rerun the engine on every drag tick", () => {
+test("period slider updates live days on input and writes URL on release", () => {
   const src = readFileSync("src/components/half-life-control.tsx", "utf8");
+  const hook = readFileSync("src/lib/half-life.ts", "utf8");
   assert.match(src, /onPointerUp/);
   assert.match(src, /onInput/);
+  assert.match(src, /liveValue/);
+  assert.match(src, /commitUrl/);
+  assert.match(hook, /setLiveHalfLife/);
   assert.doesNotMatch(src, /onChange=\{\(e\) => setHalfLife/);
 });
 

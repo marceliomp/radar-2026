@@ -22,7 +22,7 @@ import {
 } from "@/lib/forecast/runoff-scenarios";
 import { extraVarCached, publicEngineConfig } from "@/lib/forecast/extra-var";
 import { fieldPeriodLine, fmtMult, isShownTie, pairTightnessLine, shownGap } from "@/lib/format";
-import { useHalfLife } from "@/lib/half-life";
+import { useHalfLife, useHalfLifeDragging } from "@/lib/half-life";
 import { useI18n } from "@/lib/i18n";
 import { fileStamp } from "@/lib/visit-delta";
 import { buildHeroBoard, leadPairOrder, type HeroRow } from "@/lib/hero-board";
@@ -85,9 +85,10 @@ function HeroScoreColumns({
   othersLabel: string;
   formatProb: (p: number) => string;
 }) {
+  const dragging = useHalfLifeDragging();
   const order = leadPairOrder(board.map((row) => row.key));
   const prevOrder = useRef(order);
-  const tweenMs = prevOrder.current !== order ? 0 : TWEEN_MS;
+  const tweenMs = prevOrder.current !== order || dragging ? 0 : TWEEN_MS;
   prevOrder.current = order;
   const shownP = {
     lula: useTweenedProb(board.find((row) => row.key === "lula")?.p ?? 0, tweenMs),

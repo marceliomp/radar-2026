@@ -3,26 +3,35 @@ import { HL_MAX, HL_MIN, useHalfLife } from "@/lib/half-life";
 import { useI18n } from "@/lib/i18n";
 
 export function HalfLifeSlider({ id }: { id?: string }) {
-  const [halfLife, setHalfLife] = useHalfLife();
+  const [halfLife, setLive, commitUrl] = useHalfLife();
   const [preview, setPreview] = useState(halfLife);
   const { m } = useI18n();
   const pct = ((preview - HL_MIN) / (HL_MAX - HL_MIN)) * 100;
   const inputRef = useRef<HTMLInputElement>(null);
   const halfLifeRef = useRef(halfLife);
-  const setHalfLifeRef = useRef(setHalfLife);
+  const commitRef = useRef(commitUrl);
+  const setLiveRef = useRef(setLive);
   const draggingRef = useRef(false);
   halfLifeRef.current = halfLife;
-  setHalfLifeRef.current = setHalfLife;
+  commitRef.current = commitUrl;
+  setLiveRef.current = setLive;
 
   useEffect(() => {
     setPreview(halfLife);
   }, [halfLife]);
 
+  function liveValue(raw: string) {
+    const next = Number(raw);
+    if (!Number.isFinite(next)) return;
+    setPreview(next);
+    setLiveRef.current(next);
+  }
+
   function commitValue(raw: string) {
     const next = Number(raw);
     if (!Number.isFinite(next)) return;
     setPreview(next);
-    if (next !== halfLifeRef.current) setHalfLifeRef.current(next);
+    commitRef.current(next);
   }
 
   useEffect(() => {
@@ -70,7 +79,7 @@ export function HalfLifeSlider({ id }: { id?: string }) {
           draggingRef.current = false;
           commitValue(e.currentTarget.value);
         }}
-        onInput={(e) => setPreview(Number(e.currentTarget.value))}
+        onInput={(e) => liveValue(e.currentTarget.value)}
         onKeyUp={(e) => commitValue(e.currentTarget.value)}
         onBlur={(e) => commitValue(e.currentTarget.value)}
         className="hl-range"
