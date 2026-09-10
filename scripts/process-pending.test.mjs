@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import { test } from "node:test";
 import {
   normalizeProtocol,
@@ -247,6 +248,33 @@ test("allowlist includes RTBD and still rejects Veritá", () => {
     NM_EMPRESA_FANTASIA: "VERITA",
   });
   assert.equal(verita, null);
+  const palver = matchAllowlist({
+    NM_EMPRESA: "PALVER",
+    NM_EMPRESA_FANTASIA: "PALVER",
+  });
+  assert.equal(palver?.id, "palver");
+});
+
+test("Palver 09/09 national is in polls.json", () => {
+  const polls = JSON.parse(readFileSync("src/data/polls.json", "utf8"));
+  const row = polls.find((poll) => poll.id === "palver-09-09-05420");
+  assert.ok(row, "palver-09-09-05420 missing");
+  assert.equal(row.national, true);
+  assert.equal(row.institute, "Palver");
+  assert.equal(row.date, "2026-09-09");
+  assert.equal(row.fieldStart, "2026-09-04");
+  assert.equal(row.fieldEnd, "2026-09-07");
+  assert.equal(row.sample, 5000);
+  assert.equal(row.moe, 3);
+  assert.equal(row.mode, "online");
+  assert.equal(row.firstRound.lula, 40);
+  assert.equal(row.firstRound.flavio, 39);
+  assert.equal(row.firstRound.renan, 11);
+  assert.equal(row.firstRound.cury, 4);
+  assert.equal(row.secondRound.lula, 44);
+  assert.equal(row.secondRound.flavio, 46);
+  assert.equal(row.source.tseProtocol, "BR-05420/2026");
+  assert.doesNotMatch(row.notes, /—/);
 });
 
 test("Cloudflare challenge pages are skipped", () => {

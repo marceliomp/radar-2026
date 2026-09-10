@@ -4535,5 +4535,62 @@
       "capturedAt": "2026-09-10T17:49:00.000Z"
     },
     "fieldStart": "2026-09-04"
+  },
+  {
+    "id": "palver-09-09-05420",
+    "institute": "Palver",
+    "date": "2026-09-09",
+    "fieldEnd": "2026-09-07",
+    "sample": 5000,
+    "moe": 3,
+    "mode": "online",
+    "national": true,
+    "firstRound": {
+      "lula": 40,
+      "flavio": 39,
+      "renan": 11,
+      "cury": 4,
+      "caiado": 1,
+      "zema": 1
+    },
+    "secondRound": {
+      "lula": 44,
+      "flavio": 46
+    },
+    "secondPairs": [
+      {
+        "a": "lula",
+        "b": "cury",
+        "aPct": 42,
+        "bPct": 30
+      },
+      {
+        "a": "lula",
+        "b": "renan",
+        "aPct": 43,
+        "bPct": 31
+      },
+      {
+        "a": "lula",
+        "b": "caiado",
+        "aPct": 43,
+        "bPct": 40
+      },
+      {
+        "a": "lula",
+        "b": "zema",
+        "aPct": 43,
+        "bPct": 42
+      }
+    ],
+    "notes": "CNN 09/09 · TSE BR-05420/2026 · online n=5000 campo 4-7/09 moe ±3 (UOL/Exame ±2,5). 1T sem Marcal 40x39; com Marcal 40x40. Renan 11, Cury 4. 2T Flavio 46 x Lula 44. Amostra nao probabilistica. Peso Palver ja cai no track.",
+    "source": {
+      "tseProtocol": "BR-05420/2026",
+      "url": "https://www.cnnbrasil.com.br/eleicoes/palver-lula-e-flavio-empatam-em-40-no-1o-turno/",
+      "publisher": "cnnbrasil.com.br",
+      "publishedAt": "2026-09-09",
+      "capturedAt": "2026-09-10T18:55:06.000Z"
+    },
+    "fieldStart": "2026-09-04"
   }
 ]

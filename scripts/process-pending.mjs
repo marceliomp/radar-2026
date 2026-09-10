@@ -83,6 +83,12 @@ export const ALLOWLIST = [
     nameRe: /vox\s*brasil/i,
     sources: ["cnn", "exame"],
   },
+  {
+    id: "palver",
+    institute: "Palver",
+    nameRe: /palver/i,
+    sources: ["cnn", "exame"],
+  },
 ];
 
 export function normalizeProtocol(raw) {
