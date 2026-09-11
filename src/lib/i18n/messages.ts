@@ -113,9 +113,8 @@ export const pt = {
     askedOnly: "Nome só entra se a casa perguntou. ",
     onlyHouse: (house: string) => `Só ${house}. A linha liga as ondas desta casa.`,
     onlyMode: (mode: string) =>
-      `Só ${mode}. De janeiro até hoje. Pontos são cada casa. A linha é a média.`,
-    default:
-      "De janeiro até hoje. Pontos são cada casa. A linha é a média do período.",
+      `Só ${mode}. Pontos são cada casa. A linha é a média do período.`,
+    default: "Pontos são cada casa. A linha é a média do período.",
     roundAria: "Turno da curva",
     roundMeta: "turno",
     filterMode: "Filtrar por tipo de pesquisa",
@@ -507,9 +506,8 @@ export const en: Messages = {
     askedOnly: "A name only appears if the house asked. ",
     onlyHouse: (house: string) => `Only ${house}. The line joins this house's waves.`,
     onlyMode: (mode: string) =>
-      `Only ${mode}. From January to now. Dots are each house. The line is the average.`,
-    default:
-      "From January to now. Dots are each house. The line is the period average.",
+      `Only ${mode}. Dots are each house. The line is the period average.`,
+    default: "Dots are each house. The line is the period average.",
     roundAria: "Curve round",
     roundMeta: "round",
     filterMode: "Filter by poll type",

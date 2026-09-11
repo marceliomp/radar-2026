@@ -36,3 +36,20 @@ test("public default period is 15 days", () => {
   assert.match(period, /DEFAULT_HALF_LIFE = 15/);
   assert.match(period, /HL_MAX = 90/);
 });
+
+test("desktop first screen: no 52dvh hero, period 15/90, no YTD copy", () => {
+  const css = readFileSync("src/styles.css", "utf8");
+  const desk = css.slice(css.lastIndexOf("@media (min-width: 768px)"));
+  assert.doesNotMatch(desk, /52dvh/);
+  assert.doesNotMatch(css, /min-height:\s*52dvh/);
+  const messages = readFileSync("src/lib/i18n/messages.ts", "utf8");
+  assert.doesNotMatch(messages, /De janeiro até hoje/);
+  assert.doesNotMatch(messages, /From January to now/);
+  const curve = readFileSync("src/features/radar/public/growth-curve.tsx", "utf8");
+  assert.match(curve, /curveAxisStart/);
+  const lab = readFileSync("src/features/radar/lab/lab-radar-page.tsx", "utf8");
+  assert.match(lab, /<HalfLifeControl/);
+  const hlAt = lab.indexOf("<HalfLifeControl");
+  const novoAt = lab.indexOf('id="novo"');
+  assert.ok(hlAt >= 0 && hlAt < novoAt, "lab period sits above the latest-poll card");
+});

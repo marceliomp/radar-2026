@@ -78,6 +78,9 @@ test("home chips, period presets and analytics events are wired", () => {
   assert.match(hl, /HL_MAX/);
   assert.doesNotMatch(hl, /yearToDateDays/);
   assert.doesNotMatch(hl, /o ano/);
+  const messages = readFileSync("src/lib/i18n/messages.ts", "utf8");
+  assert.doesNotMatch(messages, /De janeiro até hoje/);
+  assert.doesNotMatch(messages, /o ano/);
   assert.match(page, /lab-hook/);
   assert.match(page, /m\.home\.labHook/);
   assert.match(page, /to="\/lab"/);

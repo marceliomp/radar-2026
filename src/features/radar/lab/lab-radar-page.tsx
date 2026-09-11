@@ -22,6 +22,7 @@ import { trackQuality } from "@/lib/forecast/track-record";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ShareBar } from "@/components/share-bar";
+import { HalfLifeControl } from "@/components/half-life-control";
 import { MastBar } from "@/components/site-nav";
 import { useI18n } from "@/lib/i18n";
 import {
@@ -198,6 +199,7 @@ export function LabRadarPage() {
     <div className="pb-[max(4rem,env(safe-area-inset-bottom))]">
     <div className="page-body mx-auto min-w-0 max-w-6xl overflow-x-clip px-4 pt-5 sm:px-6 sm:pt-8">
       <MastBar className="mb-5" />
+      <HalfLifeControl />
       <header className="mb-6 space-y-4">
         <div className="board-split">
           <div className="board-card border-0 sm:border-r sm:border-border">
@@ -268,6 +270,48 @@ export function LabRadarPage() {
           ))}
         </div>
       </header>
+
+      <section className="mb-6 grid gap-3 sm:grid-cols-3">
+        <Card className="border-flavio/35 glow-flavio bg-gradient-to-br from-surface to-flavio/5">
+          <CardContent className="pt-4">
+            <p className="text-xs font-medium text-gold">
+              {m.lab.flavioOldNew}
+            </p>
+            <p className="num-flavio mt-1 font-display text-2xl font-semibold tabular-nums">
+              {fmtDelta(mom.dFlavio1)} pp
+            </p>
+            <p className="text-xs font-medium text-fg">
+              {fmtNum(mom.earlyFlavio1)}% → {fmtNum(mom.lateFlavio1)}%
+            </p>
+          </CardContent>
+        </Card>
+        <Card className="border-lula/35 glow-lula bg-gradient-to-br from-surface to-lula/5">
+          <CardContent className="pt-4">
+            <p className="text-xs font-medium text-gold">
+              {m.lab.lulaOldNew}
+            </p>
+            <p className="num-lula mt-1 font-display text-2xl font-semibold tabular-nums">
+              {fmtDelta(mom.dLula1)} pp
+            </p>
+            <p className="text-xs font-medium text-fg">
+              {fmtNum(mom.earlyLula1)}% → {fmtNum(mom.lateLula1)}%
+            </p>
+          </CardContent>
+        </Card>
+        <Card className="border-accent/35 bg-gradient-to-br from-surface to-accent/5">
+          <CardContent className="pt-4">
+            <p className="text-xs font-medium text-gold">
+              {m.lab.gapOldNew}
+            </p>
+            <p className="num-accent mt-1 font-display text-2xl font-semibold tabular-nums">
+              {fmtDelta(mom.dGap1)} pp
+            </p>
+            <p className="text-xs font-medium text-fg">
+              {fmtNum(mom.earlyGap1)} → {fmtNum(mom.lateGap1)} pp
+            </p>
+          </CardContent>
+        </Card>
+      </section>
 
       {latestNational && (
         <section id="novo" className="mb-6">
@@ -342,47 +386,6 @@ export function LabRadarPage() {
         </section>
       )}
 
-      <section className="mb-6 grid gap-3 sm:grid-cols-3">
-        <Card className="border-flavio/35 glow-flavio bg-gradient-to-br from-surface to-flavio/5">
-          <CardContent className="pt-4">
-            <p className="text-xs font-medium text-gold">
-              {m.lab.flavioOldNew}
-            </p>
-            <p className="num-flavio mt-1 font-display text-2xl font-semibold tabular-nums">
-              {fmtDelta(mom.dFlavio1)} pp
-            </p>
-            <p className="text-xs font-medium text-fg">
-              {fmtNum(mom.earlyFlavio1)}% → {fmtNum(mom.lateFlavio1)}%
-            </p>
-          </CardContent>
-        </Card>
-        <Card className="border-lula/35 glow-lula bg-gradient-to-br from-surface to-lula/5">
-          <CardContent className="pt-4">
-            <p className="text-xs font-medium text-gold">
-              {m.lab.lulaOldNew}
-            </p>
-            <p className="num-lula mt-1 font-display text-2xl font-semibold tabular-nums">
-              {fmtDelta(mom.dLula1)} pp
-            </p>
-            <p className="text-xs font-medium text-fg">
-              {fmtNum(mom.earlyLula1)}% → {fmtNum(mom.lateLula1)}%
-            </p>
-          </CardContent>
-        </Card>
-        <Card className="border-accent/35 bg-gradient-to-br from-surface to-accent/5">
-          <CardContent className="pt-4">
-            <p className="text-xs font-medium text-gold">
-              {m.lab.gapOldNew}
-            </p>
-            <p className="num-accent mt-1 font-display text-2xl font-semibold tabular-nums">
-              {fmtDelta(mom.dGap1)} pp
-            </p>
-            <p className="text-xs font-medium text-fg">
-              {fmtNum(mom.earlyGap1)} → {fmtNum(mom.lateGap1)} pp
-            </p>
-          </CardContent>
-        </Card>
-      </section>
       <Tabs defaultValue="modelo" className="w-full">
         <div className="-mx-4 overflow-x-auto px-4 pb-1 sm:mx-0 sm:px-0">
           <TabsList className="inline-flex h-auto min-h-11 w-max min-w-0 flex-nowrap">

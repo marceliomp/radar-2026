@@ -460,7 +460,7 @@ export function PublicRadarPage() {
         </div>
       </section>
 
-      <main id="conteudo" className="page-body page-body-home mx-auto min-w-0 max-w-6xl overflow-x-clip px-4 pt-5 sm:px-6 sm:pt-8">
+      <main id="conteudo" className="page-body page-body-home mx-auto min-w-0 max-w-6xl overflow-x-clip px-4 pt-4 sm:px-6 sm:pt-5">
         <HalfLifeControl />
         <p className="lab-hook">
           {m.home.labHook(labMover.who, fmtDelta(labMover.delta, 1, locale))}{" "}

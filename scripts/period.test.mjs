@@ -3,6 +3,7 @@ import { readFileSync } from "node:fs";
 import { test } from "node:test";
 import {
   clampHalfLife,
+  curveAxisStart,
   DEFAULT_HALF_LIFE,
   HL_MAX,
   HL_MIN,
@@ -33,6 +34,11 @@ test("clampHalfLife caps at 90 days", () => {
   assert.equal(clampHalfLife(365), 90);
   assert.equal(clampHalfLife(400), 90);
   assert.equal(clampHalfLife(1), HL_MIN);
+});
+
+test("curve axis window is 90 days, not the civil year", () => {
+  assert.equal(curveAxisStart("2026-09-11"), "2026-06-13");
+  assert.equal(curveAxisStart("2026-02-01"), "2026-01-01");
 });
 
 test("?hl= parser uses clampHalfLife so values above 90 become 90", () => {

@@ -193,8 +193,9 @@ test("curve x axis is calendar time, not house names", () => {
   assert.match(curve, /isoDayUtc/);
   assert.match(curve, /utcMsToMonth/);
   assert.match(curve, /dataKey: "t"/);
-  assert.match(curve, /YEAR_START/);
+  assert.match(curve, /curveAxisStart/);
   assert.match(curve, /monthTicks/);
+  assert.doesNotMatch(curve, /monthTicks\(YEAR_START/);
   assert.doesNotMatch(curve, /equidistantPreserveStart/);
   assert.doesNotMatch(curve, /angle: -40/);
   assert.doesNotMatch(curve, /dataKey: "label"/);

@@ -15,3 +15,14 @@ export function yearToDateDays(asOf: string): number {
     new Date(YEAR_START + "T12:00:00").getTime();
   return clampHalfLife(Math.round(ms / (1000 * 60 * 60 * 24)));
 }
+
+export function isoShiftDays(iso: string, days: number): string {
+  const ms = new Date(iso + "T12:00:00").getTime() + days * 86_400_000;
+  return new Date(ms).toISOString().slice(0, 10);
+}
+
+/** Eixo da curva pública: no máximo os últimos HL_MAX dias, nunca o ano civil. */
+export function curveAxisStart(asOf: string): string {
+  const start = isoShiftDays(asOf, -HL_MAX);
+  return start > YEAR_START ? start : YEAR_START;
+}

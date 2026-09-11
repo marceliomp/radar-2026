@@ -817,7 +817,7 @@
       position: relative;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      min-height: 52dvh;
+      min-height: 0;
     }
 
     .hero-chrome {
@@ -842,12 +842,12 @@
     }
 
     .hero-score[data-cols="3"] .hero-num {
-      font-size: clamp(3.1rem, 11vw, 7.2rem);
+      font-size: clamp(2.8rem, 7.5vw, 5.4rem);
     }
 
     .hero-col {
-      min-height: 52dvh;
-      padding: 7.1rem 2rem 10.25rem;
+      min-height: 0;
+      padding: 5.25rem 1.75rem 8.35rem;
     }
 
     .hero-col-l {
@@ -855,9 +855,9 @@
     }
 
     .hero-num {
-      margin-top: 0.5rem;
-      font-size: clamp(4.5rem, 18vw, 11rem);
-      line-height: 0.82;
+      margin-top: 0.35rem;
+      font-size: clamp(3.4rem, 9vw, 6.75rem);
+      line-height: 0.84;
     }
 
     .hero-kicker {
@@ -867,13 +867,13 @@
 
     .hero-method {
       position: absolute;
-      top: 4.35rem;
+      top: 3.7rem;
       right: 0;
       bottom: auto;
       left: 0;
       z-index: 6;
-      padding: 0 2rem;
-      font-size: clamp(1.65rem, 2.6vw, 2.35rem);
+      padding: 0 1.75rem;
+      font-size: clamp(1.4rem, 2.1vw, 1.95rem);
       background: none;
       pointer-events: none;
     }
@@ -881,19 +881,20 @@
     .hero-fresh {
       position: absolute;
       right: 0;
-      bottom: 7.5rem;
+      bottom: 7.45rem;
       left: 0;
       z-index: 10;
-      padding-inline: 2rem;
+      padding-inline: 1.75rem;
     }
 
     .hero-pulse {
       position: absolute;
       right: 0;
-      bottom: 5.95rem;
+      bottom: 6.2rem;
       left: 0;
       z-index: 10;
-      padding-inline: 2rem;
+      padding-inline: 1.75rem;
+      display: none;
     }
 
     .hero-share {
