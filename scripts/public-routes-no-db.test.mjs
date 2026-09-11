@@ -180,6 +180,9 @@ test("home puts the period slider at the top of the body", () => {
   const metodoAt = page.indexOf('id="metodo"');
   assert.ok(hlAt > mainAt && mainAt > heroEnd, "period slider sits in the page body, not over the score");
   assert.ok(hlAt < mediaAt, "period slider sits above intention");
+  const labHookAt = page.indexOf("lab-hook");
+  assert.ok(labHookAt > hlAt && labHookAt < mediaAt, "lab one-liner sits under the period, not in the hero");
+  assert.match(page, /m\.home\.labHookLink/);
   assert.ok(hlAt < metodoAt, "period slider is not buried in method");
   assert.equal(page.split("<HalfLifeControl").length - 1, 1, "one slider, not two");
 });

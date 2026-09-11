@@ -1070,6 +1070,16 @@
     margin: 0 0 1.5rem;
   }
 
+  .lab-hook {
+    margin: 0 0 1.35rem;
+    font-family: var(--font-sans);
+    font-size: var(--text-caption);
+    font-weight: 500;
+    line-height: 1.4;
+    color: color-mix(in oklab, var(--color-cream) 82%, transparent);
+    text-wrap: pretty;
+  }
+
   @media (max-width: 639px) {
     .page-body-home {
       display: flex;
@@ -1078,7 +1088,11 @@
 
     .page-body-home > .mast-hl {
       order: 1;
-      margin-bottom: 1rem;
+      margin-bottom: 0.45rem;
+    }
+
+    .page-body-home > .lab-hook {
+      order: 1;
     }
 
     .page-body-home > #mapa {

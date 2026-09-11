@@ -34,4 +34,5 @@ test("mobile first screen: one-row nav, 44px taps, share icons, period after sco
 test("public default period is 15 days", () => {
   const period = readFileSync("src/lib/period.ts", "utf8");
   assert.match(period, /DEFAULT_HALF_LIFE = 15/);
+  assert.match(period, /HL_MAX = 90/);
 });

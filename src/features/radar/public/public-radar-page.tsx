@@ -21,7 +21,7 @@ import {
   type RunoffKey,
 } from "@/lib/forecast/runoff-scenarios";
 import { extraVarCached, publicEngineConfig } from "@/lib/forecast/extra-var";
-import { fieldPeriodLine, fmtMult, isShownTie, pairTightnessLine, shownGap } from "@/lib/format";
+import { fieldPeriodLine, fmtDelta, fmtMult, isShownTie, pairTightnessLine, shownGap } from "@/lib/format";
 import { useHalfLife, useHalfLifeDragging } from "@/lib/half-life";
 import { keepRadarSearch, useI18n } from "@/lib/i18n";
 import { UF_CHIP_CODES, writeStoredUf } from "@/lib/site";
@@ -31,6 +31,7 @@ import { buildHeroBoard, leadPairOrder, type HeroRow } from "@/lib/hero-board";
 import { TWEEN_MS, useHeroFlip, useTweenedProb } from "@/features/radar/public/use-hero-flip";
 import { pollsOnLatestDay } from "@/lib/latest-day";
 import { exampleGovernorUfs, ufTemCasas } from "@/lib/race-hooks";
+import { buildNationalTrend, windowMomentum } from "@/lib/forecast/trends";
 import { cn } from "@/lib/utils";
 
 const COMPARE_GOV_UF = exampleGovernorUfs().two;
@@ -378,6 +379,14 @@ export function PublicRadarPage() {
   const forecast = useMemo(() => runForecast(polls, config), [config]);
   const { probs, rows, first, second } = forecast;
   const latestDayPolls = useMemo(() => pollsOnLatestDay(polls, asOf), [asOf]);
+  const labMom = useMemo(() => {
+    const visible = polls.filter((poll) => poll.date <= asOf && poll.fieldEnd <= asOf);
+    return windowMomentum(buildNationalTrend(visible));
+  }, [asOf]);
+  const labMover =
+    Math.abs(labMom.dFlavio1) >= Math.abs(labMom.dLula1)
+      ? { who: "Flávio", delta: labMom.dFlavio1 }
+      : { who: "Lula", delta: labMom.dLula1 };
   const pLula = Math.round(probs.lulaWinsElection * 1000) / 10;
   const pFlavio = Math.round(probs.flavioWinsElection * 1000) / 10;
   const heroBoard = useMemo(() => buildHeroBoard(probs), [probs]);
@@ -453,6 +462,16 @@ export function PublicRadarPage() {
 
       <main id="conteudo" className="page-body page-body-home mx-auto min-w-0 max-w-6xl overflow-x-clip px-4 pt-5 sm:px-6 sm:pt-8">
         <HalfLifeControl />
+        <p className="lab-hook">
+          {m.home.labHook(labMover.who, fmtDelta(labMover.delta, 1, locale))}{" "}
+          <Link
+            to="/lab"
+            search={(prev) => keepRadarSearch(prev as Record<string, unknown>)}
+            className="hook-link"
+          >
+            {m.home.labHookLink}
+          </Link>
+        </p>
         <GrowthCurve polls={polls} asOf={asOf} halfLifeDays={curveHalfLife} />
         <section id="media" className="mb-6 space-y-4 scroll-mt-24">
           <div className="story-head">

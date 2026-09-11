@@ -59,7 +59,7 @@ export const pt = {
     copy: "Pesquisas novas pesam mais. Não é corte de calendário.",
     recent: (n: number) => `${n}d só o recente`,
     month: "30 dias",
-    year: "o ano",
+    year: "90d",
     presetsAria: "Atalhos de período",
     long: (n: number) => `${n}d`,
     valuetext: (n: number) => `período de ${n} dias`,
@@ -97,6 +97,9 @@ export const pt = {
     methodLede: "Pesquisas novas pesam mais. O laboratório tem pesos e acerto histórico.",
     ofWeight: "do peso",
     methodLink: "Pesos, acerto histórico e o motor",
+    labHook: (who: string, delta: string) =>
+      `${who} ${delta} pp nas novas vs as velhas.`,
+    labHookLink: "Como pesa",
     footerNav: "Rodapé",
     footer:
       "v3 · portal independente · peso 2014, 2018 e 2022 · não é instituto oficial",
@@ -450,7 +453,7 @@ export const en: Messages = {
     copy: "Newer polls weigh more. This is not a calendar cutoff.",
     recent: (n: number) => `${n}d recent only`,
     month: "30 days",
-    year: "the year",
+    year: "90d",
     presetsAria: "Period shortcuts",
     long: (n: number) => `${n}d`,
     valuetext: (n: number) => `${n}-day period`,
@@ -488,6 +491,9 @@ export const en: Messages = {
     methodLede: "Newer polls weigh more. The lab has weights and historical accuracy.",
     ofWeight: "of the weight",
     methodLink: "Weights, track record and the engine",
+    labHook: (who: string, delta: string) =>
+      `${who} ${delta} pp in newer vs older polls.`,
+    labHookLink: "How it weighs",
     footerNav: "Footer",
     footer:
       "v3 · independent site · 2014, 2018 and 2022 weights · not an official pollster",
