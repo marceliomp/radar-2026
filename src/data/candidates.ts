@@ -34,7 +34,7 @@ export const CANDIDATES_META = {
   counts: file.counts,
 };
 
-/** Siglas A-Z. Default de pagina continua SC. */
+/** Siglas A-Z. Sem default de UF: tráfego frio escolhe o estado. */
 export const UF_ORDER = [
   "AC",
   "AL",

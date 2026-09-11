@@ -2,6 +2,7 @@ import { startTransition, useCallback, useEffect, useSyncExternalStore } from "r
 import { useNavigate, useSearch } from "@tanstack/react-router";
 import { todayAsOf } from "@/lib/forecast/engine";
 import { clampHalfLife, yearToDateDays } from "@/lib/period";
+import { trackRadar } from "@/lib/track";
 
 export {
   clampHalfLife,
@@ -132,6 +133,7 @@ export function useHalfLife(): [
       }
       pending = null;
       setSnap({ days: next, dragging: false });
+      trackRadar("period_drag");
       const go = navigate as unknown as (opts: {
         search: (prev: Record<string, unknown>) => Record<string, unknown>;
         replace: boolean;

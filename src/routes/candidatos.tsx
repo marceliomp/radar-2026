@@ -3,9 +3,8 @@ import { RacePage } from "@/features/races/race-page";
 import { parseAsOfParam } from "@/lib/as-of";
 import { parseHalfLifeSearch } from "@/lib/half-life";
 import { parseLangSearch, type Locale } from "@/lib/i18n/locale";
-import { UF_ORDER } from "@/data/candidates";
-
-const UF_SET = new Set(UF_ORDER);
+import { candidatosHead, headTags } from "@/lib/page-meta";
+import { parseUfCode } from "@/lib/site";
 
 export type CandidatosSearch = {
   uf?: string;
@@ -18,16 +17,14 @@ export type CandidatosSearch = {
 function parseCandidatosSearch(
   search: Record<string, unknown>,
 ): CandidatosSearch {
-  const raw =
-    typeof search.uf === "string" ? search.uf.trim().toUpperCase() : "";
-  const uf = UF_SET.has(raw) ? raw : "SC";
+  const uf = parseUfCode(search.uf);
   const cargo =
     search.cargo === "senador" || search.cargo === "senator"
       ? "senador"
       : "governador";
   const asOf = parseAsOfParam(search.asOf);
   return {
-    uf,
+    ...(uf ? { uf } : {}),
     cargo,
     ...(asOf ? { asOf } : {}),
     ...parseHalfLifeSearch(search),
@@ -37,6 +34,8 @@ function parseCandidatosSearch(
 
 export const Route = createFileRoute("/candidatos")({
   validateSearch: parseCandidatosSearch,
+  head: ({ match }) =>
+    headTags(candidatosHead(match.search as Record<string, unknown>)),
   component: CandidatosPage,
 });
 

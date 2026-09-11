@@ -30,6 +30,20 @@ const CKAN_URL =
 const FETCH_MAX_BYTES = 12_000_000;
 const UA =
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36";
+const SKIP_403_HOSTS = new Set(["poder360.com.br", "cnnbrasil.com.br"]);
+const skippedHosts = new Set();
+
+export function resetFetchHostSkip() {
+  skippedHosts.clear();
+}
+
+function hostnameOf(url) {
+  try {
+    return new URL(url).hostname.replace(/^www\./, "").toLowerCase();
+  } catch {
+    return "";
+  }
+}
 
 export const ALLOWLIST = [
   {
@@ -639,10 +653,18 @@ function unzipCsvTexts(u8) {
 }
 
 export async function fetchBuf(url, maxBytes = FETCH_MAX_BYTES) {
+  const host = hostnameOf(url);
+  if (skippedHosts.has(host)) {
+    throw new Error(`skip_host_403 ${host}`);
+  }
   const res = await fetch(url, {
     headers: { "user-agent": UA, accept: "application/zip,text/csv,text/html,application/json,*/*" },
     signal: AbortSignal.timeout(40000),
   });
+  if (res.status === 403 && SKIP_403_HOSTS.has(host)) {
+    skippedHosts.add(host);
+    log(`skip_host_403 ${host}`);
+  }
   if (!res.ok) throw new Error(`http ${res.status}`);
   const buf = Buffer.from(await res.arrayBuffer());
   return buf.length > maxBytes ? buf.subarray(0, maxBytes) : buf;
@@ -758,19 +780,19 @@ async function fetchAllowlistResults(needTse) {
   const byTse = {};
   if (!needTse.size) return byTse;
   const listings = [
-    "https://www.poder360.com.br/poderdata/",
-    "https://www.poder360.com.br/poderdata/lula-tem-40-e-flavio-34-no-1o-turno/",
-    "https://www.poder360.com.br/poderdata/lula-tem-41-e-flavio-35-no-1o-turno/",
-    "https://www.poder360.com.br/poderdata/leia-os-resultados-da-pesquisa-poderdata-aya-para-presidente/",
     "https://g1.globo.com/politica/",
     "https://g1.globo.com/politica/eleicoes/2026/",
     "https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/noticia/2026/07/24/datafolha-primeiro-turno-julho.ghtml",
     "https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/noticia/2026/06/20/datafolha-avaliacao-lula-junho.ghtml",
+    "https://www1.folha.uol.com.br/poder/",
+    "https://www.poder360.com.br/poderdata/",
+    "https://www.poder360.com.br/poderdata/lula-tem-40-e-flavio-34-no-1o-turno/",
+    "https://www.poder360.com.br/poderdata/lula-tem-41-e-flavio-35-no-1o-turno/",
+    "https://www.poder360.com.br/poderdata/leia-os-resultados-da-pesquisa-poderdata-aya-para-presidente/",
     "https://www.cnnbrasil.com.br/politica/",
     "https://www.cnnbrasil.com.br/eleicoes/",
     "https://www.cnnbrasil.com.br/eleicoes/gerp-flavio-tem-38-e-lula-37-no-1o-turno/",
     "https://www.cnnbrasil.com.br/eleicoes/gerp-flavio-tem-45-das-intencoes-de-voto-no-2o-turno-lula-43/",
-    "https://www1.folha.uol.com.br/poder/",
   ];
   const pages = new Set(listings);
   for (const listing of [...listings, ...searchUrlsForProtocols(needTse)]) {

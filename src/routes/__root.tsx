@@ -8,7 +8,7 @@ import {
 } from "@tanstack/react-router";
 import { Analytics } from "@vercel/analytics/react";
 import { parseAsOfSearch } from "@/lib/as-of";
-import { LangProvider, localeHtml, messages, parseLocale } from "@/lib/i18n";
+import { LangProvider, localeHtml, parseLocale } from "@/lib/i18n";
 import appCss from "../styles.css?url";
 
 const ogImage = "https://brasilradar.com.br/og.jpg";
@@ -20,24 +20,16 @@ export const Route = createRootRoute({
   },
   head: ({ match }) => {
     const lang = parseLocale((match.search as { lang?: string }).lang) ?? "pt";
-    const copy = messages(lang);
     return {
       meta: [
         { charSet: "utf-8" },
         { name: "viewport", content: "width=device-width, initial-scale=1" },
-        { title: copy.meta.title },
-        { name: "description", content: copy.meta.description },
         { name: "apple-mobile-web-app-title", content: "Radar 2026" },
         { name: "theme-color", content: "#0c1817" },
         { name: "twitter:card", content: "summary_large_image" },
-        { name: "twitter:title", content: "Radar 2026" },
-        { name: "twitter:description", content: copy.meta.description },
         { property: "og:type", content: "website" },
-        { property: "og:title", content: copy.meta.title },
-        { property: "og:description", content: copy.meta.description },
         { property: "og:locale", content: lang === "en" ? "en_US" : "pt_BR" },
         { property: "og:locale:alternate", content: lang === "en" ? "pt_BR" : "en_US" },
-        { property: "og:url", content: "https://brasilradar.com.br" },
         { property: "og:image", content: ogImage },
         { property: "og:image:width", content: "1200" },
         { property: "og:image:height", content: "630" },

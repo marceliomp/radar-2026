@@ -14,7 +14,7 @@ test("first visit tells the truth about the file", async () => {
     newestId: "poderdata-08-26",
   });
   assert.equal(v.kind, "first");
-  assert.match(v.line, /arquivo/);
+  assert.match(v.line, /Período/);
   assert.match(
     fileStamp({ institute: "PoderData/Aya", fieldEnd: "2026-08-26" }),
     /PoderData/,

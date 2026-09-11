@@ -23,7 +23,9 @@ import {
 import { extraVarCached, publicEngineConfig } from "@/lib/forecast/extra-var";
 import { fieldPeriodLine, fmtMult, isShownTie, pairTightnessLine, shownGap } from "@/lib/format";
 import { useHalfLife, useHalfLifeDragging } from "@/lib/half-life";
-import { useI18n } from "@/lib/i18n";
+import { keepRadarSearch, useI18n } from "@/lib/i18n";
+import { UF_CHIP_CODES, writeStoredUf } from "@/lib/site";
+import { trackRadar } from "@/lib/track";
 import { fileStamp } from "@/lib/visit-delta";
 import { buildHeroBoard, leadPairOrder, type HeroRow } from "@/lib/hero-board";
 import { TWEEN_MS, useHeroFlip, useTweenedProb } from "@/features/radar/public/use-hero-flip";
@@ -429,10 +431,30 @@ export function PublicRadarPage() {
             pLula={probs.lulaWinsElection}
             pFlavio={probs.flavioWinsElection}
           />
+          <nav aria-label={m.home.ufChipsAria} className="uf-chips">
+            {UF_CHIP_CODES.map((code) => (
+              <Link
+                key={code}
+                to="/candidatos"
+                search={(prev) => ({
+                  uf: code,
+                  cargo: "governador" as const,
+                  ...keepRadarSearch(prev as Record<string, unknown>),
+                })}
+                className="uf-chip"
+                onClick={() => {
+                  writeStoredUf(code);
+                  trackRadar("uf_click");
+                }}
+              >
+                {code}
+              </Link>
+            ))}
+          </nav>
         </div>
       </section>
 
-      <main id="conteudo" className="page-body mx-auto min-w-0 max-w-6xl overflow-x-clip px-4 pt-5 sm:px-6 sm:pt-8">
+      <main id="conteudo" className="page-body page-body-home mx-auto min-w-0 max-w-6xl overflow-x-clip px-4 pt-5 sm:px-6 sm:pt-8">
         <HalfLifeControl />
         <GrowthCurve polls={polls} asOf={asOf} halfLifeDays={curveHalfLife} />
         <section id="media" className="mb-6 space-y-4 scroll-mt-24">
@@ -479,6 +501,9 @@ export function PublicRadarPage() {
             {latestDayPolls.map((poll) => (
               <LatestHouseCard key={poll.id} poll={poll} />
             ))}
+            <p>
+              <a href="#mapa" className="hook-link">{m.home.toState}</a>
+            </p>
           </section>
         ) : null}
 

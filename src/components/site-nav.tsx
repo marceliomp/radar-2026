@@ -1,23 +1,12 @@
 import { Link, useRouterState, useSearch } from "@tanstack/react-router";
-import { UF_ORDER } from "@/data/candidates";
 import { LangSwitch, keepRadarSearch, useI18n } from "@/lib/i18n";
+import { parseUfCode, readStoredUf } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
-const UF_SET = new Set(UF_ORDER);
 const linkClass = "mast-link";
 
-function lastUf(prevUf: unknown): string {
-  if (typeof prevUf === "string") {
-    const code = prevUf.trim().toUpperCase();
-    if (UF_SET.has(code)) return code;
-  }
-  try {
-    const stored = sessionStorage.getItem("radar2026:uf")?.toUpperCase() ?? "";
-    if (UF_SET.has(stored)) return stored;
-  } catch {
-    /* ignore */
-  }
-  return "SC";
+function lastUf(prevUf: unknown): string | undefined {
+  return parseUfCode(prevUf) ?? readStoredUf();
 }
 
 export function SiteNav({ className }: { className?: string }) {
@@ -52,8 +41,9 @@ export function SiteNav({ className }: { className?: string }) {
           to="/candidatos"
           search={(prev) => {
             const p = prev as Record<string, unknown>;
+            const uf = lastUf(p.uf);
             return {
-              uf: lastUf(p.uf),
+              ...(uf ? { uf } : {}),
               cargo: "governador" as const,
               ...keepRadarSearch(p),
             };
@@ -66,8 +56,9 @@ export function SiteNav({ className }: { className?: string }) {
           to="/candidatos"
           search={(prev) => {
             const p = prev as Record<string, unknown>;
+            const uf = lastUf(p.uf);
             return {
-              uf: lastUf(p.uf),
+              ...(uf ? { uf } : {}),
               cargo: "senador" as const,
               ...keepRadarSearch(p),
             };
