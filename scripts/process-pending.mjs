@@ -1,8 +1,10 @@
 #!/usr/bin/env node
 /**
- * Processa data/inbox/pending.jsonl contra o CSV TSE e a allowlist
- * (Poder360, Datafolha, Gerp, RTBD, Atlas, Nexus, Quaest, Vox). Produz ready.jsonl com
- * instituto + campo + n + protocolo TSE + firstRound parseado.
+ * Processa data/inbox/pending.jsonl contra o CSV TSE.
+ * Critério: Presidente nacional (ou n/moe que o agregador já aceita) com votos parseáveis.
+ * Casa TSE entra; aliases só normalizam o nome (Futura/Apex, PoderData, etc.).
+ * Poder360 e CNN com 403 entram em skip_host_403; fallback G1, Folha, Exame, Gazeta.
+ * Produz ready.jsonl com instituto + campo + n + protocolo TSE + firstRound parseado.
  * Nunca inventa voto e nunca altera a fonte pública polls.json.
  */
 import {
@@ -45,6 +47,7 @@ function hostnameOf(url) {
   }
 }
 
+/** Nomes canônicos. Não é filtro: casa TSE sem alias ainda entra via matchHouse. */
 export const ALLOWLIST = [
   {
     id: "poderdata",
@@ -102,6 +105,39 @@ export const ALLOWLIST = [
     institute: "Palver",
     nameRe: /palver/i,
     sources: ["cnn", "exame"],
+  },
+  {
+    id: "futura",
+    institute: "Futura/Apex",
+    cnpj: "52908063000144",
+    nameRe:
+      /futura(?:\s*intelig[eê]ncia)?|futura\s*\/\s*apex|100\s*%?\s*cidades/i,
+    sources: ["exame", "g1", "gazeta"],
+  },
+  {
+    id: "verita",
+    institute: "Veritá",
+    cnpj: "00654576000172",
+    nameRe: /verit[aá]/i,
+    sources: ["exame", "g1", "gazeta"],
+  },
+  {
+    id: "meio",
+    institute: "Meio/Ideia",
+    nameRe: /meio\s*\/?\s*ideia/i,
+    sources: ["folha", "gazeta"],
+  },
+  {
+    id: "indexa",
+    institute: "Indexa/Broadcast",
+    nameRe: /indexa/i,
+    sources: ["exame", "g1"],
+  },
+  {
+    id: "mda",
+    institute: "CNT/MDA",
+    nameRe: /\bmda\b|cnt\s*\/\s*mda/i,
+    sources: ["g1", "exame"],
   },
 ];
 
@@ -199,6 +235,24 @@ export function coverageFromRow(row) {
   return "unknown";
 }
 
+function tseLabel(raw) {
+  const s = String(raw ?? "").trim();
+  if (!s || /^#NULO#$/i.test(s)) return "";
+  return s.replace(/\s+/g, " ");
+}
+
+export function slugInstitute(name) {
+  return (
+    String(name)
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-|-$/g, "")
+      .slice(0, 40) || "tse"
+  );
+}
+
 export function matchAllowlist(row) {
   const cnpj = String(row.NR_CNPJ_EMPRESA ?? "").replace(/\D/g, "");
   const blob = `${row.NM_EMPRESA ?? ""} ${row.NM_EMPRESA_FANTASIA ?? ""}`;
@@ -207,6 +261,16 @@ export function matchAllowlist(row) {
     if (house.nameRe.test(blob)) return house;
   }
   return null;
+}
+
+export function matchHouse(row) {
+  const aliased = matchAllowlist(row);
+  if (aliased) return aliased;
+  const name = tseLabel(row.NM_EMPRESA_FANTASIA) || tseLabel(row.NM_EMPRESA);
+  const cnpj = String(row.NR_CNPJ_EMPRESA ?? "").replace(/\D/g, "");
+  if (!name && !cnpj) return null;
+  const institute = name || `CNPJ ${cnpj}`;
+  return { id: slugInstitute(institute), institute, cnpj: cnpj || undefined };
 }
 
 export function todayIso() {
@@ -447,7 +511,7 @@ export function rowToPoll(row, result, house) {
       publishedAt: date,
       capturedAt: result?.capturedAt ?? new Date().toISOString(),
     },
-    notes: `${sample} entrevistas. Allowlist ${house.id}.`,
+    notes: `${sample} entrevistas. TSE ${house.id}.`,
   };
   if (fieldStart && fieldStart <= fieldEnd) poll.fieldStart = fieldStart;
   if (result.secondRound?.lula != null && result.secondRound?.flavio != null) {
@@ -487,7 +551,6 @@ export function processPending({
     unmatched: 0,
     notPresidente: 0,
     notNational: 0,
-    notAllowlist: 0,
     noVotes: 0,
     ready: 0,
   };
@@ -543,14 +606,12 @@ export function processPending({
       continue;
     }
 
-    const house = matchAllowlist(row);
+    const house = matchHouse(row);
     if (!house) {
-      report.notAllowlist += 1;
       remaining.push({
         at: item.at ?? new Date().toISOString(),
         tse: proto,
-        empresa: row.NM_EMPRESA_FANTASIA || row.NM_EMPRESA,
-        reason: "Presidente nacional fora da allowlist (Poder360, Datafolha, Gerp)",
+        reason: "empresa TSE sem identificação",
       });
       continue;
     }
@@ -574,7 +635,7 @@ export function processPending({
         institute: house.institute,
         n: parseSample(row.QT_ENTREVISTADO),
         fieldEnd: parseBrDate(row.DT_FIM_PESQUISA),
-        reason: "número ainda não extraído (allowlist)",
+        reason: "número ainda não extraído (TSE)",
       });
       continue;
     }
@@ -743,9 +804,15 @@ function extractLinks(html, base) {
 function isVoteArticle(url) {
   const u = String(url);
   if (/wp-json|\/tag\/|\/page\/|oembed|busca\?|\/author\/|#comment/i.test(u)) return false;
-  if (!/^https?:\/\/(www\.)?(poder360\.com\.br|g1\.globo\.com|www1\.folha\.uol\.com\.br|cnnbrasil\.com\.br)\//i.test(u)) return false;
+  if (
+    !/^https?:\/\/(www\.)?(poder360\.com\.br|g1\.globo\.com|www1\.folha\.uol\.com\.br|cnnbrasil\.com\.br|exame\.com|gazetadopovo\.com\.br|moneytimes\.com\.br)\//i.test(
+      u,
+    )
+  ) {
+    return false;
+  }
   if (/amazonas|sao-paulo|sao_paulo|bahia|ceara|minas|parana|goias|pernambuco|paraiba|rio-grande|distrito-federal/i.test(u)) return false;
-  return /lula|flavio|flávio|1o-turno|1º-turno|pesquisa-poderdata|datafolha|gerp|intencao|intenção|real-time|atlasintel|quaest|nexus/i.test(
+  return /lula|flavio|flávio|1o-turno|1º-turno|pesquisa-poderdata|datafolha|gerp|intencao|intenção|real-time|atlasintel|quaest|nexus|futura|100-cidades|100-por-cento/i.test(
     u,
   );
 }
@@ -760,6 +827,8 @@ export function searchUrlsForProtocols(needTse) {
   for (const tse of [...needTse].slice(0, 8)) {
     const q = encodeURIComponent(tse);
     urls.push(`https://g1.globo.com/busca/?q=${q}`);
+    urls.push(`https://exame.com/?s=${q}`);
+    urls.push(`https://www.gazetadopovo.com.br/busca/?q=${q}`);
     urls.push(`https://www.cnnbrasil.com.br/?s=${q}`);
   }
   return urls;
@@ -770,7 +839,7 @@ function voteScore(url) {
   let s = 0;
   if (/1o-turno|primeiro-turno/.test(u)) s += 6;
   if (/lula-tem|lula-tem-/.test(u)) s += 5;
-  if (/datafolha|gerp|poderdata/.test(u)) s += 4;
+  if (/datafolha|gerp|poderdata|futura/.test(u)) s += 4;
   if (/2o-turno|segundo-turno/.test(u)) s += 2;
   if (/rejeicao|aprovad|poderdatacast|ao-vivo/.test(u)) s -= 4;
   return s;
@@ -782,6 +851,9 @@ async function fetchAllowlistResults(needTse) {
   const listings = [
     "https://g1.globo.com/politica/",
     "https://g1.globo.com/politica/eleicoes/2026/",
+    "https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/",
+    "https://exame.com/brasil/",
+    "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/",
     "https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/noticia/2026/07/24/datafolha-primeiro-turno-julho.ghtml",
     "https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/noticia/2026/06/20/datafolha-avaliacao-lula-junho.ghtml",
     "https://www1.folha.uol.com.br/poder/",
@@ -844,7 +916,7 @@ async function fetchAllowlistResults(needTse) {
       log(`page_fail ${url} ${err instanceof Error ? err.message : err}`);
     }
   }
-  log(`allowlist_fetch pages=${fetched} hits=${Object.keys(byTse).length} need=${needTse.size}`);
+  log(`tse_fetch pages=${fetched} hits=${Object.keys(byTse).length} need=${needTse.size}`);
   return byTse;
 }
 
@@ -896,8 +968,11 @@ async function main() {
       const coverage = coverageFromRow(row);
       const n = parseSample(row.QT_ENTREVISTADO) ?? 0;
       if (coverage === "state" || (coverage === "unknown" && n < 1800)) continue;
-      if (!matchAllowlist(row)) continue;
-      ranked.push({ proto, fieldEnd: parseBrDate(row.DT_FIM_PESQUISA) || "" });
+      const fieldEnd = parseBrDate(row.DT_FIM_PESQUISA);
+      const divulga = parseBrDate(row.DT_DIVULGACAO) || fieldEnd;
+      if (!fieldEnd || fieldEnd > todayIso() || (divulga && divulga > todayIso())) continue;
+      if (!matchHouse(row)) continue;
+      ranked.push({ proto, fieldEnd: fieldEnd || "" });
     }
     ranked.sort((a, b) => String(b.fieldEnd).localeCompare(String(a.fieldEnd)));
     for (const row of ranked) need.add(row.proto);

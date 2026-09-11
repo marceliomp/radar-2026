@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Pipeline Radar 2026: TSE -> allowlist -> promote ready -> git push (Vercel).
+ * Pipeline Radar 2026: TSE -> votos parseáveis -> promote ready -> git push (Vercel).
  */
 import { spawn } from "node:child_process";
 import { dirname, join } from "node:path";

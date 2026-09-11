@@ -1,5 +1,29 @@
 [
   {
+    "id": "futura-apex-09-10-02322",
+    "institute": "Futura/Apex",
+    "date": "2026-09-10",
+    "fieldEnd": "2026-09-09",
+    "sample": 2000,
+    "moe": 2.2,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 39.2,
+      "flavio": 33.6,
+      "cury": 6.4
+    },
+    "source": {
+      "tseProtocol": "BR-02322/2026",
+      "url": "https://exame.com/brasil/pesquisa-futura-lula-tem-392-e-flavio-bolsonaro-336-no-1o-turno/",
+      "publisher": "exame.com",
+      "publishedAt": "2026-09-11",
+      "capturedAt": "2026-09-11T14:30:00.000Z"
+    },
+    "notes": "2000 entrevistas. TSE futura. Campo e n: TSE (4-9/09). Votos: Exame 11/09.",
+    "fieldStart": "2026-09-04"
+  },
+  {
     "id": "gerp-09-09-00251",
     "institute": "Gerp",
     "date": "2026-09-09",

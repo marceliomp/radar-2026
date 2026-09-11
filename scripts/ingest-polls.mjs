@@ -241,7 +241,7 @@ async function main() {
     appendInbox({
       at: new Date().toISOString(),
       tse,
-      reason: "protocolo TSE novo; número ainda não extraído (allowlist)",
+      reason: "protocolo TSE novo; número ainda não extraído",
     });
   }
   log(`pending ${fresh.length} protocols=${fresh.slice(0, 8).join(",")}`);

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
- * Governador e senador: TSE + allowlist + artigo G1/CNN -> race-polls.json.
- * Não inventa voto. Sem >=2 nomes do catálogo com %, descarta.
+ * Governador e senador: TSE + artigo G1/CNN -> race-polls.json.
+ * Qualquer casa registrada no TSE. Não inventa voto. Sem >=2 nomes do catálogo com %, descarta.
  */
 import { readFileSync, renameSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
@@ -13,7 +13,7 @@ import {
   inferMode,
   isChallengeHtml,
   loadTseRows,
-  matchAllowlist,
+  matchHouse,
   normalizeProtocol,
   parseBrDate,
   parseSample,
@@ -56,7 +56,6 @@ const G1_UF = {
 };
 
 const STOP = new Set(["das", "dos", "de", "da", "do", "e", "del", "van"]);
-const RACE_HOUSES = new Set(["quaest", "datafolha", "realtime"]);
 
 export function raceOfficesFromCargo(cargo) {
   const t = String(cargo ?? "");
@@ -299,8 +298,8 @@ async function main() {
     const offices = raceOfficesFromCargo(row.DS_CARGO);
     if (!proto || !G1_UF[uf] || !offices.length) continue;
     if (tse.has(proto)) continue;
-    const house = matchAllowlist(row);
-    if (!house || !RACE_HOUSES.has(house.id)) continue;
+    const house = matchHouse(row);
+    if (!house) continue;
     ranked.push({
       row: { ...row, _proto: proto },
       house,

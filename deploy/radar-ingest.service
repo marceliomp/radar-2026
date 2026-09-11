@@ -1,5 +1,5 @@
 [Unit]
-Description=Radar 2026 poll pipeline (TSE discover + allowlist process)
+Description=Radar 2026 poll pipeline (TSE discover + parseable votes)
 
 [Service]
 Type=oneshot

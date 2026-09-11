@@ -1,6 +1,6 @@
 # Radar 2026
 
-Agregador independente da eleição presidencial. **Não é uma pesquisa.** Média ponderada (recência, √n, presencial vs telefone, acerto 2018/2022) + chance de ganhar somando 1º e 2º turno.
+Agregador independente da eleição presidencial. **Não é uma pesquisa.** Inclui todas as casas com registro TSE e números verificáveis. Média ponderada (recência, √n, presencial vs telefone, acerto 2018/2022) + chance de ganhar somando 1º e 2º turno.
 
 **URL canônica:** https://radar-2026.vercel.app
 
@@ -25,7 +25,7 @@ Abre em `http://localhost:8080`.
 - Teto de 22% do peso por casa. Pesquisa duplicada (mesmo campo, n e 1º) entra uma vez
 - Casas com menor erro vs urna em 2018 e 2022 pesam mais (Paraná, Datafolha, MDA, Gerp, Quaest)
 - 2º turno no mapa só se o instituto perguntou
-- Ingestão TSE 11h e 19h BRT: descobre protocolo. Número só entra com parser + allowlist. SoT do agregador continua `src/data/polls.json`.
+- Ingestão TSE 11h e 19h BRT: descobre protocolo. Número só entra com parser (G1, Folha, Exame, Gazeta; CNN/Poder360 403 são skip). SoT do agregador continua `src/data/polls.json`.
 
 ## Não é
 
@@ -36,7 +36,7 @@ Print de uma casa. Blog sem TSE. Torcida.
 
 `scripts/ingest-polls.mjs` descobre protocolos no CKAN e grava em `data/inbox/pending.jsonl`. Não escreve voto.
 
-`scripts/process-pending.mjs` cruza o inbox com o CSV TSE. Governador/Senador vão para `data/inbox/races.jsonl` (sem voto, fora do agregador presidencial). Deputado e demais cargos saem para `skipped.jsonl`. Presidente nacional da allowlist (Poder360, Datafolha, Gerp) só entra em `src/data/polls.json` com instituto + campo + n + protocolo + `firstRound` parseado. Sem número, permanece no inbox.
+`scripts/process-pending.mjs` cruza o inbox com o CSV TSE. Governador/Senador vão para `data/inbox/races.jsonl` (sem voto, fora do agregador presidencial) e o pipeline de races tenta G1 quando o produto já publica a cadeira. Deputado e demais cargos saem para `skipped.jsonl`. Presidente nacional (UF BR, n/moe honestos) entra em `src/data/polls.json` com instituto TSE + campo + n + protocolo + `firstRound` parseado. Sem número, permanece no inbox. CNN e Poder360 com 403 não são burlados.
 
 ```
 node scripts/process-pending.mjs --offline
