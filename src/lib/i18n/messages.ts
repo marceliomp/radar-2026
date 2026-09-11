@@ -8,7 +8,7 @@ export const pt = {
     homeTitle: (pLula: string) =>
       `Chance de ser presidente · Lula ${pLula} · Radar 2026`,
     homeDescription: (pLula: string) =>
-      `Não é pesquisa. Média ponderada das casas com protocolo TSE. Chance de ser presidente: Lula ${pLula}. Governador e senador por estado.`,
+      `Não é pesquisa. Agregador independente: todas as casas com registro TSE e números verificáveis. Chance de ser presidente: Lula ${pLula}. Governador e senador por estado.`,
     labTitle: "Como a média pesa · Radar 2026",
     labDescription:
       "Não é pesquisa. Recência, teto por casa e acerto na urna 2014, 2018 e 2022. Laboratório do agregador.",
@@ -398,7 +398,7 @@ export const en: Messages = {
     homeTitle: (pLula: string) =>
       `Chance of winning the presidency · Lula ${pLula} · Radar 2026`,
     homeDescription: (pLula: string) =>
-      `Not a poll. Weighted average of named houses with TSE protocol. Chance of winning: Lula ${pLula}. Governor and senator by state.`,
+      `Not a poll. Independent aggregator: every TSE-registered house with verifiable numbers. Chance of winning: Lula ${pLula}. Governor and senator by state.`,
     labTitle: "How the average is weighted · Radar 2026",
     labDescription:
       "Not a poll. Recency, house cap and 2014, 2018 and 2022 track record. Radar lab.",

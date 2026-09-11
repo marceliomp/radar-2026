@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 /**
- * Processa data/inbox/pending.jsonl contra o CSV TSE e a allowlist
- * (Poder360, Datafolha, Gerp, RTBD, Atlas, Nexus, Quaest, Vox, Palver, Futura/100 Cidades).
+ * Processa data/inbox/pending.jsonl contra o CSV TSE.
+ * Critério: Presidente nacional (ou n/moe que o agregador já aceita) com votos parseáveis.
+ * Casa TSE entra; aliases só normalizam o nome (Futura/Apex, PoderData, etc.).
  * Poder360 e CNN com 403 entram em skip_host_403; fallback G1, Folha, Exame, Gazeta.
- * Produz ready.jsonl com
- * instituto + campo + n + protocolo TSE + firstRound parseado.
+ * Produz ready.jsonl com instituto + campo + n + protocolo TSE + firstRound parseado.
  * Nunca inventa voto e nunca altera a fonte pública polls.json.
  */
 import {
@@ -47,6 +47,7 @@ function hostnameOf(url) {
   }
 }
 
+/** Nomes canônicos. Não é filtro: casa TSE sem alias ainda entra via matchHouse. */
 export const ALLOWLIST = [
   {
     id: "poderdata",
@@ -112,6 +113,31 @@ export const ALLOWLIST = [
     nameRe:
       /futura(?:\s*intelig[eê]ncia)?|futura\s*\/\s*apex|100\s*%?\s*cidades/i,
     sources: ["exame", "g1", "gazeta"],
+  },
+  {
+    id: "verita",
+    institute: "Veritá",
+    cnpj: "00654576000172",
+    nameRe: /verit[aá]/i,
+    sources: ["exame", "g1", "gazeta"],
+  },
+  {
+    id: "meio",
+    institute: "Meio/Ideia",
+    nameRe: /meio\s*\/?\s*ideia/i,
+    sources: ["folha", "gazeta"],
+  },
+  {
+    id: "indexa",
+    institute: "Indexa/Broadcast",
+    nameRe: /indexa/i,
+    sources: ["exame", "g1"],
+  },
+  {
+    id: "mda",
+    institute: "CNT/MDA",
+    nameRe: /\bmda\b|cnt\s*\/\s*mda/i,
+    sources: ["g1", "exame"],
   },
 ];
 
@@ -209,6 +235,24 @@ export function coverageFromRow(row) {
   return "unknown";
 }
 
+function tseLabel(raw) {
+  const s = String(raw ?? "").trim();
+  if (!s || /^#NULO#$/i.test(s)) return "";
+  return s.replace(/\s+/g, " ");
+}
+
+export function slugInstitute(name) {
+  return (
+    String(name)
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-|-$/g, "")
+      .slice(0, 40) || "tse"
+  );
+}
+
 export function matchAllowlist(row) {
   const cnpj = String(row.NR_CNPJ_EMPRESA ?? "").replace(/\D/g, "");
   const blob = `${row.NM_EMPRESA ?? ""} ${row.NM_EMPRESA_FANTASIA ?? ""}`;
@@ -217,6 +261,16 @@ export function matchAllowlist(row) {
     if (house.nameRe.test(blob)) return house;
   }
   return null;
+}
+
+export function matchHouse(row) {
+  const aliased = matchAllowlist(row);
+  if (aliased) return aliased;
+  const name = tseLabel(row.NM_EMPRESA_FANTASIA) || tseLabel(row.NM_EMPRESA);
+  const cnpj = String(row.NR_CNPJ_EMPRESA ?? "").replace(/\D/g, "");
+  if (!name && !cnpj) return null;
+  const institute = name || `CNPJ ${cnpj}`;
+  return { id: slugInstitute(institute), institute, cnpj: cnpj || undefined };
 }
 
 export function todayIso() {
@@ -457,7 +511,7 @@ export function rowToPoll(row, result, house) {
       publishedAt: date,
       capturedAt: result?.capturedAt ?? new Date().toISOString(),
     },
-    notes: `${sample} entrevistas. Allowlist ${house.id}.`,
+    notes: `${sample} entrevistas. TSE ${house.id}.`,
   };
   if (fieldStart && fieldStart <= fieldEnd) poll.fieldStart = fieldStart;
   if (result.secondRound?.lula != null && result.secondRound?.flavio != null) {
@@ -497,7 +551,6 @@ export function processPending({
     unmatched: 0,
     notPresidente: 0,
     notNational: 0,
-    notAllowlist: 0,
     noVotes: 0,
     ready: 0,
   };
@@ -553,14 +606,12 @@ export function processPending({
       continue;
     }
 
-    const house = matchAllowlist(row);
+    const house = matchHouse(row);
     if (!house) {
-      report.notAllowlist += 1;
       remaining.push({
         at: item.at ?? new Date().toISOString(),
         tse: proto,
-        empresa: row.NM_EMPRESA_FANTASIA || row.NM_EMPRESA,
-        reason: "Presidente nacional fora da allowlist",
+        reason: "empresa TSE sem identificação",
       });
       continue;
     }
@@ -584,7 +635,7 @@ export function processPending({
         institute: house.institute,
         n: parseSample(row.QT_ENTREVISTADO),
         fieldEnd: parseBrDate(row.DT_FIM_PESQUISA),
-        reason: "número ainda não extraído (allowlist)",
+        reason: "número ainda não extraído (TSE)",
       });
       continue;
     }
@@ -865,7 +916,7 @@ async function fetchAllowlistResults(needTse) {
       log(`page_fail ${url} ${err instanceof Error ? err.message : err}`);
     }
   }
-  log(`allowlist_fetch pages=${fetched} hits=${Object.keys(byTse).length} need=${needTse.size}`);
+  log(`tse_fetch pages=${fetched} hits=${Object.keys(byTse).length} need=${needTse.size}`);
   return byTse;
 }
 
@@ -917,8 +968,11 @@ async function main() {
       const coverage = coverageFromRow(row);
       const n = parseSample(row.QT_ENTREVISTADO) ?? 0;
       if (coverage === "state" || (coverage === "unknown" && n < 1800)) continue;
-      if (!matchAllowlist(row)) continue;
-      ranked.push({ proto, fieldEnd: parseBrDate(row.DT_FIM_PESQUISA) || "" });
+      const fieldEnd = parseBrDate(row.DT_FIM_PESQUISA);
+      const divulga = parseBrDate(row.DT_DIVULGACAO) || fieldEnd;
+      if (!fieldEnd || fieldEnd > todayIso() || (divulga && divulga > todayIso())) continue;
+      if (!matchHouse(row)) continue;
+      ranked.push({ proto, fieldEnd: fieldEnd || "" });
     }
     ranked.sort((a, b) => String(b.fieldEnd).localeCompare(String(a.fieldEnd)));
     for (const row of ranked) need.add(row.proto);
