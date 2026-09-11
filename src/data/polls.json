@@ -1,5 +1,29 @@
 [
   {
+    "id": "futura-apex-09-10-02322",
+    "institute": "Futura/Apex",
+    "date": "2026-09-10",
+    "fieldEnd": "2026-09-09",
+    "sample": 2000,
+    "moe": 2.2,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 39.2,
+      "flavio": 33.6,
+      "cury": 6.9
+    },
+    "source": {
+      "tseProtocol": "BR-02322/2026",
+      "url": "https://www.cnnbrasil.com.br/eleicoes/futura-lula-tem-392-das-intencoes-de-voto-no-1o-turno-flavio-336/",
+      "publisher": "cnnbrasil.com.br",
+      "publishedAt": "2026-09-10",
+      "capturedAt": "2026-09-11T14:20:00.000Z"
+    },
+    "notes": "2000 entrevistas. Allowlist futura. Campo e n: TSE. Votos: CNN 11/09, unica fonte com BR-02322.",
+    "fieldStart": "2026-09-04"
+  },
+  {
     "id": "gerp-09-09-00251",
     "institute": "Gerp",
     "date": "2026-09-09",

@@ -253,6 +253,85 @@ test("allowlist includes RTBD and still rejects Veritá", () => {
     NM_EMPRESA_FANTASIA: "PALVER",
   });
   assert.equal(palver?.id, "palver");
+  const futura = matchAllowlist({
+    NR_CNPJ_EMPRESA: "52908063000144",
+    NM_EMPRESA: "100% CIDADES PARTICIPACOES LTDA",
+    NM_EMPRESA_FANTASIA: "100 CIDADES",
+  });
+  assert.equal(futura?.id, "futura");
+  const futuraName = matchAllowlist({
+    NM_EMPRESA: "FUTURA INTELIGENCIA",
+    NM_EMPRESA_FANTASIA: "FUTURA/APEX",
+  });
+  assert.equal(futuraName?.id, "futura");
+});
+
+test("parser reads Futura 1T with protocol BR-02322", () => {
+  const html = `<title>Futura: Lula tem 39,2% das intenções de voto no 1º turno; Flávio, 33,6%</title>
+  <p>A pesquisa está registrada no TSE sob o protocolo BR-02322/2026. Margem de erro de 2,2 pontos percentuais.</p>
+  <p>No 1º turno Lula alcança 39,2%, seguido de Flávio Bolsonaro, que soma 33,6%. Augusto Cury tem 6,9%.</p>`;
+  const parsed = parseAllowlistArticle(html);
+  assert.equal(parsed.tse, "BR-02322/2026");
+  assert.equal(parsed.firstRound.lula, 39.2);
+  assert.equal(parsed.firstRound.flavio, 33.6);
+  assert.equal(parsed.firstRound.cury, 6.9);
+  assert.equal(parsed.moe, 2.2);
+});
+
+test("processPending prepares Futura/100 Cidades when votes exist", () => {
+  const out = processPending({
+    pending: [{ tse: "BR-02322/2026" }],
+    polls: [{ id: "keep", notes: "" }],
+    tseRows: [{
+      NR_PROTOCOLO_REGISTRO: "BR023222026",
+      DS_CARGO: "Presidente",
+      SG_UF: "BR",
+      NM_UE: "BRASIL",
+      NR_CNPJ_EMPRESA: "52908063000144",
+      NM_EMPRESA: "100% CIDADES PARTICIPACOES LTDA",
+      NM_EMPRESA_FANTASIA: "100 CIDADES",
+      QT_ENTREVISTADO: "2000",
+      DT_INICIO_PESQUISA: "2026-09-04",
+      DT_FIM_PESQUISA: "2026-09-09",
+      DT_DIVULGACAO: "2026-09-10",
+      DS_METODOLOGIA_PESQUISA: "questionário realizado por meio telefônico",
+    }],
+    resultsByTse: {
+      "BR-02322/2026": {
+        firstRound: { lula: 39.2, flavio: 33.6, cury: 6.9 },
+        moe: 2.2,
+        url: "https://www.cnnbrasil.com.br/eleicoes/futura-lula-tem-392-das-intencoes-de-voto-no-1o-turno-flavio-336/",
+        publisher: "cnnbrasil.com.br",
+      },
+    },
+  });
+  assert.equal(out.report.ready, 1);
+  assert.equal(out.ready[0].institute, "Futura/Apex");
+  assert.equal(out.ready[0].source.tseProtocol, "BR-02322/2026");
+  assert.equal(out.ready[0].firstRound.lula, 39.2);
+  assert.equal(out.ready[0].sample, 2000);
+  assert.equal(out.ready[0].moe, 2.2);
+  const gap = out.ready[0].firstRound.lula - out.ready[0].firstRound.flavio;
+  assert.ok(gap > out.ready[0].moe, "Lula-Flávio gap is larger than the house margin");
+});
+
+test("Futura 11/09 national is in polls.json", () => {
+  const polls = JSON.parse(readFileSync("src/data/polls.json", "utf8"));
+  const row = polls.find((poll) => poll.id === "futura-apex-09-10-02322");
+  assert.ok(row, "futura-apex-09-10-02322 missing");
+  assert.equal(row.national, true);
+  assert.equal(row.institute, "Futura/Apex");
+  assert.equal(row.date, "2026-09-10");
+  assert.equal(row.fieldStart, "2026-09-04");
+  assert.equal(row.fieldEnd, "2026-09-09");
+  assert.equal(row.sample, 2000);
+  assert.equal(row.moe, 2.2);
+  assert.equal(row.mode, "telefone");
+  assert.equal(row.firstRound.lula, 39.2);
+  assert.equal(row.firstRound.flavio, 33.6);
+  assert.equal(row.firstRound.cury, 6.9);
+  assert.equal(row.source.tseProtocol, "BR-02322/2026");
+  assert.doesNotMatch(row.notes, /—/);
 });
 
 test("Palver 09/09 national is in polls.json", () => {
@@ -282,11 +361,13 @@ test("Cloudflare challenge pages are skipped", () => {
   assert.equal(isChallengeHtml("<html><p>Lula tem 40%</p></html>"), false);
 });
 
-test("protocol search targets G1 and CNN", () => {
+test("protocol search prefers G1, Exame and Gazeta before CNN", () => {
   const urls = searchUrlsForProtocols(["BR-03490/2026"]);
-  assert.equal(urls.length, 2);
+  assert.equal(urls.length, 4);
   assert.match(urls[0], /g1\.globo\.com\/busca/);
-  assert.match(urls[1], /cnnbrasil\.com\.br/);
+  assert.match(urls[1], /exame\.com/);
+  assert.match(urls[2], /gazetadopovo\.com\.br/);
+  assert.match(urls[3], /cnnbrasil\.com\.br/);
 });
 
 test("unknown sample below 1800 is not national", () => {

@@ -1,7 +1,9 @@
 #!/usr/bin/env node
 /**
  * Processa data/inbox/pending.jsonl contra o CSV TSE e a allowlist
- * (Poder360, Datafolha, Gerp, RTBD, Atlas, Nexus, Quaest, Vox). Produz ready.jsonl com
+ * (Poder360, Datafolha, Gerp, RTBD, Atlas, Nexus, Quaest, Vox, Palver, Futura/100 Cidades).
+ * Poder360 e CNN com 403 entram em skip_host_403; fallback G1, Folha, Exame, Gazeta.
+ * Produz ready.jsonl com
  * instituto + campo + n + protocolo TSE + firstRound parseado.
  * Nunca inventa voto e nunca altera a fonte pública polls.json.
  */
@@ -102,6 +104,14 @@ export const ALLOWLIST = [
     institute: "Palver",
     nameRe: /palver/i,
     sources: ["cnn", "exame"],
+  },
+  {
+    id: "futura",
+    institute: "Futura/Apex",
+    cnpj: "52908063000144",
+    nameRe:
+      /futura(?:\s*intelig[eê]ncia)?|futura\s*\/\s*apex|100\s*%?\s*cidades/i,
+    sources: ["exame", "g1", "gazeta"],
   },
 ];
 
@@ -550,7 +560,7 @@ export function processPending({
         at: item.at ?? new Date().toISOString(),
         tse: proto,
         empresa: row.NM_EMPRESA_FANTASIA || row.NM_EMPRESA,
-        reason: "Presidente nacional fora da allowlist (Poder360, Datafolha, Gerp)",
+        reason: "Presidente nacional fora da allowlist",
       });
       continue;
     }
@@ -743,9 +753,15 @@ function extractLinks(html, base) {
 function isVoteArticle(url) {
   const u = String(url);
   if (/wp-json|\/tag\/|\/page\/|oembed|busca\?|\/author\/|#comment/i.test(u)) return false;
-  if (!/^https?:\/\/(www\.)?(poder360\.com\.br|g1\.globo\.com|www1\.folha\.uol\.com\.br|cnnbrasil\.com\.br)\//i.test(u)) return false;
+  if (
+    !/^https?:\/\/(www\.)?(poder360\.com\.br|g1\.globo\.com|www1\.folha\.uol\.com\.br|cnnbrasil\.com\.br|exame\.com|gazetadopovo\.com\.br|moneytimes\.com\.br)\//i.test(
+      u,
+    )
+  ) {
+    return false;
+  }
   if (/amazonas|sao-paulo|sao_paulo|bahia|ceara|minas|parana|goias|pernambuco|paraiba|rio-grande|distrito-federal/i.test(u)) return false;
-  return /lula|flavio|flávio|1o-turno|1º-turno|pesquisa-poderdata|datafolha|gerp|intencao|intenção|real-time|atlasintel|quaest|nexus/i.test(
+  return /lula|flavio|flávio|1o-turno|1º-turno|pesquisa-poderdata|datafolha|gerp|intencao|intenção|real-time|atlasintel|quaest|nexus|futura|100-cidades|100-por-cento/i.test(
     u,
   );
 }
@@ -760,6 +776,8 @@ export function searchUrlsForProtocols(needTse) {
   for (const tse of [...needTse].slice(0, 8)) {
     const q = encodeURIComponent(tse);
     urls.push(`https://g1.globo.com/busca/?q=${q}`);
+    urls.push(`https://exame.com/?s=${q}`);
+    urls.push(`https://www.gazetadopovo.com.br/busca/?q=${q}`);
     urls.push(`https://www.cnnbrasil.com.br/?s=${q}`);
   }
   return urls;
@@ -770,7 +788,7 @@ function voteScore(url) {
   let s = 0;
   if (/1o-turno|primeiro-turno/.test(u)) s += 6;
   if (/lula-tem|lula-tem-/.test(u)) s += 5;
-  if (/datafolha|gerp|poderdata/.test(u)) s += 4;
+  if (/datafolha|gerp|poderdata|futura/.test(u)) s += 4;
   if (/2o-turno|segundo-turno/.test(u)) s += 2;
   if (/rejeicao|aprovad|poderdatacast|ao-vivo/.test(u)) s -= 4;
   return s;
@@ -782,6 +800,9 @@ async function fetchAllowlistResults(needTse) {
   const listings = [
     "https://g1.globo.com/politica/",
     "https://g1.globo.com/politica/eleicoes/2026/",
+    "https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/",
+    "https://exame.com/brasil/",
+    "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/",
     "https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/noticia/2026/07/24/datafolha-primeiro-turno-julho.ghtml",
     "https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/noticia/2026/06/20/datafolha-avaliacao-lula-junho.ghtml",
     "https://www1.folha.uol.com.br/poder/",
