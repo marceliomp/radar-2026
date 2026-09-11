@@ -71,7 +71,7 @@ export function BrazilMapSvg({
                     fillOpacity={!is2022 && sc?.implied ? 0.72 : 1}
                     stroke={active ? STROKE_ACTIVE : STROKE_IDLE}
                     strokeWidth={active ? 2.4 : 1.2}
-                    className="cursor-pointer transition-[filter] duration-150 hover:brightness-110"
+                    className="cursor-pointer transition-[fill,fill-opacity,stroke,filter] duration-300 ease-out hover:brightness-110"
                     onClick={() => onSelectUf(uf)}
                     onMouseEnter={(e) => placeTip(uf, e)}
                     onMouseMove={(e) => placeTip(uf, e)}

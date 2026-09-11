@@ -2,9 +2,10 @@
 @import "tw-animate-css";
 
 /*
-  Radar 2026: um sistema (Refero: ritmo/anatomia de portal de dados).
+  Radar 2026 KitUI (tokens do repo / Refero): ritmo de portal de dados.
   Ofício: forecast eleitoral. Tokens petro / cream / teal.
   Tipo: DM Sans (corpo) + Archivo Black (marca e número). Zero serifa.
+  Controles: raio --radius-*, alvo 44px, motion CSS curto, sem CTA de landing.
 */
 @theme {
   --color-bg: #0c1817;
@@ -322,6 +323,7 @@
     padding: 0.85rem 1rem 0.95rem;
     text-align: center;
     isolation: isolate;
+    backface-visibility: hidden;
   }
 
   .hero-col-slide {
@@ -380,6 +382,7 @@
     letter-spacing: -0.05em;
     font-variant-numeric: tabular-nums;
     font-feature-settings: "tnum" 1;
+    transition: color 0.2s ease;
   }
 
   .skip-link {
@@ -447,6 +450,18 @@
   .hero-pulse {
     color: var(--color-primary);
     padding-bottom: 0.35rem;
+    animation: pulse-in 0.45s ease both;
+  }
+
+  @keyframes pulse-in {
+    from {
+      opacity: 0;
+      transform: translateY(0.2rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   .time-axis {
@@ -542,12 +557,21 @@
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    border-radius: 999px;
+    border-radius: var(--radius-lg);
     padding: 0.375rem 1rem;
     font-family: var(--font-sans);
     font-size: 0.875rem;
     font-weight: 600;
     touch-action: manipulation;
+    transition:
+      background-color 0.15s ease,
+      border-color 0.15s ease,
+      color 0.15s ease,
+      transform 0.12s ease;
+  }
+
+  .share-btn:active {
+    transform: translateY(1px);
   }
 
   .share-btn-wa {
@@ -556,10 +580,19 @@
     color: var(--color-ink);
   }
 
+  .share-btn-wa:hover {
+    background: color-mix(in oklab, var(--color-primary) 88%, white 12%);
+  }
+
   .share-btn-icon {
     border: 1px solid var(--color-border);
     background: var(--color-surface-2);
     color: var(--color-fg);
+  }
+
+  .share-btn-icon:hover {
+    border-color: color-mix(in oklab, var(--color-primary) 45%, var(--color-border));
+    color: var(--color-cream);
   }
 
   .share-wa-short {
@@ -591,12 +624,13 @@
   .uf-chip {
     display: inline-flex;
     min-height: 2.75rem;
+    min-width: 2.75rem;
     flex: 0 0 auto;
     align-items: center;
     justify-content: center;
     padding: 0 0.85rem;
     border: 1px solid var(--color-border);
-    border-radius: 999px;
+    border-radius: var(--radius-lg);
     background: var(--color-surface-2);
     font-family: var(--font-mono);
     font-size: 0.75rem;
@@ -604,6 +638,19 @@
     letter-spacing: 0.06em;
     color: var(--color-fg);
     touch-action: manipulation;
+    transition:
+      border-color 0.15s ease,
+      color 0.15s ease,
+      background-color 0.15s ease;
+  }
+
+  .uf-chip:hover {
+    border-color: color-mix(in oklab, var(--color-primary) 55%, var(--color-border));
+    color: var(--color-cream);
+  }
+
+  .uf-chip:active {
+    background: color-mix(in oklab, var(--color-primary) 12%, var(--color-surface-2));
   }
 
   .hero-mast .hook-rail {
@@ -890,11 +937,12 @@
     .hero-pulse {
       position: absolute;
       right: 0;
-      bottom: 6.2rem;
+      bottom: 6.15rem;
       left: 0;
       z-index: 10;
       padding-inline: 1.75rem;
-      display: none;
+      font-size: 0.75rem;
+      color: color-mix(in oklab, var(--color-primary) 92%, white 8%);
     }
 
     .hero-share {
@@ -1072,7 +1120,7 @@
   }
 
   .lab-hook {
-    margin: 0 0 1.35rem;
+    margin: 0 0 1.1rem;
     font-family: var(--font-sans);
     font-size: var(--text-caption);
     font-weight: 500;
@@ -1134,21 +1182,10 @@
   }
 
   .hl-card {
-    border: 1px solid var(--color-border);
+    border: 1px solid color-mix(in oklab, var(--color-border) 85%, transparent);
     border-radius: var(--radius-md);
-    background: var(--color-bg);
+    background: color-mix(in oklab, var(--color-surface) 55%, var(--color-bg));
     padding: 0.6rem 0.8rem 0.7rem;
-  }
-
-  .hl-card-title {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    margin: 0 0 0.5rem;
-    font-family: var(--font-sans);
-    font-size: var(--text-ui);
-    font-weight: 700;
-    color: var(--color-cream);
   }
 
   .hl-meta {
@@ -1166,25 +1203,26 @@
     font-variant-numeric: tabular-nums;
     color: var(--color-primary);
     font-weight: 600;
+    transition: color 0.15s ease;
   }
 
   .hl-copy {
-    margin: 0 0 0.45rem;
+    margin: 0 0 0.35rem;
     font-family: var(--font-sans);
     font-size: var(--text-caption);
     font-weight: 500;
     line-height: 1.35;
-    color: color-mix(in oklab, var(--color-cream) 78%, transparent);
+    color: color-mix(in oklab, var(--color-cream) 72%, transparent);
   }
 
   .hl-ends {
     display: flex;
     justify-content: space-between;
-    margin-top: 0.3rem;
+    margin-top: 0.2rem;
     font-family: var(--font-mono);
     font-size: 0.6875rem;
     font-weight: 500;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
     color: color-mix(in oklab, var(--color-cream) 55%, transparent);
   }
@@ -1193,24 +1231,34 @@
     display: flex;
     flex-wrap: wrap;
     gap: 0.35rem;
-    margin-top: 0.5rem;
+    margin-top: 0.55rem;
   }
 
   .hl-preset {
     min-height: 2.75rem;
-    padding: 0 0.7rem;
+    min-width: 2.75rem;
+    padding: 0 0.75rem;
     border: 1px solid var(--color-border);
-    border-radius: 999px;
+    border-radius: var(--radius-lg);
     background: var(--color-surface-2);
     font-family: var(--font-sans);
     font-size: 0.75rem;
     font-weight: 600;
     color: var(--color-fg);
     touch-action: manipulation;
+    transition:
+      border-color 0.15s ease,
+      color 0.15s ease,
+      background-color 0.15s ease;
+  }
+
+  .hl-preset:hover {
+    border-color: color-mix(in oklab, var(--color-primary) 45%, var(--color-border));
   }
 
   .hl-preset-on {
     border-color: var(--color-primary);
+    background: color-mix(in oklab, var(--color-primary) 14%, var(--color-surface-2));
     color: var(--color-primary);
   }
 
@@ -1249,6 +1297,12 @@
     border: 0;
     border-radius: 999px;
     background: var(--color-cream);
+    box-shadow: 0 0 0 1px color-mix(in oklab, var(--color-ink) 18%, transparent);
+    transition: transform 0.12s ease;
+  }
+
+  .hl-range:active::-webkit-slider-thumb {
+    transform: scale(1.08);
   }
 
   .hl-range:focus-visible::-webkit-slider-thumb {
@@ -1274,6 +1328,12 @@
     border: 0;
     border-radius: 999px;
     background: var(--color-cream);
+    box-shadow: 0 0 0 1px color-mix(in oklab, var(--color-ink) 18%, transparent);
+    transition: transform 0.12s ease;
+  }
+
+  .hl-range:active::-moz-range-thumb {
+    transform: scale(1.08);
   }
 
   /* Camada de mapa: ano como dado, não CTA. */
@@ -1281,7 +1341,9 @@
     display: inline-flex;
     flex-wrap: wrap;
     border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
     background: var(--color-surface);
+    overflow: hidden;
   }
 
   .seg-btn {
@@ -1298,6 +1360,9 @@
     line-height: 1.1;
     color: color-mix(in oklab, var(--color-cream) 72%, transparent);
     background: transparent;
+    transition:
+      background-color 0.15s ease,
+      color 0.15s ease;
   }
 
   .seg-btn:last-child {
@@ -1305,13 +1370,17 @@
   }
 
   .seg-btn[aria-pressed="true"] {
-    background: var(--color-cream);
-    color: var(--color-ink);
+    background: color-mix(in oklab, var(--color-primary) 18%, var(--color-surface-2));
+    color: var(--color-cream);
   }
 
   .seg-btn:hover:not([aria-pressed="true"]) {
     color: var(--color-cream);
     background: color-mix(in oklab, var(--color-surface-2) 80%, white 6%);
+  }
+
+  .seg-btn[aria-pressed="true"] .seg-label {
+    color: var(--color-primary);
   }
 
   .seg-label {
@@ -1619,5 +1688,9 @@
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+
+  .hero-pulse {
+    animation: none !important;
   }
 }

@@ -547,9 +547,9 @@ export function PublicRadarPage() {
             <p className="story-lede">{m.home.methodLede}</p>
           </div>
           <div className="board-card">
-            <div className="chip-row -mx-4 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:flex-wrap sm:px-0">
+            <div className="chip-row -mx-4 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:px-0">
               {housesInAverage(rows).slice(0, 6).map((house, index) => (
-                <span key={house.institute} className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-border bg-surface px-3 py-1.5 text-xs font-semibold text-fg">
+                <span key={house.institute} className="inline-flex min-h-11 shrink-0 items-center gap-1.5 rounded-md border border-border bg-surface px-3 py-1.5 text-xs font-semibold text-fg">
                   <span className="text-gold">{index + 1}.</span>{house.institute}
                   <span className="tabular-nums text-cream/80">{fmt.pct(house.share * 100, 0)} {m.home.ofWeight}</span>
                   <span className="tabular-nums text-primary">×{fmtMult(house.quality, 2, locale)}</span>
