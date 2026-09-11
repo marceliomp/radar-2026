@@ -7,6 +7,8 @@ import { mapRoundView } from "@/lib/forecast/map-round";
 import type { EngineConfig } from "@/lib/forecast/engine";
 import { fmtPct } from "@/lib/format";
 import { useI18n } from "@/lib/i18n";
+import { writeStoredUf } from "@/lib/site";
+import { trackRadar } from "@/lib/track";
 import { tipCopy2022 } from "./map-helpers";
 import { MapLayerToggle, SegGroup, type MapLayer } from "./map-layer-toggle";
 import { BrazilMapSvg } from "./brazil-map-svg";
@@ -43,11 +45,8 @@ export function BrazilMap({
 
   function selectUf(uf: string) {
     setSel(uf);
-    try {
-      sessionStorage.setItem("radar2026:uf", uf);
-    } catch {
-      /* ignore */
-    }
+    writeStoredUf(uf);
+    trackRadar("uf_click");
   }
 
   function placeTip(uf: string, e: MouseEvent<SVGPathElement>) {

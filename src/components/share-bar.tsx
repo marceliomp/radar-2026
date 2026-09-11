@@ -1,21 +1,23 @@
 import { useState } from "react";
+import { useRouterState, useSearch } from "@tanstack/react-router";
 import { Check, Copy } from "lucide-react";
 import { fmtPct, fmtProb } from "@/lib/format";
 import { useI18n, type Locale } from "@/lib/i18n";
 import { messages } from "@/lib/i18n/messages";
-
-const SITE = "https://brasilradar.com.br";
+import { SITE, locationUrl } from "@/lib/site";
+import { trackRadar } from "@/lib/track";
 
 type Props = {
   asOf?: string;
-  lula1: number;
-  flavio1: number;
+  lula1?: number;
+  flavio1?: number;
   lula2?: number;
   flavio2?: number;
-  pLula: number;
-  pFlavio: number;
+  pLula?: number;
+  pFlavio?: number;
   compact?: boolean;
   url?: string;
+  text?: string;
 };
 
 function hasSecondShare(lula2?: number, flavio2?: number): boolean {
@@ -32,7 +34,8 @@ export function sharePayload(
   props: Props,
   locale: Locale = "pt",
 ): string {
-  const { asOf, lula1, flavio1, lula2, flavio2, pLula, pFlavio, url } = props;
+  if (props.text) return props.text;
+  const { asOf, lula1 = 0, flavio1 = 0, lula2, flavio2, pLula = 0, pFlavio = 0, url } = props;
   const m = messages(locale).share;
   let text =
     m.headline +
@@ -49,7 +52,10 @@ export function sharePayload(
 export function ShareBar(props: Props) {
   const { locale, m } = useI18n();
   const [copied, setCopied] = useState(false);
-  const text = sharePayload(props, locale);
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const search = useSearch({ strict: false }) as Record<string, unknown>;
+  const href = props.url ? shareHref(props.url) : locationUrl(pathname, search);
+  const text = sharePayload({ ...props, url: href }, locale);
   const compact = Boolean(props.compact);
   const shell = compact
     ? "flex flex-wrap items-center gap-2"
@@ -66,6 +72,7 @@ export function ShareBar(props: Props) {
   }
 
   function whatsapp() {
+    trackRadar("share_wa");
     const u = "https://wa.me/?text=" + encodeURIComponent(text);
     window.open(u, "_blank", "noopener,noreferrer");
   }

@@ -248,15 +248,19 @@ test("home share sits on the hero under the score", () => {
 });
 test("share bar is WhatsApp first and pastes brasilradar.com.br", () => {
   const bar = readFileSync("src/components/share-bar.tsx", "utf8");
+  const site = readFileSync("src/lib/site.ts", "utf8");
   const root = readFileSync("src/routes/__root.tsx", "utf8");
   assert.match(bar, /wa.me/);
   assert.match(bar, /m\.share\.whatsapp/);
-  assert.match(bar, /https:\/\/brasilradar.com.br/);
+  assert.match(site, /https:\/\/brasilradar.com.br/);
+  assert.match(bar, /SITE/);
   assert.match(bar, /m\.chance\(/);
   assert.match(bar, /m\.intent\(/);
   assert.match(bar, /function hasSecondShare/);
   assert.match(bar, /if \(hasSecondShare\(lula2, flavio2\)\)/);
   assert.match(bar, /url\?: string/);
+  assert.match(bar, /locationUrl/);
+  assert.match(bar, /trackRadar\("share_wa"\)/);
   assert.doesNotMatch(bar, /radar-2026.vercel.app/);
   assert.match(root, /https:\/\/brasilradar.com.br\/og.jpg/);
   assert.doesNotMatch(root, /radar-2026.vercel.app\/og.jpg/);

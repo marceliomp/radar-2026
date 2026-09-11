@@ -42,3 +42,4 @@ try {
 }
 sh("git push origin main");
 log(`pushed ${dirty.join(" ")} to origin/main`);
+// TODO(A6): post on X and WhatsApp when the file moves. Needs credentials. Do not auto-post without them.

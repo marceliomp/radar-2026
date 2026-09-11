@@ -5,6 +5,22 @@ export const pt = {
     title: "Radar 2026 · não é pesquisa",
     description:
       "Não é pesquisa. Agregador independente da eleição: presidente, governador e senador. Chance de ser presidente, mapa por estado, lista de urna.",
+    homeTitle: (pLula: string) =>
+      `Chance de ser presidente · Lula ${pLula} · Radar 2026`,
+    homeDescription: (pLula: string) =>
+      `Não é pesquisa. Média ponderada das casas com protocolo TSE. Chance de ser presidente: Lula ${pLula}. Governador e senador por estado.`,
+    labTitle: "Como a média pesa · Radar 2026",
+    labDescription:
+      "Não é pesquisa. Recência, teto por casa e acerto na urna 2014, 2018 e 2022. Laboratório do agregador.",
+    raceTitle: (office: string, uf: string, leader?: string) =>
+      leader
+        ? `${office} ${uf} · ${leader} · Radar 2026`
+        : `${office} ${uf} · Radar 2026`,
+    raceDescription: (office: string, uf: string) =>
+      `Não é pesquisa. ${office} em ${uf}: média das casas no arquivo e lista TSE.`,
+    racePickTitle: (office: string) => `${office} · Radar 2026`,
+    racePickDescription:
+      "Não é pesquisa. Toque o estado para ver governador ou senador e a lista TSE.",
   },
   nav: {
     aria: "Radar 2026",
@@ -33,12 +49,17 @@ export const pt = {
     copy: "Copiar texto",
     copied: "Copiado",
     tweet: "Postar no X",
+    raceLine: (office: string, uf: string, who: string, pct: string) =>
+      `${office} ${uf}: ${who} ${pct}`,
   },
   period: {
     label: "Período",
     days: (n: number) => `${n} dias`,
     copy: "Pesquisas novas pesam mais. Não é corte de calendário.",
     recent: (n: number) => `${n}d só o recente`,
+    month: "30 dias",
+    year: "o ano",
+    presetsAria: "Atalhos de período",
     long: (n: number) => `${n}d`,
     valuetext: (n: number) => `período de ${n} dias`,
   },
@@ -68,6 +89,7 @@ export const pt = {
     pollsPair: (n: number, pair: string) => `${n} pesquisas · par ${pair} no 1º`,
     territory: "Território",
     yourState: "E no seu estado?",
+    ufChipsAria: "Estados",
     mapLede: "Clique no estado. Presidente neste estado. Governador no link do dossiê.",
     methodKicker: "Método",
     methodTitle: "Como a média pesa",
@@ -173,6 +195,7 @@ export const pt = {
   },
   race: {
     state: "Estado",
+    pickState: "Toque o estado",
     noAgg: "Sem agregado nesta cadeira. Lista TSE abaixo.",
     backPres: "Volta ao presidente",
     intent: "Intenção agregada",
@@ -220,8 +243,7 @@ export const pt = {
       `${uf} tem ${n === 1 ? "1 casa" : `${n} casas`}`,
   },
   visit: {
-    first:
-      "A média só anda quando entra pesquisa no arquivo. Volte depois do próximo campo.",
+    first: "Arraste Período. A chance muda. Toque o seu estado.",
     newMoved: (chance: string) => `Pesquisa nova no arquivo. ${chance}.`,
     newFlat: "Pesquisa nova no arquivo. O placar quase não andou.",
     hl: (days: number, chance: string) =>
@@ -373,6 +395,22 @@ export const en: Messages = {
     title: "Radar 2026 · not a poll",
     description:
       "Not a poll. Independent Brazil 2026 aggregator: president, governor and senator. Chance of winning the presidency, state map, ballot list.",
+    homeTitle: (pLula: string) =>
+      `Chance of winning the presidency · Lula ${pLula} · Radar 2026`,
+    homeDescription: (pLula: string) =>
+      `Not a poll. Weighted average of named houses with TSE protocol. Chance of winning: Lula ${pLula}. Governor and senator by state.`,
+    labTitle: "How the average is weighted · Radar 2026",
+    labDescription:
+      "Not a poll. Recency, house cap and 2014, 2018 and 2022 track record. Radar lab.",
+    raceTitle: (office: string, uf: string, leader?: string) =>
+      leader
+        ? `${office} ${uf} · ${leader} · Radar 2026`
+        : `${office} ${uf} · Radar 2026`,
+    raceDescription: (office: string, uf: string) =>
+      `Not a poll. ${office} in ${uf}: house average on file and TSE list.`,
+    racePickTitle: (office: string) => `${office} · Radar 2026`,
+    racePickDescription:
+      "Not a poll. Tap a state for governor or senator and the TSE list.",
   },
   nav: {
     aria: "Radar 2026",
@@ -401,12 +439,17 @@ export const en: Messages = {
     copy: "Copy text",
     copied: "Copied",
     tweet: "Post on X",
+    raceLine: (office: string, uf: string, who: string, pct: string) =>
+      `${office} ${uf}: ${who} ${pct}`,
   },
   period: {
     label: "Period",
     days: (n: number) => `${n} days`,
     copy: "Newer polls weigh more. This is not a calendar cutoff.",
     recent: (n: number) => `${n}d recent only`,
+    month: "30 days",
+    year: "the year",
+    presetsAria: "Period shortcuts",
     long: (n: number) => `${n}d`,
     valuetext: (n: number) => `${n}-day period`,
   },
@@ -436,6 +479,7 @@ export const en: Messages = {
     pollsPair: (n: number, pair: string) => `${n} polls · pair ${pair} in the 1st`,
     territory: "Map",
     yourState: "Your state?",
+    ufChipsAria: "States",
     mapLede: "Click a state. President in that state. Governor in the dossier link.",
     methodKicker: "Method",
     methodTitle: "How the average is weighted",
@@ -541,6 +585,7 @@ export const en: Messages = {
   },
   race: {
     state: "State",
+    pickState: "Tap the state",
     noAgg: "No aggregate in this race. TSE list below.",
     backPres: "Back to president",
     intent: "Aggregated intention",
@@ -588,8 +633,7 @@ export const en: Messages = {
       `${uf} has ${n === 1 ? "1 house" : `${n} houses`}`,
   },
   visit: {
-    first:
-      "The average only moves when a poll enters the file. Come back after the next field.",
+    first: "Drag Period. The chance moves. Tap your state.",
     newMoved: (chance: string) => `New poll in the file. ${chance}.`,
     newFlat: "New poll in the file. The score barely moved.",
     hl: (days: number, chance: string) =>

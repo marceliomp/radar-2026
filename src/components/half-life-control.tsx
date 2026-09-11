@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import { HL_MAX, HL_MIN, useHalfLife } from "@/lib/half-life";
+import { todayAsOf } from "@/lib/forecast/engine";
+import { HL_MAX, HL_MIN, useHalfLife, yearToDateDays } from "@/lib/half-life";
 import { useI18n } from "@/lib/i18n";
+import { cn } from "@/lib/utils";
 
 export function HalfLifeSlider({ id }: { id?: string }) {
   const [halfLife, setLive, commitUrl] = useHalfLife();
@@ -15,6 +17,12 @@ export function HalfLifeSlider({ id }: { id?: string }) {
   halfLifeRef.current = halfLife;
   commitRef.current = commitUrl;
   setLiveRef.current = setLive;
+  const ytd = yearToDateDays(todayAsOf());
+  const presets = [
+    { days: HL_MIN, label: `${HL_MIN}d` },
+    { days: 30, label: m.period.month },
+    { days: ytd, label: m.period.year },
+  ];
 
   useEffect(() => {
     setPreview(halfLife);
@@ -92,6 +100,19 @@ export function HalfLifeSlider({ id }: { id?: string }) {
       <div className="hl-ends">
         <span>{m.period.recent(HL_MIN)}</span>
         <span>{m.period.long(HL_MAX)}</span>
+      </div>
+      <div className="hl-presets" role="group" aria-label={m.period.presetsAria}>
+        {presets.map((preset) => (
+          <button
+            key={preset.days}
+            type="button"
+            className={cn("hl-preset", preview === preset.days && "hl-preset-on")}
+            aria-pressed={preview === preset.days}
+            onClick={() => commitValue(String(preset.days))}
+          >
+            {preset.label}
+          </button>
+        ))}
       </div>
     </div>
   );
