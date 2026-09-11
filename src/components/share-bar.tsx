@@ -57,12 +57,7 @@ export function ShareBar(props: Props) {
   const href = props.url ? shareHref(props.url) : locationUrl(pathname, search);
   const text = sharePayload({ ...props, url: href }, locale);
   const compact = Boolean(props.compact);
-  const shell = compact
-    ? "flex flex-wrap items-center gap-2"
-    : "grid grid-cols-1 gap-2 sm:flex sm:flex-wrap";
-  const btn = compact
-    ? "inline-flex min-h-10 items-center justify-center gap-2 rounded-full px-3.5 py-1.5 text-xs font-semibold sm:min-h-11 sm:px-4 sm:text-sm"
-    : "inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-full px-4 py-2 text-sm font-semibold sm:w-auto";
+  const copyLabel = copied ? m.share.copied : m.share.copy;
 
   function tweet() {
     const u =
@@ -88,28 +83,39 @@ export function ShareBar(props: Props) {
   }
 
   return (
-    <div className={shell}>
+    <div className={compact ? "share-bar share-bar-compact" : "share-bar share-bar-stack"}>
       <button
         type="button"
         onClick={whatsapp}
-        className={`${btn} bg-primary text-ink`}
+        className="share-btn share-btn-wa"
+        aria-label={m.share.whatsapp}
       >
-        {m.share.whatsapp}
+        <span className="share-wa-full" aria-hidden>
+          {m.share.whatsapp}
+        </span>
+        <span className="share-wa-short" aria-hidden>
+          {m.share.whatsappShort}
+        </span>
       </button>
       <button
         type="button"
         onClick={copy}
-        className={`${btn} border border-border bg-surface-2 text-fg`}
+        className="share-btn share-btn-icon"
+        aria-label={copyLabel}
       >
         {copied ? <Check className="size-4 text-primary" /> : <Copy className="size-4" />}
-        {copied ? m.share.copied : m.share.copy}
+        <span className="share-btn-text">{copyLabel}</span>
       </button>
       <button
         type="button"
         onClick={tweet}
-        className={`${btn} border border-border bg-surface-2 text-fg`}
+        className="share-btn share-btn-icon"
+        aria-label={m.share.tweet}
       >
-        {m.share.tweet}
+        <span className="share-x" aria-hidden>
+          X
+        </span>
+        <span className="share-btn-text">{m.share.tweet}</span>
       </button>
     </div>
   );

@@ -4,7 +4,7 @@ import { CalendarDays, Radio } from "lucide-react";
 import { BrazilMap as BrazilMapView, MapLayerToggle, type MapLayer } from "@/features/radar/map/brazil-map";
 import { HalfLifeControl } from "@/components/half-life-control";
 import { ShareBar } from "@/components/share-bar";
-import { SiteNav } from "@/components/site-nav";
+import { MastBar } from "@/components/site-nav";
 import { TightRaces } from "@/components/tight-races";
 import { GrowthCurve as GrowthCurveView } from "@/features/radar/public/growth-curve";
 import { VisitHook } from "@/components/visit-hook";
@@ -403,10 +403,7 @@ export function PublicRadarPage() {
       <a href="#conteudo" className="skip-link">{m.skip}</a>
       <section className="hero-mast" ref={heroFlipRef}>
         <div className="hero-chrome">
-          <div className="flex min-w-0 items-start justify-between gap-3">
-            <SiteNav className="min-w-0 flex-1" />
-            <span className="hero-badge">{m.badge}</span>
-          </div>
+          <MastBar badge />
         </div>
         <h1 className="hero-method">
           {m.hero.chance}

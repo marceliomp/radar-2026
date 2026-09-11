@@ -116,7 +116,7 @@ test("public home scan path is chance, intention, news, method", () => {
   const lab = readFileSync("src/features/radar/lab/lab-radar-page.tsx", "utf8");
   assert.match(nav, /to="\/lab"/);
   assert.match(nav, /m\.nav\.method/);
-  assert.match(lab, /<SiteNav/);
+  assert.match(lab, /<MastBar/);
   assert.match(page, /id="media"/);
   assert.match(page, /id="metodo"/);
   assert.match(page, /m\.home\.avgTitle/);
@@ -305,10 +305,12 @@ test("mobile keeps the half-life disclaimer", () => {
 });
 
 test("race badge matches home trust line", () => {
+  const nav = readFileSync("src/components/site-nav.tsx", "utf8");
   const race = readFileSync("src/features/races/race-page.tsx", "utf8");
   const home = readFileSync("src/features/radar/public/public-radar-page.tsx", "utf8");
-  assert.match(home, /m\.badge/);
-  assert.match(race, /m\.badge/);
+  assert.match(nav, /m\.badge/);
+  assert.match(home, /<MastBar badge/);
+  assert.match(race, /<MastBar badge/);
   assert.doesNotMatch(race, /Nao e pesquisa/);
 });
 

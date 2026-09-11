@@ -46,6 +46,7 @@ export const pt = {
       `Intenção recente: Lula ${lula} × Flávio ${flavio}`,
     runoff: (lula: string, flavio: string) => `2º Lula ${lula} × Flávio ${flavio}`,
     whatsapp: "Mandar no WhatsApp",
+    whatsappShort: "WhatsApp",
     copy: "Copiar texto",
     copied: "Copiado",
     tweet: "Postar no X",
@@ -243,7 +244,7 @@ export const pt = {
       `${uf} tem ${n === 1 ? "1 casa" : `${n} casas`}`,
   },
   visit: {
-    first: "Arraste Período. A chance muda. Toque o seu estado.",
+    first: "Arraste Período. Toque o estado.",
     newMoved: (chance: string) => `Pesquisa nova no arquivo. ${chance}.`,
     newFlat: "Pesquisa nova no arquivo. O placar quase não andou.",
     hl: (days: number, chance: string) =>
@@ -436,6 +437,7 @@ export const en: Messages = {
       `Recent intention: Lula ${lula} × Flávio ${flavio}`,
     runoff: (lula: string, flavio: string) => `2nd Lula ${lula} × Flávio ${flavio}`,
     whatsapp: "Send on WhatsApp",
+    whatsappShort: "WhatsApp",
     copy: "Copy text",
     copied: "Copied",
     tweet: "Post on X",
@@ -633,7 +635,7 @@ export const en: Messages = {
       `${uf} has ${n === 1 ? "1 house" : `${n} houses`}`,
   },
   visit: {
-    first: "Drag Period. The chance moves. Tap your state.",
+    first: "Drag Period. Tap the state.",
     newMoved: (chance: string) => `New poll in the file. ${chance}.`,
     newFlat: "New poll in the file. The score barely moved.",
     hl: (days: number, chance: string) =>

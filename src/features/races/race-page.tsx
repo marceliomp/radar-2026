@@ -11,7 +11,7 @@ import { dateFull, fmtPct } from "@/lib/format";
 import { useI18n } from "@/lib/i18n";
 import { HalfLifeControl } from "@/components/half-life-control";
 import { ShareBar } from "@/components/share-bar";
-import { SiteNav } from "@/components/site-nav";
+import { MastBar } from "@/components/site-nav";
 import { locationUrl, parseUfCode, readStoredUf, writeStoredUf } from "@/lib/site";
 import { trackRadar } from "@/lib/track";
 import { CandidateList } from "./candidate-list";
@@ -140,12 +140,7 @@ export function RacePage() {
   return (
     <div className="pb-[max(3rem,env(safe-area-inset-bottom))]">
       <header className="border-b border-border">
-        <div className="flex items-center justify-between gap-3 px-4 py-2.5 md:px-6">
-          <SiteNav className="min-w-0 flex-1" />
-          <span className="shrink-0 border border-border px-1.5 py-0.5 font-mono text-xs font-semibold uppercase tracking-[0.12em] text-cream">
-            {m.badge}
-          </span>
-        </div>
+        <MastBar badge className="px-4 py-2 md:px-6" />
         <div className="hl-strip sticky top-0 z-20 border-t border-border bg-bg px-4 py-2.5 md:px-6">
           <label className="block min-w-[10rem] flex-1 sm:max-w-[16rem]">
             <span className="sr-only">{m.race.state}</span>

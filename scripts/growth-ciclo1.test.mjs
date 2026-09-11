@@ -79,7 +79,8 @@ test("home chips, period presets and analytics events are wired", () => {
   assert.match(hook, /trackRadar\("period_drag"\)/);
   assert.match(map, /trackRadar\("uf_click"\)/);
   assert.match(css, /page-body-home/);
-  assert.match(css, /#novo \{\s*order: 2/);
+  assert.match(css, /#mapa \{\s*order: 2/);
+  assert.match(css, /#novo \{\s*order: 4/);
   assert.match(pwa, /DEFAULT_APP_NAME = "Radar 2026"/);
   assert.match(pwa, /theme_color: "#0c1817"/);
   assert.match(meta, /homeTitle/);
