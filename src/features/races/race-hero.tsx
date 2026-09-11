@@ -82,7 +82,7 @@ export function RaceHero({
             <div
               key={leader.key}
               className={cn(
-                "flex flex-col justify-end px-4 py-7 md:px-6 md:py-9",
+                "flex flex-col justify-end px-4 py-4 md:px-6 md:py-9",
                 index > 0 && "border-t border-border md:border-t-0 md:border-l",
                 columns >= 4 && index >= 2 && "sm:border-t",
               )}

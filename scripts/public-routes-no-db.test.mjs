@@ -116,7 +116,7 @@ test("public home scan path is chance, intention, news, method", () => {
   const lab = readFileSync("src/features/radar/lab/lab-radar-page.tsx", "utf8");
   assert.match(nav, /to="\/lab"/);
   assert.match(nav, /m\.nav\.method/);
-  assert.match(lab, /<SiteNav/);
+  assert.match(lab, /<MastBar/);
   assert.match(page, /id="media"/);
   assert.match(page, /id="metodo"/);
   assert.match(page, /m\.home\.avgTitle/);
@@ -180,6 +180,9 @@ test("home puts the period slider at the top of the body", () => {
   const metodoAt = page.indexOf('id="metodo"');
   assert.ok(hlAt > mainAt && mainAt > heroEnd, "period slider sits in the page body, not over the score");
   assert.ok(hlAt < mediaAt, "period slider sits above intention");
+  const labHookAt = page.indexOf("lab-hook");
+  assert.ok(labHookAt > hlAt && labHookAt < mediaAt, "lab one-liner sits under the period, not in the hero");
+  assert.match(page, /m\.home\.labHookLink/);
   assert.ok(hlAt < metodoAt, "period slider is not buried in method");
   assert.equal(page.split("<HalfLifeControl").length - 1, 1, "one slider, not two");
 });
@@ -190,8 +193,9 @@ test("curve x axis is calendar time, not house names", () => {
   assert.match(curve, /isoDayUtc/);
   assert.match(curve, /utcMsToMonth/);
   assert.match(curve, /dataKey: "t"/);
-  assert.match(curve, /YEAR_START/);
+  assert.match(curve, /curveAxisStart/);
   assert.match(curve, /monthTicks/);
+  assert.doesNotMatch(curve, /monthTicks\(YEAR_START/);
   assert.doesNotMatch(curve, /equidistantPreserveStart/);
   assert.doesNotMatch(curve, /angle: -40/);
   assert.doesNotMatch(curve, /dataKey: "label"/);
@@ -305,10 +309,12 @@ test("mobile keeps the half-life disclaimer", () => {
 });
 
 test("race badge matches home trust line", () => {
+  const nav = readFileSync("src/components/site-nav.tsx", "utf8");
   const race = readFileSync("src/features/races/race-page.tsx", "utf8");
   const home = readFileSync("src/features/radar/public/public-radar-page.tsx", "utf8");
-  assert.match(home, /m\.badge/);
-  assert.match(race, /m\.badge/);
+  assert.match(nav, /m\.badge/);
+  assert.match(home, /<MastBar badge/);
+  assert.match(race, /<MastBar badge/);
   assert.doesNotMatch(race, /Nao e pesquisa/);
 });
 

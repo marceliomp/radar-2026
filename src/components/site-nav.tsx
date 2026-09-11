@@ -75,7 +75,25 @@ export function SiteNav({ className }: { className?: string }) {
           {m.nav.method}
         </Link>
       </div>
-      <LangSwitch />
     </nav>
+  );
+}
+
+export function MastBar({
+  badge = false,
+  className,
+}: {
+  badge?: boolean;
+  className?: string;
+}) {
+  const { m } = useI18n();
+  return (
+    <div className={cn("mast-chrome", className)}>
+      <SiteNav className="min-w-0 flex-1" />
+      <div className="mast-meta">
+        {badge ? <span className="hero-badge">{m.badge}</span> : null}
+        <LangSwitch />
+      </div>
+    </div>
   );
 }

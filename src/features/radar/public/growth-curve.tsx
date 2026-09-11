@@ -36,7 +36,7 @@ import {
 import { buildNationalTrend } from "@/lib/forecast/trends";
 import type { ForecastPoll } from "@/lib/forecast/engine";
 import { pollsOnDate } from "@/lib/latest-day";
-import { YEAR_START } from "@/lib/period";
+import { curveAxisStart } from "@/lib/period";
 
 function tickMonth(value: number | string, locale: "pt" | "en" = "pt") {
   return utcMsToMonth(Number(value), locale);
@@ -754,8 +754,9 @@ export function GrowthCurve({
   const plotted = houseFocus
     ? avgOnFirstOfDay(data)
     : mergeLineAndPolls(densifyDayAverages(active === "2" ? avg2 : avg1, asOf), data);
-  const ticks = monthTicks(YEAR_START, asOf);
-  const xMin = isoDayUtc(YEAR_START);
+  const axisStart = curveAxisStart(asOf);
+  const ticks = monthTicks(axisStart, asOf);
+  const xMin = isoDayUtc(axisStart);
   const xMax = isoDayUtc(asOf);
   const showOthers = active === "1";
   const splitOthers = showOthers && !houseFocus;

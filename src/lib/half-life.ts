@@ -1,18 +1,16 @@
 import { startTransition, useCallback, useEffect, useSyncExternalStore } from "react";
 import { useNavigate, useSearch } from "@tanstack/react-router";
-import { todayAsOf } from "@/lib/forecast/engine";
-import { clampHalfLife, yearToDateDays } from "@/lib/period";
+import { clampHalfLife, DEFAULT_HALF_LIFE } from "@/lib/period";
 import { trackRadar } from "@/lib/track";
 
 export {
   clampHalfLife,
+  DEFAULT_HALF_LIFE,
   HL_MAX,
   HL_MIN,
   YEAR_START,
   yearToDateDays,
 } from "@/lib/period";
-
-export const DEFAULT_HALF_LIFE = yearToDateDays(todayAsOf());
 
 export function parseHalfLifeParam(raw: unknown): number | undefined {
   if (typeof raw === "number" && Number.isFinite(raw)) {

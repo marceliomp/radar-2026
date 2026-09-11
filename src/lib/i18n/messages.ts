@@ -46,6 +46,7 @@ export const pt = {
       `Intenção recente: Lula ${lula} × Flávio ${flavio}`,
     runoff: (lula: string, flavio: string) => `2º Lula ${lula} × Flávio ${flavio}`,
     whatsapp: "Mandar no WhatsApp",
+    whatsappShort: "WhatsApp",
     copy: "Copiar texto",
     copied: "Copiado",
     tweet: "Postar no X",
@@ -58,7 +59,7 @@ export const pt = {
     copy: "Pesquisas novas pesam mais. Não é corte de calendário.",
     recent: (n: number) => `${n}d só o recente`,
     month: "30 dias",
-    year: "o ano",
+    year: "90d",
     presetsAria: "Atalhos de período",
     long: (n: number) => `${n}d`,
     valuetext: (n: number) => `período de ${n} dias`,
@@ -96,6 +97,9 @@ export const pt = {
     methodLede: "Pesquisas novas pesam mais. O laboratório tem pesos e acerto histórico.",
     ofWeight: "do peso",
     methodLink: "Pesos, acerto histórico e o motor",
+    labHook: (who: string, delta: string) =>
+      `${who} ${delta} pp nas novas vs as velhas.`,
+    labHookLink: "Como pesa",
     footerNav: "Rodapé",
     footer:
       "v3 · portal independente · peso 2014, 2018 e 2022 · não é instituto oficial",
@@ -109,9 +113,8 @@ export const pt = {
     askedOnly: "Nome só entra se a casa perguntou. ",
     onlyHouse: (house: string) => `Só ${house}. A linha liga as ondas desta casa.`,
     onlyMode: (mode: string) =>
-      `Só ${mode}. De janeiro até hoje. Pontos são cada casa. A linha é a média.`,
-    default:
-      "De janeiro até hoje. Pontos são cada casa. A linha é a média do período.",
+      `Só ${mode}. Pontos são cada casa. A linha é a média do período.`,
+    default: "Pontos são cada casa. A linha é a média do período.",
     roundAria: "Turno da curva",
     roundMeta: "turno",
     filterMode: "Filtrar por tipo de pesquisa",
@@ -243,7 +246,7 @@ export const pt = {
       `${uf} tem ${n === 1 ? "1 casa" : `${n} casas`}`,
   },
   visit: {
-    first: "Arraste Período. A chance muda. Toque o seu estado.",
+    first: "Arraste Período. Toque o estado.",
     newMoved: (chance: string) => `Pesquisa nova no arquivo. ${chance}.`,
     newFlat: "Pesquisa nova no arquivo. O placar quase não andou.",
     hl: (days: number, chance: string) =>
@@ -436,6 +439,7 @@ export const en: Messages = {
       `Recent intention: Lula ${lula} × Flávio ${flavio}`,
     runoff: (lula: string, flavio: string) => `2nd Lula ${lula} × Flávio ${flavio}`,
     whatsapp: "Send on WhatsApp",
+    whatsappShort: "WhatsApp",
     copy: "Copy text",
     copied: "Copied",
     tweet: "Post on X",
@@ -448,7 +452,7 @@ export const en: Messages = {
     copy: "Newer polls weigh more. This is not a calendar cutoff.",
     recent: (n: number) => `${n}d recent only`,
     month: "30 days",
-    year: "the year",
+    year: "90d",
     presetsAria: "Period shortcuts",
     long: (n: number) => `${n}d`,
     valuetext: (n: number) => `${n}-day period`,
@@ -486,6 +490,9 @@ export const en: Messages = {
     methodLede: "Newer polls weigh more. The lab has weights and historical accuracy.",
     ofWeight: "of the weight",
     methodLink: "Weights, track record and the engine",
+    labHook: (who: string, delta: string) =>
+      `${who} ${delta} pp in newer vs older polls.`,
+    labHookLink: "How it weighs",
     footerNav: "Footer",
     footer:
       "v3 · independent site · 2014, 2018 and 2022 weights · not an official pollster",
@@ -499,9 +506,8 @@ export const en: Messages = {
     askedOnly: "A name only appears if the house asked. ",
     onlyHouse: (house: string) => `Only ${house}. The line joins this house's waves.`,
     onlyMode: (mode: string) =>
-      `Only ${mode}. From January to now. Dots are each house. The line is the average.`,
-    default:
-      "From January to now. Dots are each house. The line is the period average.",
+      `Only ${mode}. Dots are each house. The line is the period average.`,
+    default: "Dots are each house. The line is the period average.",
     roundAria: "Curve round",
     roundMeta: "round",
     filterMode: "Filter by poll type",
@@ -633,7 +639,7 @@ export const en: Messages = {
       `${uf} has ${n === 1 ? "1 house" : `${n} houses`}`,
   },
   visit: {
-    first: "Drag Period. The chance moves. Tap your state.",
+    first: "Drag Period. Tap the state.",
     newMoved: (chance: string) => `New poll in the file. ${chance}.`,
     newFlat: "New poll in the file. The score barely moved.",
     hl: (days: number, chance: string) =>

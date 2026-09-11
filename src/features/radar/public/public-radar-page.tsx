@@ -4,7 +4,7 @@ import { CalendarDays, Radio } from "lucide-react";
 import { BrazilMap as BrazilMapView, MapLayerToggle, type MapLayer } from "@/features/radar/map/brazil-map";
 import { HalfLifeControl } from "@/components/half-life-control";
 import { ShareBar } from "@/components/share-bar";
-import { SiteNav } from "@/components/site-nav";
+import { MastBar } from "@/components/site-nav";
 import { TightRaces } from "@/components/tight-races";
 import { GrowthCurve as GrowthCurveView } from "@/features/radar/public/growth-curve";
 import { VisitHook } from "@/components/visit-hook";
@@ -21,7 +21,7 @@ import {
   type RunoffKey,
 } from "@/lib/forecast/runoff-scenarios";
 import { extraVarCached, publicEngineConfig } from "@/lib/forecast/extra-var";
-import { fieldPeriodLine, fmtMult, isShownTie, pairTightnessLine, shownGap } from "@/lib/format";
+import { fieldPeriodLine, fmtDelta, fmtMult, isShownTie, pairTightnessLine, shownGap } from "@/lib/format";
 import { useHalfLife, useHalfLifeDragging } from "@/lib/half-life";
 import { keepRadarSearch, useI18n } from "@/lib/i18n";
 import { UF_CHIP_CODES, writeStoredUf } from "@/lib/site";
@@ -31,6 +31,7 @@ import { buildHeroBoard, leadPairOrder, type HeroRow } from "@/lib/hero-board";
 import { TWEEN_MS, useHeroFlip, useTweenedProb } from "@/features/radar/public/use-hero-flip";
 import { pollsOnLatestDay } from "@/lib/latest-day";
 import { exampleGovernorUfs, ufTemCasas } from "@/lib/race-hooks";
+import { buildNationalTrend, windowMomentum } from "@/lib/forecast/trends";
 import { cn } from "@/lib/utils";
 
 const COMPARE_GOV_UF = exampleGovernorUfs().two;
@@ -378,6 +379,14 @@ export function PublicRadarPage() {
   const forecast = useMemo(() => runForecast(polls, config), [config]);
   const { probs, rows, first, second } = forecast;
   const latestDayPolls = useMemo(() => pollsOnLatestDay(polls, asOf), [asOf]);
+  const labMom = useMemo(() => {
+    const visible = polls.filter((poll) => poll.date <= asOf && poll.fieldEnd <= asOf);
+    return windowMomentum(buildNationalTrend(visible));
+  }, [asOf]);
+  const labMover =
+    Math.abs(labMom.dFlavio1) >= Math.abs(labMom.dLula1)
+      ? { who: "Flávio", delta: labMom.dFlavio1 }
+      : { who: "Lula", delta: labMom.dLula1 };
   const pLula = Math.round(probs.lulaWinsElection * 1000) / 10;
   const pFlavio = Math.round(probs.flavioWinsElection * 1000) / 10;
   const heroBoard = useMemo(() => buildHeroBoard(probs), [probs]);
@@ -403,10 +412,7 @@ export function PublicRadarPage() {
       <a href="#conteudo" className="skip-link">{m.skip}</a>
       <section className="hero-mast" ref={heroFlipRef}>
         <div className="hero-chrome">
-          <div className="flex min-w-0 items-start justify-between gap-3">
-            <SiteNav className="min-w-0 flex-1" />
-            <span className="hero-badge">{m.badge}</span>
-          </div>
+          <MastBar badge />
         </div>
         <h1 className="hero-method">
           {m.hero.chance}
@@ -454,8 +460,18 @@ export function PublicRadarPage() {
         </div>
       </section>
 
-      <main id="conteudo" className="page-body page-body-home mx-auto min-w-0 max-w-6xl overflow-x-clip px-4 pt-5 sm:px-6 sm:pt-8">
+      <main id="conteudo" className="page-body page-body-home mx-auto min-w-0 max-w-6xl overflow-x-clip px-4 pt-4 sm:px-6 sm:pt-5">
         <HalfLifeControl />
+        <p className="lab-hook">
+          {m.home.labHook(labMover.who, fmtDelta(labMover.delta, 1, locale))}{" "}
+          <Link
+            to="/lab"
+            search={(prev) => keepRadarSearch(prev as Record<string, unknown>)}
+            className="hook-link"
+          >
+            {m.home.labHookLink}
+          </Link>
+        </p>
         <GrowthCurve polls={polls} asOf={asOf} halfLifeDays={curveHalfLife} />
         <section id="media" className="mb-6 space-y-4 scroll-mt-24">
           <div className="story-head">
