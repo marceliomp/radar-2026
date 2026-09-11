@@ -1,8 +1,8 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
 const PAIR = new Set(["lula", "flavio"]);
-const DURATION_MS = 400;
-export const TWEEN_MS = 260;
+const DURATION_MS = 460;
+export const TWEEN_MS = 280;
 const TENTH = 0.001;
 
 function reducedMotion(): boolean {
@@ -15,6 +15,12 @@ function reducedMotion(): boolean {
 export function easeOutCubic(u: number): number {
   const t = Math.min(1, Math.max(0, u));
   return 1 - (1 - t) ** 3;
+}
+
+/** Slightly softer than cubic for hero FLIP / number tween. */
+export function easeOutQuint(u: number): number {
+  const t = Math.min(1, Math.max(0, u));
+  return 1 - (1 - t) ** 5;
 }
 
 function tenth(p: number): number {
@@ -50,7 +56,7 @@ export function useTweenedProb(target: number, ms = TWEEN_MS): number {
         setValue(target);
         return;
       }
-      const next = from + (target - from) * easeOutCubic(elapsed / ms);
+      const next = from + (target - from) * easeOutQuint(elapsed / ms);
       valueRef.current = next;
       setValue((prev) => (tenth(prev) === tenth(next) ? prev : next));
       frame = requestAnimationFrame(tick);
@@ -111,7 +117,7 @@ export function useHeroFlip(orderKey: string) {
       const tick = (now: number) => {
         if (started == null) started = now;
         const u = Math.min(1, (now - started) / DURATION_MS);
-        const e = easeOutCubic(u);
+        const e = easeOutQuint(u);
         if (u >= 1) {
           delete node.dataset.flip;
           node.style.transform = "";

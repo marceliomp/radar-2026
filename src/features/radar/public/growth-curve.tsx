@@ -61,7 +61,7 @@ function usePrefersReducedMotion(): boolean {
   return reduced;
 }
 
-const LINE_ANIM_MS = 700;
+const LINE_ANIM_MS = 520;
 
 function softActive(color: string, r = 4.5) {
   return { r, fill: color, strokeWidth: 0 };
@@ -474,7 +474,8 @@ function CurvePlot({
 }) {
   const { locale } = useI18n();
 
-  const animateAvg = false;
+  const reduced = usePrefersReducedMotion();
+  const animateAvg = !reduced;
   const [flipX, setFlipX] = useState(false);
   const showRace = kind === "race" || kind === "all";
   const drawOthersAvg = kind === "others" || kind === "all";
@@ -822,7 +823,7 @@ export function GrowthCurve({
         <CurveKey houseFocus={houseFocus} showOthers={showOthers} />
         {modeOpts.length > 1 ? (
           <div
-            className="chip-row mt-3 -mx-1 flex gap-2 overflow-x-auto px-1 pb-1 sm:flex-wrap"
+            className="chip-row mt-3 -mx-1 flex gap-2 overflow-x-auto px-1 pb-1"
             role="group"
             aria-label={m.curve.filterMode}
           >
@@ -830,8 +831,8 @@ export function GrowthCurve({
               type="button"
               aria-pressed={!mode}
               onClick={() => setMode(null)}
-              className={`inline-flex shrink-0 rounded-full border px-3 py-1.5 text-xs font-semibold transition-colors duration-150 ${
-                !mode ? "border-gold bg-gold/10 text-gold" : "border-border bg-surface text-fg hover:border-cream/35"
+              className={`inline-flex min-h-11 shrink-0 items-center rounded-md border px-3 py-1.5 text-xs font-semibold transition-colors duration-150 ${
+                !mode ? "border-primary/70 bg-primary/10 text-primary" : "border-border bg-surface text-fg hover:border-cream/35"
               }`}
             >
               {m.curve.allModes}
@@ -845,9 +846,9 @@ export function GrowthCurve({
                   setMode(key);
                   setHouse(null);
                 }}
-                className={`inline-flex shrink-0 rounded-full border px-3 py-1.5 text-xs font-semibold transition-colors duration-150 ${
+                className={`inline-flex min-h-11 shrink-0 items-center rounded-md border px-3 py-1.5 text-xs font-semibold transition-colors duration-150 ${
                   mode === key
-                    ? "border-gold bg-gold/10 text-gold"
+                    ? "border-primary/70 bg-primary/10 text-primary"
                     : "border-border bg-surface text-fg hover:border-cream/35"
                 }`}
               >
@@ -858,7 +859,7 @@ export function GrowthCurve({
         ) : null}
         {houseOpts.length ? (
           <div
-            className="chip-row mt-3 -mx-1 flex gap-2 overflow-x-auto px-1 pb-1 sm:flex-wrap"
+            className="chip-row mt-3 -mx-1 flex gap-2 overflow-x-auto px-1 pb-1"
             role="group"
             aria-label={m.curve.filterHouse}
           >
@@ -866,8 +867,8 @@ export function GrowthCurve({
               type="button"
               aria-pressed={!house}
               onClick={() => setHouse(null)}
-              className={`inline-flex shrink-0 rounded-full border px-3 py-1.5 text-xs font-semibold transition-colors duration-150 ${
-                !house ? "border-gold bg-gold/10 text-gold" : "border-border bg-surface text-fg hover:border-cream/35"
+              className={`inline-flex min-h-11 shrink-0 items-center rounded-md border px-3 py-1.5 text-xs font-semibold transition-colors duration-150 ${
+                !house ? "border-primary/70 bg-primary/10 text-primary" : "border-border bg-surface text-fg hover:border-cream/35"
               }`}
             >
               {m.curve.allHouses}
@@ -878,9 +879,9 @@ export function GrowthCurve({
                 type="button"
                 aria-pressed={house === name}
                 onClick={() => setHouse(name)}
-                className={`inline-flex shrink-0 rounded-full border px-3 py-1.5 text-xs font-semibold transition-colors duration-150 ${
+                className={`inline-flex min-h-11 shrink-0 items-center rounded-md border px-3 py-1.5 text-xs font-semibold transition-colors duration-150 ${
                   house === name
-                    ? "border-gold bg-gold/10 text-gold"
+                    ? "border-primary/70 bg-primary/10 text-primary"
                     : "border-border bg-surface text-fg hover:border-cream/35"
                 }`}
               >

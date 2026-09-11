@@ -56,9 +56,9 @@ export const pt = {
   period: {
     label: "Período",
     days: (n: number) => `${n} dias`,
-    copy: "Pesquisas novas pesam mais. Não é corte de calendário.",
-    recent: (n: number) => `${n}d só o recente`,
-    month: "30 dias",
+    copy: "Novas pesam mais.",
+    recent: (n: number) => `${n}d`,
+    month: "30d",
     year: "90d",
     presetsAria: "Atalhos de período",
     long: (n: number) => `${n}d`,
@@ -91,7 +91,7 @@ export const pt = {
     territory: "Território",
     yourState: "E no seu estado?",
     ufChipsAria: "Estados",
-    mapLede: "Clique no estado. Presidente neste estado. Governador no link do dossiê.",
+    mapLede: "Toque o estado. Governador no dossiê.",
     methodKicker: "Método",
     methodTitle: "Como a média pesa",
     methodLede: "Pesquisas novas pesam mais. O laboratório tem pesos e acerto histórico.",
@@ -246,7 +246,7 @@ export const pt = {
       `${uf} tem ${n === 1 ? "1 casa" : `${n} casas`}`,
   },
   visit: {
-    first: "Arraste Período. Toque o estado.",
+    first: "Período muda a chance.",
     newMoved: (chance: string) => `Pesquisa nova no arquivo. ${chance}.`,
     newFlat: "Pesquisa nova no arquivo. O placar quase não andou.",
     hl: (days: number, chance: string) =>
@@ -449,9 +449,9 @@ export const en: Messages = {
   period: {
     label: "Period",
     days: (n: number) => `${n} days`,
-    copy: "Newer polls weigh more. This is not a calendar cutoff.",
-    recent: (n: number) => `${n}d recent only`,
-    month: "30 days",
+    copy: "Newer weigh more.",
+    recent: (n: number) => `${n}d`,
+    month: "30d",
     year: "90d",
     presetsAria: "Period shortcuts",
     long: (n: number) => `${n}d`,
@@ -484,7 +484,7 @@ export const en: Messages = {
     territory: "Map",
     yourState: "Your state?",
     ufChipsAria: "States",
-    mapLede: "Click a state. President in that state. Governor in the dossier link.",
+    mapLede: "Tap a state. Governor in the dossier.",
     methodKicker: "Method",
     methodTitle: "How the average is weighted",
     methodLede: "Newer polls weigh more. The lab has weights and historical accuracy.",
@@ -639,7 +639,7 @@ export const en: Messages = {
       `${uf} has ${n === 1 ? "1 house" : `${n} houses`}`,
   },
   visit: {
-    first: "Drag Period. Tap the state.",
+    first: "Period changes the chance.",
     newMoved: (chance: string) => `New poll in the file. ${chance}.`,
     newFlat: "New poll in the file. The score barely moved.",
     hl: (days: number, chance: string) =>

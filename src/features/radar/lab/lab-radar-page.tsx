@@ -252,11 +252,11 @@ export function LabRadarPage() {
             pFlavio={probs.flavioWinsElection}
           />
         </div>
-        <div className="chip-row -mx-4 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:flex-wrap sm:px-0">
+        <div className="chip-row -mx-4 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:px-0">
           {housesInAverage(rows).slice(0, 6).map((r, i) => (
             <span
               key={r.institute}
-              className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-border bg-surface px-3 py-1.5 text-xs font-semibold text-fg"
+              className="inline-flex min-h-11 shrink-0 items-center gap-1.5 rounded-md border border-border bg-surface px-3 py-1.5 text-xs font-semibold text-fg"
             >
               <span className="text-gold">{i + 1}.</span>
               {r.institute}
