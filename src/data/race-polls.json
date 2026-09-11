@@ -1,6 +1,6 @@
 {
   "source": "RTBD 09/09 DF+BA (Gazeta) + ES (CNN/Poder360). Removidos auto-scrapes incompletos AL/DF 09/09. Atlas ES 03/09. Quaest/Globo 08/09 (SP MG PE RJ DF gov/sen) G1+Gazeta. AtlasIntel MG 08/09 CNN + RTBD MG 08/09 CNN. RTBD PE 03/09, Atlas DF 03/09, RTBD SE 04/09. G1 mapa Quaest 05/09 (25 UFs+DF, sem PI) + Quaest CE gov/sen 04/09. CartaCapital/AtlasIntel 03/09 (RS GO PI RJ CE PB) + TMC/VEJA PB 03/09 + Gazeta/RTBD RJ 02/09. G1, Folha, Poder360, CNN, O Globo, Ipsos, Gazeta do Povo. Rodada Quaest/Globo 24-27/08 + ondas anteriores: Genial/Quaest jul (10 UFs, PA ja estava), Datafolha SP 01-03/07, Genial/Quaest SP abr, Parana Pesquisas PR jul/ago. Quaest PA 29/08 ainda sem tabela.",
-  "asOf": "2026-09-10",
+  "asOf": "2026-09-11",
   "polls": [
     {
       "id": "rtbd-df-gov-09-09",
@@ -2673,6 +2673,45 @@
         "willemdasilva2": 14
       },
       "notes": "Auto realtime. TSE PA-00206/2026. https://g1.globo.com/sp/sao-paulo/eleicoes/2026/noticia/2026/09/08/quaest-sp-governador-8-setembro.ghtml"
+    },
+    {
+      "id": "datafolha-rj-sen-09-11",
+      "office": "senator",
+      "uf": "RJ",
+      "institute": "Datafolha",
+      "date": "2026-09-11",
+      "fieldEnd": "2026-09-11",
+      "fieldStart": "2026-09-08",
+      "sample": 1204,
+      "moe": 2.8,
+      "mode": "telefone",
+      "firstRound": {
+        "beneditadasilva": 14,
+        "pedropaulo": 14
+      },
+      "notes": "Auto datafolha. TSE RJ-09217/2026. https://g1.globo.com/sp/sao-paulo/eleicoes/2026/"
+    },
+    {
+      "id": "datafolha-df-gov-09-11",
+      "office": "governor",
+      "uf": "DF",
+      "institute": "Datafolha",
+      "date": "2026-09-11",
+      "fieldEnd": "2026-09-11",
+      "fieldStart": "2026-09-08",
+      "sample": 910,
+      "moe": 3.2,
+      "mode": "telefone",
+      "firstRound": {
+        "professorasamaramineiro": 1,
+        "paulabelmonte": 4,
+        "leandrograss": 17,
+        "celinaleao": 35,
+        "kikocaputo": 1,
+        "ricardocappelli": 2,
+        "arruda": 18
+      },
+      "notes": "Auto datafolha. TSE DF-06055/2026. https://g1.globo.com/df/distrito-federal/eleicoes/2026/noticia/2026/09/09/quaest-no-df-governador-raca-sexo-idade-escolaridade-religiao-renda.ghtml"
     }
   ]
 }
