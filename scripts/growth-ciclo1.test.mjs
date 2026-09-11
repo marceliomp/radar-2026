@@ -71,6 +71,11 @@ test("home chips, period presets and analytics events are wired", () => {
   assert.match(page, /uf-chips/);
   assert.match(page, /trackRadar\("uf_click"\)/);
   assert.match(hl, /m\.period\.presetsAria/);
+  assert.match(hl, /DEFAULT_HALF_LIFE/);
+  const period = readFileSync("src/lib/period.ts", "utf8");
+  assert.match(period, /DEFAULT_HALF_LIFE = 15/);
+  assert.match(hook, /DEFAULT_HALF_LIFE/);
+  assert.doesNotMatch(hook, /yearToDateDays\(todayAsOf\(\)\)/);
   assert.match(hook, /trackRadar\("period_drag"\)/);
   assert.match(map, /trackRadar\("uf_click"\)/);
   assert.match(css, /page-body-home/);

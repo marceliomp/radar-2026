@@ -2,10 +2,16 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 import {
   clampHalfLife,
+  DEFAULT_HALF_LIFE,
   HL_MAX,
   HL_MIN,
   yearToDateDays,
 } from "../src/lib/period.ts";
+
+test("public default period is 15 days, not YTD", () => {
+  assert.equal(DEFAULT_HALF_LIFE, 15);
+  assert.equal(clampHalfLife(DEFAULT_HALF_LIFE), 15);
+});
 
 test("YTD from 1 jan to 8 set 2026 is 250 days", () => {
   assert.equal(yearToDateDays("2026-09-08"), 250);

@@ -13,6 +13,7 @@ import {
 } from "./engine.ts";
 import { resolveInstitute, trackQuality } from "./track-record.ts";
 import { round } from "../format.ts";
+import { DEFAULT_HALF_LIFE } from "../period.ts";
 
 export type { PollMode };
 
@@ -69,7 +70,6 @@ export type RaceForecastResult = {
   evidence: ForecastEvidence;
 };
 
-const DEFAULT_HALF_LIFE = 14;
 const DEFAULT_SIMS = 4000;
 const DEFAULT_EXTRA_VAR = 1.15;
 

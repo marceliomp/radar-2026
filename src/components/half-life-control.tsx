@@ -1,6 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { todayAsOf } from "@/lib/forecast/engine";
-import { HL_MAX, HL_MIN, useHalfLife, yearToDateDays } from "@/lib/half-life";
+import {
+  DEFAULT_HALF_LIFE,
+  HL_MAX,
+  HL_MIN,
+  useHalfLife,
+  yearToDateDays,
+} from "@/lib/half-life";
 import { useI18n } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
@@ -20,6 +26,7 @@ export function HalfLifeSlider({ id }: { id?: string }) {
   const ytd = yearToDateDays(todayAsOf());
   const presets = [
     { days: HL_MIN, label: `${HL_MIN}d` },
+    { days: DEFAULT_HALF_LIFE, label: `${DEFAULT_HALF_LIFE}d` },
     { days: 30, label: m.period.month },
     { days: ytd, label: m.period.year },
   ];
