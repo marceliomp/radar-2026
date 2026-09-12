@@ -10,6 +10,24 @@ export type CalendarItem = {
 /** Agenda pública: campo e divulgação esperados. */
 export const CALENDAR: CalendarItem[] = [
   {
+    id: "datafolha-ufs-12",
+    kind: "saiu",
+    date: "2026-09-12",
+    title: "Datafolha: presidente em SP, MG, RJ, PE",
+    detail:
+      "Recortes G1 sábado. SP 35×33 Flávio ±2 · MG 37×35 Lula ±3 · RJ 39×35 Flávio / 2T 49×41 ±3 · PE 55×24 / 2T 61×30 ±3. Campo 8–10/09. Nacional 11/09 já no polls.json.",
+    institute: "Datafolha",
+  },
+  {
+    id: "datafolha-nacional-11",
+    kind: "saiu",
+    date: "2026-09-11",
+    title: "Datafolha nacional (Globo/Folha)",
+    detail:
+      "1º 39×35 · 2º 46×44. n=2.002 ±2 presencial. TSE BR-01833/2026. Campo 8–10/09.",
+    institute: "Datafolha",
+  },
+  {
     id: "quaest-ba-27",
     kind: "saiu",
     date: "2026-08-27",
@@ -109,10 +127,10 @@ export const CALENDAR: CalendarItem[] = [
   {
     id: "quaest-nacional-prox",
     kind: "previsto",
-    date: "2026-08-28",
-    title: "Quaest nacional: próxima rodada",
-    detail: "Série Globo costuma fechar a semana. Estados já saíram; nacional ainda não.",
-    institute: "Quaest",
+    date: "2026-09-15",
+    title: "Próxima rodada nacional (casas semanais)",
+    detail: "PoderData / Nexus-BTG / Quaest costumam fechar a semana útil. Nada anunciado para domingo 13/09 nas fontes oficiais.",
+    institute: "PoderData/Nexus/Quaest",
   },
 ];
 
@@ -146,4 +164,3 @@ export const UF_META: Record<string, { name: string; electorateM: number }> = {
   AP: { name: "Amapá", electorateM: 0.6 },
   RR: { name: "Roraima", electorateM: 0.4 },
 };
-

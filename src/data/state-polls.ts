@@ -13,14 +13,14 @@ export type StateSnapshot = {
 };
 
 export const STATE_SNAPSHOTS: StateSnapshot[] = [
-  { uf: "SP", institute: "Quaest/Globo", date: "2026-08-25", moe: 2, lula1: 29, flavio1: 30 },
-  { uf: "MG", institute: "Quaest/Globo", date: "2026-08-25", moe: 3, lula1: 30, flavio1: 31 },
-  { uf: "RJ", institute: "Quaest/Globo", date: "2026-08-25", moe: 3, lula1: 29, flavio1: 31 },
+  { uf: "SP", institute: "Datafolha/Globo", date: "2026-09-12", moe: 2, lula1: 33, flavio1: 35, note: "G1 12/09. TSE BR-03904/2026. n=1610 ±2 campo 8–10/09. Sem 2T divulgado neste recorte." },
+  { uf: "MG", institute: "Datafolha/Globo", date: "2026-09-12", moe: 3, lula1: 37, flavio1: 35, note: "G1 12/09. TSE BR-03022/2026. n=1204 ±3 campo 8–10/09. Sem 2T no recorte." },
+  { uf: "RJ", institute: "Datafolha/Globo", date: "2026-09-12", moe: 3, lula1: 35, flavio1: 39, lula2: 41, flavio2: 49, t2Institute: "Datafolha 12/09", note: "G1 12/09. TSE RJ-09217/2026 + BR-06361/2026. n=1204 ±3." },
   { uf: "BA", institute: "Quaest/TV Bahia", date: "2026-08-27", moe: 3, lula1: 50, flavio1: 17, note: "Poder360 27/08 · n=900 · 23–26/08. Sem Marçal." },
   { uf: "RS", institute: "Real Time", date: "2026-08-25", moe: 2, lula1: 39, flavio1: 40, lula2: 42, flavio2: 52, t2Institute: "Real Time 25/08" },
   { uf: "PR", institute: "Real Time", date: "2026-08-18", moe: 2, lula1: 31, flavio1: 44, lula2: 35, flavio2: 52, t2Institute: "Real Time 18/08" },
   { uf: "SC", institute: "Quaest/Globo", date: "2026-08-24", moe: 3, lula1: 20, flavio1: 45 },
-  { uf: "PE", institute: "Quaest/Globo", date: "2026-08-25", moe: 3, lula1: 54, flavio1: 19 },
+  { uf: "PE", institute: "Datafolha/Globo", date: "2026-09-12", moe: 3, lula1: 55, flavio1: 24, lula2: 61, flavio2: 30, t2Institute: "Datafolha 12/09", note: "G1 12/09. n=1204 ±3 campo 8–10/09." },
   { uf: "CE", institute: "Real Time", date: "2026-08-20", moe: 2, lula1: 65, flavio1: 21, lula2: 66, flavio2: 27, t2Institute: "Real Time 20/08" },
   { uf: "PA", institute: "Real Time", date: "2026-08-04", moe: 2, lula1: 43, flavio1: 33, stale: true, note: "RTBD 4/08. Sem Quaest nesta rodada." },
   { uf: "MA", institute: "Quaest/Globo", date: "2026-08-24", moe: 3, lula1: 58, flavio1: 20 },
