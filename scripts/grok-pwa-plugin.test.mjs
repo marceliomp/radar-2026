@@ -132,3 +132,25 @@ test("nitro middleware and its bundled assets exist", () => {
   readFileSync(join(TEMPLATE_ROOT, "public/__grok/icon-180.png"));
   readFileSync(join(TEMPLATE_ROOT, "public/__grok/install/styles.css"));
 });
+
+test("re-injects page share metas that strip would otherwise drop", () => {
+  const html = `<html><head>
+<title>Chance de ser presidente · Lula 51,6% · Radar 2026</title>
+<meta name="description" content="Não é pesquisa. Chance de ser presidente: Lula 51,6%." />
+<meta property="og:description" content="Não é pesquisa. Chance de ser presidente: Lula 51,6%." />
+<meta property="og:url" content="https://brasilradar.com.br/" />
+<meta name="twitter:title" content="Chance de ser presidente · Lula 51,6% · Radar 2026" />
+<meta name="twitter:description" content="Não é pesquisa. Chance Lula 51,6%." />
+<meta name="twitter:image" content="https://brasilradar.com.br/og.jpg" />
+</head><body></body></html>`;
+  const out = injectGrokPwaHead(html, {
+    host: "brasilradar.com.br",
+    cwd: TEMPLATE_ROOT,
+  });
+  assert.match(out, /property="og:description"[^>]*content="Não é pesquisa\. Chance de ser presidente: Lula 51,6%\."/);
+  assert.match(out, /property="og:url"[^>]*content="https:\/\/brasilradar\.com\.br\/"/);
+  assert.match(out, /name="twitter:title"[^>]*content="Chance de ser presidente · Lula 51,6% · Radar 2026"/);
+  assert.match(out, /name="twitter:description"[^>]*content="Não é pesquisa\. Chance Lula 51,6%\."/);
+  assert.match(out, /name="twitter:image"[^>]*content="https:\/\/brasilradar\.com\.br\/og\.jpg"/);
+  assert.match(out, /property="og:title"[^>]*content="Chance de ser presidente · Lula 51,6% · Radar 2026"/);
+});

@@ -108,6 +108,8 @@ export function candidatosHead(search: Record<string, unknown>): PageHead {
   };
 }
 
+const OG_IMAGE = "https://brasilradar.com.br/og.jpg";
+
 export function headTags(page: PageHead) {
   return {
     meta: [
@@ -115,10 +117,12 @@ export function headTags(page: PageHead) {
       { name: "description", content: page.description },
       { name: "twitter:title", content: page.title },
       { name: "twitter:description", content: page.description },
+      { name: "twitter:image", content: OG_IMAGE },
       { property: "og:title", content: page.title },
       { property: "og:description", content: page.description },
       { property: "og:url", content: page.url },
       { property: "og:site_name", content: "Radar 2026" },
+      { property: "og:image", content: OG_IMAGE },
     ],
     links: [{ rel: "canonical", href: page.url }],
   };

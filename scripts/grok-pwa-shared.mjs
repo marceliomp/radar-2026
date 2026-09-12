@@ -297,6 +297,20 @@ export function titleFromDocument(html) {
   return match ? unescapeHtml(match[1]).trim() : "";
 }
 
+/** Read meta content by property= or name= (either attribute order). */
+export function metaContentFromDocument(html, key) {
+  const needle = String(key).toLowerCase();
+  const tags = String(html ?? "").match(/<meta\b[^>]*>/gi) ?? [];
+  for (const tag of tags) {
+    const attrs = [...tag.matchAll(/\b(?:property|name)\s*=\s*["']([^"']+)["']/gi)];
+    const hit = attrs.some((m) => String(m[1]).toLowerCase() === needle);
+    if (!hit) continue;
+    const content = tag.match(/\bcontent\s*=\s*["']([^"']*)["']/i);
+    if (content) return unescapeHtml(content[1]).trim();
+  }
+  return "";
+}
+
 export function resolveOgTitle(
   site = {},
   appName = DEFAULT_APP_NAME,
@@ -339,6 +353,11 @@ export function grokOgHeadTags({
   site = {},
   documentTitle = "",
   cwd = process.cwd(),
+  pageDescription = "",
+  pageUrl = "",
+  pageTwitterTitle = "",
+  pageTwitterDescription = "",
+  pageTwitterImage = "",
 } = {}) {
   const title = resolveOgTitle(site, appName, host, documentTitle);
   const publicHost = resolvePublicHost(host);
@@ -346,17 +365,25 @@ export function grokOgHeadTags({
     `<meta name="twitter:card" content="summary_large_image">`,
     `<meta property="og:title" content="${escapeHtml(title)}">`,
   ];
-  const description = String(site.description ?? "").trim();
+  const description =
+    String(site.description ?? "").trim() || String(pageDescription ?? "").trim();
   if (description) {
     tags.push(`<meta property="og:description" content="${escapeHtml(description)}">`);
+  }
+  const url =
+    String(pageUrl ?? "").trim() ||
+    (publicHost ? `https://${publicHost}/` : "");
+  if (url) {
+    tags.push(`<meta property="og:url" content="${escapeHtml(url)}">`);
   }
   if (String(site.type ?? "").toLowerCase() === "x:game") {
     tags.push(`<meta property="og:type" content="x:game">`);
   }
+  let image = "";
   if (publicHost) {
     const asset = resolveOgCardAsset(site, cwd);
     const custom = Boolean(asset);
-    let image = custom
+    image = custom
       ? `https://${publicHost}${asset.startsWith("/") ? asset : `/${asset}`}`
       : `${ogServiceUrl()}/v1/card.png?host=${encodeURIComponent(publicHost)}&title=${encodeURIComponent(title)}`;
     const color = !custom ? placeholderCardColor(site) : "";
@@ -371,6 +398,19 @@ export function grokOgHeadTags({
       tags.push(`<meta property="x:game:image:width" content="1200">`);
       tags.push(`<meta property="x:game:image:height" content="264">`);
     }
+  }
+  const twitterTitle = String(pageTwitterTitle ?? "").trim() || title;
+  tags.push(`<meta name="twitter:title" content="${escapeHtml(twitterTitle)}">`);
+  const twitterDescription =
+    String(pageTwitterDescription ?? "").trim() || description;
+  if (twitterDescription) {
+    tags.push(
+      `<meta name="twitter:description" content="${escapeHtml(twitterDescription)}">`,
+    );
+  }
+  const twitterImage = String(pageTwitterImage ?? "").trim() || image;
+  if (twitterImage) {
+    tags.push(`<meta name="twitter:image" content="${escapeHtml(twitterImage)}">`);
   }
   return tags;
 }
@@ -428,6 +468,18 @@ export function injectGrokPwaHead(html, ctx = {}) {
   const normalized = normalizeHeadContext(ctx);
   const { site, projectId, creator, creatorId, host, cwd } = normalized;
   const documentTitle = titleFromDocument(html);
+  // Capture page-meta share fields before strip — crawlers need the full set
+  // (description/url/twitter:*) and site.json often has no description.
+  const pageDescription =
+    metaContentFromDocument(html, "og:description") ||
+    metaContentFromDocument(html, "description");
+  const pageUrl = metaContentFromDocument(html, "og:url");
+  const pageTwitterTitle = metaContentFromDocument(html, "twitter:title");
+  const pageTwitterDescription = metaContentFromDocument(
+    html,
+    "twitter:description",
+  );
+  const pageTwitterImage = metaContentFromDocument(html, "twitter:image");
   const appName = resolveOgTitle(
     site,
     normalized.appName,
@@ -446,7 +498,18 @@ export function injectGrokPwaHead(html, ctx = {}) {
 
   next = insertAfterHeadOpen(
     next,
-    grokOgHeadTags({ host, appName, site, documentTitle, cwd }).join(""),
+    grokOgHeadTags({
+      host,
+      appName,
+      site,
+      documentTitle,
+      cwd,
+      pageDescription,
+      pageUrl,
+      pageTwitterTitle,
+      pageTwitterDescription,
+      pageTwitterImage,
+    }).join(""),
   );
 
   if (!next.includes("/grok-app-builder/extensions.js")) {
