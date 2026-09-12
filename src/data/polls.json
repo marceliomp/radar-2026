@@ -1,5 +1,36 @@
 [
   {
+    "id": "datafolha-09-11-01833",
+    "institute": "Datafolha",
+    "date": "2026-09-11",
+    "fieldStart": "2026-09-08",
+    "fieldEnd": "2026-09-10",
+    "sample": 2002,
+    "moe": 2,
+    "mode": "presencial",
+    "national": true,
+    "firstRound": {
+      "lula": 39,
+      "flavio": 35,
+      "cury": 6,
+      "caiado": 4,
+      "renan": 3,
+      "zema": 2
+    },
+    "secondRound": {
+      "lula": 46,
+      "flavio": 44
+    },
+    "source": {
+      "tseProtocol": "BR-01833/2026",
+      "url": "https://veja.abril.com.br/brasil/lula-e-flavio-empatam-no-1o-e-no-2o-turnos-pela-primeira-vez-no-datafolha/",
+      "publisher": "veja.abril.com.br",
+      "publishedAt": "2026-09-11",
+      "capturedAt": "2026-09-12T15:34:06.000Z"
+    },
+    "notes": "VEJA ~11/09. TSE BR-01833/2026. Campo 8-10/09 n=2002 moe ±2 presencial. 1T L39 F35 Cury6 Caiado4 Renan3 Zema2. 2T L46×F44 (primeira vez empate técnico 1T e 2T na casa, conforme VEJA). Votos só da fonte citável."
+  },
+  {
     "id": "futura-apex-09-10-02322",
     "institute": "Futura/Apex",
     "date": "2026-09-10",
