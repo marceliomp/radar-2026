@@ -33,7 +33,7 @@
     }
     h1 {
       font-family: "Archivo Black", "DM Sans", sans-serif;
-      font-size: 64px;
+      font-size: 58px;
       line-height: 1;
       font-weight: 400;
       color: #faf6ef;
@@ -41,23 +41,23 @@
     }
     .sub {
       margin-top: 12px;
-      font-size: 26px;
+      font-size: 24px;
       font-weight: 500;
       color: #c8bba8;
     }
     .cards {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 22px;
+      grid-template-columns: 1fr;
+      gap: 18px;
       margin-top: 28px;
     }
     .card {
       background: #1b2e2c;
       border-radius: 18px;
-      padding: 22px 28px 20px;
+      padding: 26px 32px 22px;
     }
     .card-label {
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 600;
       letter-spacing: 0.14em;
       text-transform: uppercase;
@@ -73,24 +73,24 @@
     .col { min-width: 0; }
     .col.right { text-align: right; }
     .name {
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 700;
       letter-spacing: 0.16em;
       text-transform: uppercase;
-      margin-bottom: 4px;
+      margin-bottom: 6px;
     }
     .name.lula { color: #d92524; }
     .name.flavio { color: #3e8ec2; }
     .pct {
       font-family: "Archivo Black", "DM Sans", sans-serif;
-      font-size: 64px;
+      font-size: 88px;
       line-height: 0.92;
       font-weight: 400;
     }
     .pct.lula { color: #d92524; }
     .pct.flavio { color: #3e8ec2; }
     .meta {
-      margin-top: 16px;
+      margin-top: 18px;
       font-size: 18px;
       font-weight: 500;
       color: #b7ae9e;
@@ -100,7 +100,7 @@
       padding-top: 22px;
     }
     .foot-lead {
-      font-size: 24px;
+      font-size: 22px;
       font-weight: 700;
       color: #faf6ef;
     }
@@ -114,42 +114,28 @@
 </head>
 <body>
   <div class="frame">
-    <p class="kicker">Agregador eleitoral</p>
+    <p class="kicker">Não é pesquisa</p>
     <h1>Radar 2026</h1>
-    <p class="sub">Não é uma pesquisa. É a média com incerteza.</p>
+    <p class="sub">Chance de ser presidente · mesma leitura da capa</p>
     <div class="cards">
       <div class="card">
-        <p class="card-label">1º turno</p>
+        <p class="card-label">Chance de ganhar (modelo)</p>
         <div class="row">
           <div class="col">
             <p class="name lula">Lula</p>
-            <p class="pct lula">39,5%</p>
+            <p class="pct lula">51,6%</p>
           </div>
           <div class="col right">
             <p class="name flavio">Flávio</p>
-            <p class="pct flavio">34,9%</p>
+            <p class="pct flavio">48,4%</p>
           </div>
         </div>
-        <p class="meta">20 pesquisas · as-of 28 ago</p>
-      </div>
-      <div class="card">
-        <p class="card-label">2º turno</p>
-        <div class="row">
-          <div class="col">
-            <p class="name lula">Lula</p>
-            <p class="pct lula">44,9%</p>
-          </div>
-          <div class="col right">
-            <p class="name flavio">Flávio</p>
-            <p class="pct flavio">43,7%</p>
-          </div>
-        </div>
-        <p class="meta">empate técnico · gap 1,2 pp</p>
+        <p class="meta">95 no arquivo · recência 15d · atualizado 12/09</p>
       </div>
     </div>
     <div class="foot">
-      <p class="foot-lead">SP e MG empatados · Sul Flávio · Nordeste Lula</p>
-      <p class="foot-sub">radar2026 · método, não torcida</p>
+      <p class="foot-lead">Simulação do agregador. Não é intenção de voto.</p>
+      <p class="foot-sub">brasilradar.com.br · método, não torcida</p>
     </div>
   </div>
 </body>

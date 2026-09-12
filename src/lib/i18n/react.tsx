@@ -36,6 +36,15 @@ const I18nContext = createContext<I18nValue | null>(null);
 function applyDocumentLocale(locale: Locale, title: string, description: string) {
   if (typeof document === "undefined") return;
   document.documentElement.lang = localeHtml(locale);
+  const ogLocale = document.querySelector('meta[property="og:locale"]');
+  if (ogLocale) ogLocale.setAttribute("content", locale === "en" ? "en_US" : "pt_BR");
+  // Keep SSR title/description (chance %) when the shell strings would drop them.
+  // Locale switches still rewrite via router head; this only avoids a hydrate clobber.
+  // m.meta.title is the shell string without chance %; home SSR title has "%".
+  const shellTitle =
+    title === "Radar 2026 · não é pesquisa" || title === "Radar 2026 · not a poll";
+  const hasChance = /%/.test(document.title);
+  if (shellTitle && hasChance) return;
   document.title = title;
   const desc = document.querySelector('meta[name="description"]');
   if (desc) desc.setAttribute("content", description);
@@ -43,8 +52,6 @@ function applyDocumentLocale(locale: Locale, title: string, description: string)
   if (ogTitle) ogTitle.setAttribute("content", title);
   const ogDesc = document.querySelector('meta[property="og:description"]');
   if (ogDesc) ogDesc.setAttribute("content", description);
-  const ogLocale = document.querySelector('meta[property="og:locale"]');
-  if (ogLocale) ogLocale.setAttribute("content", locale === "en" ? "en_US" : "pt_BR");
 }
 
 export function LangProvider({ children }: { children: ReactNode }) {
