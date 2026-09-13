@@ -37,6 +37,12 @@ import { buildNationalTrend } from "@/lib/forecast/trends";
 import type { ForecastPoll } from "@/lib/forecast/engine";
 import { pollsOnDate } from "@/lib/latest-day";
 import { curveAxisStart } from "@/lib/period";
+import { chanceHistory } from "@/data/chance-history";
+import {
+  buildChanceStepSeries,
+  chanceAxisStart,
+  CHANCE_HISTORY_DAYS,
+} from "@/lib/chance-history";
 
 function tickMonth(value: number | string, locale: "pt" | "en" = "pt") {
   return utcMsToMonth(Number(value), locale);
@@ -374,7 +380,7 @@ function CurveTip({ active, payload }: { active?: boolean; payload?: TipRow[] })
         {many ? ` · ${m.curve.pollsOnDay(houses.length)}` : ""}
       </p>
       <p className="m-0 mt-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-gold">
-        {m.curve.avgTip}
+        {row.institute || row.sameDay.length ? m.curve.avgTip : m.curve.chanceTip}
       </p>
       <ScoreGrid
         featured
@@ -460,6 +466,7 @@ function CurvePlot({
   kind,
   hideX,
   heightClass,
+  step = false,
 }: {
   data: CurveRow[];
   domain: [number, number];
@@ -471,6 +478,7 @@ function CurvePlot({
   kind: "race" | "others" | "all";
   hideX?: boolean;
   heightClass: string;
+  step?: boolean;
 }) {
   const { locale } = useI18n();
 
@@ -482,6 +490,8 @@ function CurvePlot({
   const showOtherDots = kind === "all" || (kind === "others" && houseFocus);
   const lulaKey = houseFocus ? "lulaAvg" : "lulaLine";
   const flavioKey = houseFocus ? "flavioAvg" : "flavioLine";
+  const lineType = step ? "stepAfter" : houseFocus ? "linear" : "monotone";
+  const showPollDots = !step && showRace;
   return (
     <div className={`curve-stage ${heightClass} w-full min-w-0`}>
       <ResponsiveContainer width="100%" height="100%">
@@ -531,7 +541,7 @@ function CurvePlot({
             offset={12}
             wrapperStyle={{ pointerEvents: "none", zIndex: 40 }}
           />
-          {showRace ? (
+          {showPollDots ? (
               <Line
                 type="linear"
                 dataKey="lulaPoll"
@@ -547,7 +557,7 @@ function CurvePlot({
                 isAnimationActive={false}
               />
           ) : null}
-          {showRace ? (
+          {showPollDots ? (
               <Line
                 type="linear"
                 dataKey="flavioPoll"
@@ -565,7 +575,7 @@ function CurvePlot({
           ) : null}
           {showRace ? (
               <Line
-                type={houseFocus ? "linear" : "monotone"}
+                type={lineType}
                 dataKey={lulaKey}
                 legendType="none"
                 stroke={CHART.lula}
@@ -582,7 +592,7 @@ function CurvePlot({
           ) : null}
           {showRace ? (
               <Line
-                type={houseFocus ? "linear" : "monotone"}
+                type={lineType}
                 dataKey={flavioKey}
                 legendType="none"
                 stroke={CHART.flavio}
@@ -621,7 +631,7 @@ function CurvePlot({
             ? OTHERS.map((other) => (
                 <Line
                   key={`${other.key}-avg`}
-                  type={houseFocus ? "linear" : "monotone"}
+                  type={lineType}
                   dataKey={houseFocus ? `${other.key}Avg` : `${other.key}Line`}
                   legendType="none"
                   stroke={other.color}
@@ -659,6 +669,8 @@ export function GrowthCurve({
   const [round, setRound] = useState<RoundKey>("1");
   const [house, setHouse] = useState<string | null>(null);
   const [mode, setMode] = useState<ModeFilterKey | null>(null);
+  const [series, setSeries] = useState<"avg" | "chance">("avg");
+  const chanceMode = series === "chance";
   const { first, second, houseOpts, modeOpts, avg1, avg2 } = useMemo(() => {
     const visible = polls.filter(
       (poll) => poll.national && poll.date <= asOf && poll.fieldEnd <= asOf,
@@ -746,22 +758,61 @@ export function GrowthCurve({
     };
   }, [polls, asOf, halfLifeDays, house, mode]);
 
-  if (first.length < 3 && !house && !mode) return null;
+  const chanceRows = useMemo(() => {
+    const steps = buildChanceStepSeries(chanceHistory.points, asOf, CHANCE_HISTORY_DAYS);
+    return steps.map((step) => ({
+      t: step.t,
+      institute: "",
+      published: step.publishedOn,
+      fieldEnd: step.publishedOn,
+      lulaPoll: null,
+      flavioPoll: null,
+      lulaAvg: step.lula,
+      flavioAvg: step.flavio,
+      lulaLine: step.lula,
+      flavioLine: step.flavio,
+      curyPoll: null,
+      renanPoll: null,
+      caiadoPoll: null,
+      zemaPoll: null,
+      curyAvg: null,
+      renanAvg: null,
+      caiadoAvg: null,
+      zemaAvg: null,
+      curyLine: null,
+      renanLine: null,
+      caiadoLine: null,
+      zemaLine: null,
+      sameDay: [] as DayHouse[],
+      houseFocus: false,
+    }));
+  }, [asOf]);
+
+  if (!chanceMode && first.length < 3 && !house && !mode) return null;
+  if (chanceMode && chanceRows.length < 1) return null;
+
   const canSecond = second.length >= 2;
   const active: RoundKey = round === "2" && canSecond ? "2" : "1";
   const data = active === "2" ? second : first;
-  if (data.length < 1) return null;
-  const houseFocus = Boolean(house);
-  const plotted = houseFocus
-    ? avgOnFirstOfDay(data)
-    : mergeLineAndPolls(densifyDayAverages(active === "2" ? avg2 : avg1, asOf), data);
-  const axisStart = curveAxisStart(asOf);
+  if (!chanceMode && data.length < 1) return null;
+
+  const houseFocus = Boolean(house) && !chanceMode;
+  const plotted = chanceMode
+    ? chanceRows
+    : houseFocus
+      ? avgOnFirstOfDay(data)
+      : mergeLineAndPolls(densifyDayAverages(active === "2" ? avg2 : avg1, asOf), data);
+  const axisStart = chanceMode ? chanceAxisStart(asOf) : curveAxisStart(asOf);
   const ticks = monthTicks(axisStart, asOf);
   const xMin = isoDayUtc(axisStart);
   const xMax = isoDayUtc(asOf);
-  const showOthers = active === "1";
+  const showOthers = !chanceMode && active === "1";
   const splitOthers = showOthers && !houseFocus;
-  const raceFallback: [number, number] = active === "2" ? [36, 52] : [24, 48];
+  const raceFallback: [number, number] = chanceMode
+    ? [40, 60]
+    : active === "2"
+      ? [36, 52]
+      : [24, 48];
   const raceDomain = niceYDomain(
     paddedDomain(valuesForDomain(plotted, false), raceFallback),
     raceFallback,
@@ -784,20 +835,52 @@ export function GrowthCurve({
       <div className="board-card">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
           <div>
-            <p className="kicker">{m.curve.kicker}</p>
+            <p className="kicker">{chanceMode ? m.curve.chanceKicker : m.curve.kicker}</p>
             <p className="mt-1 font-display text-xl font-semibold">
-              {active === "2" ? m.curve.second : m.curve.first}
+              {chanceMode
+                ? m.curve.chanceTitle
+                : active === "2"
+                  ? m.curve.second
+                  : m.curve.first}
             </p>
             <p className="mt-1 max-w-xl text-xs font-medium leading-relaxed text-cream/85">
-              {active === "2" ? m.curve.onlyAsked : splitOthers ? m.curve.split : m.curve.askedOnly}
-              {houseFocus
-                ? m.curve.onlyHouse(house ?? "")
-                : mode
-                  ? m.curve.onlyMode(modeLabel(mode, m).toLowerCase())
-                  : m.curve.default}
+              {chanceMode ? (
+                m.curve.chanceLede
+              ) : (
+                <>
+                  {active === "2" ? m.curve.onlyAsked : splitOthers ? m.curve.split : m.curve.askedOnly}
+                  {houseFocus
+                    ? m.curve.onlyHouse(house ?? "")
+                    : mode
+                      ? m.curve.onlyMode(modeLabel(mode, m).toLowerCase())
+                      : m.curve.default}
+                </>
+              )}
             </p>
           </div>
-          <SegGroup ariaLabel={m.curve.roundAria}>
+          <div className="flex flex-col items-stretch gap-2 sm:items-end">
+            <SegGroup ariaLabel={m.curve.seriesAria}>
+              <button
+                type="button"
+                className="seg-btn"
+                aria-pressed={!chanceMode}
+                onClick={() => setSeries("avg")}
+              >
+                <span className="seg-label">{m.curve.seriesAvg}</span>
+                <span className="seg-meta">{m.curve.seriesAvgMeta}</span>
+              </button>
+              <button
+                type="button"
+                className="seg-btn"
+                aria-pressed={chanceMode}
+                onClick={() => setSeries("chance")}
+              >
+                <span className="seg-label">{m.curve.seriesChance}</span>
+                <span className="seg-meta">{m.curve.seriesChanceMeta}</span>
+              </button>
+            </SegGroup>
+          {!chanceMode ? (
+            <SegGroup ariaLabel={m.curve.roundAria}>
             <button
               type="button"
               className="seg-btn"
@@ -819,9 +902,11 @@ export function GrowthCurve({
               <span className="seg-meta">{m.curve.roundMeta}</span>
             </button>
           </SegGroup>
+            ) : null}
+          </div>
         </div>
-        <CurveKey houseFocus={houseFocus} showOthers={showOthers} />
-        {modeOpts.length > 1 ? (
+        {!chanceMode ? <CurveKey houseFocus={houseFocus} showOthers={showOthers} /> : null}
+        {!chanceMode && modeOpts.length > 1 ? (
           <div
             className="chip-row mt-3 -mx-1 flex gap-2 overflow-x-auto px-1 pb-1"
             role="group"
@@ -857,7 +942,7 @@ export function GrowthCurve({
             ))}
           </div>
         ) : null}
-        {houseOpts.length ? (
+        {!chanceMode && houseOpts.length ? (
           <div
             className="chip-row mt-3 -mx-1 flex gap-2 overflow-x-auto px-1 pb-1"
             role="group"
@@ -902,6 +987,7 @@ export function GrowthCurve({
               houseFocus={houseFocus}
               kind="race"
               hideX
+              step={chanceMode}
               heightClass="h-48 sm:h-56"
             />
             <div className="relative border-t border-border/70">
@@ -915,7 +1001,8 @@ export function GrowthCurve({
                 yTickValues={otherTicks}
                 houseFocus={houseFocus}
                 kind="others"
-                heightClass="h-28 sm:h-36"
+                step={chanceMode}
+              heightClass="h-28 sm:h-36"
               />
             </div>
           </div>
@@ -930,6 +1017,7 @@ export function GrowthCurve({
               yTickValues={raceTicks}
               houseFocus={houseFocus}
               kind={showOthers ? "all" : "race"}
+              step={chanceMode}
               heightClass="h-80 sm:h-96"
             />
           </div>

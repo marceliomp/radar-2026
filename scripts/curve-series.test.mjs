@@ -238,7 +238,7 @@ test("asOfDayAverages does not treat a missing third name as 0", async () => {
 test("first-round curve plots the other names", () => {
   const curve = readFileSync("src/features/radar/public/growth-curve.tsx", "utf8");
   assert.match(curve, /curyAvg/);
-  assert.match(curve, /const showOthers = active === "1";/);
+  assert.match(curve, /const showOthers = !chanceMode && active === "1";/);
   assert.match(curve, /splitOthers/);
   assert.match(curve, /kind="others"/);
   assert.match(curve, /Os outros/);
@@ -247,7 +247,8 @@ test("first-round curve plots the other names", () => {
   assert.doesNotMatch(curve, /h-56 sm:h-72/);
   assert.doesNotMatch(curve, /h-36 sm:h-44/);
   assert.doesNotMatch(curve, /<Fragment>/);
-  assert.equal((curve.match(/\{showRace \?/g) || []).length, 4);
+  assert.equal((curve.match(/\{showRace \?/g) || []).length, 2);
+  assert.equal((curve.match(/\{showPollDots \?/g) || []).length, 2);
   assert.match(curve, /paddedDomain/);
   assert.match(curve, /avgOnFirstOfDay/);
   assert.match(curve, /lulaLine/);
