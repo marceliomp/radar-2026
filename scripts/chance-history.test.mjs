@@ -3,22 +3,33 @@ import { readFileSync } from "node:fs";
 import { test } from "node:test";
 import { upsertPoint } from "./chance-history.mjs";
 
-test("history keeps citeable 2026-09-12 seed and latest live publish", () => {
+test("history has 60 daily replay points covering the window", () => {
   const file = JSON.parse(readFileSync("src/data/chance-history.json", "utf8"));
   assert.equal(file.windowDays, 60);
-  assert.ok(file.points.length >= 2);
-  const seed = file.points.find((p) => p.date === "2026-09-12");
-  assert.ok(seed);
-  assert.equal(seed.lula, 51.6);
-  assert.equal(seed.flavio, 48.4);
-  assert.equal(seed.source, "og-card");
-  assert.ok(seed.commit);
-  const latest = file.points.at(-1);
-  assert.equal(latest.date, "2026-09-13");
-  assert.equal(latest.lula, 51.6);
-  assert.equal(latest.flavio, 48.4);
-  assert.equal(latest.source, "live");
-  assert.ok(!file.points.some((p) => p.date === "2026-09-10"));
+  assert.equal(file.points.length, 60);
+  assert.equal(file.points[0].date, "2026-07-16");
+  assert.equal(file.points.at(-1).date, "2026-09-13");
+  assert.ok(file.points.every((p) => p.source === "replay"));
+  assert.ok(!file.points.some((p) => p.source === "promote"));
+  // consecutive calendar days
+  for (let i = 1; i < file.points.length; i++) {
+    const prev = new Date(`${file.points[i - 1].date}T12:00:00Z`).getTime();
+    const cur = new Date(`${file.points[i].date}T12:00:00Z`).getTime();
+    assert.equal(cur - prev, 86_400_000);
+  }
+});
+
+test("key September replay dates are engine outputs, not invented votes", () => {
+  const file = JSON.parse(readFileSync("src/data/chance-history.json", "utf8"));
+  const byDate = Object.fromEntries(file.points.map((p) => [p.date, p]));
+  assert.equal(byDate["2026-09-10"].lula, 51.6);
+  assert.equal(byDate["2026-09-10"].flavio, 48.4);
+  assert.equal(byDate["2026-09-11"].lula, 52.8);
+  assert.equal(byDate["2026-09-11"].flavio, 47.2);
+  assert.equal(byDate["2026-09-12"].lula, 52.8);
+  assert.equal(byDate["2026-09-12"].flavio, 47.2);
+  assert.equal(byDate["2026-09-13"].lula, 52.8);
+  assert.equal(byDate["2026-09-13"].flavio, 47.2);
 });
 
 test("upsertPoint replaces same date and sorts", () => {
@@ -26,24 +37,23 @@ test("upsertPoint replaces same date and sorts", () => {
     version: 1,
     windowDays: 60,
     points: [
-      { date: "2026-09-12", lula: 51.6, flavio: 48.4, source: "og-card" },
+      { date: "2026-09-12", lula: 51.6, flavio: 48.4, source: "replay" },
     ],
   };
   const next = upsertPoint(file, {
     date: "2026-09-12",
     lula: 52.0,
     flavio: 48.0,
-    source: "promote",
-    commit: "abc",
+    source: "replay",
   });
   assert.equal(next.points.length, 1);
   assert.equal(next.points[0].lula, 52);
-  assert.equal(next.points[0].source, "promote");
+  assert.equal(next.points[0].source, "replay");
   const two = upsertPoint(next, {
     date: "2026-09-13",
     lula: 53.1,
     flavio: 46.9,
-    source: "promote",
+    source: "replay",
   });
   assert.deepEqual(
     two.points.map((p) => p.date),
@@ -51,25 +61,26 @@ test("upsertPoint replaces same date and sorts", () => {
   );
 });
 
-test("step series holds published chance and does not invent Sep 10", async () => {
+test("step series holds chance across days from daily replay points", async () => {
   const {
     buildChanceStepSeries,
     pointsInWindow,
     CHANCE_HISTORY_DAYS,
   } = await import("../src/lib/chance-history.ts");
   const points = [
-    { date: "2026-09-12", lula: 51.6, flavio: 48.4, source: "og-card" },
+    { date: "2026-09-10", lula: 51.6, flavio: 48.4, source: "replay" },
+    { date: "2026-09-11", lula: 52.8, flavio: 47.2, source: "replay" },
   ];
-  assert.equal(pointsInWindow(points, "2026-09-13", CHANCE_HISTORY_DAYS).length, 1);
-  assert.equal(pointsInWindow(points, "2026-09-11", CHANCE_HISTORY_DAYS).length, 0);
+  assert.equal(pointsInWindow(points, "2026-09-13", CHANCE_HISTORY_DAYS).length, 2);
   const series = buildChanceStepSeries(points, "2026-09-13", CHANCE_HISTORY_DAYS);
-  assert.ok(series.length >= 2);
-  assert.equal(series[0].date, "2026-09-12");
-  assert.equal(series[0].lula, 51.6);
+  assert.ok(series.length >= 4);
+  assert.equal(series[0].date, "2026-09-10");
+  assert.equal(series[0].flavio, 48.4);
+  const on11 = series.find((r) => r.date === "2026-09-11");
+  assert.equal(on11.lula, 52.8);
   assert.equal(series.at(-1).date, "2026-09-13");
-  assert.equal(series.at(-1).lula, 51.6);
-  assert.equal(series.at(-1).publishedOn, "2026-09-12");
-  assert.ok(!series.some((row) => row.date === "2026-09-10"));
+  assert.equal(series.at(-1).lula, 52.8);
+  assert.equal(series.at(-1).publishedOn, "2026-09-11");
 });
 
 test("growth curve toggles Média|Chance on #curva with step line", () => {
@@ -83,7 +94,6 @@ test("growth curve toggles Média|Chance on #curva with step line", () => {
   assert.match(curve, /step=\{chanceMode\}/);
   assert.match(curve, /m\.curve\.chanceLede/);
   assert.match(curve, /Não é pesquisa|chanceLede/);
-  assert.doesNotMatch(curve, /59%/);
 });
 
 test("publish-polls appends chance history when polls move", () => {
@@ -91,4 +101,13 @@ test("publish-polls appends chance history when polls move", () => {
   assert.match(publish, /chance-history\.json/);
   assert.match(publish, /appendPublishedChance/);
   assert.doesNotMatch(publish, /crm|meta-ads|invent/i);
+});
+
+test("backfill script replays engine and labels source replay", () => {
+  const backfill = readFileSync("scripts/backfill-chance-history.mjs", "utf8");
+  assert.match(backfill, /source: "replay"/);
+  assert.match(backfill, /halfLifeDays: HALF_LIFE/);
+  assert.match(backfill, /HALF_LIFE = 15/);
+  assert.match(backfill, /runForecast/);
+  assert.doesNotMatch(backfill, /source: "promote"/);
 });

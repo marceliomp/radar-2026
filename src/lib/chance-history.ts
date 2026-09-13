@@ -31,8 +31,8 @@ export type ChanceStepDay = {
 };
 
 /**
- * Daily step series of published chance. Holds the last published value through asOf.
- * Does not replay today's engine as historical.
+ * Daily step series of stored chance (replay or promote). Holds the last
+ * point's value through asOf on the chart.
  */
 export function buildChanceStepSeries(
   points: ChanceHistoryPoint[],
