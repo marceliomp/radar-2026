@@ -1,13 +1,15 @@
 #!/usr/bin/env node
 /**
  * Publica polls.json e race-polls.json no GitHub (Vercel puxa main).
+ * Also appends published hero chance to chance-history.json when polls move.
  */
 import { execSync } from "node:child_process";
 import { dirname, join } from "node:path";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const PATHS = ["src/data/polls.json", "src/data/race-polls.json"];
+const HISTORY = "src/data/chance-history.json";
 
 function sh(cmd) {
   return execSync(cmd, {
@@ -27,7 +29,21 @@ if (!dirty.length) {
   process.exit(0);
 }
 
-sh(`git add -- ${dirty.join(" ")}`);
+const { appendPublishedChance } = await import(
+  pathToFileURL(join(ROOT, "scripts/chance-history.mjs")).href
+);
+try {
+  const point = await appendPublishedChance();
+  log(`chance-history ${point.date} Lula ${point.lula} Flávio ${point.flavio}`);
+} catch (err) {
+  const msg = err instanceof Error ? err.message : String(err);
+  log(`chance-history skip: ${msg}`);
+}
+
+const staged = [...dirty, HISTORY].filter((path) =>
+  sh(`git status --porcelain -- ${path}`).trim(),
+);
+sh(`git add -- ${staged.join(" ")}`);
 const author =
   'git -c user.email=radar-ingest@brasilradar.com.br -c user.name="radar-ingest"';
 try {
@@ -41,5 +57,5 @@ try {
   throw err;
 }
 sh("git push origin main");
-log(`pushed ${dirty.join(" ")} to origin/main`);
+log(`pushed ${staged.join(" ")} to origin/main`);
 // TODO(A6): post on X and WhatsApp when the file moves. Needs credentials. Do not auto-post without them.

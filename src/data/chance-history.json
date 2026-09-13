@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "windowDays": 60,
+  "points": [
+    {
+      "date": "2026-09-12",
+      "lula": 51.6,
+      "flavio": 48.4,
+      "source": "og-card",
+      "commit": "b75666a"
+    },
+    {
+      "date": "2026-09-13",
+      "lula": 51.6,
+      "flavio": 48.4,
+      "source": "live"
+    }
+  ]
+}
