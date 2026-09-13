@@ -3,16 +3,22 @@ import { readFileSync } from "node:fs";
 import { test } from "node:test";
 import { upsertPoint } from "./chance-history.mjs";
 
-test("seed history has one citeable 2026-09-12 point at 51.6/48.4", () => {
+test("history keeps citeable 2026-09-12 seed and latest live publish", () => {
   const file = JSON.parse(readFileSync("src/data/chance-history.json", "utf8"));
   assert.equal(file.windowDays, 60);
-  assert.equal(file.points.length, 1);
-  const [p] = file.points;
-  assert.equal(p.date, "2026-09-12");
-  assert.equal(p.lula, 51.6);
-  assert.equal(p.flavio, 48.4);
-  assert.equal(p.source, "og-card");
-  assert.ok(p.commit);
+  assert.ok(file.points.length >= 2);
+  const seed = file.points.find((p) => p.date === "2026-09-12");
+  assert.ok(seed);
+  assert.equal(seed.lula, 51.6);
+  assert.equal(seed.flavio, 48.4);
+  assert.equal(seed.source, "og-card");
+  assert.ok(seed.commit);
+  const latest = file.points.at(-1);
+  assert.equal(latest.date, "2026-09-13");
+  assert.equal(latest.lula, 51.6);
+  assert.equal(latest.flavio, 48.4);
+  assert.equal(latest.source, "live");
+  assert.ok(!file.points.some((p) => p.date === "2026-09-10"));
 });
 
 test("upsertPoint replaces same date and sorts", () => {
