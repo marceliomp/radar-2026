@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { width: 1200px; height: 630px; overflow: hidden; }
+    body {
+      font-family: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+      background: #0f1f1e;
+      color: #faf6ef;
+    }
+    .frame {
+      width: 1200px;
+      height: 630px;
+      background: #0f1f1e;
+      border-top: 10px solid #2a9583;
+      border-bottom: 10px solid #2a9583;
+      padding: 40px 56px 36px;
+      display: flex;
+      flex-direction: column;
+    }
+    .kicker {
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #2a9583;
+      margin-bottom: 12px;
+    }
+    .body {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 48px;
+    }
+    .num {
+      font-family: "Archivo Black", "DM Sans", sans-serif;
+      font-size: 220px;
+      line-height: 0.85;
+      font-weight: 400;
+      color: #2a9583;
+      letter-spacing: -0.04em;
+    }
+    .meta { min-width: 0; }
+    .name {
+      font-family: "Archivo Black", "DM Sans", sans-serif;
+      font-size: 52px;
+      line-height: 1.05;
+      font-weight: 400;
+      color: #faf6ef;
+      letter-spacing: -0.02em;
+    }
+    .detail {
+      margin-top: 14px;
+      font-size: 26px;
+      font-weight: 600;
+      color: #c8bba8;
+    }
+    .party {
+      margin-top: 10px;
+      font-size: 20px;
+      font-weight: 500;
+      color: #b7ae9e;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+    .foot {
+      margin-top: auto;
+      padding-top: 18px;
+      border-top: 1px solid #2a9583;
+    }
+    .foot-lead {
+      font-size: 18px;
+      font-weight: 600;
+      color: #c8bba8;
+    }
+    .foot-sub {
+      margin-top: 6px;
+      font-size: 16px;
+      font-weight: 700;
+      color: #2a9583;
+    }
+  </style>
+</head>
+<body>
+  <div class="frame">
+    <p class="kicker">Não é pesquisa · número na urna</p>
+    <div class="body">
+      <p class="num" id="num">45</p>
+      <div class="meta">
+        <h1 class="name" id="name">Nome de urna</h1>
+        <p class="detail" id="detail">Governador · SP</p>
+        <p class="party" id="party">PARTIDO</p>
+      </div>
+    </div>
+    <div class="foot">
+      <p class="foot-lead">Lista TSE · brasilradar.com.br</p>
+      <p class="foot-sub">Radar 2026 · agregador independente</p>
+    </div>
+  </div>
+  <script>
+    const params = new URLSearchParams(location.search);
+    document.getElementById("num").textContent = params.get("num") || "—";
+    document.getElementById("name").textContent = params.get("name") || "";
+    document.getElementById("detail").textContent = params.get("detail") || "";
+    document.getElementById("party").textContent = params.get("party") || "";
+    const color = params.get("color");
+    if (color && /^#[0-9a-fA-F]{6}$/.test(color)) {
+      document.getElementById("num").style.color = color;
+    }
+  </script>
+</body>
+</html>

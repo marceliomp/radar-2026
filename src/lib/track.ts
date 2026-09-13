@@ -1,6 +1,6 @@
 import { track } from "@vercel/analytics";
 
-export type RadarEvent = "period_drag" | "uf_click" | "share_wa";
+export type RadarEvent = "period_drag" | "uf_click" | "share_wa" | "urna_pick";
 
 export function trackRadar(name: RadarEvent): void {
   try {

@@ -8,14 +8,25 @@ import { DEFAULT_HALF_LIFE, parseHalfLifeParam } from "@/lib/half-life";
 import { parseAsOfParam } from "@/lib/as-of";
 import { messages, type Locale } from "@/lib/i18n";
 import { parseLocale } from "@/lib/i18n/locale";
-import { canonicalUrl, parseUfCode } from "@/lib/site";
+import { canonicalUrl, locationUrl, parseUfCode } from "@/lib/site";
 import type { RaceCargo } from "@/features/races/race-types";
+import {
+  findCandidateBySlug,
+  officeOfCargo,
+  candidateHasBallotNumber,
+} from "@/lib/candidate-lookup";
+import {
+  resolveCandidateOgImage,
+  urnaCardDescription,
+  urnaCardTitle,
+} from "@/lib/og-urna";
 
 export type PageHead = {
   title: string;
   description: string;
   url: string;
   locale: Locale;
+  image?: string;
 };
 
 function localeOf(search: Record<string, unknown>): Locale {
@@ -80,6 +91,12 @@ export function labHead(search: Record<string, unknown>): PageHead {
   };
 }
 
+function parseCandidateSlug(raw: unknown): string | undefined {
+  if (typeof raw !== "string") return undefined;
+  const slug = raw.trim();
+  return slug.length >= 2 ? slug : undefined;
+}
+
 export function candidatosHead(search: Record<string, unknown>): PageHead {
   const locale = localeOf(search);
   const copy = messages(locale);
@@ -89,6 +106,26 @@ export function candidatosHead(search: Record<string, unknown>): PageHead {
       ? "senador"
       : "governador";
   const officeLabel = cargo === "senador" ? copy.race.senator : copy.race.governor;
+  const slug = parseCandidateSlug(search.c);
+  const candidate = slug
+    ? findCandidateBySlug(slug, uf || undefined, officeOfCargo(cargo))
+    : undefined;
+
+  if (candidate) {
+    const title = urnaCardTitle(candidate, cargo, officeLabel);
+    const description = urnaCardDescription(candidate);
+    const url = locationUrl("/candidatos", {
+      uf: candidate.uf,
+      cargo,
+      c: candidate.slug,
+      lang: locale === "en" ? "en" : undefined,
+    });
+    const image = candidateHasBallotNumber(candidate)
+      ? resolveCandidateOgImage(candidate, cargo, officeLabel)
+      : "https://brasilradar.com.br/og.jpg";
+    return { title, description, url, locale, image };
+  }
+
   const leader = uf ? raceLeaderLine(uf, cargo, locale) : undefined;
   const title = uf
     ? copy.meta.raceTitle(officeLabel, uf, leader)
@@ -105,24 +142,26 @@ export function candidatosHead(search: Record<string, unknown>): PageHead {
       lang: locale === "en" ? "en" : undefined,
     }),
     locale,
+    image: uf ? "https://brasilradar.com.br/og.jpg" : undefined,
   };
 }
 
 const OG_IMAGE = "https://brasilradar.com.br/og.jpg";
 
 export function headTags(page: PageHead) {
+  const image = page.image ?? OG_IMAGE;
   return {
     meta: [
       { title: page.title },
       { name: "description", content: page.description },
       { name: "twitter:title", content: page.title },
       { name: "twitter:description", content: page.description },
-      { name: "twitter:image", content: OG_IMAGE },
+      { name: "twitter:image", content: image },
       { property: "og:title", content: page.title },
       { property: "og:description", content: page.description },
       { property: "og:url", content: page.url },
       { property: "og:site_name", content: "Radar 2026" },
-      { property: "og:image", content: OG_IMAGE },
+      { property: "og:image", content: image },
     ],
     links: [{ rel: "canonical", href: page.url }],
   };

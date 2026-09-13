@@ -142,6 +142,18 @@ export const pt = {
     onlyOne: (uf: string) => `Só 1 casa em ${uf}`,
     compare: (line: string) => `${line}, compara`,
   },
+  urna: {
+    kicker: "Número na urna",
+    globalSearch: "Busca candidato em todo o Brasil",
+    globalPh: "Nome ou número de urna",
+    pickHint: "Escolha um nome ou uma corrida apertada abaixo.",
+    noNumber: "Sem número no espelho TSE",
+    noNumberNote: "A Justiça Eleitoral ainda não publicou o número deste registro.",
+    shareLine: (num: string, name: string, office: string, uf: string) =>
+      `${num} · ${name} · ${office} ${uf}`,
+    shareLineNoNum: (name: string, office: string, uf: string) =>
+      `${name} · ${office} ${uf} · sem nº na urna ainda`,
+  },
   map: {
     layerAria: "Camada do mapa",
     layerPres: "presidente",
@@ -534,6 +546,18 @@ export const en: Messages = {
     nHouses: (n: number) => `${n} houses`,
     onlyOne: (uf: string) => `Only 1 house in ${uf}`,
     compare: (line: string) => `${line}, compare`,
+  },
+  urna: {
+    kicker: "Ballot number",
+    globalSearch: "Search candidates nationwide",
+    globalPh: "Name or ballot number",
+    pickHint: "Pick a name or a tight race below.",
+    noNumber: "No ballot number in TSE mirror yet",
+    noNumberNote: "The electoral court has not published this registration number yet.",
+    shareLine: (num: string, name: string, office: string, uf: string) =>
+      `${num} · ${name} · ${office} ${uf}`,
+    shareLineNoNum: (name: string, office: string, uf: string) =>
+      `${name} · ${office} ${uf} · no ballot number yet`,
   },
   map: {
     layerAria: "Map layer",

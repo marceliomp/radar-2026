@@ -358,6 +358,7 @@ export function grokOgHeadTags({
   pageTwitterTitle = "",
   pageTwitterDescription = "",
   pageTwitterImage = "",
+  pageOgImage = "",
 } = {}) {
   const title = resolveOgTitle(site, appName, host, documentTitle);
   const publicHost = resolvePublicHost(host);
@@ -379,8 +380,8 @@ export function grokOgHeadTags({
   if (String(site.type ?? "").toLowerCase() === "x:game") {
     tags.push(`<meta property="og:type" content="x:game">`);
   }
-  let image = "";
-  if (publicHost) {
+  let image = String(pageOgImage ?? "").trim();
+  if (publicHost && !image) {
     const asset = resolveOgCardAsset(site, cwd);
     const custom = Boolean(asset);
     image = custom
@@ -388,9 +389,13 @@ export function grokOgHeadTags({
       : `${ogServiceUrl()}/v1/card.png?host=${encodeURIComponent(publicHost)}&title=${encodeURIComponent(title)}`;
     const color = !custom ? placeholderCardColor(site) : "";
     if (color) image += `&color=${encodeURIComponent(color)}`;
+  }
+  if (image) {
     tags.push(`<meta property="og:image" content="${escapeHtml(image)}">`);
     tags.push(`<meta property="og:image:width" content="1200">`);
     tags.push(`<meta property="og:image:height" content="630">`);
+  }
+  if (publicHost) {
     const banner = String(site.banner ?? "").trim();
     if (banner) {
       const bannerUrl = `https://${publicHost}${banner.startsWith("/") ? banner : `/${banner}`}`;
@@ -480,6 +485,7 @@ export function injectGrokPwaHead(html, ctx = {}) {
     "twitter:description",
   );
   const pageTwitterImage = metaContentFromDocument(html, "twitter:image");
+  const pageOgImage = metaContentFromDocument(html, "og:image");
   const appName = resolveOgTitle(
     site,
     normalized.appName,
@@ -509,6 +515,7 @@ export function injectGrokPwaHead(html, ctx = {}) {
       pageTwitterTitle,
       pageTwitterDescription,
       pageTwitterImage,
+      pageOgImage,
     }).join(""),
   );
 

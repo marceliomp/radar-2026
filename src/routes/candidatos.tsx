@@ -9,6 +9,7 @@ import { parseUfCode } from "@/lib/site";
 export type CandidatosSearch = {
   uf?: string;
   cargo?: "governador" | "senador";
+  c?: string;
   asOf?: string;
   hl?: number;
   lang?: Locale;
@@ -23,9 +24,14 @@ function parseCandidatosSearch(
       ? "senador"
       : "governador";
   const asOf = parseAsOfParam(search.asOf);
+  const c =
+    typeof search.c === "string" && search.c.trim().length >= 2
+      ? search.c.trim()
+      : undefined;
   return {
     ...(uf ? { uf } : {}),
     cargo,
+    ...(c ? { c } : {}),
     ...(asOf ? { asOf } : {}),
     ...parseHalfLifeSearch(search),
     ...parseLangSearch(search),

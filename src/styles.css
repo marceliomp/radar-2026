@@ -1654,6 +1654,59 @@
       align-items: baseline;
     }
   }
+
+  .cand-row-btn {
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .cand-row-btn:hover {
+    background: color-mix(in oklab, var(--color-surface) 60%, transparent);
+  }
+
+  .cand-row-active {
+    background: color-mix(in oklab, var(--color-primary) 12%, var(--color-surface));
+  }
+
+  .urna-card-body {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.25rem 2rem;
+  }
+
+  .urna-num {
+    font-family: var(--font-display);
+    font-size: clamp(4.5rem, 18vw, 7.5rem);
+    line-height: 0.9;
+    font-weight: 400;
+    letter-spacing: -0.04em;
+  }
+
+  .urna-name {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 5vw, 2.5rem);
+    line-height: 1.05;
+    font-weight: 400;
+    color: var(--color-cream);
+  }
+
+  .urna-detail {
+    margin-top: 0.35rem;
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .urna-missing {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    color: var(--color-muted);
+  }
 }
 
 /* Cream on petro: Recharts pinta item em preto. Fundo distinto do mapa. */

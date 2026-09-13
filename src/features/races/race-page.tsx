@@ -12,12 +12,21 @@ import { useI18n } from "@/lib/i18n";
 import { HalfLifeControl } from "@/components/half-life-control";
 import { ShareBar } from "@/components/share-bar";
 import { MastBar } from "@/components/site-nav";
+import { TightRaces } from "@/components/tight-races";
 import { locationUrl, parseUfCode, readStoredUf, writeStoredUf } from "@/lib/site";
 import { trackRadar } from "@/lib/track";
+import {
+  candidateHasBallotNumber,
+  findCandidateBySlug,
+  officeOfCargo,
+  searchCandidates,
+} from "@/lib/candidate-lookup";
+import { cargoForCandidate } from "@/lib/og-urna";
 import { CandidateList } from "./candidate-list";
 import { RaceHero } from "./race-hero";
 import { RacePollsTable } from "./race-polls-table";
 import { RaceResults } from "./race-results";
+import { UrnaShareCard } from "./urna-share-card";
 import {
   OFFICE_OF_CARGO,
   firstBars,
@@ -37,29 +46,52 @@ export function RacePage() {
   const search = routeApi.useSearch();
   const uf = search.uf;
   const cargo: RaceCargo = search.cargo === "senador" ? "senador" : "governador";
+  const slug = search.c;
   const navigate = routeApi.useNavigate();
   const [q, setQ] = useState("");
+  const [globalQ, setGlobalQ] = useState("");
   const office = OFFICE_OF_CARGO[cargo];
   const [asOf] = useAsOf();
   const [halfLife] = useHalfLife();
+
+  const focused = useMemo(() => {
+    if (!slug) return undefined;
+    return findCandidateBySlug(slug, uf, officeOfCargo(cargo));
+  }, [slug, uf, cargo]);
+
+  useEffect(() => {
+    if (!slug || uf || !focused) return;
+    void navigate({
+      search: (prev) => ({
+        ...prev,
+        uf: focused.uf,
+        cargo: cargoForCandidate(focused),
+        c: focused.slug,
+      }),
+      replace: true,
+    });
+  }, [slug, uf, focused, navigate]);
 
   useEffect(() => {
     if (uf) {
       writeStoredUf(uf);
       return;
     }
+    if (slug) return;
     const stored = readStoredUf();
     if (!stored) return;
     void navigate({
       search: (prev) => ({ ...prev, uf: stored, cargo }),
       replace: true,
     });
-  }, [uf, cargo, navigate]);
+  }, [uf, cargo, navigate, slug]);
 
   const candidates = useMemo(
     () => (uf ? byUf(uf).filter((candidate) => candidate.office === office) : []),
     [uf, office],
   );
+
+  const globalHits = useMemo(() => searchCandidates(globalQ, 8), [globalQ]);
 
   const polls = useMemo(
     () => (uf ? pollsFor(office, uf) : []),
@@ -107,6 +139,31 @@ export function RacePage() {
   const examples = exampleGovernorUfs();
   const peerUf = uf && uf === examples.two ? examples.one : examples.two;
   const officeLabel = office === "senator" ? m.race.senator : m.race.governor;
+
+  const urnaShareHref = focused
+    ? locationUrl("/candidatos", {
+        uf: focused.uf,
+        cargo: cargoForCandidate(focused),
+        c: focused.slug,
+        asOf,
+        hl: halfLife,
+        lang: locale,
+      })
+    : undefined;
+
+  const urnaShareText = focused
+    ? `${
+        candidateHasBallotNumber(focused)
+          ? m.urna.shareLine(
+              focused.number,
+              focused.name,
+              officeLabel,
+              focused.uf,
+            )
+          : m.urna.shareLineNoNum(focused.name, officeLabel, focused.uf)
+      }\n${urnaShareHref}`
+    : undefined;
+
   const shareHref = uf
     ? locationUrl("/candidatos", { uf, cargo, asOf, hl: halfLife, lang: locale })
     : undefined;
@@ -137,6 +194,13 @@ export function RacePage() {
     return m.race.pollsLine(ev.polls, ev.houses, reason);
   }
 
+  function openCandidate(slugKey: string) {
+    trackRadar("urna_pick");
+    void navigate({
+      search: (prev) => ({ ...prev, c: slugKey }),
+    });
+  }
+
   return (
     <div className="pb-[max(3rem,env(safe-area-inset-bottom))]">
       <header className="border-b border-border">
@@ -149,11 +213,19 @@ export function RacePage() {
               value={uf ?? ""}
               onChange={(event) => {
                 const next = parseUfCode(event.target.value);
-                if (!next) return;
+                if (!next) {
+                  void navigate({
+                    search: (prev) => {
+                      const { uf: _u, c: _c, ...rest } = prev;
+                      return rest;
+                    },
+                  });
+                  return;
+                }
                 writeStoredUf(next);
                 trackRadar("uf_click");
                 void navigate({
-                  search: (prev) => ({ ...prev, uf: next, cargo }),
+                  search: (prev) => ({ ...prev, uf: next, cargo, c: undefined }),
                   replace: true,
                 });
               }}
@@ -172,17 +244,74 @@ export function RacePage() {
 
       {!uf ? (
         <section className="border-b border-border px-4 py-8 md:px-6">
-          <p className="kicker">{officeLabel}</p>
-          <p className="mt-2 max-w-xl text-sm font-medium text-muted">{m.race.pickState}</p>
+          <p className="kicker">{m.urna.kicker}</p>
+          <p className="mt-2 max-w-xl text-sm font-medium text-muted">{m.urna.pickHint}</p>
+          <label className="mt-6 block max-w-lg">
+            <span className="sr-only">{m.urna.globalSearch}</span>
+            <input
+              type="search"
+              value={globalQ}
+              onChange={(event) => setGlobalQ(event.target.value)}
+              placeholder={m.urna.globalPh}
+              className="min-h-11 w-full border border-border bg-surface px-3 text-sm font-medium text-fg placeholder:text-muted/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            />
+          </label>
+          {globalHits.length > 0 ? (
+            <ul className="mt-4 divide-y divide-border border border-border">
+              {globalHits.map((hit) => (
+                <li key={`${hit.uf}-${hit.office}-${hit.slug}`}>
+                  <button
+                    type="button"
+                    className="flex w-full items-center gap-3 px-4 py-3 text-left hover:bg-surface/60"
+                    onClick={() => {
+                      void navigate({
+                        search: (prev) => ({
+                          ...prev,
+                          uf: hit.uf,
+                          cargo: cargoForCandidate(hit),
+                          c: hit.slug,
+                        }),
+                      });
+                    }}
+                  >
+                    <span className="font-mono text-2xl font-semibold tabular-nums text-primary">
+                      {hit.number || "—"}
+                    </span>
+                    <span className="min-w-0 flex-1">
+                      <span className="block text-[15px] font-semibold text-cream">{hit.name}</span>
+                      <span className="block font-mono text-[11px] uppercase tracking-[0.1em] text-muted">
+                        {hit.uf} · {hit.office === "senator" ? m.race.senator : m.race.governor} ·{" "}
+                        {hit.party}
+                      </span>
+                    </span>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          ) : null}
+          <div className="mt-8">
+            <TightRaces />
+          </div>
         </section>
       ) : (
         <>
-          <RaceHero ufName={ufName} office={office} leaders={leaders} result={result} />
-          {shareText && shareHref ? (
-            <div className="border-b border-border px-4 py-3 md:px-6">
-              <ShareBar compact url={shareHref} text={shareText} />
-            </div>
-          ) : null}
+          {focused && urnaShareHref && urnaShareText ? (
+            <UrnaShareCard
+              candidate={focused}
+              cargo={cargoForCandidate(focused)}
+              shareHref={urnaShareHref}
+              shareText={urnaShareText}
+            />
+          ) : (
+            <>
+              <RaceHero ufName={ufName} office={office} leaders={leaders} result={result} />
+              {shareText && shareHref ? (
+                <div className="border-b border-border px-4 py-3 md:px-6">
+                  <ShareBar compact url={shareHref} text={shareText} />
+                </div>
+              ) : null}
+            </>
+          )}
 
           <p className="border-b border-border px-4 py-2 font-mono text-xs uppercase tracking-[0.12em] text-cream/85 md:px-6">
             {evidenceReason()}
@@ -192,7 +321,7 @@ export function RacePage() {
             {cargo === "governador" ? (
               <Link
                 to="/candidatos"
-                search={(prev) => ({ ...prev, uf, cargo: "senador" as const })}
+                search={(prev) => ({ ...prev, uf, cargo: "senador" as const, c: undefined })}
                 className="hook-link"
               >
                 {m.race.senateOf(uf)}
@@ -200,7 +329,7 @@ export function RacePage() {
             ) : (
               <Link
                 to="/candidatos"
-                search={(prev) => ({ ...prev, uf, cargo: "governador" as const })}
+                search={(prev) => ({ ...prev, uf, cargo: "governador" as const, c: undefined })}
                 className="hook-link"
               >
                 {m.race.govOf(uf)}
@@ -209,7 +338,12 @@ export function RacePage() {
             {peerUf ? (
               <Link
                 to="/candidatos"
-                search={(prev) => ({ ...prev, uf: peerUf, cargo: "governador" as const })}
+                search={(prev) => ({
+                  ...prev,
+                  uf: peerUf,
+                  cargo: "governador" as const,
+                  c: undefined,
+                })}
                 className="hook-link"
               >
                 {ufTemCasas(peerUf, locale)}. {m.curve.compare}
@@ -244,13 +378,18 @@ export function RacePage() {
               </label>
             </div>
             <div className="px-4 md:px-6">
-              <CandidateList rows={roster} marked={marked} />
+              <CandidateList
+                rows={roster}
+                marked={marked}
+                onPick={(candidate) => openCandidate(candidate.slug)}
+                activeSlug={focused?.slug}
+              />
             </div>
             <p className="tight-next px-4 py-4 md:px-6">
               {cargo === "governador" ? (
                 <Link
                   to="/candidatos"
-                  search={(prev) => ({ ...prev, uf, cargo: "senador" as const })}
+                  search={(prev) => ({ ...prev, uf, cargo: "senador" as const, c: undefined })}
                   className="hook-link"
                 >
                   {m.race.senateOf(uf)}
@@ -258,7 +397,7 @@ export function RacePage() {
               ) : (
                 <Link
                   to="/candidatos"
-                  search={(prev) => ({ ...prev, uf, cargo: "governador" as const })}
+                  search={(prev) => ({ ...prev, uf, cargo: "governador" as const, c: undefined })}
                   className="hook-link"
                 >
                   {m.race.govOf(uf)}

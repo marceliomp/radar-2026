@@ -56,7 +56,7 @@ export function locationUrl(
   search: Record<string, unknown>,
 ): string {
   const q = new URLSearchParams();
-  const keys = ["uf", "cargo", "hl", "asOf", "lang"];
+  const keys = ["uf", "cargo", "c", "hl", "asOf", "lang"];
   for (const key of keys) {
     const value = search[key];
     if (value == null || value === "") continue;
