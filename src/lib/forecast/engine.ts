@@ -84,7 +84,7 @@ export function todayAsOf(d: Date = new Date()): string {
 }
 
 export const DEFAULT_CONFIG: EngineConfig = {
-  halfLifeDays: 15,
+  halfLifeDays: 5,
   includeOnline: true,
   includeRemoto: true,
   includeModelo: false,
