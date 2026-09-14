@@ -87,15 +87,45 @@ test("step series holds chance across days from daily replay points", async () =
 
 test("growth curve toggles Média|Chance on #curva with step line", () => {
   const curve = readFileSync("src/features/radar/public/growth-curve.tsx", "utf8");
+  const page = readFileSync("src/features/radar/public/public-radar-page.tsx", "utf8");
+  const messages = readFileSync("src/lib/i18n/messages.ts", "utf8");
   assert.match(curve, /id="curva"/);
   assert.match(curve, /m\.curve\.seriesAvg/);
   assert.match(curve, /m\.curve\.seriesChance/);
   assert.match(curve, /setSeries\("avg"\)/);
   assert.match(curve, /setSeries\("chance"\)/);
-  assert.match(curve, /stepAfter/);
+  assert.match(curve, /stepBefore/);
+  assert.doesNotMatch(curve, /step \? "stepAfter"/);
   assert.match(curve, /step=\{chanceMode\}/);
   assert.match(curve, /m\.curve\.chanceLede/);
-  assert.match(curve, /Não é pesquisa|chanceLede/);
+  assert.match(curve, /chanceMode=\{chanceMode\}/);
+  assert.match(curve, /m\.curve\.lineChance/);
+  assert.match(curve, /heroChancePct/);
+  assert.match(page, /heroChancePct=/);
+  assert.match(page, /DEFAULT_HALF_LIFE/);
+  assert.match(messages, /seriesChanceMeta: "modelo · 15"/);
+  assert.doesNotMatch(messages, /seriesChanceMeta: "publicada"/);
+  assert.doesNotMatch(messages, /chance que o Radar publicou/);
+});
+
+test("chance tip on main equals hero at hl=15 for 2026-09-14", async () => {
+  const hist = JSON.parse(readFileSync("src/data/chance-history.json", "utf8"));
+  const tip = hist.points.at(-1);
+  assert.equal(tip.date, "2026-09-14");
+  assert.equal(tip.lula, 51.5);
+  assert.equal(tip.flavio, 48.5);
+  const polls = JSON.parse(readFileSync("src/data/polls.json", "utf8"));
+  const { runForecast, DEFAULT_CONFIG } = await import("../src/lib/forecast/engine.ts");
+  const snap = runForecast(polls, {
+    ...DEFAULT_CONFIG,
+    asOf: "2026-09-14",
+    halfLifeDays: 15,
+    simulations: 4000,
+  });
+  const heroL = Math.round(snap.probs.lulaWinsElection * 1000) / 10;
+  const heroF = Math.round(snap.probs.flavioWinsElection * 1000) / 10;
+  assert.equal(heroL, tip.lula);
+  assert.equal(heroF, tip.flavio);
 });
 
 test("publish-polls appends chance history when polls move", () => {
