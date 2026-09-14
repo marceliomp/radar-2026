@@ -2,7 +2,7 @@ import { isoDayUtc } from "./format.ts";
 import { isoShiftDays } from "./period.ts";
 import type { ChanceHistoryPoint } from "../data/chance-history.ts";
 
-/** Display window for published chance series. Period slider stays 15/90. */
+/** Display window for published chance series. Period slider stays 5/90. */
 export const CHANCE_HISTORY_DAYS = 60;
 
 export function chanceAxisStart(asOf: string): string {

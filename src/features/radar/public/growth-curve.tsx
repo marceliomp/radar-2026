@@ -382,6 +382,15 @@ function CurveTip({ active, payload }: { active?: boolean; payload?: TipRow[] })
           ]
         : []
   ).filter((house) => house.institute && (house.lulaPoll != null || house.flavioPoll != null));
+  if (!row.institute && !row.sameDay.length) {
+    return (
+      <div className="chance-tooltip" role="status">
+        <div className="chance-tooltip-head"><strong>{dateShort(row.published, locale)}</strong><span>{m.curve.seriesChanceMeta}</span></div>
+        <div className="chance-tooltip-row" style={{ color: CHART.lula }}><span>Lula</span><strong>{fmt.pct(row.lulaAvg ?? 0)}</strong></div>
+        <div className="chance-tooltip-row" style={{ color: CHART.flavio }}><span>Flávio</span><strong>{fmt.pct(row.flavioAvg ?? 0)}</strong></div>
+      </div>
+    );
+  }
   const many = houses.length > 1;
   if (row.houseFocus) {
     const house = houses[0];
@@ -582,9 +591,8 @@ function CurvePlot({
           }}
         >
           <CartesianGrid
-            strokeDasharray="3 3"
             stroke={CHART.grid}
-            strokeOpacity={0.28}
+            strokeOpacity={0.16}
             vertical={false}
           />
           <XAxis
@@ -597,7 +605,7 @@ function CurvePlot({
           />
           <YAxis
             domain={domain}
-            ticks={yTickValues}
+            ticks={step ? [0, 25, 50, 75, 100] : yTickValues}
             interval={0}
             tick={{ fill: CHART.axis, fontSize: 12, fontWeight: 500 }}
             unit="%"
@@ -616,29 +624,7 @@ function CurvePlot({
             offset={12}
             wrapperStyle={{ pointerEvents: "none", zIndex: 40 }}
           />
-          {step
-            ? chanceMarks.map((mark) => (
-                <ReferenceLine
-                  key={`mark-${mark.date}`}
-                  x={mark.t}
-                  stroke={CHART.axis}
-                  strokeOpacity={mark.label ? 0.45 : 0.22}
-                  strokeDasharray={mark.label ? "3 3" : "2 4"}
-                  strokeWidth={mark.label ? 1.25 : 1}
-                  label={
-                    mark.label
-                      ? {
-                          value: mark.label,
-                          position: "insideTopLeft",
-                          fill: CHART.axis,
-                          fontSize: 10,
-                          fontWeight: 600,
-                        }
-                      : undefined
-                  }
-                />
-              ))
-            : null}
+          {step ? <ReferenceLine y={50} stroke={CHART.axis} strokeOpacity={0.22} strokeDasharray="4 6" /> : null}
           {showPollDots ? (
               <Line
                 type="linear"
@@ -677,7 +663,7 @@ function CurvePlot({
                 dataKey={lulaKey}
                 legendType="none"
                 stroke={CHART.lula}
-                strokeWidth={houseFocus ? 3 : 3.25}
+                strokeWidth={houseFocus ? 2.4 : 2.5}
                 strokeLinecap={step ? "square" : "round"}
                 strokeLinejoin="round"
                 connectNulls
@@ -707,7 +693,7 @@ function CurvePlot({
                 dataKey={flavioKey}
                 legendType="none"
                 stroke={CHART.flavio}
-                strokeWidth={houseFocus ? 3 : 3.25}
+                strokeWidth={houseFocus ? 2.4 : 2.5}
                 strokeLinecap={step ? "square" : "round"}
                 strokeLinejoin="round"
                 connectNulls
@@ -774,6 +760,7 @@ function CurvePlot({
             : null}
         </ComposedChart>
       </ResponsiveContainer>
+      {step ? <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-[10px] text-cream/60">{chanceMarks.filter(mark => mark.label).slice(-2).map(mark => <span key={mark.date}>{mark.label}</span>)}</div> : null}
     </div>
   );
 }

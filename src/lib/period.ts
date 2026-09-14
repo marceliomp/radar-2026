@@ -1,7 +1,7 @@
-/** Recência do Radar: meia-vida em dias. Default público = 15 dias. Teto 90. */
+/** Recência do Radar: meia-vida em dias. Default público = 5 dias. Teto 90. */
 export const HL_MIN = 5;
 export const HL_MAX = 90;
-export const DEFAULT_HALF_LIFE = 15;
+export const DEFAULT_HALF_LIFE = 5;
 export const YEAR_START = "2026-01-01";
 
 export function clampHalfLife(n: number): number {

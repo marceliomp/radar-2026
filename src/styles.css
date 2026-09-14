@@ -1694,3 +1694,9 @@
     animation: none !important;
   }
 }
+
+.chance-tooltip { width: 190px; max-width: calc(100vw - 48px); padding: 12px 14px; background: #10211f; border: 1px solid #365650; border-radius: 12px; box-shadow: 0 8px 24px #0003; font-family: var(--font-sans); }
+.chance-tooltip-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 10px; color: #f5f0e3; font-size: 13px; }
+.chance-tooltip-head span { font-size: 11px; color: #9fb5ae; }
+.chance-tooltip-row { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 4px 0; font-size: 13px; }
+.chance-tooltip-row strong { font-size: 20px; font-variant-numeric: tabular-nums; font-weight: 600; }

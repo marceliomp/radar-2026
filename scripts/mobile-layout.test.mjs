@@ -31,13 +31,13 @@ test("mobile first screen: one-row nav, 44px taps, share icons, period after sco
   );
 });
 
-test("public default period is 15 days", () => {
+test("public default period is 5 days", () => {
   const period = readFileSync("src/lib/period.ts", "utf8");
-  assert.match(period, /DEFAULT_HALF_LIFE = 15/);
+  assert.match(period, /DEFAULT_HALF_LIFE = 5/);
   assert.match(period, /HL_MAX = 90/);
 });
 
-test("desktop first screen: no 52dvh hero, period 15/90, no YTD copy", () => {
+test("desktop first screen: no 52dvh hero, period 5/90, no YTD copy", () => {
   const css = readFileSync("src/styles.css", "utf8");
   const desk = css.slice(css.lastIndexOf("@media (min-width: 768px)"));
   assert.doesNotMatch(desk, /52dvh/);
