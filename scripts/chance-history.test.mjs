@@ -93,8 +93,11 @@ test("growth curve toggles Média|Chance on #curva with step line", () => {
   assert.match(curve, /m\.curve\.seriesAvg/);
   assert.match(curve, /m\.curve\.seriesChance/);
   assert.match(curve, /setSeries\("avg"\)/);
+  assert.match(curve, /useState<"avg" \| "chance">\("chance"\)/);
   assert.match(curve, /setSeries\("chance"\)/);
   assert.match(curve, /stepBefore/);
+  assert.match(curve, /showEndLabels/);
+  assert.match(curve, /nationalChanceMarks/);
   assert.doesNotMatch(curve, /step \? "stepAfter"/);
   assert.match(curve, /step=\{chanceMode\}/);
   assert.match(curve, /m\.curve\.chanceLede/);
