@@ -2,7 +2,9 @@ import { useEffect, useMemo, useState } from "react";
 import {
   CartesianGrid,
   ComposedChart,
+  LabelList,
   Line,
+  ReferenceLine,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -43,6 +45,10 @@ import {
   chanceAxisStart,
   CHANCE_HISTORY_DAYS,
 } from "@/lib/chance-history";
+import {
+  nationalChanceMarks,
+  type ChanceMark,
+} from "@/lib/chance-marks";
 
 function tickMonth(value: number | string, locale: "pt" | "en" = "pt") {
   return utcMsToMonth(Number(value), locale);
@@ -96,6 +102,41 @@ const OTHERS = [
 ] as const;
 
 type OtherKey = (typeof OTHERS)[number]["key"];
+
+function chanceEndLabel(
+  props: {
+    x?: number | string;
+    y?: number | string;
+    index?: number;
+    value?: number | string;
+  },
+  opts: { lastIndex: number; color: string; locale: "pt" | "en" },
+) {
+  const { x, y, index, value } = props;
+  if (
+    index !== opts.lastIndex ||
+    value == null ||
+    typeof x !== "number" ||
+    typeof y !== "number"
+  ) {
+    return null;
+  }
+  const n = typeof value === "number" ? value : Number(value);
+  if (!Number.isFinite(n)) return null;
+  return (
+    <text
+      x={x + 8}
+      y={y}
+      dy={4}
+      fill={opts.color}
+      fontSize={12}
+      fontWeight={700}
+      textAnchor="start"
+    >
+      {fmtNum(n, 1, opts.locale)}%
+    </text>
+  );
+}
 
 type DayHouse = {
   institute: string;
@@ -489,6 +530,8 @@ function CurvePlot({
   hideX,
   heightClass,
   step = false,
+  chanceMarks = [],
+  showEndLabels = false,
 }: {
   data: CurveRow[];
   domain: [number, number];
@@ -501,6 +544,8 @@ function CurvePlot({
   hideX?: boolean;
   heightClass: string;
   step?: boolean;
+  chanceMarks?: ChanceMark[];
+  showEndLabels?: boolean;
 }) {
   const { locale } = useI18n();
 
@@ -515,12 +560,19 @@ function CurvePlot({
   // stepBefore: last band uses tip value. stepAfter left the tip with zero width at xMax.
   const lineType = step ? "stepBefore" : houseFocus ? "linear" : "monotone";
   const showPollDots = !step && showRace;
+  const lastIndex = Math.max(0, data.length - 1);
+  const rightPad = showEndLabels ? 52 : 8;
   return (
     <div className={`curve-stage ${heightClass} w-full min-w-0`}>
       <ResponsiveContainer width="100%" height="100%">
         <ComposedChart
           data={data}
-          margin={{ left: 0, right: 8, top: hideX ? 4 : 6, bottom: hideX ? 0 : 2 }}
+          margin={{
+            left: 0,
+            right: rightPad,
+            top: hideX ? 4 : step ? 18 : 6,
+            bottom: hideX ? 0 : 2,
+          }}
           onMouseMove={(state) => {
             const x = state?.chartX;
             const width = state?.offset?.width;
@@ -564,6 +616,29 @@ function CurvePlot({
             offset={12}
             wrapperStyle={{ pointerEvents: "none", zIndex: 40 }}
           />
+          {step
+            ? chanceMarks.map((mark) => (
+                <ReferenceLine
+                  key={`mark-${mark.date}`}
+                  x={mark.t}
+                  stroke={CHART.axis}
+                  strokeOpacity={mark.label ? 0.45 : 0.22}
+                  strokeDasharray={mark.label ? "3 3" : "2 4"}
+                  strokeWidth={mark.label ? 1.25 : 1}
+                  label={
+                    mark.label
+                      ? {
+                          value: mark.label,
+                          position: "insideTopLeft",
+                          fill: CHART.axis,
+                          fontSize: 10,
+                          fontWeight: 600,
+                        }
+                      : undefined
+                  }
+                />
+              ))
+            : null}
           {showPollDots ? (
               <Line
                 type="linear"
@@ -603,7 +678,7 @@ function CurvePlot({
                 legendType="none"
                 stroke={CHART.lula}
                 strokeWidth={houseFocus ? 3 : 3.25}
-                strokeLinecap="round"
+                strokeLinecap={step ? "square" : "round"}
                 strokeLinejoin="round"
                 connectNulls
                 dot={false}
@@ -611,7 +686,20 @@ function CurvePlot({
                 isAnimationActive={animateAvg}
                 animationDuration={LINE_ANIM_MS}
                 animationEasing="ease-out"
-              />
+              >
+                {showEndLabels ? (
+                  <LabelList
+                    dataKey={lulaKey}
+                    content={(props) =>
+                      chanceEndLabel(props, {
+                        lastIndex,
+                        color: CHART.lula,
+                        locale,
+                      })
+                    }
+                  />
+                ) : null}
+              </Line>
           ) : null}
           {showRace ? (
               <Line
@@ -620,7 +708,7 @@ function CurvePlot({
                 legendType="none"
                 stroke={CHART.flavio}
                 strokeWidth={houseFocus ? 3 : 3.25}
-                strokeLinecap="round"
+                strokeLinecap={step ? "square" : "round"}
                 strokeLinejoin="round"
                 connectNulls
                 dot={false}
@@ -628,7 +716,20 @@ function CurvePlot({
                 isAnimationActive={animateAvg}
                 animationDuration={LINE_ANIM_MS}
                 animationEasing="ease-out"
-              />
+              >
+                {showEndLabels ? (
+                  <LabelList
+                    dataKey={flavioKey}
+                    content={(props) =>
+                      chanceEndLabel(props, {
+                        lastIndex,
+                        color: CHART.flavio,
+                        locale,
+                      })
+                    }
+                  />
+                ) : null}
+              </Line>
           ) : null}
           {showOtherDots
             ? OTHERS.map((other) => (
@@ -695,7 +796,7 @@ export function GrowthCurve({
   const [round, setRound] = useState<RoundKey>("1");
   const [house, setHouse] = useState<string | null>(null);
   const [mode, setMode] = useState<ModeFilterKey | null>(null);
-  const [series, setSeries] = useState<"avg" | "chance">("avg");
+  const [series, setSeries] = useState<"avg" | "chance">("chance");
   const chanceMode = series === "chance";
   const { first, second, houseOpts, modeOpts, avg1, avg2 } = useMemo(() => {
     const visible = polls.filter(
@@ -821,6 +922,11 @@ export function GrowthCurve({
       houseFocus: false,
     }));
   }, [asOf, heroChancePct]);
+
+  const chanceMarks = useMemo(
+    () => nationalChanceMarks(polls, asOf, CHANCE_HISTORY_DAYS, locale),
+    [polls, asOf, locale],
+  );
 
   if (!chanceMode && first.length < 3 && !house && !mode) return null;
   if (chanceMode && chanceRows.length < 1) return null;
@@ -1026,6 +1132,8 @@ export function GrowthCurve({
               kind="race"
               hideX
               step={chanceMode}
+              chanceMarks={chanceMode ? chanceMarks : []}
+              showEndLabels={chanceMode}
               heightClass="h-48 sm:h-56"
             />
             <div className="relative border-t border-border/70">
@@ -1040,7 +1148,9 @@ export function GrowthCurve({
                 houseFocus={houseFocus}
                 kind="others"
                 step={chanceMode}
-              heightClass="h-28 sm:h-36"
+                chanceMarks={chanceMode ? chanceMarks : []}
+                showEndLabels={false}
+                heightClass="h-28 sm:h-36"
               />
             </div>
           </div>
@@ -1056,6 +1166,8 @@ export function GrowthCurve({
               houseFocus={houseFocus}
               kind={showOthers ? "all" : "race"}
               step={chanceMode}
+              chanceMarks={chanceMode ? chanceMarks : []}
+              showEndLabels={chanceMode}
               heightClass="h-80 sm:h-96"
             />
           </div>
