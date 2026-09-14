@@ -54,9 +54,9 @@ export const pt = {
       `${office} ${uf}: ${who} ${pct}`,
   },
   period: {
-    label: "Período",
+    label: "Peso por recência",
     days: (n: number) => `${n} dias`,
-    copy: "Novas pesam mais.",
+    copy: "Após esse número de dias, o peso de uma pesquisa cai pela metade.",
     recent: (n: number) => `${n}d`,
     month: "30d",
     year: "90d",
@@ -257,13 +257,13 @@ export const pt = {
       `${uf} tem ${n === 1 ? "1 casa" : `${n} casas`}`,
   },
   visit: {
-    first: "Período muda a chance.",
+    first: "Estimativa do modelo. Não é intenção de voto.",
     newMoved: (chance: string) => `Pesquisa nova no arquivo. ${chance}.`,
     newFlat: "Pesquisa nova no arquivo. O placar quase não andou.",
     hl: (days: number, chance: string) =>
       `Período ${days} dias: ${chance} vs a visita anterior.`,
     moved: (chance: string) => `Desde a sua última visita: ${chance}.`,
-    reload: "Reload agora não muda o placar. Sem pesquisa nova no arquivo.",
+    reload: "Nenhuma nova pesquisa desde a última consulta.",
     staleDay: "Desde a sua última visita o arquivo não mudou. Placar igual.",
     stale: "Sem pesquisa nova no arquivo. O placar é o mesmo.",
     chance: (delta: string) => `Lula ${delta} pp de chance`,

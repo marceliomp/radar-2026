@@ -31,8 +31,8 @@
   --radius-md: 0.25rem;
   --radius-lg: 0.375rem;
   --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Archivo Black", "DM Sans", ui-sans-serif, sans-serif;
-  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --font-display: "DM Sans", ui-sans-serif, sans-serif;
+  --font-mono: "DM Sans", ui-sans-serif, sans-serif;
   --shadow-card: 0 10px 28px -16px hsl(178 50% 6% / 0.5);
   --shadow-glow-amber: 0 8px 28px -16px hsl(36 22% 62% / 0.18);
   --shadow-glow-lula: 0 8px 28px -16px hsl(0 72% 50% / 0.18);
@@ -1700,3 +1700,49 @@
 .chance-tooltip-head span { font-size: 11px; color: #9fb5ae; }
 .chance-tooltip-row { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 4px 0; font-size: 13px; }
 .chance-tooltip-row strong { font-size: 20px; font-variant-numeric: tabular-nums; font-weight: 600; }
+
+/* BrasilRadar public data layout, kit UI: one metric, one control context. */
+.model-settings { border: 1px solid var(--color-border); border-radius: 12px; background: var(--color-surface); }
+.model-settings > summary { display:flex; align-items:center; justify-content:space-between; gap:16px; padding:12px 16px; min-height:48px; cursor:pointer; font-size:13px; list-style:none; }
+.model-settings > summary::-webkit-details-marker { display:none; }
+.model-settings-action { color:var(--color-primary); font-weight:600; }
+.model-settings[open] > summary { border-bottom:1px solid var(--color-border); }
+.model-settings .hl-card { border:0; box-shadow:none; margin:0; max-width:none; padding:16px; }
+.model-explanation { margin:0 0 16px; font-size:13px; line-height:1.6; color:var(--color-muted); }
+.recent-poll { border:1px solid var(--color-border); border-radius:12px; background:var(--color-surface); overflow:hidden; }
+.recent-poll > summary { display:flex; justify-content:space-between; align-items:center; gap:16px; padding:16px; cursor:pointer; min-height:64px; font-size:13px; list-style:none; }
+.recent-poll summary small { display:block; margin-top:4px; color:var(--color-muted); font-size:12px; }
+.recent-poll summary > span:last-child { color:var(--color-primary); white-space:nowrap; }
+.recent-poll .board-card { border:0; box-shadow:none; }
+.radar-home .hero-mast { padding-bottom:12px; }
+.radar-home .hero-score { margin-top:12px; }
+.radar-home .hero-pulse { min-height:0; font-size:12px; margin-top:6px; }
+.radar-home .hero-method-title, .radar-home .hero-num { font-weight:700; }
+.radar-home .hero-share { margin:0 0 24px; padding:0; }
+.radar-home .hero-share .share-btn-main { background:var(--color-surface); color:var(--color-primary); border-color:var(--color-border); }
+.radar-home .page-body-home { display:flex; flex-direction:column; gap:16px; }
+.radar-home .page-body-home > .mast-hl { order:1; width:100%; margin:0; }
+.radar-home .page-body-home > #curva { order:2; margin:0; }
+.radar-home .page-body-home > .hero-share { order:3; }
+.radar-home .page-body-home > #novo { order:4; }
+.radar-home .page-body-home > #mapa { order:5; }
+.radar-home .page-body-home > #media { order:6; }
+.radar-home .page-body-home > .tight-block { order:7; }
+.radar-home .page-body-home > #metodo { order:8; }
+.radar-home .page-body-home > footer { order:9; }
+.radar-home .board-card { border-radius:12px; }
+.radar-home #curva .board-card { padding:16px; }
+.mast-link, .mast-mark { min-height:44px; display:inline-flex; align-items:center; }
+:where(button,a,summary,input,select):focus-visible { outline:2px solid var(--color-primary); outline-offset:3px; }
+@media (min-width:1024px) {
+ .radar-home .page-body-home { display:grid; grid-template-columns:minmax(0,2fr) minmax(280px,1fr); gap:24px; align-items:start; }
+ .radar-home .page-body-home > .mast-hl { grid-column:1/-1; grid-row:1; }
+ .radar-home .page-body-home > #curva { grid-column:1; grid-row:2; }
+ .radar-home .page-body-home > .hero-share { grid-column:1; grid-row:3; }
+ .radar-home .page-body-home > #novo { grid-column:2; grid-row:2/4; }
+ .radar-home .page-body-home > #media { grid-column:1/-1; grid-row:4; }
+ .radar-home .page-body-home > #mapa { grid-column:1; grid-row:5; }
+ .radar-home .page-body-home > .tight-block { grid-column:2; grid-row:5; }
+ .radar-home .page-body-home > #metodo { grid-column:1/-1; grid-row:6; }
+ .radar-home .page-body-home > footer { grid-column:1/-1; grid-row:7; }
+}

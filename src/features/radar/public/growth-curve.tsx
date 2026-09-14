@@ -42,8 +42,9 @@ import { curveAxisStart } from "@/lib/period";
 import { chanceHistory } from "@/data/chance-history";
 import {
   buildChanceStepSeries,
+  alignChanceWithCurrentModel,
+  CHANCE_MODEL_HALF_LIFE,
   chanceAxisStart,
-  CHANCE_HISTORY_DAYS,
 } from "@/lib/chance-history";
 import {
   nationalChanceMarks,
@@ -358,7 +359,7 @@ function housesOnCurveDay(
     .filter((house) => house.lulaPoll != null && house.flavioPoll != null);
 }
 
-function CurveTip({ active, payload }: { active?: boolean; payload?: TipRow[] }) {
+function CurveTip({ active, payload, chanceMode = false }: { active?: boolean; payload?: TipRow[]; chanceMode?: boolean }) {
   const { locale, m, fmt } = useI18n();
   if (!active || !payload?.length) return null;
   const row = payload[0]?.payload;
@@ -385,7 +386,7 @@ function CurveTip({ active, payload }: { active?: boolean; payload?: TipRow[] })
   if (!row.institute && !row.sameDay.length) {
     return (
       <div className="chance-tooltip" role="status">
-        <div className="chance-tooltip-head"><strong>{dateShort(row.published, locale)}</strong><span>{m.curve.seriesChanceMeta}</span></div>
+        <div className="chance-tooltip-head"><strong>{dateShort(row.published, locale)}</strong><span>{chanceMode ? m.curve.seriesChanceMeta : m.curve.avgTip}</span></div>
         <div className="chance-tooltip-row" style={{ color: CHART.lula }}><span>Lula</span><strong>{fmt.pct(row.lulaAvg ?? 0)}</strong></div>
         <div className="chance-tooltip-row" style={{ color: CHART.flavio }}><span>Flávio</span><strong>{fmt.pct(row.flavioAvg ?? 0)}</strong></div>
       </div>
@@ -616,7 +617,7 @@ function CurvePlot({
             allowDataOverflow={false}
           />
           <Tooltip
-            content={CurveTip}
+            content={<CurveTip chanceMode={step} />}
             cursor={{ stroke: CHART.axis, strokeWidth: 1, strokeOpacity: 0.35 }}
             isAnimationActive={false}
             allowEscapeViewBox={{ x: false, y: true }}
@@ -775,7 +776,7 @@ export function GrowthCurve({
   polls: ForecastPoll[];
   asOf: string;
   halfLifeDays: number;
-  /** Pass hero win % so the Chance tip matches the hero at any period. */
+  /** Align only the current day when the hero uses the historical model (5). */
   heroChancePct?: { lula: number; flavio: number } | null;
 }) {
   const { locale, m } = useI18n();
@@ -785,6 +786,7 @@ export function GrowthCurve({
   const [mode, setMode] = useState<ModeFilterKey | null>(null);
   const [series, setSeries] = useState<"avg" | "chance">("chance");
   const chanceMode = series === "chance";
+  const [displayDays, setDisplayDays] = useState<30 | 60>(60);
   const { first, second, houseOpts, modeOpts, avg1, avg2 } = useMemo(() => {
     const visible = polls.filter(
       (poll) => poll.national && poll.date <= asOf && poll.fieldEnd <= asOf,
@@ -873,15 +875,8 @@ export function GrowthCurve({
   }, [polls, asOf, halfLifeDays, house, mode]);
 
   const chanceRows = useMemo(() => {
-    const steps = buildChanceStepSeries(chanceHistory.points, asOf, CHANCE_HISTORY_DAYS);
-    const aligned =
-      heroChancePct && steps.length > 0
-        ? steps.map((step, i) =>
-            i === steps.length - 1 || step.date === asOf
-              ? { ...step, lula: heroChancePct.lula, flavio: heroChancePct.flavio }
-              : step,
-          )
-        : steps;
+    const steps = buildChanceStepSeries(chanceHistory.points, asOf, displayDays);
+    const aligned = alignChanceWithCurrentModel(steps, asOf, halfLifeDays, heroChancePct);
     return aligned.map((step) => ({
       t: step.t,
       institute: "",
@@ -908,11 +903,11 @@ export function GrowthCurve({
       sameDay: [] as DayHouse[],
       houseFocus: false,
     }));
-  }, [asOf, heroChancePct]);
+  }, [asOf, displayDays, halfLifeDays, heroChancePct]);
 
   const chanceMarks = useMemo(
-    () => nationalChanceMarks(polls, asOf, CHANCE_HISTORY_DAYS, locale),
-    [polls, asOf, locale],
+    () => nationalChanceMarks(polls, asOf, displayDays, locale),
+    [polls, asOf, displayDays, locale],
   );
 
   if (!chanceMode && first.length < 3 && !house && !mode) return null;
@@ -929,7 +924,7 @@ export function GrowthCurve({
     : houseFocus
       ? avgOnFirstOfDay(data)
       : mergeLineAndPolls(densifyDayAverages(active === "2" ? avg2 : avg1, asOf), data);
-  const axisStart = chanceMode ? chanceAxisStart(asOf) : curveAxisStart(asOf);
+  const axisStart = chanceMode ? chanceAxisStart(asOf, displayDays) : curveAxisStart(asOf);
   const ticks = monthTicks(axisStart, asOf);
   const xMin = isoDayUtc(axisStart);
   const xMax = isoDayUtc(asOf);
@@ -1032,6 +1027,27 @@ export function GrowthCurve({
             ) : null}
           </div>
         </div>
+        {chanceMode ? (
+          <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
+            <p className="text-xs text-cream/75">
+              {locale === "pt" ? "Período exibido" : "Displayed history"}
+            </p>
+            <SegGroup ariaLabel={locale === "pt" ? "Período exibido no gráfico" : "Chart display window"}>
+              {([30, 60] as const).map((days) => (
+                <button key={days} type="button" className="seg-btn" aria-pressed={displayDays === days} onClick={() => setDisplayDays(days)}>
+                  <span className="seg-label">{days} {locale === "pt" ? "dias" : "days"}</span>
+                </button>
+              ))}
+            </SegGroup>
+            {halfLifeDays !== CHANCE_MODEL_HALF_LIFE ? (
+              <p className="w-full text-xs leading-relaxed text-cream/85" role="status">
+                {locale === "pt"
+                  ? `Este histórico mantém o modelo 5. O placar está simulando o modelo ${halfLifeDays}; seus valores não alteram a curva.`
+                  : `This history keeps model 5. The score simulates model ${halfLifeDays}; its values do not alter the curve.`}
+              </p>
+            ) : null}
+          </div>
+        ) : null}
         <CurveKey
           houseFocus={houseFocus}
           showOthers={showOthers}

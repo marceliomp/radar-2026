@@ -306,6 +306,7 @@ function LatestHouseCard({ poll }: { poll: ForecastPoll }) {
               TSE {poll.source.tseProtocol}
             </p>
           ) : null}
+          {poll.source?.url && /^https?:\/\//.test(poll.source.url) ? <a className="hook-link" href={poll.source.url} target="_blank" rel="noopener noreferrer">{locale === "en" ? "Read original source" : "Consultar fonte original"}</a> : null}
           {poll.secondRound?.lula != null && poll.secondRound?.flavio != null ? (
             <p className="max-w-xl text-sm font-medium leading-relaxed text-cream">
               {pairTightnessLine(
@@ -336,6 +337,7 @@ function LatestHouseCard({ poll }: { poll: ForecastPoll }) {
           </div>
           <div>
             <p className="text-xs font-medium text-gold">{m.home.secondRound}</p>
+            {latestPairRows(poll).length === 0 ? <p className="mt-1 text-sm text-cream/70">{locale === "en" ? "No second-round result in the archive." : "Sem resultado de segundo turno no arquivo."}</p> : null}
             <ul className="mt-1">
               {latestPairRows(poll).map((pair) => (
                 <li key={`${pair.a}|${pair.b}`} className="score-row py-1">
@@ -408,7 +410,7 @@ export function PublicRadarPage() {
   }
 
   return (
-    <div className="pb-[max(4rem,env(safe-area-inset-bottom))]">
+    <div className="radar-home pb-[max(4rem,env(safe-area-inset-bottom))]">
       <a href="#conteudo" className="skip-link">{m.skip}</a>
       <section className="hero-mast" ref={heroFlipRef}>
         <div className="hero-chrome">
@@ -426,6 +428,18 @@ export function PublicRadarPage() {
           hl={halfLife}
           newestId={latestDayPolls.map((poll) => poll.id).sort().join("|")}
         />
+
+      </section>
+
+      <main id="conteudo" className="page-body page-body-home mx-auto min-w-0 max-w-6xl overflow-x-clip px-4 pt-4 sm:px-6 sm:pt-5">
+        <HalfLifeControl />
+
+        <GrowthCurve
+          polls={polls}
+          asOf={asOf}
+          halfLifeDays={curveHalfLife}
+          heroChancePct={{ lula: pLula, flavio: pFlavio }}
+        />
         <div className="hero-share">
           <ShareBar
             compact
@@ -437,47 +451,8 @@ export function PublicRadarPage() {
             pLula={probs.lulaWinsElection}
             pFlavio={probs.flavioWinsElection}
           />
-          <nav aria-label={m.home.ufChipsAria} className="uf-chips">
-            {UF_CHIP_CODES.map((code) => (
-              <Link
-                key={code}
-                to="/candidatos"
-                search={(prev) => ({
-                  uf: code,
-                  cargo: "governador" as const,
-                  ...keepRadarSearch(prev as Record<string, unknown>),
-                })}
-                className="uf-chip"
-                onClick={() => {
-                  writeStoredUf(code);
-                  trackRadar("uf_click");
-                }}
-              >
-                {code}
-              </Link>
-            ))}
-          </nav>
-        </div>
-      </section>
 
-      <main id="conteudo" className="page-body page-body-home mx-auto min-w-0 max-w-6xl overflow-x-clip px-4 pt-4 sm:px-6 sm:pt-5">
-        <HalfLifeControl />
-        <p className="lab-hook">
-          {m.home.labHook(labMover.who, fmtDelta(labMover.delta, 1, locale))}{" "}
-          <Link
-            to="/lab"
-            search={(prev) => keepRadarSearch(prev as Record<string, unknown>)}
-            className="hook-link"
-          >
-            {m.home.labHookLink}
-          </Link>
-        </p>
-        <GrowthCurve
-          polls={polls}
-          asOf={asOf}
-          halfLifeDays={curveHalfLife}
-          heroChancePct={{ lula: pLula, flavio: pFlavio }}
-        />
+        </div>
         <section id="media" className="mb-6 space-y-4 scroll-mt-24">
           <div className="story-head">
             <p className="kicker">{m.home.avgKicker}</p>
@@ -520,7 +495,10 @@ export function PublicRadarPage() {
               ) : null}
             </div>
             {latestDayPolls.map((poll) => (
-              <LatestHouseCard key={poll.id} poll={poll} />
+              <details className="recent-poll" key={poll.id}>
+                <summary><span><strong>{poll.institute}</strong><small>{fieldPeriodLine(poll.fieldStart, poll.fieldEnd, locale)}</small></span><span>{locale === "en" ? "View poll" : "Ver pesquisa"}</span></summary>
+                <LatestHouseCard poll={poll} />
+              </details>
             ))}
             <p>
               <a href="#mapa" className="hook-link">{m.home.toState}</a>
@@ -535,6 +513,26 @@ export function PublicRadarPage() {
             <h2 className="story-title">{m.home.yourState}</h2>
             <p className="story-lede">{m.home.mapLede}</p>
           </div>
+          <nav aria-label={m.home.ufChipsAria} className="uf-chips">
+            {UF_CHIP_CODES.map((code) => (
+              <Link
+                key={code}
+                to="/candidatos"
+                search={(prev) => ({
+                  uf: code,
+                  cargo: "governador" as const,
+                  ...keepRadarSearch(prev as Record<string, unknown>),
+                })}
+                className="uf-chip"
+                onClick={() => {
+                  writeStoredUf(code);
+                  trackRadar("uf_click");
+                }}
+              >
+                {code}
+              </Link>
+            ))}
+          </nav>
           <MapLayerToggle layer={mapLayer} onChange={setMapLayer} />
           <BrazilMap config={deferredConfig} layer={mapLayer} />
           {COMPARE_GOV_UF ? (

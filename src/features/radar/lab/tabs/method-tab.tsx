@@ -1,3 +1,4 @@
+import { PublicPollSource } from "@/features/races/public-poll-source";
 import { MapPin } from "lucide-react";
 import { Bar, BarChart, CartesianGrid, Cell, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { Badge } from "@/components/ui/badge";
@@ -22,7 +23,7 @@ export function MethodTab({
         <TabsContent value="modelo" className="mt-4 space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>{m.lab.notPoll}</CardTitle>
+              <h2 className="text-lg font-semibold">{m.lab.notPoll}</h2>
               <CardDescription>
                 {m.lab.notPollDesc}
               </CardDescription>
@@ -33,7 +34,7 @@ export function MethodTab({
               <p>{m.lab.track}</p>
             </CardContent>
           </Card>
-          <div className="grid gap-4 lg:grid-cols-2">
+          <div className="space-y-4">
             <Card>
               <CardHeader>
                 <CardTitle>{m.lab.firstFull}</CardTitle>
@@ -74,7 +75,8 @@ export function MethodTab({
                 </div>
               </CardContent>
             </Card>
-            <Card>
+            <details className="rounded-lg border border-border bg-surface p-4">
+              <summary className="cursor-pointer font-semibold">{m.lab.stateRadar} · {statePolls.length}</summary>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <MapPin className="size-4 text-primary" />
@@ -124,16 +126,13 @@ export function MethodTab({
                             {fmtPct(p.secondRound.flavio ?? 0)}
                           </p>
                         )}
-                        {p.notes && (
-                          <p className="mt-1 text-xs font-medium leading-relaxed text-muted">
-                            {p.notes}
-                          </p>
-                        )}
+                        <p className="mt-2 text-xs text-muted">{locale === "en" ? "Fieldwork" : "Campo"}: {fmt.date(p.fieldStart ?? p.fieldEnd)} a {fmt.date(p.fieldEnd)} · {p.mode} · n={fmtNum(p.sample, 0)}</p>
+                        <PublicPollSource poll={p} locale={locale} />
                       </div>
                     );
                   })}
               </CardContent>
-            </Card>
+            </details>
           </div>
         </TabsContent>
 

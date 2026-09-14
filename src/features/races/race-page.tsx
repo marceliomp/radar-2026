@@ -172,8 +172,14 @@ export function RacePage() {
 
       {!uf ? (
         <section className="border-b border-border px-4 py-8 md:px-6">
-          <p className="kicker">{officeLabel}</p>
+          <h1 className="text-3xl font-semibold">{locale === "en" ? "Elections in your state" : "Eleições no seu estado"}</h1>
           <p className="mt-2 max-w-xl text-sm font-medium text-muted">{m.race.pickState}</p>
+          <div className="mt-6 flex flex-wrap gap-3">
+            {(["governador", "senador"] as const).map((option) => <Link key={option} to="/candidatos" search={(prev) => ({ ...prev, cargo: option })} aria-current={cargo === option ? "page" : undefined} className={`inline-flex min-h-11 items-center rounded-lg border px-4 ${cargo === option ? "border-primary bg-primary/10 text-primary" : "border-border text-muted"}`}>{option === "governador" ? m.race.governor : m.race.senator}</Link>)}
+          </div>
+          <div className="mt-6 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+            {UF_ORDER.map((code) => <Link key={code} to="/candidatos" search={(prev) => ({ ...prev, uf: code, cargo })} className="flex min-h-14 items-center gap-3 rounded-lg border border-border bg-surface px-4 py-3 hover:border-primary focus-visible:ring-2 focus-visible:ring-ring"><span className="text-sm font-semibold text-primary">{code}</span><span>{UF_META[code].name}</span></Link>)}
+          </div>
         </section>
       ) : (
         <>
@@ -186,7 +192,7 @@ export function RacePage() {
 
           <p className="border-b border-border px-4 py-2 font-mono text-xs uppercase tracking-[0.12em] text-cream/85 md:px-6">
             {evidenceReason()}
-            {tseAsOf ? ` · ${m.race.urna(tseAsOf)}` : ""}
+            {tseAsOf ? ` · ${locale === "en" ? "Candidate catalog updated" : "Catálogo de candidatos atualizado em"} ${tseAsOf}` : ""}
           </p>
           <div className="hook-rail">
             {cargo === "governador" ? (
@@ -226,7 +232,7 @@ export function RacePage() {
           <section>
             <div className="flex flex-wrap items-end gap-3 border-b border-border px-4 py-3 md:px-6">
               <div className="mr-auto">
-                <p className="kicker">{m.race.tseKicker}</p>
+                <h2 className="text-lg font-semibold">{m.race.tseKicker}</h2>
                 <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.12em] text-muted">
                   {ufName} · {roster.length}{" "}
                   {m.race.names(roster.length)} · {CANDIDATES_META.source}

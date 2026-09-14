@@ -14,7 +14,7 @@ test("first visit tells the truth about the file", async () => {
     newestId: "poderdata-08-26",
   });
   assert.equal(v.kind, "first");
-  assert.match(v.line, /Período/);
+  assert.match(v.line, /Estimativa do modelo/);
   assert.match(
     fileStamp({ institute: "PoderData/Aya", fieldEnd: "2026-08-26" }),
     /PoderData/,
@@ -71,7 +71,7 @@ test("reload in the same session does not fake movement", async () => {
     nowMs: 1_000_000 + 5 * 60_000,
   });
   assert.equal(v.kind, "stale");
-  assert.match(v.line, /Reload agora não muda/);
+  assert.match(v.line, /Nenhuma nova pesquisa/);
 });
 
 test("new poll in the file is the hook", async () => {
@@ -131,6 +131,17 @@ test("periodo change is named as memory, not as a new poll", async () => {
     nowMs: 1 + 60_000,
   });
   assert.equal(v.kind, "hl");
-  assert.match(v.line, /Período 5/);
+  assert.match(v.line, /Modelo ajustado para 5/);
   assert.doesNotMatch(v.line, /Pesquisa nova/);
+});
+
+test("model change takes precedence over a concurrent poll or negligible movement", async () => {
+  const { visitView } = await load();
+  for (const pLula of [60, 70]) {
+    const view = visitView({ at: 1, pLula: 60, pFlavio: 40, hl: 5, newestId: "old" },
+      { pLula, pFlavio: 100 - pLula, hl: 90, newestId: "new", nowMs: 3600001 });
+    assert.equal(view.kind, "hl");
+    assert.match(view.line, /Modelo ajustado para 90/);
+    assert.doesNotMatch(view.line, /vs a visita anterior|Pesquisa nova/);
+  }
 });

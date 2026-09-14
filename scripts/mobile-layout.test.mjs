@@ -21,7 +21,7 @@ test("mobile first screen: one-row nav, 44px taps, share icons, period after sco
   assert.match(mobile, /\.share-btn-icon\s*\{[^}]*2\.75rem/);
   assert.match(bar, /share-wa-short/);
   assert.match(bar, /m\.share\.whatsappShort/);
-  assert.match(lab, /compact/);
+  assert.match(lab, /<h1/);
   assert.match(phone, /#mapa \{\s*order: 3/);
   assert.match(phone, /#novo \{\s*order: 4/);
   assert.equal(
@@ -50,6 +50,6 @@ test("desktop first screen: no 52dvh hero, period 5/90, no YTD copy", () => {
   const lab = readFileSync("src/features/radar/lab/lab-radar-page.tsx", "utf8");
   assert.match(lab, /<HalfLifeControl/);
   const hlAt = lab.indexOf("<HalfLifeControl");
-  const novoAt = lab.indexOf('id="novo"');
-  assert.ok(hlAt >= 0 && hlAt < novoAt, "lab period sits above the latest-poll card");
+  const introAt = lab.indexOf("<h1");
+  assert.ok(introAt >= 0 && hlAt > introAt, "method explanation precedes advanced model settings");
 });

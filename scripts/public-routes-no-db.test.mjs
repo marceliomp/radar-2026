@@ -184,9 +184,6 @@ test("home puts the period slider at the top of the body", () => {
   const metodoAt = page.indexOf('id="metodo"');
   assert.ok(hlAt > mainAt && mainAt > heroEnd, "period slider sits in the page body, not over the score");
   assert.ok(hlAt < mediaAt, "period slider sits above intention");
-  const labHookAt = page.indexOf("lab-hook");
-  assert.ok(labHookAt > hlAt && labHookAt < mediaAt, "lab one-liner sits under the period, not in the hero");
-  assert.match(page, /m\.home\.labHookLink/);
   assert.ok(hlAt < metodoAt, "period slider is not buried in method");
   assert.equal(page.split("<HalfLifeControl").length - 1, 1, "one slider, not two");
 });
@@ -244,12 +241,12 @@ test("governor hero is intention, not a 99,5% win number glued to the ballot", (
 });
 
 
-test("home share sits on the hero under the score", () => {
+test("home share follows the chart in the body", () => {
   const page = readFileSync("src/features/radar/public/public-radar-page.tsx", "utf8");
   const scoreAt = page.indexOf("hero-score");
   const shareAt = page.indexOf("<ShareBar");
   const mainAt = page.indexOf('id="conteudo"');
-  assert.ok(scoreAt >= 0 && shareAt > scoreAt && shareAt < mainAt, "share must sit on the hero");
+  assert.ok(scoreAt >= 0 && shareAt > scoreAt && shareAt > mainAt && shareAt > page.indexOf("<GrowthCurve"), "share follows the chart");
   assert.equal(page.split("<ShareBar").length - 1, 1, "one share on the public home");
   assert.match(page, /compact/);
   assert.doesNotMatch(page, /hook-rail/);

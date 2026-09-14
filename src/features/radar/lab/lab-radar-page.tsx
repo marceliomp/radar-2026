@@ -1,12 +1,10 @@
 import { useMemo, useState } from "react";
-import { CalendarDays, Radio } from "lucide-react";
 import { useAsOf } from "@/lib/as-of";
 import { useHalfLife } from "@/lib/half-life";
 import { polls, CANDIDATE_META } from "@/data/polls";
 import { type MapLayer } from "@/features/radar/map/brazil-map";
 import {
   DEFAULT_CONFIG,
-  housesInAverage,
   runForecast,
   type EngineConfig,
 } from "@/lib/forecast/engine";
@@ -17,23 +15,14 @@ import {
   sameHouseDeltas,
   windowMomentum,
 } from "@/lib/forecast/trends";
-import { fmtDelta, fmtMult, fmtNum, fmtPct, fmtProb } from "@/lib/format";
 import { trackQuality } from "@/lib/forecast/track-record";
-import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ShareBar } from "@/components/share-bar";
 import { HalfLifeControl } from "@/components/half-life-control";
 import { MastBar } from "@/components/site-nav";
 import { useI18n } from "@/lib/i18n";
 import {
   FIRST_KEYS,
-  FirstRoundField,
-  SecondRoundScenarios,
-  fmtDateBr,
-  gapPlain,
   nextUpcoming,
-  pollAskedPairs,
-  pollFirstRoundRows,
 } from "./lab-shared";
 import { MapTab } from "./tabs/map-tab";
 import { AgendaTab } from "./tabs/agenda-tab";
@@ -49,7 +38,7 @@ export function LabRadarPage() {
   const { locale, m, fmt } = useI18n();
 
   const [asOf] = useAsOf();
-  const [halfLife, setHalfLife] = useHalfLife();
+  const [halfLife] = useHalfLife();
   const [includeOnline, setIncludeOnline] = useState(true);
   const [includeRemoto, setIncludeRemoto] = useState(true);
   const [includeModelo, setIncludeModelo] = useState(false);
@@ -84,7 +73,7 @@ export function LabRadarPage() {
   ]);
 
   const forecast = useMemo(() => runForecast(polls, config), [config]);
-  const { first, second, probs, rows } = forecast;
+  const { first, probs, rows } = forecast;
 
   const visiblePolls = useMemo(
     () => polls.filter((p) => p.date <= asOf && p.fieldEnd <= asOf),
@@ -175,15 +164,6 @@ export function LabRadarPage() {
 
   const statePolls = visiblePolls.filter((p) => !p.national);
 
-  const latestNational = useMemo(
-    () =>
-      visiblePolls
-        .filter((p) => p.national)
-        .slice()
-        .sort((a, b) => b.date.localeCompare(a.date) || b.fieldEnd.localeCompare(a.fieldEnd))[0],
-    [visiblePolls],
-  );
-
   const upcoming = nextUpcoming(config.asOf);
   const daysLeft = upcoming
     ? Math.max(
@@ -199,192 +179,15 @@ export function LabRadarPage() {
     <div className="pb-[max(4rem,env(safe-area-inset-bottom))]">
     <div className="page-body mx-auto min-w-0 max-w-6xl overflow-x-clip px-4 pt-5 sm:px-6 sm:pt-8">
       <MastBar className="mb-5" />
-      <HalfLifeControl />
-      <header className="mb-6 space-y-4">
-        <div className="board-split">
-          <div className="board-card border-0 sm:border-r sm:border-border">
-            <p className="kicker">{m.lab.first}</p>
-            <FirstRoundField first={first} />
-            <p className="mt-3 text-xs font-medium leading-relaxed text-cream/85">
-              {gapPlain(first.technicalTie, first.lula.mean, first.flavio.mean, first.seGap, locale)}
-              {" · "}
-              {m.lab.leadsFirst(fmt.prob(probs.lulaLeadsFirst))}
-            </p>
-            <p className="mt-3">
-              <a href="#pares" className="hook-link">
-                {m.lab.toSecond}
-              </a>
-            </p>
-          </div>
-          <div className="board-card border-0 border-t border-border sm:border-t-0">
-            <p className="kicker" id="pares">{m.lab.second}</p>
-            <SecondRoundScenarios
-              first={first}
-              second={second}
-              pollsForPairs={rows.map((r) => ({ ...r.poll, weight: r.weight }))}
-            />
-            <p className="mt-3">
-              <a href="#mapa" className="hook-link">
-                {m.lab.toState}
-              </a>
-            </p>
-          </div>
-        </div>
-        <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
-          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm font-medium text-fg">
-            <span className="inline-flex items-center gap-1.5">
-              <CalendarDays className="size-4 shrink-0 text-primary" />
-              {m.lab.updated(fmt.date(config.asOf))}
-            </span>
-            <span className="inline-flex items-center gap-1.5">
-              <Radio className="size-4 shrink-0 text-primary" />
-              {m.lab.nationalPolls(rows.length)}
-            </span>
-          </div>
-          <ShareBar
-            compact
-            asOf={fmt.date(config.asOf)}
-            lula1={first.lula.mean}
-            flavio1={first.flavio.mean}
-            lula2={second?.lula.mean ?? 0}
-            flavio2={second?.flavio.mean ?? 0}
-            pLula={probs.lulaWinsElection}
-            pFlavio={probs.flavioWinsElection}
-          />
-        </div>
-        <div className="chip-row -mx-4 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:px-0">
-          {housesInAverage(rows).slice(0, 6).map((r, i) => (
-            <span
-              key={r.institute}
-              className="inline-flex min-h-11 shrink-0 items-center gap-1.5 rounded-md border border-border bg-surface px-3 py-1.5 text-xs font-semibold text-fg"
-            >
-              <span className="text-gold">{i + 1}.</span>
-              {r.institute}
-              <span className="tabular-nums text-cream/80">
-                {fmt.pct(r.share * 100, 0)} {m.lab.ofWeight}
-              </span>
-              <span className="tabular-nums text-primary">
-                ×{fmtMult(r.quality, 2, locale)}
-              </span>
-            </span>
-          ))}
-        </div>
+      <header className="mb-6 max-w-3xl space-y-3">
+        <h1 className="text-3xl font-semibold tracking-tight">{locale === "en" ? "How the model works" : "Como funciona o modelo"}</h1>
+        <p className="text-sm leading-relaxed text-muted">{locale === "en" ? "We combine polls, weight their recency and sample size, and estimate uncertainty. Vote intention and election probability are different measures." : "Combinamos pesquisas, ponderamos a recência e o tamanho da amostra e estimamos a incerteza. Intenção de voto e chance de eleição são medidas diferentes."}</p>
+        <p className="text-sm text-muted">{m.lab.updated(fmt.date(config.asOf))} · {m.lab.nationalPolls(rows.length)}</p>
       </header>
-
-      <section className="mb-6 grid gap-3 sm:grid-cols-3">
-        <Card className="border-flavio/35 glow-flavio bg-gradient-to-br from-surface to-flavio/5">
-          <CardContent className="pt-4">
-            <p className="text-xs font-medium text-gold">
-              {m.lab.flavioOldNew}
-            </p>
-            <p className="num-flavio mt-1 font-display text-2xl font-semibold tabular-nums">
-              {fmtDelta(mom.dFlavio1)} pp
-            </p>
-            <p className="text-xs font-medium text-fg">
-              {fmtNum(mom.earlyFlavio1)}% → {fmtNum(mom.lateFlavio1)}%
-            </p>
-          </CardContent>
-        </Card>
-        <Card className="border-lula/35 glow-lula bg-gradient-to-br from-surface to-lula/5">
-          <CardContent className="pt-4">
-            <p className="text-xs font-medium text-gold">
-              {m.lab.lulaOldNew}
-            </p>
-            <p className="num-lula mt-1 font-display text-2xl font-semibold tabular-nums">
-              {fmtDelta(mom.dLula1)} pp
-            </p>
-            <p className="text-xs font-medium text-fg">
-              {fmtNum(mom.earlyLula1)}% → {fmtNum(mom.lateLula1)}%
-            </p>
-          </CardContent>
-        </Card>
-        <Card className="border-accent/35 bg-gradient-to-br from-surface to-accent/5">
-          <CardContent className="pt-4">
-            <p className="text-xs font-medium text-gold">
-              {m.lab.gapOldNew}
-            </p>
-            <p className="num-accent mt-1 font-display text-2xl font-semibold tabular-nums">
-              {fmtDelta(mom.dGap1)} pp
-            </p>
-            <p className="text-xs font-medium text-fg">
-              {fmtNum(mom.earlyGap1)} → {fmtNum(mom.lateGap1)} pp
-            </p>
-          </CardContent>
-        </Card>
-      </section>
-
-      {latestNational && (
-        <section id="novo" className="mb-6">
-          <div className="board-card">
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-              <div className="space-y-1.5">
-                <p className="eyebrow">{m.lab.newPoll}</p>
-                <p className="font-display text-xl font-semibold">
-                  {latestNational.institute}
-                </p>
-                <p className="text-sm font-medium text-gold">
-                  {latestNational.date.slice(8)}/
-                  {latestNational.date.slice(5, 7)} · {latestNational.mode} · n=
-                  {latestNational.sample.toLocaleString("pt-BR")} · ±
-                  {fmtNum(latestNational.moe)} pp
-                </p>
-                {latestNational.notes && (
-                  <p className="max-w-xl text-xs font-medium leading-relaxed text-fg">
-                    {latestNational.notes}
-                  </p>
-                )}
-              </div>
-              <div className="grid gap-6 sm:grid-cols-[minmax(0,16rem)_minmax(0,1fr)]">
-                <div>
-                  <p className="text-xs font-medium text-gold">{m.lab.first}</p>
-                  <ul className="mt-1 space-y-0.5 text-sm font-semibold tabular-nums">
-                    {pollFirstRoundRows(latestNational)
-                      .filter((r) => r.asked)
-                      .map((r) => (
-                      <li key={r.key} className="flex justify-between gap-3">
-                        <span style={{ color: r.color }}>{r.name}</span>
-                        <span style={{ color: r.color }}>{fmtPct(r.value)}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div>
-                  <p className="text-xs font-medium text-gold">{m.lab.second}</p>
-                  {pollAskedPairs(latestNational).length ? (
-                    <ul className="mt-1">
-                      {pollAskedPairs(latestNational).map((pair) => {
-                        const a = CANDIDATE_META[pair.a];
-                        const b = CANDIDATE_META[pair.b];
-                        return (
-                          <li key={`${pair.a}|${pair.b}`} className="score-row py-1">
-                            <span className="min-w-0 text-sm">
-                              <span style={{ color: a.color }}>{a.name}</span>
-                              <span className="text-cream/40"> × </span>
-                              <span style={{ color: b.color }}>{b.name}</span>
-                            </span>
-                            <span className="shrink-0 font-mono text-xs tabular-nums">
-                              <span style={{ color: a.color }}>{fmtPct(pair.aPct)}</span>
-                              <span className="text-cream/40"> × </span>
-                              <span style={{ color: b.color }}>{fmtPct(pair.bPct)}</span>
-                            </span>
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  ) : (
-                    <p className="mt-1 text-sm font-medium text-cream/70">{m.lab.noSecond}</p>
-                  )}
-                  <p className="mt-3">
-                    <a href="#pares" className="hook-link">
-                      {m.lab.toPairs}
-                    </a>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
+      <details className="mb-6 rounded-lg border border-border bg-surface p-4">
+        <summary className="cursor-pointer font-semibold">{locale === "en" ? "Adjust the model" : "Ajustar modelo"}</summary>
+        <div className="mt-4"><HalfLifeControl /></div>
+      </details>
 
       <Tabs defaultValue="modelo" className="w-full">
         <div className="-mx-4 overflow-x-auto px-4 pb-1 sm:mx-0 sm:px-0">

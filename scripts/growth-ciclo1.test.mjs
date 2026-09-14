@@ -81,8 +81,8 @@ test("home chips, period presets and analytics events are wired", () => {
   const messages = readFileSync("src/lib/i18n/messages.ts", "utf8");
   assert.doesNotMatch(messages, /De janeiro até hoje/);
   assert.doesNotMatch(messages, /o ano/);
-  assert.match(page, /lab-hook/);
-  assert.match(page, /m\.home\.labHook/);
+  assert.match(hl, /model-settings/);
+  assert.match(hl, /<summary>/);
   assert.match(page, /to="\/lab"/);
   assert.match(hook, /DEFAULT_HALF_LIFE/);
   assert.doesNotMatch(hook, /yearToDateDays\(todayAsOf\(\)\)/);
@@ -91,7 +91,7 @@ test("home chips, period presets and analytics events are wired", () => {
   assert.match(css, /page-body-home/);
   assert.match(css, /#mapa \{\s*order: 3/);
   assert.match(css, /#novo \{\s*order: 4/);
-  assert.match(css, /\.lab-hook \{\s*order: 1/);
+  assert.match(css, /\.radar-home \.page-body-home > #curva \{ order:2/);
   assert.match(pwa, /DEFAULT_APP_NAME = "Radar 2026"/);
   assert.match(pwa, /theme_color: "#0c1817"/);
   assert.match(meta, /homeTitle/);

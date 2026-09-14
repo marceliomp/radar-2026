@@ -123,11 +123,15 @@ export function HalfLifeSlider({ id }: { id?: string }) {
 }
 
 export function HalfLifeControl() {
+  const [halfLife] = useHalfLife();
+  const { locale } = useI18n();
   return (
-    <div className="mast-hl">
+    <details className="mast-hl model-settings">
+      <summary><span>{locale === "en" ? "Model" : "Modelo"} <strong>{halfLife} {locale === "en" ? "days" : "dias"}</strong></span><span className="model-settings-action">{locale === "en" ? "Adjust model" : "Ajustar modelo"}</span></summary>
       <div className="hl-card">
+        <p className="model-explanation">{locale === "en" ? "This changes how recent polls are weighted, not the date range shown in the chart. The historical chance chart uses the standard five-day model." : "Este ajuste muda o peso das pesquisas recentes, não as datas exibidas no gráfico. O histórico de chance usa o modelo padrão de 5 dias."}</p>
         <HalfLifeSlider id="mast-half-life" />
       </div>
-    </div>
+    </details>
   );
 }

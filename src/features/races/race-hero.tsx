@@ -34,7 +34,7 @@ export function RaceHero({
   if (!result || leaders.length === 0) {
     return (
       <section className="border-b border-border px-4 py-8 md:px-6">
-        <p className="kicker">{ufName} · {officeLabel}</p>
+        <h1 className="text-2xl font-semibold">{ufName} · {officeLabel}</h1>
         <p className="mt-2 font-mono text-2xl font-semibold tabular-nums tracking-[-0.03em] text-cream">n/d</p>
         <p className="mt-2 max-w-xl text-sm font-medium text-muted">{m.race.noAgg}</p>
         <p className="tight-next mt-4">
@@ -67,6 +67,7 @@ export function RaceHero({
   const chanceLabel = office === "senator" ? m.race.chanceSenate : m.race.chanceSeat;
   return (
     <>
+      <h1 className="px-4 py-4 text-2xl font-semibold md:px-6">{officeLabel} · {ufName}</h1>
       <section
         className={cn(
           "grid border-b border-border",
@@ -92,7 +93,7 @@ export function RaceHero({
               <p
                 className="mt-2 flex items-end gap-1 font-black leading-[0.84] tracking-[-0.04em]"
                 style={{
-                  fontFamily: '"Archivo Black", "DM Sans", sans-serif',
+                  fontFamily: '"DM Sans", sans-serif',
                   fontSize: columns >= 3 ? "clamp(2.6rem, 8vw, 4.5rem)" : "clamp(3.2rem, 11vw, 6rem)",
                   color: tone.fg,
                 }}

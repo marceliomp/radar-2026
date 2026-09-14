@@ -1,3 +1,4 @@
+import { PublicPollSource } from "@/features/races/public-poll-source";
 import { Info } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -8,7 +9,7 @@ export function WeightsTab({
   rows,
 }: {
   rows: Array<{
-    poll: { id: string; institute: string; fieldStart?: string; fieldEnd: string; mode: string };
+    poll: { id: string; institute: string; fieldStart?: string; fieldEnd: string; mode: string; notes?: string; source?: { url?: string | null; tseProtocol?: string | null } };
     wTrack: number;
     wRecency: number;
     weightShare: number;
@@ -48,6 +49,7 @@ export function WeightsTab({
                       >
                         <td className="px-3 py-2.5 font-medium">
                           {r.poll.institute}
+                          <PublicPollSource poll={r.poll} locale="pt" />
                         </td>
                         <td className="px-3 py-2.5 font-medium text-muted">
                           {fieldRangeLabel(r.poll.fieldStart, r.poll.fieldEnd)}

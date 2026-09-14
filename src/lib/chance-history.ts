@@ -2,11 +2,13 @@ import { isoDayUtc } from "./format.ts";
 import { isoShiftDays } from "./period.ts";
 import type { ChanceHistoryPoint } from "../data/chance-history.ts";
 
-/** Display window for published chance series. Period slider stays 5/90. */
+/** Display window is independent of the model half-life. */
 export const CHANCE_HISTORY_DAYS = 60;
 
-export function chanceAxisStart(asOf: string): string {
-  return isoShiftDays(asOf, -CHANCE_HISTORY_DAYS);
+export const CHANCE_MODEL_HALF_LIFE = 5;
+
+export function chanceAxisStart(asOf: string, windowDays = CHANCE_HISTORY_DAYS): string {
+  return isoShiftDays(asOf, -windowDays);
 }
 
 /** Points inside (asOf − window, asOf], sorted ascending. */
@@ -42,7 +44,7 @@ export function buildChanceStepSeries(
   const inWindow = pointsInWindow(points, asOf, windowDays);
   if (!inWindow.length) return [];
 
-  const start = chanceAxisStart(asOf);
+  const start = chanceAxisStart(asOf, windowDays);
   const first = inWindow[0]!;
   const seriesStart = first.date > start ? first.date : start;
 
@@ -80,4 +82,18 @@ export function upsertChancePoint(
   };
   const without = points.filter((p) => p.date !== row.date);
   return [...without, row].sort((a, b) => a.date.localeCompare(b.date));
+}
+
+/** Only a current estimate from the same model may update the current day. */
+export function alignChanceWithCurrentModel(
+  steps: ChanceStepDay[],
+  asOf: string,
+  halfLifeDays: number,
+  current: { lula: number; flavio: number } | null,
+): ChanceStepDay[] {
+  if (halfLifeDays !== CHANCE_MODEL_HALF_LIFE || !current) return steps;
+  if (!Number.isFinite(current.lula) || !Number.isFinite(current.flavio)) return steps;
+  return steps.map((step) => step.date === asOf
+    ? { ...step, lula: current.lula, flavio: current.flavio, publishedOn: asOf }
+    : step);
 }

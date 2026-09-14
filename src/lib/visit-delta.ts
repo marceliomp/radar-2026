@@ -81,6 +81,17 @@ export function visitView(
     };
   }
 
+  if (prev.hl !== now.hl) {
+    return {
+      kind: "hl",
+      line: locale === "en" ? `Model adjusted to ${now.hl} days. This is a configuration change, not a new poll.` : `Modelo ajustado para ${now.hl} dias. A mudança é de configuração, não de pesquisa.`,
+      dLula,
+      dFlavio,
+      hours,
+    };
+  }
+
+
   if (newPoll) {
     return {
       kind: "new-poll",
@@ -91,15 +102,6 @@ export function visitView(
     };
   }
 
-  if (prev.hl !== now.hl && moved) {
-    return {
-      kind: "hl",
-      line: copy.hl(now.hl, chanceLine(dLula, locale)),
-      dLula,
-      dFlavio,
-      hours,
-    };
-  }
 
   if (moved && hours >= 1) {
     return {
