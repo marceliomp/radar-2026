@@ -16,7 +16,7 @@ test("chance chart draws end labels and national marks including Datafolha/Quaes
   assert.match(curve, /ReferenceLine/);
   assert.match(curve, /LabelList/);
   assert.match(curve, /stepBefore/);
-  assert.match(messages, /seriesChanceMeta: "modelo · 5"/);
+  assert.match(messages, /seriesChanceMeta: "modelo · 15"/);
   assert.doesNotMatch(messages, /seriesChanceMeta: "publicada"/);
   assert.doesNotMatch(messages, /chanceKicker: "Chance publicada"/);
 });

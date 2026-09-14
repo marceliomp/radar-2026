@@ -73,7 +73,7 @@ test("home chips, period presets and analytics events are wired", () => {
   assert.match(hl, /m\.period\.presetsAria/);
   assert.match(hl, /DEFAULT_HALF_LIFE/);
   const period = readFileSync("src/lib/period.ts", "utf8");
-  assert.match(period, /DEFAULT_HALF_LIFE = 5/);
+  assert.match(period, /DEFAULT_HALF_LIFE = 15/);
   assert.match(period, /HL_MAX = 90/);
   assert.match(hl, /HL_MAX/);
   assert.doesNotMatch(hl, /yearToDateDays/);

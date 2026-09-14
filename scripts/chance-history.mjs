@@ -55,7 +55,7 @@ export async function computePublishedChance(asOf) {
   const snap = runForecast(polls, {
     ...DEFAULT_CONFIG,
     asOf: day,
-    halfLifeDays: 5,
+    halfLifeDays: 15,
     simulations: 2000,
   });
   return {

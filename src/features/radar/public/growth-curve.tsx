@@ -788,7 +788,7 @@ export function GrowthCurve({
   polls: ForecastPoll[];
   asOf: string;
   halfLifeDays: number;
-  /** When slider is at 15d, pass hero win % so the Chance tip cannot drift. */
+  /** Pass hero win % so the Chance tip matches the hero at any period. */
   heroChancePct?: { lula: number; flavio: number } | null;
 }) {
   const { locale, m } = useI18n();

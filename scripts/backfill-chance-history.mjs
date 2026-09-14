@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Backfill chance-history.json by replaying the public engine (hl=5)
+ * Backfill chance-history.json by replaying the public engine (hl=15)
  * for each of the last 60 America/Sao_Paulo days.
  * Does not invent poll votes. Labels points as source: "replay".
  */
@@ -14,7 +14,7 @@ const HISTORY_PATH = join(ROOT, "src/data/chance-history.json");
 const POLLS_PATH = join(ROOT, "src/data/polls.json");
 
 const WINDOW_DAYS = 60;
-const HALF_LIFE = 5;
+const HALF_LIFE = 15;
 const SIMS = 4000;
 
 function round1(n) {
