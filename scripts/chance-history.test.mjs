@@ -9,7 +9,8 @@ test("history has 60 daily points covering the window through 14/09", () => {
   assert.equal(file.points.length, 60);
   assert.equal(file.points[0].date, "2026-07-17");
   assert.equal(file.points.at(-1).date, "2026-09-14");
-  assert.equal(file.points.at(-1).source, "replay");
+  // Tip may be replay (backfill) or promote (after poll ingest).
+  assert.ok(["replay", "promote"].includes(file.points.at(-1).source));
   assert.ok(file.points.slice(0, -1).every((p) => p.source === "replay"));
   // consecutive calendar days
   for (let i = 1; i < file.points.length; i++) {
