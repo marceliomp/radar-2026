@@ -3,14 +3,14 @@ import { readFileSync } from "node:fs";
 import { test } from "node:test";
 import { upsertPoint } from "./chance-history.mjs";
 
-test("history has 60 daily replay points covering the window", () => {
+test("history has 60 daily points covering the window through 14/09", () => {
   const file = JSON.parse(readFileSync("src/data/chance-history.json", "utf8"));
   assert.equal(file.windowDays, 60);
   assert.equal(file.points.length, 60);
-  assert.equal(file.points[0].date, "2026-07-16");
-  assert.equal(file.points.at(-1).date, "2026-09-13");
-  assert.ok(file.points.every((p) => p.source === "replay"));
-  assert.ok(!file.points.some((p) => p.source === "promote"));
+  assert.equal(file.points[0].date, "2026-07-17");
+  assert.equal(file.points.at(-1).date, "2026-09-14");
+  assert.equal(file.points.at(-1).source, "promote");
+  assert.ok(file.points.slice(0, -1).every((p) => p.source === "replay"));
   // consecutive calendar days
   for (let i = 1; i < file.points.length; i++) {
     const prev = new Date(`${file.points[i - 1].date}T12:00:00Z`).getTime();
@@ -30,6 +30,8 @@ test("key September replay dates are engine outputs, not invented votes", () => 
   assert.equal(byDate["2026-09-12"].flavio, 47.2);
   assert.equal(byDate["2026-09-13"].lula, 52.8);
   assert.equal(byDate["2026-09-13"].flavio, 47.2);
+  assert.equal(byDate["2026-09-14"].lula, 51.5);
+  assert.equal(byDate["2026-09-14"].flavio, 48.5);
 });
 
 test("upsertPoint replaces same date and sorts", () => {

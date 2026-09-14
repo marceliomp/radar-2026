@@ -1,5 +1,36 @@
 [
   {
+    "id": "quaest-09-14-03607",
+    "institute": "Genial/Quaest",
+    "date": "2026-09-14",
+    "fieldStart": "2026-09-10",
+    "fieldEnd": "2026-09-13",
+    "sample": 2004,
+    "moe": 2,
+    "mode": "presencial",
+    "national": true,
+    "firstRound": {
+      "lula": 36,
+      "flavio": 31,
+      "cury": 7,
+      "renan": 4,
+      "caiado": 4,
+      "zema": 1
+    },
+    "secondRound": {
+      "flavio": 42,
+      "lula": 40
+    },
+    "source": {
+      "tseProtocol": "BR-03607/2026",
+      "url": "https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/noticia/2026/09/14/quaest-pesquisa-presidente-primeiro-turno-14-setembro.ghtml",
+      "publisher": "g1.globo.com",
+      "publishedAt": "2026-09-14",
+      "capturedAt": "2026-09-14T13:36:57.000Z"
+    },
+    "notes": "G1 14/09. TSE BR-03607/2026. Campo 10-13/09 n=2004 moe ±2 presencial. 1T L36 F31 Cury7 Renan4 Caiado4 Zema1. 2T F42×L40 (G1/CBN). Votos só da fonte citável."
+  },
+  {
     "id": "datafolha-09-11-01833",
     "institute": "Datafolha",
     "date": "2026-09-11",
