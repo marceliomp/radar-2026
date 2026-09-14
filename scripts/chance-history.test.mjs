@@ -85,6 +85,7 @@ test("step series holds chance across days from daily replay points", async () =
 
 test("growth curve toggles Média|Chance on #curva with step line", () => {
   const curve = readFileSync("src/features/radar/public/growth-curve.tsx", "utf8");
+  const messages = readFileSync("src/lib/i18n/messages.ts", "utf8");
   assert.match(curve, /id="curva"/);
   assert.match(curve, /m\.curve\.seriesAvg/);
   assert.match(curve, /m\.curve\.seriesChance/);
@@ -93,7 +94,11 @@ test("growth curve toggles Média|Chance on #curva with step line", () => {
   assert.match(curve, /stepAfter/);
   assert.match(curve, /step=\{chanceMode\}/);
   assert.match(curve, /m\.curve\.chanceLede/);
-  assert.match(curve, /Não é pesquisa|chanceLede/);
+  assert.match(curve, /chanceMode=\{chanceMode\}/);
+  assert.match(curve, /m\.curve\.lineChance/);
+  assert.match(messages, /seriesChanceMeta: "modelo · 15"/);
+  assert.doesNotMatch(messages, /seriesChanceMeta: "publicada"/);
+  assert.doesNotMatch(messages, /chance que o Radar publicou/);
 });
 
 test("publish-polls appends chance history when polls move", () => {
