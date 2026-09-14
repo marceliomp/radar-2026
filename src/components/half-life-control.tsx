@@ -22,8 +22,8 @@ export function HalfLifeSlider({ id }: { id?: string }) {
   commitRef.current = commitUrl;
   setLiveRef.current = setLive;
   const presets = [
+    { days: HL_MIN, label: `${HL_MIN}d` },
     { days: DEFAULT_HALF_LIFE, label: `${DEFAULT_HALF_LIFE}d` },
-    { days: 15, label: "15d" },
     { days: 30, label: m.period.month },
     { days: HL_MAX, label: `${HL_MAX}d` },
   ];

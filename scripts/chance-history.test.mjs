@@ -19,12 +19,12 @@ test("history has 60 daily points covering the window through 14/09", () => {
   }
 });
 
-test("key September replay dates match the five-day engine", async () => {
+test("key September replay dates match the 15-day engine", async () => {
   const file = JSON.parse(readFileSync("src/data/chance-history.json", "utf8"));
   const polls = JSON.parse(readFileSync("src/data/polls.json", "utf8"));
   const { runForecast, DEFAULT_CONFIG } = await import("../src/lib/forecast/engine.ts");
   for (const point of file.points.filter(p => p.date >= "2026-09-10")) {
-    const forecast = runForecast(polls, {...DEFAULT_CONFIG, asOf: point.date, halfLifeDays: 5, simulations: 4000});
+    const forecast = runForecast(polls, {...DEFAULT_CONFIG, asOf: point.date, halfLifeDays: 15, simulations: 4000});
     assert.equal(point.lula, Math.round(forecast.probs.lulaWinsElection * 1000) / 10);
     assert.equal(point.flavio, Math.round(forecast.probs.flavioWinsElection * 1000) / 10);
   }
@@ -101,24 +101,23 @@ test("growth curve toggles Média|Chance on #curva with step line", () => {
   assert.match(curve, /m\.curve\.lineChance/);
   assert.match(curve, /heroChancePct/);
   assert.match(page, /heroChancePct=/);
-  assert.match(page, /DEFAULT_HALF_LIFE/);
-  assert.match(messages, /seriesChanceMeta: "modelo · 5"/);
+  assert.match(messages, /seriesChanceMeta: "modelo · 15"/);
   assert.doesNotMatch(messages, /seriesChanceMeta: "publicada"/);
   assert.doesNotMatch(messages, /chance que o Radar publicou/);
 });
 
-test("chance tip on main equals hero at hl=5 for 2026-09-14", async () => {
+test("chance tip on main equals hero at hl=15 for 2026-09-14", async () => {
   const hist = JSON.parse(readFileSync("src/data/chance-history.json", "utf8"));
   const tip = hist.points.at(-1);
   assert.equal(tip.date, "2026-09-14");
-  assert.equal(tip.lula, 43.2);
-  assert.equal(tip.flavio, 56.8);
+  assert.equal(tip.lula, 51.5);
+  assert.equal(tip.flavio, 48.5);
   const polls = JSON.parse(readFileSync("src/data/polls.json", "utf8"));
   const { runForecast, DEFAULT_CONFIG } = await import("../src/lib/forecast/engine.ts");
   const snap = runForecast(polls, {
     ...DEFAULT_CONFIG,
     asOf: "2026-09-14",
-    halfLifeDays: 5,
+    halfLifeDays: 15,
     simulations: 4000,
   });
   const heroL = Math.round(snap.probs.lulaWinsElection * 1000) / 10;
@@ -138,7 +137,7 @@ test("backfill script replays engine and labels source replay", () => {
   const backfill = readFileSync("scripts/backfill-chance-history.mjs", "utf8");
   assert.match(backfill, /source: "replay"/);
   assert.match(backfill, /halfLifeDays: HALF_LIFE/);
-  assert.match(backfill, /HALF_LIFE = 5/);
+  assert.match(backfill, /HALF_LIFE = 15/);
   assert.match(backfill, /runForecast/);
   assert.doesNotMatch(backfill, /source: "promote"/);
 });

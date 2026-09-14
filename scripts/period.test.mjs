@@ -10,9 +10,9 @@ import {
   yearToDateDays,
 } from "../src/lib/period.ts";
 
-test("public default period is 5 days, not YTD", () => {
-  assert.equal(DEFAULT_HALF_LIFE, 5);
-  assert.equal(clampHalfLife(DEFAULT_HALF_LIFE), 5);
+test("public default period is 15 days, not YTD", () => {
+  assert.equal(DEFAULT_HALF_LIFE, 15);
+  assert.equal(clampHalfLife(DEFAULT_HALF_LIFE), 15);
 });
 
 test("YTD from 1 jan to 8 set 2026 clamps to the 90-day cap", () => {
