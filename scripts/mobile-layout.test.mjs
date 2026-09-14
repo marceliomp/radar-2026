@@ -53,3 +53,12 @@ test("desktop first screen: no 52dvh hero, period 5/90, no YTD copy", () => {
   const introAt = lab.indexOf("<h1");
   assert.ok(introAt >= 0 && hlAt > introAt, "method explanation precedes advanced model settings");
 });
+
+test("share bar stays in normal flow after moving below the chart", () => {
+  const css = readFileSync("src/styles.css", "utf8");
+  const blocks = [...css.matchAll(/\.hero-share\s*\{([^}]+)\}/g)];
+  assert.ok(blocks.length > 0);
+  for (const [, declarations] of blocks) {
+    assert.doesNotMatch(declarations, /position:\s*(absolute|fixed|sticky)/);
+  }
+});
