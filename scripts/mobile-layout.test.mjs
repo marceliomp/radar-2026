@@ -22,7 +22,7 @@ test("mobile first screen: one-row nav, 44px taps, share icons, period after sco
   assert.match(bar, /share-wa-short/);
   assert.match(bar, /m\.share\.whatsappShort/);
   assert.match(lab, /compact/);
-  assert.match(phone, /#mapa \{\s*order: 2/);
+  assert.match(phone, /#mapa \{\s*order: 3/);
   assert.match(phone, /#novo \{\s*order: 4/);
   assert.equal(
     mobile.match(/\.hl-copy\s*\{[^}]*display:\s*none/),
