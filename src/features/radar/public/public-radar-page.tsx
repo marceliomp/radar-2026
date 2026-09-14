@@ -24,6 +24,7 @@ import { extraVarCached, publicEngineConfig } from "@/lib/forecast/extra-var";
 import { fieldPeriodLine, fmtDelta, fmtMult, isShownTie, pairTightnessLine, shownGap } from "@/lib/format";
 import { useHalfLife, useHalfLifeDragging } from "@/lib/half-life";
 import { keepRadarSearch, useI18n } from "@/lib/i18n";
+import { DEFAULT_HALF_LIFE } from "@/lib/period";
 import { UF_CHIP_CODES, writeStoredUf } from "@/lib/site";
 import { trackRadar } from "@/lib/track";
 import { fileStamp } from "@/lib/visit-delta";
@@ -472,7 +473,16 @@ export function PublicRadarPage() {
             {m.home.labHookLink}
           </Link>
         </p>
-        <GrowthCurve polls={polls} asOf={asOf} halfLifeDays={curveHalfLife} />
+        <GrowthCurve
+          polls={polls}
+          asOf={asOf}
+          halfLifeDays={curveHalfLife}
+          heroChancePct={
+            halfLife === DEFAULT_HALF_LIFE
+              ? { lula: pLula, flavio: pFlavio }
+              : null
+          }
+        />
         <section id="media" className="mb-6 space-y-4 scroll-mt-24">
           <div className="story-head">
             <p className="kicker">{m.home.avgKicker}</p>

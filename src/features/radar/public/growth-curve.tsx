@@ -415,7 +415,15 @@ function CurveTip({ active, payload }: { active?: boolean; payload?: TipRow[] })
   );
 }
 
-function CurveKey({ houseFocus, showOthers }: { houseFocus: boolean; showOthers: boolean }) {
+function CurveKey({
+  houseFocus,
+  showOthers,
+  chanceMode = false,
+}: {
+  houseFocus: boolean;
+  showOthers: boolean;
+  chanceMode?: boolean;
+}) {
   const { m } = useI18n();
   return (
     <div className="mt-3 flex flex-col gap-2 text-xs font-medium sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
@@ -428,7 +436,7 @@ function CurveKey({ houseFocus, showOthers }: { houseFocus: boolean; showOthers:
           <span className="inline-block size-2.5 rounded-full" style={{ background: CHART.flavio }} />
           Flávio
         </span>
-        {showOthers
+        {!chanceMode && showOthers
           ? OTHERS.map((other) => (
               <span key={other.key} className="inline-flex items-center gap-1.5">
                 <span className="inline-block size-2 rounded-full" style={{ background: other.color }} />
@@ -438,17 +446,31 @@ function CurveKey({ houseFocus, showOthers }: { houseFocus: boolean; showOthers:
           : null}
       </div>
       <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-cream/80">
-        <span className="inline-flex items-center gap-1.5">
-          <svg width="12" height="10" viewBox="0 0 12 10" aria-hidden>
-            <circle cx="6" cy="5" r="2.2" fill={CHART.axis} opacity="0.45" />
-          </svg>
-          {m.curve.point}
-        </span>
+        {!chanceMode ? (
+          <span className="inline-flex items-center gap-1.5">
+            <svg width="12" height="10" viewBox="0 0 12 10" aria-hidden>
+              <circle cx="6" cy="5" r="2.2" fill={CHART.axis} opacity="0.45" />
+            </svg>
+            {m.curve.point}
+          </span>
+        ) : null}
         <span className="inline-flex items-center gap-1.5">
           <svg width="30" height="10" viewBox="0 0 30 10" aria-hidden>
-            <line x1="2" y1="5" x2="28" y2="5" stroke={CHART.axis} strokeWidth="3.4" />
+            <line
+              x1="2"
+              y1="5"
+              x2="28"
+              y2="5"
+              stroke={CHART.axis}
+              strokeWidth="3.4"
+              strokeLinecap={chanceMode ? "square" : "round"}
+            />
           </svg>
-          {houseFocus ? m.curve.lineHouse : m.curve.lineAvg}
+          {chanceMode
+            ? m.curve.lineChance
+            : houseFocus
+              ? m.curve.lineHouse
+              : m.curve.lineAvg}
         </span>
       </div>
     </div>
@@ -490,7 +512,8 @@ function CurvePlot({
   const showOtherDots = kind === "all" || (kind === "others" && houseFocus);
   const lulaKey = houseFocus ? "lulaAvg" : "lulaLine";
   const flavioKey = houseFocus ? "flavioAvg" : "flavioLine";
-  const lineType = step ? "stepAfter" : houseFocus ? "linear" : "monotone";
+  // stepBefore: last band uses tip value. stepAfter left the tip with zero width at xMax.
+  const lineType = step ? "stepBefore" : houseFocus ? "linear" : "monotone";
   const showPollDots = !step && showRace;
   return (
     <div className={`curve-stage ${heightClass} w-full min-w-0`}>
@@ -659,10 +682,13 @@ export function GrowthCurve({
   polls,
   asOf,
   halfLifeDays,
+  heroChancePct = null,
 }: {
   polls: ForecastPoll[];
   asOf: string;
   halfLifeDays: number;
+  /** When slider is at 15d, pass hero win % so the Chance tip cannot drift. */
+  heroChancePct?: { lula: number; flavio: number } | null;
 }) {
   const { locale, m } = useI18n();
 
@@ -760,7 +786,15 @@ export function GrowthCurve({
 
   const chanceRows = useMemo(() => {
     const steps = buildChanceStepSeries(chanceHistory.points, asOf, CHANCE_HISTORY_DAYS);
-    return steps.map((step) => ({
+    const aligned =
+      heroChancePct && steps.length > 0
+        ? steps.map((step, i) =>
+            i === steps.length - 1 || step.date === asOf
+              ? { ...step, lula: heroChancePct.lula, flavio: heroChancePct.flavio }
+              : step,
+          )
+        : steps;
+    return aligned.map((step) => ({
       t: step.t,
       institute: "",
       published: step.publishedOn,
@@ -786,7 +820,7 @@ export function GrowthCurve({
       sameDay: [] as DayHouse[],
       houseFocus: false,
     }));
-  }, [asOf]);
+  }, [asOf, heroChancePct]);
 
   if (!chanceMode && first.length < 3 && !house && !mode) return null;
   if (chanceMode && chanceRows.length < 1) return null;
@@ -905,7 +939,11 @@ export function GrowthCurve({
             ) : null}
           </div>
         </div>
-        {!chanceMode ? <CurveKey houseFocus={houseFocus} showOthers={showOthers} /> : null}
+        <CurveKey
+          houseFocus={houseFocus}
+          showOthers={showOthers}
+          chanceMode={chanceMode}
+        />
         {!chanceMode && modeOpts.length > 1 ? (
           <div
             className="chip-row mt-3 -mx-1 flex gap-2 overflow-x-auto px-1 pb-1"
