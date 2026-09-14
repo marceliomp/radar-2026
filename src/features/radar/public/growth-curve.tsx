@@ -572,7 +572,7 @@ function CurvePlot({
   const lastIndex = Math.max(0, data.length - 1);
   const rightPad = showEndLabels ? 52 : 8;
   return (
-    <div className={`curve-stage ${heightClass} w-full min-w-0`}>
+    <div className={`curve-stage ${heightClass} w-full min-w-0`} style={{ paddingBottom: step ? 24 : 0 }}>
       <ResponsiveContainer width="100%" height="100%">
         <ComposedChart
           data={data}
