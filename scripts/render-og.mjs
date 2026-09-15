@@ -4,7 +4,7 @@
  * model (hl=DEFAULT_HALF_LIFE). Keeps the share card aligned with hero + og:title.
  */
 import { createServer } from "node:http";
-import { readFileSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { chromium } from "playwright";
@@ -52,10 +52,24 @@ const server = createServer((_req, res) => {
 await new Promise((resolve) => server.listen(0, "127.0.0.1", resolve));
 const { port } = server.address();
 
-const browser = await chromium.launch({
-  headless: true,
-  args: ["--no-sandbox", "--disable-dev-shm-usage"],
-});
+let browser;
+try {
+  browser = await chromium.launch({
+    headless: true,
+    args: ["--no-sandbox", "--disable-dev-shm-usage"],
+  });
+} catch (err) {
+  server.close();
+  const msg = err instanceof Error ? err.message : String(err);
+  // Vercel preview often lacks Playwright browsers; keep committed og.jpg.
+  if (existsSync(jpgPath)) {
+    process.stderr.write(
+      `[render-og] skip (playwright unavailable): ${msg}\n[render-og] keeping existing ${jpgPath}\n`,
+    );
+    process.exit(0);
+  }
+  throw err;
+}
 try {
   const page = await browser.newPage({
     viewport: { width: 1200, height: 630 },
