@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 /**
  * Pipeline Radar 2026: TSE -> votos parseáveis -> promote ready -> git push (Vercel).
+ * Runs on a dedicated main worktree (see sync-ingest-main.mjs + systemd unit).
  */
 import { spawn } from "node:child_process";
 import { dirname, join } from "node:path";
@@ -23,9 +24,16 @@ function run(script, args = []) {
   });
 }
 
-await run("ingest-polls.mjs");
-await run("process-pending.mjs");
-await run("process-races.mjs");
-await run("promote-poll.mjs", ["--all"]);
-await run("publish-polls.mjs");
-await run("ingest-health.mjs", ["--git"]);
+try {
+  await run("sync-ingest-main.mjs");
+  await run("ingest-polls.mjs");
+  await run("process-pending.mjs");
+  await run("process-races.mjs");
+  await run("promote-poll.mjs", ["--all"]);
+  await run("publish-polls.mjs");
+  await run("ingest-health.mjs", ["--git"]);
+  process.stdout.write("[pipeline] ok\n");
+} catch (err) {
+  process.stderr.write(`[pipeline] FATAL: ${err instanceof Error ? err.message : err}\n`);
+  process.exit(1);
+}
