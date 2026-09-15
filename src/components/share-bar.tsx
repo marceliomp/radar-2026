@@ -4,7 +4,7 @@ import { Check, Copy } from "lucide-react";
 import { fmtPct, fmtProb } from "@/lib/format";
 import { useI18n, type Locale } from "@/lib/i18n";
 import { messages } from "@/lib/i18n/messages";
-import { SITE, locationUrl } from "@/lib/site";
+import { SITE, shareLocationUrl } from "@/lib/site";
 import { trackRadar } from "@/lib/track";
 
 type Props = {
@@ -54,7 +54,7 @@ export function ShareBar(props: Props) {
   const [copied, setCopied] = useState(false);
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const search = useSearch({ strict: false }) as Record<string, unknown>;
-  const href = props.url ? shareHref(props.url) : locationUrl(pathname, search);
+  const href = props.url ? shareHref(props.url) : shareLocationUrl(pathname, search);
   const text = sharePayload({ ...props, url: href }, locale);
   const compact = Boolean(props.compact);
   const copyLabel = copied ? m.share.copied : m.share.copy;

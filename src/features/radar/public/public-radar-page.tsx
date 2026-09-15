@@ -22,7 +22,7 @@ import {
 } from "@/lib/forecast/runoff-scenarios";
 import { extraVarCached, publicEngineConfig } from "@/lib/forecast/extra-var";
 import { fieldPeriodLine, fmtDelta, fmtMult, isShownTie, pairTightnessLine, shownGap } from "@/lib/format";
-import { useHalfLife, useHalfLifeDragging } from "@/lib/half-life";
+import { useHalfLife, useHalfLifeDragging, DEFAULT_HALF_LIFE } from "@/lib/half-life";
 import { keepRadarSearch, useI18n } from "@/lib/i18n";
 import { UF_CHIP_CODES, writeStoredUf } from "@/lib/site";
 import { trackRadar } from "@/lib/track";
@@ -379,6 +379,11 @@ export function PublicRadarPage() {
   );
 
   const forecast = useMemo(() => runForecast(polls, config), [config]);
+  const shareConfig = useMemo<EngineConfig>(
+    () => publicEngineConfig(asOf, DEFAULT_HALF_LIFE, extraVarPp),
+    [asOf, extraVarPp],
+  );
+  const shareForecast = useMemo(() => runForecast(polls, shareConfig), [shareConfig]);
   const { probs, rows, first, second } = forecast;
   const latestDayPolls = useMemo(() => pollsOnLatestDay(polls, asOf), [asOf]);
   const labMom = useMemo(() => {
@@ -444,12 +449,12 @@ export function PublicRadarPage() {
           <ShareBar
             compact
             asOf={fmt.date(config.asOf)}
-            lula1={first.lula.mean}
-            flavio1={first.flavio.mean}
-            lula2={second?.lula.mean ?? 0}
-            flavio2={second?.flavio.mean ?? 0}
-            pLula={probs.lulaWinsElection}
-            pFlavio={probs.flavioWinsElection}
+            lula1={shareForecast.first.lula.mean}
+            flavio1={shareForecast.first.flavio.mean}
+            lula2={shareForecast.second?.lula.mean ?? 0}
+            flavio2={shareForecast.second?.flavio.mean ?? 0}
+            pLula={shareForecast.probs.lulaWinsElection}
+            pFlavio={shareForecast.probs.flavioWinsElection}
           />
 
         </div>

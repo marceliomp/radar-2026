@@ -5,10 +5,10 @@ export const pt = {
     title: "Radar 2026 · não é pesquisa",
     description:
       "Não é pesquisa. Agregador independente da eleição: presidente, governador e senador. Chance de ser presidente, mapa por estado, lista de urna.",
-    homeTitle: (pLula: string) =>
-      `Chance de ser presidente · Lula ${pLula} · Radar 2026`,
-    homeDescription: (pLula: string) =>
-      `Não é pesquisa. Agregador independente: todas as casas com registro TSE e números verificáveis. Chance de ser presidente: Lula ${pLula}. Governador e senador por estado.`,
+    homeTitle: (leader: string, pct: string) =>
+      `Chance de ser presidente · ${leader} ${pct} · Radar 2026`,
+    homeDescription: (pLula: string, pFlavio: string) =>
+      `Não é pesquisa. Agregador independente: todas as casas com registro TSE e números verificáveis. Chance de ser presidente: Lula ${pLula}, Flávio ${pFlavio}. Governador e senador por estado.`,
     labTitle: "Como a média pesa · Radar 2026",
     labDescription:
       "Não é pesquisa. Recência, teto por casa e acerto na urna 2014, 2018 e 2022. Laboratório do agregador.",
@@ -136,13 +136,13 @@ export const pt = {
     seriesAvg: "Média",
     seriesChance: "Chance",
     seriesAvgMeta: "intenção",
-    seriesChanceMeta: "modelo · 5",
+    seriesChanceMeta: "replay · 5",
     chanceKicker: "Chance do modelo",
     chanceTitle: "Chance de ser presidente",
     chanceLede:
-      "Não é pesquisa. Passo diário da chance de vitória no período 5.",
-    chanceTip: "Chance do modelo · período 5",
-    lineChance: "linha: chance do modelo",
+      "Não é pesquisa. Recálculo retroativo diário da chance de vitória no período 5.",
+    chanceTip: "Chance do modelo · replay período 5",
+    lineChance: "linha: chance do modelo (replay)",
   },
   tight: {
     aria: "Corridas apertadas",
@@ -409,10 +409,10 @@ export const en: Messages = {
     title: "Radar 2026 · not a poll",
     description:
       "Not a poll. Independent Brazil 2026 aggregator: president, governor and senator. Chance of winning the presidency, state map, ballot list.",
-    homeTitle: (pLula: string) =>
-      `Chance of winning the presidency · Lula ${pLula} · Radar 2026`,
-    homeDescription: (pLula: string) =>
-      `Not a poll. Independent aggregator: every TSE-registered house with verifiable numbers. Chance of winning: Lula ${pLula}. Governor and senator by state.`,
+    homeTitle: (leader: string, pct: string) =>
+      `Chance of winning the presidency · ${leader} ${pct} · Radar 2026`,
+    homeDescription: (pLula: string, pFlavio: string) =>
+      `Not a poll. Independent aggregator: every TSE-registered house with verifiable numbers. Chance of winning: Lula ${pLula}, Flávio ${pFlavio}. Governor and senator by state.`,
     labTitle: "How the average is weighted · Radar 2026",
     labDescription:
       "Not a poll. Recency, house cap and 2014, 2018 and 2022 track record. Radar lab.",
@@ -540,12 +540,13 @@ export const en: Messages = {
     seriesAvg: "Average",
     seriesChance: "Chance",
     seriesAvgMeta: "intention",
-    seriesChanceMeta: "model · 5",
+    seriesChanceMeta: "replay · 5",
     chanceKicker: "Model chance",
     chanceTitle: "Chance of becoming president",
-    chanceLede: "Not a poll. Daily step of win chance at period 5.",
-    chanceTip: "Model chance · period 5",
-    lineChance: "line: model chance",
+    chanceLede:
+      "Not a poll. Daily retrospective replay of win chance at period 5.",
+    chanceTip: "Model chance · replay period 5",
+    lineChance: "line: model chance (replay)",
   },
   tight: {
     aria: "Tight races",

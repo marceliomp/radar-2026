@@ -1,6 +1,7 @@
 import { dateShort, fieldPeriodLine, fmtDelta, round } from "./format.ts";
 import type { Locale } from "./i18n/locale.ts";
 import { messages } from "./i18n/messages.ts";
+import { shortHouseName } from "./chance-marks.ts";
 
 export const VISIT_KEY = "radar2026.visit.v1";
 
@@ -133,7 +134,7 @@ export function visitView(
 }
 
 function shortHouse(name: string): string {
-  return name.split("/")[0] ?? name;
+  return shortHouseName(name);
 }
 
 export function fileStamp(

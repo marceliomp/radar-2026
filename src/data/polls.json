@@ -20,11 +20,15 @@
     "source": {
       "tseProtocol": "BR-04076/2026",
       "url": "https://exame.com/brasil/pesquisa-btg-nexus-presidente-lula-flavio-bolsonaro-1-turno/",
-      "publisher": "X @eixopolitico / exame.com",
+      "publisher": "exame.com",
       "publishedAt": "2026-09-14",
       "capturedAt": "2026-09-14T15:26:35.000Z"
     },
-    "notes": "Print X @eixopolitico 14/09 (/cursor/stores/bc-6b3f57c3-2317-4612-abe6-20cf201c78ef/media/btg-nexus-br-04076-2026-09-14.png) + Exame. TSE BR-04076/2026. Telefone n=2003 campo 11-13/09 moe ±2. 1T L42 F37 Cury6 Caiado5 Renan2 Zema1. Samara 1% sem chave no schema. Nenhum/branco/nulo 4 e NS/NR 2 omitidos (sem campo). Sem 2T neste ingest (não inventar)."
+    "notes": "Print X @eixopolitico 14/09 (/cursor/stores/bc-6b3f57c3-2317-4612-abe6-20cf201c78ef/media/btg-nexus-br-04076-2026-09-14.png) + Exame. TSE BR-04076/2026. Telefone n=2003 campo 11-13/09 moe ±2. 1T L42 F37 Cury6 Caiado5 Renan2 Zema1. Samara 1% sem chave. Nenhum/branco/nulo 4 e NS/NR 2 omitidos (sem campo). 2T L47×F46 (Exame: empate técnico). Sem inventar outros pares neste ingest.",
+    "secondRound": {
+      "lula": 47,
+      "flavio": 46
+    }
   },
   {
     "id": "quaest-09-14-03607",

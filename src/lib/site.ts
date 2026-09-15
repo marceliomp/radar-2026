@@ -66,6 +66,15 @@ export function locationUrl(
   return `${SITE}${pathname}${qs ? `?${qs}` : ""}`;
 }
 
+/** Share/unfurl URL: never carry ?hl= so the link opens the default model. */
+export function shareLocationUrl(
+  pathname: string,
+  search: Record<string, unknown>,
+): string {
+  const { hl: _hl, halfLife: _halfLife, ...rest } = search;
+  return locationUrl(pathname, rest);
+}
+
 export type SitemapEntry = { loc: string; changefreq: string; priority: string };
 
 export function sitemapEntries(): SitemapEntry[] {
