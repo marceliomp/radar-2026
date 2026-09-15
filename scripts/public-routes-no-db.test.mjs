@@ -264,7 +264,7 @@ test("share bar is WhatsApp first and pastes brasilradar.com.br", () => {
   assert.match(bar, /function hasSecondShare/);
   assert.match(bar, /if \(hasSecondShare\(lula2, flavio2\)\)/);
   assert.match(bar, /url\?: string/);
-  assert.match(bar, /locationUrl/);
+  assert.match(bar, /shareLocationUrl/);
   assert.match(bar, /trackRadar\("share_wa"\)/);
   assert.doesNotMatch(bar, /radar-2026.vercel.app/);
   assert.match(root, /https:\/\/brasilradar.com.br\/og.jpg/);

@@ -4,7 +4,7 @@ import { pollsFor } from "@/data/race-polls";
 import { extraVarCached, publicEngineConfig } from "@/lib/forecast/extra-var";
 import { runForecast, todayAsOf } from "@/lib/forecast/engine";
 import { fmtPct, fmtProb } from "@/lib/format";
-import { DEFAULT_HALF_LIFE, parseHalfLifeParam } from "@/lib/half-life";
+import { DEFAULT_HALF_LIFE } from "@/lib/half-life";
 import { parseAsOfParam } from "@/lib/as-of";
 import { messages, type Locale } from "@/lib/i18n";
 import { parseLocale } from "@/lib/i18n/locale";
@@ -55,12 +55,19 @@ export function homeHead(search: Record<string, unknown>): PageHead {
   const locale = localeOf(search);
   const copy = messages(locale);
   const asOf = parseAsOfParam(search.asOf) ?? todayAsOf();
-  const hl = parseHalfLifeParam(search.hl) ?? DEFAULT_HALF_LIFE;
+  // Share/OG always use the public default model. Ignore ?hl= so a crafted
+  // URL cannot unfurl a cherry-picked half-life as if it were the site tip.
+  const hl = DEFAULT_HALF_LIFE;
   const extraVarPp = extraVarCached(publicEngineConfig(asOf, hl));
   const forecast = runForecast(polls, publicEngineConfig(asOf, hl, extraVarPp));
   const pLula = fmtProb(forecast.probs.lulaWinsElection, 1, locale);
-  const title = copy.meta.homeTitle(pLula);
-  const description = copy.meta.homeDescription(pLula);
+  const pFlavio = fmtProb(forecast.probs.flavioWinsElection, 1, locale);
+  const lulaLeads =
+    forecast.probs.lulaWinsElection >= forecast.probs.flavioWinsElection;
+  const leader = lulaLeads ? "Lula" : "Flávio";
+  const leaderPct = lulaLeads ? pLula : pFlavio;
+  const title = copy.meta.homeTitle(leader, leaderPct);
+  const description = copy.meta.homeDescription(pLula, pFlavio);
   return {
     title,
     description,

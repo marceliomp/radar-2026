@@ -1,17 +1,51 @@
 #!/usr/bin/env node
+/**
+ * Rebuild public/og.jpg from scripts/og-card.html using the default public
+ * model (hl=DEFAULT_HALF_LIFE). Keeps the share card aligned with hero + og:title.
+ */
 import { createServer } from "node:http";
-import { readFileSync } from "node:fs";
+import { readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { chromium } from "playwright";
 import { spawnSync } from "node:child_process";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
-const html = readFileSync(join(root, "scripts/og-card.html"));
+const template = readFileSync(join(root, "scripts/og-card.html"), "utf8");
 const pngPath = "/tmp/radar-og.png";
 const jpgPath = join(root, "public/og.jpg");
 
-const server = createServer((req, res) => {
+const { runForecast, DEFAULT_CONFIG, todayAsOf } = await import(
+  "../src/lib/forecast/engine.ts"
+);
+const { DEFAULT_HALF_LIFE } = await import("../src/lib/period.ts");
+const polls = JSON.parse(readFileSync(join(root, "src/data/polls.json"), "utf8"));
+
+const asOf = todayAsOf();
+const snap = runForecast(polls, {
+  ...DEFAULT_CONFIG,
+  asOf,
+  halfLifeDays: DEFAULT_HALF_LIFE,
+  simulations: 4000,
+});
+const lula = Math.round(snap.probs.lulaWinsElection * 1000) / 10;
+const flavio = Math.round(snap.probs.flavioWinsElection * 1000) / 10;
+const lulaLeads = lula >= flavio;
+const fmt = (n) => n.toFixed(1).replace(".", ",");
+const [, y, m, d] = /^(\d{4})-(\d{2})-(\d{2})$/.exec(asOf) ?? [];
+const dateBr = y ? `${d}/${m}` : asOf;
+const pollCount = polls.filter((p) => p.national).length;
+
+const html = template
+  .replaceAll("{{LULA_PCT}}", `${fmt(lula)}%`)
+  .replaceAll("{{FLAVIO_PCT}}", `${fmt(flavio)}%`)
+  .replaceAll("{{HL}}", String(DEFAULT_HALF_LIFE))
+  .replaceAll("{{ASOF}}", dateBr)
+  .replaceAll("{{LEADER}}", lulaLeads ? "Lula" : "Flávio")
+  .replaceAll("{{LEADER_PCT}}", `${fmt(lulaLeads ? lula : flavio)}%`)
+  .replaceAll("{{POLL_COUNT}}", String(pollCount));
+
+const server = createServer((_req, res) => {
   res.writeHead(200, { "content-type": "text/html; charset=utf-8" });
   res.end(html);
 });
@@ -48,4 +82,21 @@ if (ff.status !== 0) {
   process.stderr.write(ff.stderr || "ffmpeg failed\n");
   process.exit(1);
 }
-process.stdout.write(`wrote ${jpgPath}\n`);
+writeFileSync(
+  join(root, "public/og-meta.json"),
+  `${JSON.stringify(
+    {
+      asOf,
+      halfLifeDays: DEFAULT_HALF_LIFE,
+      lula,
+      flavio,
+      leader: lulaLeads ? "Lula" : "Flávio",
+      leaderPct: lulaLeads ? lula : flavio,
+    },
+    null,
+    2,
+  )}\n`,
+);
+process.stdout.write(
+  `wrote ${jpgPath} · ${lulaLeads ? "Lula" : "Flávio"} ${fmt(lulaLeads ? lula : flavio)}% · hl=${DEFAULT_HALF_LIFE} · ${asOf}\n`,
+);
