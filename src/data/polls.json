@@ -4736,5 +4736,33 @@
       "capturedAt": "2026-09-10T18:55:06.000Z"
     },
     "fieldStart": "2026-09-04"
+  },
+  {
+    "id": "indexa-broadcast-09-15-03482",
+    "institute": "Indexa/Broadcast",
+    "date": "2026-09-15",
+    "fieldEnd": "2026-09-13",
+    "sample": 2000,
+    "moe": 2.2,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 38,
+      "flavio": 34,
+      "cury": 6
+    },
+    "source": {
+      "tseProtocol": "BR-03482/2026",
+      "url": "https://www.cnnbrasil.com.br/politica/indexa-broadcast-lula-tem-38-e-flavio-34-no-1o-turno/",
+      "publisher": "cnnbrasil.com.br",
+      "publishedAt": "2026-09-15",
+      "capturedAt": "2026-09-15T20:00:27.950Z"
+    },
+    "notes": "2000 entrevistas. TSE indexa.",
+    "fieldStart": "2026-09-10",
+    "secondRound": {
+      "lula": 57,
+      "flavio": 56
+    }
   }
 ]
