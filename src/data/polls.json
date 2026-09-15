@@ -1,5 +1,32 @@
 [
   {
+    "id": "cnt-mda-09-15-06902",
+    "institute": "CNT/MDA",
+    "date": "2026-09-15",
+    "fieldStart": "2026-09-09",
+    "fieldEnd": "2026-09-13",
+    "sample": 2002,
+    "moe": 2.2,
+    "mode": "presencial",
+    "national": true,
+    "firstRound": {
+      "lula": 40.5,
+      "flavio": 30.4,
+      "cury": 6,
+      "caiado": 3,
+      "renan": 2.7,
+      "zema": 1
+    },
+    "source": {
+      "tseProtocol": "BR-06902/2026",
+      "url": "https://exame.com/brasil/cnt-mda-lula-tem-405-e-flavio-bolsonaro-304-no-1o-turno/",
+      "publisher": "exame.com",
+      "publishedAt": "2026-09-15",
+      "capturedAt": "2026-09-15T13:00:24.349Z"
+    },
+    "notes": "Exame 15/09. TSE BR-06902/2026. Presencial n=2002 campo 09–13/09 moe ±2,2. 1T L40,5 F30,4 Cury6 Caiado3 Renan2,7 Pablo Marçal1,8 (sem chave) Zema1; branco/nulo 6; NS/NR 7,5. Matéria Exame não publica 2T — sem inventar. Orphan auto-promote 15/09 tinha Caiado 36,1 (rejeição) e 2T inventado; corrigido na fonte."
+  },
+  {
     "id": "nexus-btg-09-14-04076",
     "institute": "Nexus/BTG",
     "date": "2026-09-14",

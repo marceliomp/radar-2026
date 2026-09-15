@@ -371,6 +371,11 @@ export function parseAllowlistArticle(html, expectedTse) {
     const who = em[1].toLowerCase();
     const pct = parsePct(em[2]);
     if (pct == null) continue;
+    // Rejection / "não votariam" windows (e.g. Exame CNT 36,1%) are not vote share.
+    const ctx = w1.slice(Math.max(0, em.index - 48), em.index + em[0].length + 24);
+    if (/n[aã]o votariam|rejei[cç]|desconhecimento|n[aã]o votaria/i.test(ctx)) {
+      continue;
+    }
     if (who.startsWith("caiado")) extras.caiado = pct;
     else if (who.startsWith("renan")) extras.renan = pct;
     else if (who.startsWith("zema")) extras.zema = pct;
@@ -428,13 +433,34 @@ export function parseAllowlistArticle(html, expectedTse) {
     return null;
   }
 
+  const firstRound = sanitizeFirstRound({ lula, flavio, ...extras });
+  if (!firstRound) return null;
+
   return {
     tse,
-    firstRound: { lula, flavio, ...extras },
+    firstRound,
     secondRound,
     moe,
     source: "allowlist-html",
   };
+}
+
+/** Drop impossible 1T bags (parser mistook rejection % for vote share). */
+export function sanitizeFirstRound(firstRound) {
+  if (!firstRound || firstRound.lula == null || firstRound.flavio == null) return null;
+  const sum = Object.values(firstRound).reduce((acc, n) => acc + Number(n || 0), 0);
+  if (sum <= 100.5) return firstRound;
+  const core = { lula: firstRound.lula, flavio: firstRound.flavio };
+  const extras = Object.entries(firstRound).filter(([k]) => k !== "lula" && k !== "flavio");
+  extras.sort((a, b) => Number(a[1]) - Number(b[1]));
+  const kept = { ...core };
+  for (const [key, value] of extras) {
+    const next = Number(value);
+    const trial = Object.values(kept).reduce((acc, n) => acc + Number(n || 0), 0) + next;
+    if (trial <= 100.5) kept[key] = next;
+  }
+  const keptSum = Object.values(kept).reduce((acc, n) => acc + Number(n || 0), 0);
+  return keptSum <= 100.5 ? kept : core;
 }
 
 export function knownProtocols(polls) {
@@ -639,6 +665,18 @@ export function processPending({
       });
       continue;
     }
+    const sane = sanitizeFirstRound(poll.firstRound);
+    if (!sane) {
+      report.noVotes += 1;
+      remaining.push({
+        at: item.at ?? new Date().toISOString(),
+        tse: proto,
+        institute: house.institute,
+        reason: "número ainda não extraído (TSE)",
+      });
+      continue;
+    }
+    poll.firstRound = sane;
 
     let id = poll.id;
     if (ids.has(id)) id = `${poll.id}-b`;

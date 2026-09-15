@@ -21,9 +21,21 @@ export function ingestHealthIssues({ polls, races, today }) {
   visible.sort((a, b) => b.date.localeCompare(a.date) || b.fieldEnd.localeCompare(a.fieldEnd));
   const latest = visible[0];
   if (latest && (latest.secondRound?.lula == null || latest.secondRound?.flavio == null)) {
+    // Warn-tier: some houses publish 1T only (e.g. CNT/MDA Exame 15/09). Do not invent 2T.
     issues.push(`${latest.id}: 2T ausente`);
   }
   return issues;
+}
+
+/** Missing 2T is visible but non-fatal. Future dates and git drift stay fatal. */
+export function partitionIngestHealthIssues(issues) {
+  const warnings = [];
+  const fatal = [];
+  for (const row of issues) {
+    if (/: 2T ausente$/.test(row)) warnings.push(row);
+    else fatal.push(row);
+  }
+  return { warnings, fatal };
 }
 
 if (import.meta.url === `file://${process.argv[1]}` || process.argv[1]?.endsWith("ingest-health.mjs")) {
@@ -34,13 +46,26 @@ if (import.meta.url === `file://${process.argv[1]}` || process.argv[1]?.endsWith
     execSync("git fetch origin main", { cwd: ROOT, stdio: "pipe" });
     const head = execSync("git rev-parse HEAD", { cwd: ROOT, encoding: "utf8" }).trim();
     const origin = execSync("git rev-parse origin/main", { cwd: ROOT, encoding: "utf8" }).trim();
+    const branch = execSync("git rev-parse --abbrev-ref HEAD", {
+      cwd: ROOT,
+      encoding: "utf8",
+    }).trim();
+    if (branch !== "main") {
+      issues.push(`git branch ${branch} != main`);
+    }
     if (head !== origin) {
       issues.push(`git HEAD ${head.slice(0, 7)} != origin/main ${origin.slice(0, 7)}`);
     }
   }
-  if (issues.length) {
-    for (const row of issues) process.stderr.write(`[ingest-health] ${row}\n`);
+  const { warnings, fatal } = partitionIngestHealthIssues(issues);
+  for (const row of warnings) process.stderr.write(`[ingest-health] warn ${row}\n`);
+  if (fatal.length) {
+    for (const row of fatal) process.stderr.write(`[ingest-health] FATAL ${row}\n`);
     process.exit(1);
   }
-  process.stdout.write("[ingest-health] ok\n");
+  if (warnings.length) {
+    process.stdout.write(`[ingest-health] ok with ${warnings.length} warning(s)\n`);
+  } else {
+    process.stdout.write("[ingest-health] ok\n");
+  }
 }

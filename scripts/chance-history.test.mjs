@@ -3,15 +3,18 @@ import { readFileSync } from "node:fs";
 import { test } from "node:test";
 import { upsertPoint } from "./chance-history.mjs";
 
-test("history has 60 daily points covering the window through 14/09", () => {
+test("history has 60 daily points covering the window through 15/09", () => {
   const file = JSON.parse(readFileSync("src/data/chance-history.json", "utf8"));
   assert.equal(file.windowDays, 60);
   assert.equal(file.points.length, 60);
-  assert.equal(file.points[0].date, "2026-07-17");
-  assert.equal(file.points.at(-1).date, "2026-09-14");
+  assert.equal(file.points[0].date, "2026-07-18");
+  assert.equal(file.points.at(-1).date, "2026-09-15");
   // Tip may be replay (backfill) or promote (after poll ingest).
   assert.ok(["replay", "promote"].includes(file.points.at(-1).source));
-  assert.ok(file.points.slice(0, -1).every((p) => p.source === "replay"));
+  // Older points are replay backfill; a prior tip may also be promote.
+  assert.ok(
+    file.points.slice(0, -1).every((p) => p.source === "replay" || p.source === "promote"),
+  );
   // consecutive calendar days
   for (let i = 1; i < file.points.length; i++) {
     const prev = new Date(`${file.points[i - 1].date}T12:00:00Z`).getTime();
@@ -107,15 +110,15 @@ test("growth curve toggles Média|Chance on #curva with step line", () => {
   assert.doesNotMatch(messages, /chance que o Radar publicou/);
 });
 
-test("chance tip on main equals hero at hl=5 for 2026-09-14", async () => {
+test("chance tip on main equals hero at hl=5 for 2026-09-15", async () => {
   const hist = JSON.parse(readFileSync("src/data/chance-history.json", "utf8"));
   const tip = hist.points.at(-1);
-  assert.equal(tip.date, "2026-09-14");
+  assert.equal(tip.date, "2026-09-15");
   const polls = JSON.parse(readFileSync("src/data/polls.json", "utf8"));
   const { runForecast, DEFAULT_CONFIG } = await import("../src/lib/forecast/engine.ts");
   const snap = runForecast(polls, {
     ...DEFAULT_CONFIG,
-    asOf: "2026-09-14",
+    asOf: "2026-09-15",
     halfLifeDays: 5,
     simulations: 4000,
   });
