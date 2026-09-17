@@ -88,7 +88,9 @@ test("AtlasIntel/Bloomberg 10/09 national is in polls.json", () => {
       String(poll.institute ?? poll.id).toLowerCase().includes("atlas") &&
       poll.date > "2026-08-31",
   );
-  assert.deepEqual(later.map((poll) => poll.id), ["atlas-09-10-01452"]);
+  const ids = later.map((poll) => poll.id);
+  assert.ok(ids.includes("atlas-09-10-01452"));
+  assert.ok(ids.includes("atlasintel-09-17-06221"));
 });
 
 test("PB AtlasIntel 03/09 governor is in the race file", () => {

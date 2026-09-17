@@ -4771,37 +4771,47 @@
     "date": "2026-09-17",
     "fieldEnd": "2026-09-16",
     "sample": 3000,
-    "moe": 2,
+    "moe": 1.8,
     "mode": "telefone",
     "national": true,
     "firstRound": {
-      "lula": 38,
+      "lula": 37,
       "flavio": 36,
-      "cury": 10
+      "cury": 8,
+      "renan": 3,
+      "caiado": 3,
+      "zema": 1
     },
     "source": {
       "tseProtocol": "BR-00360/2026",
-      "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/a-pesquisa-com-cenario-de-segundo-turno-sem-lula/",
-      "publisher": "gazetadopovo.com.br",
+      "url": "https://www.cnnbrasil.com.br/eleicoes/poderdata-aya-lula-tem-37-no-1o-turno-flavio-36-e-cury-8/",
+      "publisher": "cnnbrasil.com.br",
       "publishedAt": "2026-09-17",
       "capturedAt": "2026-09-17T00:00:36.975Z"
     },
-    "notes": "3000 entrevistas. TSE poderdata.",
-    "fieldStart": "2026-09-13"
+    "notes": "CNN 17/09 (PoderData/Aya). TSE BR-00360/2026. n=3000 campo 13-16/09 moe ±1,8. 1T L37 F36 Cury8 Renan3 Caiado3 Zema1. 2T F46×L44 (CNN). Auto-scrape Gazeta (38/36/10 da rodada 10/09) substituído.",
+    "fieldStart": "2026-09-13",
+    "secondRound": {
+      "lula": 44,
+      "flavio": 46
+    }
   },
   {
     "id": "atlasintel-09-17-06221",
-    "institute": "AtlasIntel",
+    "institute": "AtlasIntel/Bloomberg",
     "date": "2026-09-17",
     "fieldEnd": "2026-09-16",
-    "sample": 5000,
+    "sample": 5018,
     "moe": 1,
     "mode": "telefone",
     "national": true,
     "firstRound": {
       "lula": 44.1,
       "flavio": 41.7,
-      "renan": 5.1
+      "renan": 5.1,
+      "cury": 3.5,
+      "caiado": 1.7,
+      "zema": 1.1
     },
     "source": {
       "tseProtocol": "BR-06221/2026",
@@ -4810,12 +4820,8 @@
       "publishedAt": "2026-09-17",
       "capturedAt": "2026-09-17T11:00:34.762Z"
     },
-    "notes": "5000 entrevistas. TSE atlasintel.",
-    "fieldStart": "2026-09-11",
-    "secondRound": {
-      "lula": 20.9,
-      "flavio": 14.4
-    }
+    "notes": "CNN 17/09 (AtlasIntel/Bloomberg). TSE BR-06221/2026. Digital n=5018 campo 11-16/09 moe ±1. 1T L44,1 F41,7 Renan5,1 Cury3,5 Caiado1,7 Zema1,1. Matéria CNN sem 2T Lula×Flávio — 2T auto-parse 20,9×14,4 removido.",
+    "fieldStart": "2026-09-11"
   },
   {
     "id": "gerp-09-17-00535",
@@ -4828,7 +4834,11 @@
     "national": true,
     "firstRound": {
       "lula": 37,
-      "flavio": 40
+      "flavio": 40,
+      "cury": 7,
+      "caiado": 3,
+      "renan": 2,
+      "zema": 1
     },
     "source": {
       "tseProtocol": "BR-00535/2026",
@@ -4837,39 +4847,16 @@
       "publishedAt": "2026-09-17",
       "capturedAt": "2026-09-17T11:00:35.298Z"
     },
-    "notes": "2400 entrevistas. TSE gerp.",
+    "notes": "Exame 17/09. TSE BR-00535/2026. 1T F40 L37 Cury7 Caiado3 Renan2 Zema1. 2T F50×L43 (Exame). Auto-parse 2T L49×F40 corrigido.",
     "fieldStart": "2026-09-14",
     "secondRound": {
-      "lula": 49,
-      "flavio": 40
+      "lula": 43,
+      "flavio": 50
     }
   },
   {
-    "id": "datafolha-09-17-04029",
-    "institute": "Datafolha",
-    "date": "2026-09-17",
-    "fieldEnd": "2026-09-17",
-    "sample": 2002,
-    "moe": 2.2,
-    "mode": "telefone",
-    "national": true,
-    "firstRound": {
-      "lula": 39,
-      "flavio": 35
-    },
-    "source": {
-      "tseProtocol": "BR-04029/2026",
-      "url": "https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/noticia/2026/09/17/datafolha-divulga-nova-pesquisa-eleitoral.ghtml",
-      "publisher": "g1.globo.com",
-      "publishedAt": "2026-09-17",
-      "capturedAt": "2026-09-17T12:00:29.239Z"
-    },
-    "notes": "2002 entrevistas. TSE datafolha.",
-    "fieldStart": "2026-09-15"
-  },
-  {
     "id": "futura-apex-09-17-00749",
-    "institute": "Futura/Apex",
+    "institute": "Futura/100% Cidades",
     "date": "2026-09-17",
     "fieldEnd": "2026-09-17",
     "sample": 2000,
@@ -4878,7 +4865,11 @@
     "national": true,
     "firstRound": {
       "lula": 38.3,
-      "flavio": 37.7
+      "flavio": 37.7,
+      "cury": 6.5,
+      "caiado": 4.5,
+      "renan": 3.4,
+      "zema": 1
     },
     "source": {
       "tseProtocol": "BR-00749/2026",
@@ -4887,11 +4878,7 @@
       "publishedAt": "2026-09-17",
       "capturedAt": "2026-09-17T14:00:24.045Z"
     },
-    "notes": "2000 entrevistas. TSE futura.",
-    "fieldStart": "2026-09-11",
-    "secondRound": {
-      "lula": 44.7,
-      "flavio": 48.1
-    }
+    "notes": "CNN 17/09 (Futura/100% Cidades). TSE BR-00749/2026. n=2000 campo 11-15/09 moe ±2,2. 1T L38,3 F37,7 Cury6,5 Caiado4,5 Renan3,4 Zema1. Matéria CNN sem 2T — 2T auto-parse 44,7×48,1 removido.",
+    "fieldStart": "2026-09-11"
   }
 ]

@@ -27,8 +27,17 @@ function gitShort() {
   }
 }
 
+/** Keep only the last `windowDays` calendar points ending at the tip. */
+export function trimHistoryWindow(points, windowDays) {
+  const sorted = [...points].sort((a, b) => a.date.localeCompare(b.date));
+  if (!sorted.length || !windowDays || windowDays < 1) return sorted;
+  if (sorted.length <= windowDays) return sorted;
+  return sorted.slice(sorted.length - windowDays);
+}
+
 export function upsertPoint(file, point) {
   const points = Array.isArray(file.points) ? file.points : [];
+  const windowDays = file.windowDays ?? 60;
   const row = {
     date: point.date,
     lula: round1(point.lula),
@@ -36,12 +45,13 @@ export function upsertPoint(file, point) {
     source: point.source,
     ...(point.commit ? { commit: point.commit } : {}),
   };
-  const next = [...points.filter((p) => p.date !== row.date), row].sort((a, b) =>
-    a.date.localeCompare(b.date),
+  const next = trimHistoryWindow(
+    [...points.filter((p) => p.date !== row.date), row],
+    windowDays,
   );
   return {
     version: file.version ?? 1,
-    windowDays: file.windowDays ?? 60,
+    windowDays,
     points: next,
   };
 }
