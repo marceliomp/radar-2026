@@ -4764,5 +4764,29 @@
       "lula": 57,
       "flavio": 56
     }
+  },
+  {
+    "id": "poderdata-aya-09-17-00360",
+    "institute": "PoderData/Aya",
+    "date": "2026-09-17",
+    "fieldEnd": "2026-09-16",
+    "sample": 3000,
+    "moe": 2,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 38,
+      "flavio": 36,
+      "cury": 10
+    },
+    "source": {
+      "tseProtocol": "BR-00360/2026",
+      "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/a-pesquisa-com-cenario-de-segundo-turno-sem-lula/",
+      "publisher": "gazetadopovo.com.br",
+      "publishedAt": "2026-09-17",
+      "capturedAt": "2026-09-17T00:00:36.975Z"
+    },
+    "notes": "3000 entrevistas. TSE poderdata.",
+    "fieldStart": "2026-09-13"
   }
 ]
