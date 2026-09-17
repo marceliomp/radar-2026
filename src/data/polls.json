@@ -4880,5 +4880,32 @@
     },
     "notes": "CNN 17/09 (Futura/100% Cidades). TSE BR-00749/2026. n=2000 campo 11-15/09 moe ±2,2. 1T L38,3 F37,7 Cury6,5 Caiado4,5 Renan3,4 Zema1. Matéria CNN sem 2T — 2T auto-parse 44,7×48,1 removido.",
     "fieldStart": "2026-09-11"
+  },
+  {
+    "id": "datafolha-09-17-04029",
+    "institute": "Datafolha",
+    "date": "2026-09-17",
+    "fieldStart": "2026-09-15",
+    "fieldEnd": "2026-09-16",
+    "sample": 2002,
+    "moe": 2,
+    "mode": "presencial",
+    "national": true,
+    "firstRound": {
+      "lula": 39,
+      "flavio": 36,
+      "cury": 6,
+      "caiado": 4,
+      "renan": 3,
+      "zema": 2
+    },
+    "source": {
+      "tseProtocol": "BR-04029/2026",
+      "url": "https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/noticia/2026/09/17/datafolha-presidente-17-setembro.ghtml",
+      "publisher": "g1.globo.com",
+      "publishedAt": "2026-09-17",
+      "capturedAt": "2026-09-17T22:27:29.000Z"
+    },
+    "notes": "G1/Folha/TV Globo 17/09. TSE BR-04029/2026. Presencial n=2002 campo 15–16/09 moe ±2. 1T L39 F36 Cury6 Caiado4 Renan3 Zema2; Samara Martins1 Rui Costa Pimenta1 (sem chave); branco/nulo/nenhum 6; indecisos 3. Sem 2T nesta ficha (screenshot 1T; não inventar). PR #23 removeu teaser que reciclava 11/09 (L39 F35, moe/mode errados)."
   }
 ]
