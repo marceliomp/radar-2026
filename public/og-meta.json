@@ -1,8 +1,8 @@
 {
-  "asOf": "2026-09-15",
+  "asOf": "2026-09-17",
   "halfLifeDays": 5,
-  "lula": 44.7,
-  "flavio": 55.3,
+  "lula": 42,
+  "flavio": 58,
   "leader": "Flávio",
-  "leaderPct": 55.3
+  "leaderPct": 58
 }
