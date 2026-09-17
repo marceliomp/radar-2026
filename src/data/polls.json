@@ -4788,5 +4788,60 @@
     },
     "notes": "3000 entrevistas. TSE poderdata.",
     "fieldStart": "2026-09-13"
+  },
+  {
+    "id": "atlasintel-09-17-06221",
+    "institute": "AtlasIntel",
+    "date": "2026-09-17",
+    "fieldEnd": "2026-09-16",
+    "sample": 5000,
+    "moe": 1,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 44.1,
+      "flavio": 41.7,
+      "renan": 5.1
+    },
+    "source": {
+      "tseProtocol": "BR-06221/2026",
+      "url": "https://www.cnnbrasil.com.br/eleicoes/lula-tem-441-no-1o-turno-flavio-417-diz-atlas/",
+      "publisher": "cnnbrasil.com.br",
+      "publishedAt": "2026-09-17",
+      "capturedAt": "2026-09-17T11:00:34.762Z"
+    },
+    "notes": "5000 entrevistas. TSE atlasintel.",
+    "fieldStart": "2026-09-11",
+    "secondRound": {
+      "lula": 20.9,
+      "flavio": 14.4
+    }
+  },
+  {
+    "id": "gerp-09-17-00535",
+    "institute": "Gerp",
+    "date": "2026-09-17",
+    "fieldEnd": "2026-09-16",
+    "sample": 2400,
+    "moe": 2,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 37,
+      "flavio": 40
+    },
+    "source": {
+      "tseProtocol": "BR-00535/2026",
+      "url": "https://exame.com/brasil/pesquisa-gerp-flavio-bolsonaro-tem-40-e-lula-37-no-1o-turno/",
+      "publisher": "exame.com",
+      "publishedAt": "2026-09-17",
+      "capturedAt": "2026-09-17T11:00:35.298Z"
+    },
+    "notes": "2400 entrevistas. TSE gerp.",
+    "fieldStart": "2026-09-14",
+    "secondRound": {
+      "lula": 49,
+      "flavio": 40
+    }
   }
 ]

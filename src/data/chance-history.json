@@ -369,6 +369,13 @@
       "flavio": 52.3,
       "source": "promote",
       "commit": "ac6d682"
+    },
+    {
+      "date": "2026-09-17",
+      "lula": 53.4,
+      "flavio": 46.6,
+      "source": "promote",
+      "commit": "d2a275b"
     }
   ]
 }
