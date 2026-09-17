@@ -4866,5 +4866,32 @@
     },
     "notes": "2002 entrevistas. TSE datafolha.",
     "fieldStart": "2026-09-15"
+  },
+  {
+    "id": "futura-apex-09-17-00749",
+    "institute": "Futura/Apex",
+    "date": "2026-09-17",
+    "fieldEnd": "2026-09-17",
+    "sample": 2000,
+    "moe": 2.2,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 38.3,
+      "flavio": 37.7
+    },
+    "source": {
+      "tseProtocol": "BR-00749/2026",
+      "url": "https://www.cnnbrasil.com.br/eleicoes/futura-lula-tem-383-no-1o-turno-flavio-377/",
+      "publisher": "cnnbrasil.com.br",
+      "publishedAt": "2026-09-17",
+      "capturedAt": "2026-09-17T14:00:24.045Z"
+    },
+    "notes": "2000 entrevistas. TSE futura.",
+    "fieldStart": "2026-09-11",
+    "secondRound": {
+      "lula": 44.7,
+      "flavio": 48.1
+    }
   }
 ]

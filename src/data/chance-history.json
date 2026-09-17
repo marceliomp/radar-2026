@@ -372,10 +372,10 @@
     },
     {
       "date": "2026-09-17",
-      "lula": 53.4,
-      "flavio": 46.6,
+      "lula": 52.8,
+      "flavio": 47.2,
       "source": "promote",
-      "commit": "ad1bc52"
+      "commit": "27535ce"
     }
   ]
 }
