@@ -4843,5 +4843,28 @@
       "lula": 49,
       "flavio": 40
     }
+  },
+  {
+    "id": "datafolha-09-17-04029",
+    "institute": "Datafolha",
+    "date": "2026-09-17",
+    "fieldEnd": "2026-09-17",
+    "sample": 2002,
+    "moe": 2.2,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 39,
+      "flavio": 35
+    },
+    "source": {
+      "tseProtocol": "BR-04029/2026",
+      "url": "https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/noticia/2026/09/17/datafolha-divulga-nova-pesquisa-eleitoral.ghtml",
+      "publisher": "g1.globo.com",
+      "publishedAt": "2026-09-17",
+      "capturedAt": "2026-09-17T12:00:29.239Z"
+    },
+    "notes": "2002 entrevistas. TSE datafolha.",
+    "fieldStart": "2026-09-15"
   }
 ]
