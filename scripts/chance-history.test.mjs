@@ -3,24 +3,47 @@ import { readFileSync } from "node:fs";
 import { test } from "node:test";
 import { upsertPoint } from "./chance-history.mjs";
 
-test("history has 60 daily points covering the window through 15/09", () => {
+test("history stays within windowDays and tip tracks the latest promote day", () => {
   const file = JSON.parse(readFileSync("src/data/chance-history.json", "utf8"));
   assert.equal(file.windowDays, 60);
-  assert.equal(file.points.length, 60);
-  assert.equal(file.points[0].date, "2026-07-18");
-  assert.equal(file.points.at(-1).date, "2026-09-15");
+  assert.ok(file.points.length <= file.windowDays);
+  assert.ok(file.points.length >= 1);
+  const tip = file.points.at(-1);
+  assert.ok(tip.date >= "2026-09-15");
   // Tip may be replay (backfill) or promote (after poll ingest).
-  assert.ok(["replay", "promote"].includes(file.points.at(-1).source));
-  // Older points are replay backfill; a prior tip may also be promote.
+  assert.ok(["replay", "promote"].includes(tip.source));
   assert.ok(
-    file.points.slice(0, -1).every((p) => p.source === "replay" || p.source === "promote"),
+    file.points.every((p) => p.source === "replay" || p.source === "promote"),
   );
-  // consecutive calendar days
+  // consecutive calendar days inside the retained window
   for (let i = 1; i < file.points.length; i++) {
     const prev = new Date(`${file.points[i - 1].date}T12:00:00Z`).getTime();
     const cur = new Date(`${file.points[i].date}T12:00:00Z`).getTime();
     assert.equal(cur - prev, 86_400_000);
   }
+});
+
+test("upsertPoint trims to windowDays when the tip advances", () => {
+  const file = {
+    version: 1,
+    windowDays: 3,
+    points: [
+      { date: "2026-09-10", lula: 50, flavio: 50, source: "replay" },
+      { date: "2026-09-11", lula: 51, flavio: 49, source: "replay" },
+      { date: "2026-09-12", lula: 52, flavio: 48, source: "replay" },
+    ],
+  };
+  const next = upsertPoint(file, {
+    date: "2026-09-13",
+    lula: 53,
+    flavio: 47,
+    source: "promote",
+  });
+  assert.deepEqual(
+    next.points.map((p) => p.date),
+    ["2026-09-11", "2026-09-12", "2026-09-13"],
+  );
+  assert.equal(next.points.at(-1).source, "promote");
 });
 
 test("key September replay dates match the five-day engine", async () => {
@@ -110,15 +133,15 @@ test("growth curve toggles Média|Chance on #curva with step line", () => {
   assert.doesNotMatch(messages, /chance que o Radar publicou/);
 });
 
-test("chance tip on main equals hero at hl=5 for 2026-09-15", async () => {
+test("chance tip on main equals hero at hl=5 for the tip date", async () => {
   const hist = JSON.parse(readFileSync("src/data/chance-history.json", "utf8"));
   const tip = hist.points.at(-1);
-  assert.equal(tip.date, "2026-09-15");
+  assert.ok(tip.date >= "2026-09-15");
   const polls = JSON.parse(readFileSync("src/data/polls.json", "utf8"));
   const { runForecast, DEFAULT_CONFIG } = await import("../src/lib/forecast/engine.ts");
   const snap = runForecast(polls, {
     ...DEFAULT_CONFIG,
-    asOf: "2026-09-15",
+    asOf: tip.date,
     halfLifeDays: 5,
     simulations: 4000,
   });
