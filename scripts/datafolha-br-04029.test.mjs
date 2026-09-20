@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import test from "node:test";
 
-test("Datafolha national BR-04029/2026 is in polls.json with G1 1T only", () => {
+test("Datafolha national BR-04029/2026 is in polls.json with G1 1T+2T totals", () => {
   const polls = JSON.parse(readFileSync("src/data/polls.json", "utf8"));
   const row = polls.find((p) => p.id === "datafolha-09-17-04029");
   assert.ok(row, "missing datafolha-09-17-04029");
@@ -22,8 +22,8 @@ test("Datafolha national BR-04029/2026 is in polls.json with G1 1T only", () => 
     renan: 3,
     zema: 2,
   });
-  assert.equal(row.secondRound, undefined);
+  assert.deepEqual(row.secondRound, { lula: 46, flavio: 44 });
   assert.match(row.source.url, /datafolha-presidente-17-setembro/);
   assert.match(row.notes, /Samara/);
-  assert.match(row.notes, /não inventar|sem 2T|Sem 2T/i);
+  assert.match(row.notes, /L46|46×F44|2T L46/);
 });

@@ -4824,8 +4824,12 @@
       "publishedAt": "2026-09-17",
       "capturedAt": "2026-09-17T11:00:34.762Z"
     },
-    "notes": "CNN 17/09 (AtlasIntel/Bloomberg). TSE BR-06221/2026. Digital n=5018 campo 11-16/09 moe ±1. 1T L44,1 F41,7 Renan5,1 Cury3,5 Caiado1,7 Zema1,1. Matéria CNN sem 2T Lula×Flávio — 2T auto-parse 20,9×14,4 removido.",
-    "fieldStart": "2026-09-11"
+    "notes": "CNN 17/09 (AtlasIntel/Bloomberg). TSE BR-06221/2026. Digital n=5018 campo 11-16/09 moe ±1. 1T L44,1 F41,7 Renan5,1 Cury3,5 Caiado1,7 Zema1,1. 2T F47,2×L46,8 (CNN https://www.cnnbrasil.com.br/eleicoes/flavio-tem-472-no-2o-turno-lula-468-diz-atlas/ ; bn/nulos/indecisos 6). Base=total (não válidos 50,2×49,8). 2T auto-parse lixo 20,9×14,4 removido no #23.",
+    "fieldStart": "2026-09-11",
+    "secondRound": {
+      "lula": 46.8,
+      "flavio": 47.2
+    }
   },
   {
     "id": "gerp-09-17-00535",
@@ -4910,6 +4914,10 @@
       "publishedAt": "2026-09-17",
       "capturedAt": "2026-09-17T22:27:29.000Z"
     },
-    "notes": "G1/Folha/TV Globo 17/09. TSE BR-04029/2026. Presencial n=2002 campo 15–16/09 moe ±2. 1T L39 F36 Cury6 Caiado4 Renan3 Zema2; Samara Martins1 Rui Costa Pimenta1 (sem chave); branco/nulo/nenhum 6; indecisos 3. Sem 2T nesta ficha (screenshot 1T; não inventar). PR #23 removeu teaser que reciclava 11/09 (L39 F35, moe/mode errados)."
+    "notes": "G1/Folha/TV Globo 17/09. TSE BR-04029/2026. Presencial n=2002 campo 15–16/09 moe ±2. 1T L39 F36 Cury6 Caiado4 Renan3 Zema2; Samara Martins1 Rui Costa Pimenta1 (sem chave); branco/nulo/nenhum 6; indecisos 3. 2T L46×F44 (G1 https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/noticia/2026/09/17/datafolha-segundo-turno-presidente-17-setembro.ghtml ; bn/nenhum 8, indecisos 1). Base=total (não válidos).",
+    "secondRound": {
+      "lula": 46,
+      "flavio": 44
+    }
   }
 ]
