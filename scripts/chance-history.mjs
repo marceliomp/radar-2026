@@ -66,7 +66,7 @@ export async function computePublishedChance(asOf) {
     ...DEFAULT_CONFIG,
     asOf: day,
     halfLifeDays: 5,
-    simulations: 2000,
+    simulations: 4000,
   });
   return {
     date: day,
@@ -77,10 +77,43 @@ export async function computePublishedChance(asOf) {
   };
 }
 
+function shiftIsoDay(iso, days) {
+  const ms = new Date(`${iso}T12:00:00-03:00`).getTime() + days * 86_400_000;
+  return new Intl.DateTimeFormat("en-CA", {
+    timeZone: "America/Sao_Paulo",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(new Date(ms));
+}
+
+/** Calendar days after `fromExclusive` through `toInclusive` (Sao_Paulo). */
+export function daysBetweenExclusive(fromExclusive, toInclusive) {
+  if (!fromExclusive || !toInclusive || fromExclusive >= toInclusive) return [];
+  const out = [];
+  let cur = shiftIsoDay(fromExclusive, 1);
+  while (cur <= toInclusive) {
+    out.push(cur);
+    cur = shiftIsoDay(cur, 1);
+  }
+  return out;
+}
+
 export async function appendPublishedChance(asOf) {
   const file = JSON.parse(readFileSync(HISTORY_PATH, "utf8"));
+  const tipDate = [...(file.points ?? [])]
+    .map((p) => p.date)
+    .sort()
+    .at(-1);
   const point = await computePublishedChance(asOf);
-  const next = upsertPoint(file, point);
+  let next = file;
+  // Fill calendar gaps so consecutive-day invariant survives auto-promote jumps.
+  for (const day of daysBetweenExclusive(tipDate, point.date)) {
+    if (day === point.date) continue;
+    const fill = await computePublishedChance(day);
+    next = upsertPoint(next, { ...fill, source: "replay" });
+  }
+  next = upsertPoint(next, point);
   writeFileSync(HISTORY_PATH, `${JSON.stringify(next, null, 2)}\n`, "utf8");
   return point;
 }
