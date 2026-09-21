@@ -4919,5 +4919,34 @@
       "lula": 46,
       "flavio": 44
     }
+  },
+  {
+    "id": "nexus-btg-09-21-00485",
+    "institute": "Nexus/BTG",
+    "date": "2026-09-21",
+    "fieldEnd": "2026-09-20",
+    "sample": 2000,
+    "moe": 2,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 40,
+      "flavio": 37,
+      "cury": 6,
+      "caiado": 5
+    },
+    "source": {
+      "tseProtocol": "BR-00485/2026",
+      "url": "https://www.cnnbrasil.com.br/eleicoes/nexus-btg-lula-tem-40-no-1o-turno-flavio-37-e-cury-6/",
+      "publisher": "cnnbrasil.com.br",
+      "publishedAt": "2026-09-21",
+      "capturedAt": "2026-09-21T11:00:44.917Z"
+    },
+    "notes": "2000 entrevistas. TSE nexus.",
+    "fieldStart": "2026-09-18",
+    "secondRound": {
+      "lula": 46,
+      "flavio": 45
+    }
   }
 ]
