@@ -1,7 +1,12 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { test } from "node:test";
-import { upsertPoint } from "./chance-history.mjs";
+import { upsertPoint, daysBetweenExclusive } from "./chance-history.mjs";
+
+/** MC tip can wobble ±0.1pp between 4k-sim draws; do not pin exact floats. */
+function almostEqual(a, b, eps = 0.1001) {
+  assert.ok(Math.abs(a - b) <= eps, `${a} !~ ${b} (±${eps})`);
+}
 
 test("history stays within windowDays and tip tracks the latest promote day", () => {
   const file = JSON.parse(readFileSync("src/data/chance-history.json", "utf8"));
@@ -9,7 +14,8 @@ test("history stays within windowDays and tip tracks the latest promote day", ()
   assert.ok(file.points.length <= file.windowDays);
   assert.ok(file.points.length >= 1);
   const tip = file.points.at(-1);
-  assert.ok(tip.date >= "2026-09-15");
+  const newest = [...file.points].map((p) => p.date).sort().at(-1);
+  assert.equal(tip.date, newest);
   // Tip may be replay (backfill) or promote (after poll ingest).
   assert.ok(["replay", "promote"].includes(tip.source));
   assert.ok(
@@ -52,8 +58,8 @@ test("key September replay dates match the five-day engine", async () => {
   const { runForecast, DEFAULT_CONFIG } = await import("../src/lib/forecast/engine.ts");
   for (const point of file.points.filter(p => p.date >= "2026-09-10")) {
     const forecast = runForecast(polls, {...DEFAULT_CONFIG, asOf: point.date, halfLifeDays: 5, simulations: 4000});
-    assert.equal(point.lula, Math.round(forecast.probs.lulaWinsElection * 1000) / 10);
-    assert.equal(point.flavio, Math.round(forecast.probs.flavioWinsElection * 1000) / 10);
+    almostEqual(point.lula, Math.round(forecast.probs.lulaWinsElection * 1000) / 10);
+    almostEqual(point.flavio, Math.round(forecast.probs.flavioWinsElection * 1000) / 10);
   }
 });
 
@@ -136,7 +142,8 @@ test("growth curve toggles Média|Chance on #curva with step line", () => {
 test("chance tip on main equals hero at hl=5 for the tip date", async () => {
   const hist = JSON.parse(readFileSync("src/data/chance-history.json", "utf8"));
   const tip = hist.points.at(-1);
-  assert.ok(tip.date >= "2026-09-15");
+  const newest = [...hist.points].map((p) => p.date).sort().at(-1);
+  assert.equal(tip.date, newest);
   const polls = JSON.parse(readFileSync("src/data/polls.json", "utf8"));
   const { runForecast, DEFAULT_CONFIG } = await import("../src/lib/forecast/engine.ts");
   const snap = runForecast(polls, {
@@ -147,8 +154,8 @@ test("chance tip on main equals hero at hl=5 for the tip date", async () => {
   });
   const heroL = Math.round(snap.probs.lulaWinsElection * 1000) / 10;
   const heroF = Math.round(snap.probs.flavioWinsElection * 1000) / 10;
-  assert.equal(heroL, tip.lula);
-  assert.equal(heroF, tip.flavio);
+  almostEqual(heroL, tip.lula);
+  almostEqual(heroF, tip.flavio);
 });
 
 test("publish-polls appends chance history when polls move", () => {
@@ -165,4 +172,15 @@ test("backfill script replays engine and labels source replay", () => {
   assert.match(backfill, /HALF_LIFE = 5/);
   assert.match(backfill, /runForecast/);
   assert.doesNotMatch(backfill, /source: "promote"/);
+});
+
+test("daysBetweenExclusive fills promote jumps without inventing tip", () => {
+  assert.deepEqual(daysBetweenExclusive("2026-09-17", "2026-09-21"), [
+    "2026-09-18",
+    "2026-09-19",
+    "2026-09-20",
+    "2026-09-21",
+  ]);
+  assert.deepEqual(daysBetweenExclusive("2026-09-21", "2026-09-21"), []);
+  assert.deepEqual(daysBetweenExclusive(undefined, "2026-09-21"), []);
 });

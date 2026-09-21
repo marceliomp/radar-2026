@@ -4925,7 +4925,7 @@
     "institute": "Nexus/BTG",
     "date": "2026-09-21",
     "fieldEnd": "2026-09-20",
-    "sample": 2000,
+    "sample": 2006,
     "moe": 2,
     "mode": "telefone",
     "national": true,
@@ -4933,7 +4933,9 @@
       "lula": 40,
       "flavio": 37,
       "cury": 6,
-      "caiado": 5
+      "caiado": 5,
+      "renan": 3,
+      "zema": 1
     },
     "source": {
       "tseProtocol": "BR-00485/2026",
@@ -4942,38 +4944,11 @@
       "publishedAt": "2026-09-21",
       "capturedAt": "2026-09-21T11:00:44.917Z"
     },
-    "notes": "2000 entrevistas. TSE nexus.",
+    "notes": "CNN/Exame 21/09. TSE BR-00485/2026. Telefone n=2006 campo 18–20/09 moe ±2. 1T L40 F37 Cury6 Caiado5 Renan3 Zema1 Samara1 (sem chave); bn/nenhum 4; NS 2. 2T L46×F45 (Exame/CNN; bn 7, ind 1). Base=total.",
     "fieldStart": "2026-09-18",
     "secondRound": {
       "lula": 46,
       "flavio": 45
-    }
-  },
-  {
-    "id": "quaest-09-21-06004",
-    "institute": "Quaest",
-    "date": "2026-09-21",
-    "fieldEnd": "2026-09-20",
-    "sample": 2004,
-    "moe": 2,
-    "mode": "presencial",
-    "national": true,
-    "firstRound": {
-      "lula": 36,
-      "flavio": 31
-    },
-    "source": {
-      "tseProtocol": "BR-06004/2026",
-      "url": "https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/noticia/2026/09/21/quaest-divulga-nova-pesquisa-eleitoral-para-presidente-nesta-segunda-21.ghtml",
-      "publisher": "g1.globo.com",
-      "publishedAt": "2026-09-21",
-      "capturedAt": "2026-09-21T13:00:45.629Z"
-    },
-    "notes": "2004 entrevistas. TSE quaest.",
-    "fieldStart": "2026-09-17",
-    "secondRound": {
-      "lula": 36,
-      "flavio": 42
     }
   }
 ]
