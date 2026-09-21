@@ -4948,5 +4948,32 @@
       "lula": 46,
       "flavio": 45
     }
+  },
+  {
+    "id": "quaest-09-21-06004",
+    "institute": "Quaest",
+    "date": "2026-09-21",
+    "fieldEnd": "2026-09-20",
+    "sample": 2004,
+    "moe": 2,
+    "mode": "presencial",
+    "national": true,
+    "firstRound": {
+      "lula": 36,
+      "flavio": 31
+    },
+    "source": {
+      "tseProtocol": "BR-06004/2026",
+      "url": "https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/noticia/2026/09/21/quaest-divulga-nova-pesquisa-eleitoral-para-presidente-nesta-segunda-21.ghtml",
+      "publisher": "g1.globo.com",
+      "publishedAt": "2026-09-21",
+      "capturedAt": "2026-09-21T13:00:45.629Z"
+    },
+    "notes": "2004 entrevistas. TSE quaest.",
+    "fieldStart": "2026-09-17",
+    "secondRound": {
+      "lula": 36,
+      "flavio": 42
+    }
   }
 ]
