@@ -14,7 +14,7 @@ export function PartnerCard() {
   if (locale !== "pt") return null;
   const p = m.partner;
   return (
-    <aside aria-label={p.label} className="board-card mb-6">
+    <aside aria-label={p.label} className="board-card partner-card mb-6">
       <p className="kicker">{p.label} · Alvo BR</p>
       <h2 className="story-title mt-1">{p.title}</h2>
       <p className="mt-2 text-sm leading-relaxed text-cream/85">{p.body}</p>

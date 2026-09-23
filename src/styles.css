@@ -1750,6 +1750,7 @@
 .radar-home .page-body-home > #novo { order:4; }
 .radar-home .page-body-home > #mapa { order:5; }
 .radar-home .page-body-home > #media { order:6; }
+.radar-home .page-body-home > .partner-card { order:6; }
 .radar-home .page-body-home > .tight-block { order:7; }
 .radar-home .page-body-home > #metodo { order:8; }
 .radar-home .page-body-home > footer { order:9; }
@@ -1766,6 +1767,7 @@
  .radar-home .page-body-home > #media { grid-column:1/-1; grid-row:4; }
  .radar-home .page-body-home > #mapa { grid-column:1; grid-row:5; }
  .radar-home .page-body-home > .tight-block { grid-column:2; grid-row:5; }
- .radar-home .page-body-home > #metodo { grid-column:1/-1; grid-row:6; }
- .radar-home .page-body-home > footer { grid-column:1/-1; grid-row:7; }
+ .radar-home .page-body-home > .partner-card { grid-column:1/-1; grid-row:6; }
+ .radar-home .page-body-home > #metodo { grid-column:1/-1; grid-row:7; }
+ .radar-home .page-body-home > footer { grid-column:1/-1; grid-row:8; }
 }
