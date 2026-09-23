@@ -10,6 +10,33 @@ export type CalendarItem = {
 /** Agenda pública: campo e divulgação esperados. */
 export const CALENDAR: CalendarItem[] = [
   {
+    id: "quaest-ufs-23",
+    kind: "saiu",
+    date: "2026-09-23",
+    title: "Quaest/Globo: presidente em MG, RJ, PE, CE, DF",
+    detail:
+      "Campo 19–22/09. MG 35×30 / 2T 40×40 ±3 n=1506 BR-07664. RJ 30×37 / 2T 36×44 ±3 n=1302 RJ-04982. PE 54×21 / 2T 58×25 ±3 n=1302. CE 55×23 ±3 n=900 BR-03184 (sem 2T). DF 32×33 / 2T 38×49 ±3 n=1104 DF-02596. SP e TO presidente ainda sem matéria G1 no ingest da noite.",
+    institute: "Quaest",
+  },
+  {
+    id: "atlas-nacional-23",
+    kind: "saiu",
+    date: "2026-09-23",
+    title: "AtlasIntel/Bloomberg nacional",
+    detail:
+      "Já no polls.json (manhã). 1º 45,8×43,4 · 2º 47,7×47,4. n≈5.015 ±1 campo 17–22/09. TSE BR-04739/2026.",
+    institute: "AtlasIntel",
+  },
+  {
+    id: "quaest-nacional-28",
+    kind: "previsto",
+    date: "2026-09-28",
+    title: "Quaest nacional (Globo/O Globo)",
+    detail:
+      "Campo 24–27/09, n=2.004 presencial. Divulgação prevista segunda 28. Lauro Jardim 23/09 15h02. Não é número, é agenda.",
+    institute: "Quaest",
+  },
+  {
     id: "datafolha-ufs-12",
     kind: "saiu",
     date: "2026-09-12",
