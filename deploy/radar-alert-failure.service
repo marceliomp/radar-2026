@@ -1,0 +1,9 @@
+[Unit]
+Description=Radar 2026 Telegram alert when the ingest pipeline fails
+
+[Service]
+Type=oneshot
+User=root
+WorkingDirectory=/root/radar-2026-ingest
+EnvironmentFile=/root/.secrets/radar-alert.env
+ExecStart=/usr/bin/node /root/radar-2026-ingest/scripts/radar-alert.mjs failure

@@ -1,9 +1,17 @@
 [Unit]
-Description=Radar 2026 poll pipeline (TSE discover + parseable votes)
+Description=Radar 2026 poll pipeline (TSE discover + allowlist process)
+After=network-online.target
+Wants=network-online.target
+OnFailure=radar-alert-failure.service
 
 [Service]
 Type=oneshot
-WorkingDirectory=/root/radar-2026
+User=root
+WorkingDirectory=/root/radar-2026-ingest
+Environment=HOME=/root
+Environment=PATH=/usr/local/bin:/usr/bin:/bin
+Environment=GIT_TERMINAL_PROMPT=0
 Environment=TSE_ZIP=/tmp/pesquisa_eleitoral_2026.zip
-ExecStart=/usr/bin/node /root/radar-2026/scripts/pipeline.mjs
+# Dedicated main worktree, never an agent feature branch.
+ExecStart=/usr/bin/node /root/radar-2026-ingest/scripts/pipeline.mjs
 Nice=10
