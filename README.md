@@ -2,7 +2,7 @@
 
 Agregador independente da eleição presidencial. **Não é uma pesquisa.** Inclui todas as casas com registro TSE e números verificáveis. Média ponderada (recência, √n, presencial vs telefone, acerto 2018/2022) + chance de ganhar somando 1º e 2º turno.
 
-**URL canônica:** https://radar-2026.vercel.app
+**URL canônica:** https://brasilradar.com.br (alias Vercel: radar-2026.vercel.app)
 
 **Acessos (pageviews):** https://vercel.com/marceliomps-projects/radar-2026/analytics
 
@@ -25,7 +25,7 @@ Abre em `http://localhost:8080`.
 - Teto de 22% do peso por casa. Pesquisa duplicada (mesmo campo, n e 1º) entra uma vez
 - Casas com menor erro vs urna em 2018 e 2022 pesam mais (Paraná, Datafolha, MDA, Gerp, Quaest)
 - 2º turno no mapa só se o instituto perguntou
-- Ingestão TSE 11h e 19h BRT: descobre protocolo. Número só entra com parser (G1, Folha, Exame, Gazeta; CNN/Poder360 403 são skip). SoT do agregador continua `src/data/polls.json`.
+- Ingestão TSE de hora em hora (08h às 22h BRT): descobre protocolo. Número só entra com parser (G1, Folha, Exame, Gazeta; CNN/Poder360 403 são skip). SoT do agregador continua `src/data/polls.json`.
 
 ## Não é
 
@@ -43,4 +43,4 @@ node scripts/process-pending.mjs --offline
 node scripts/process-pending.mjs
 ```
 
-Timer 11h/19h BRT roda `node scripts/pipeline.mjs` (ingest + process). Sem número parseado, o protocolo fica no inbox. O agregador não lê o inbox. Mesmo com merge, o site em https://radar-2026.vercel.app só muda depois de commit de `src/data/polls.json` + deploy. O timer sozinho não atualiza a média pública.
+Timer de hora em hora, 08h às 22h BRT, roda `node scripts/pipeline.mjs` (ingest + process). Falha do pipeline e 48h sem pesquisa nova avisam no Telegram (`scripts/radar-alert.mjs`). Sem número parseado, o protocolo fica no inbox. O agregador não lê o inbox. Mesmo com merge, o site em https://brasilradar.com.br só muda depois de commit de `src/data/polls.json` + deploy. O timer sozinho não atualiza a média pública.
