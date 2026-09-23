@@ -33,25 +33,13 @@ type I18nValue = {
 
 const I18nContext = createContext<I18nValue | null>(null);
 
-function applyDocumentLocale(locale: Locale, title: string, description: string) {
+function applyDocumentLocale(locale: Locale) {
   if (typeof document === "undefined") return;
   document.documentElement.lang = localeHtml(locale);
   const ogLocale = document.querySelector('meta[property="og:locale"]');
   if (ogLocale) ogLocale.setAttribute("content", locale === "en" ? "en_US" : "pt_BR");
-  // Keep SSR title/description (chance %) when the shell strings would drop them.
-  // Locale switches still rewrite via router head; this only avoids a hydrate clobber.
-  // m.meta.title is the shell string without chance %; home SSR title has "%".
-  const shellTitle =
-    title === "Radar 2026 · não é pesquisa" || title === "Radar 2026 · not a poll";
-  const hasChance = /%/.test(document.title);
-  if (shellTitle && hasChance) return;
-  document.title = title;
-  const desc = document.querySelector('meta[name="description"]');
-  if (desc) desc.setAttribute("content", description);
-  const ogTitle = document.querySelector('meta[property="og:title"]');
-  if (ogTitle) ogTitle.setAttribute("content", title);
-  const ogDesc = document.querySelector('meta[property="og:description"]');
-  if (ogDesc) ogDesc.setAttribute("content", description);
+  // Title/description/og:* belong to each route head (locale-aware via page-meta).
+  // Writing shell strings here clobbered /lab, /candidatos and 404 titles after hydration.
 }
 
 export function LangProvider({ children }: { children: ReactNode }) {
@@ -91,8 +79,8 @@ export function LangProvider({ children }: { children: ReactNode }) {
   }, [urlLocale, setLocale]);
 
   useEffect(() => {
-    applyDocumentLocale(locale, m.meta.title, m.meta.description);
-  }, [locale, m.meta.title, m.meta.description]);
+    applyDocumentLocale(locale);
+  }, [locale]);
 
   const value = useMemo<I18nValue>(
     () => ({

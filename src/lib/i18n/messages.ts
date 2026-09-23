@@ -256,6 +256,13 @@ export const pt = {
     ufHas: (uf: string, n: number) =>
       `${uf} tem ${n === 1 ? "1 casa" : `${n} casas`}`,
   },
+  partner: {
+    label: "Parceiro",
+    title: "Seu patrimônio não precisa torcer",
+    body: "Qualquer que seja o resultado, dá para proteger o que você construiu. A Alvo BR mostra como investidores usam imóvel na planta no litoral de SC para isso.",
+    cta: "Conversar no WhatsApp",
+    waText: "Olá! Vim pelo Radar 2026 e quero entender como proteger meu patrimônio, independente do resultado da eleição.",
+  },
   visit: {
     first: "Estimativa do modelo. Não é intenção de voto.",
     newMoved: (chance: string) => `Pesquisa nova no arquivo. ${chance}.`,
@@ -399,6 +406,14 @@ export const pt = {
     fewSecond: "Ainda poucas pesquisas perguntaram o 2º.",
     pollsPair: (n: number, pair: string) => `${n} pesquisas · par ${pair} no 1º`,
     leadsFirst: (pct: string) => `Lula lidera o 1º em ${pct} das simulações`,
+  },
+  notFound: {
+    title: "Página não encontrada · Radar 2026",
+    description: "Essa página não existe. Volte para o Radar 2026 e veja a chance de cada candidato.",
+    kicker: "Erro 404",
+    heading: "Essa página não existe",
+    body: "O endereço pode ter mudado ou nunca existiu. Volte para a home e veja a chance de cada candidato.",
+    cta: "Voltar para o Radar 2026",
   },
 };
 
@@ -660,6 +675,13 @@ export const en: Messages = {
     ufHas: (uf: string, n: number) =>
       `${uf} has ${n === 1 ? "1 house" : `${n} houses`}`,
   },
+  partner: {
+    label: "Partner",
+    title: "Your wealth does not need to pick a side",
+    body: "Whatever the result, you can protect what you built. Alvo BR shows how investors use pre-construction property on the Santa Catarina coast for that.",
+    cta: "Chat on WhatsApp",
+    waText: "Hi! I came from Radar 2026 and want to understand how to protect my wealth, whatever the election result.",
+  },
   visit: {
     first: "Period changes the chance.",
     newMoved: (chance: string) => `New poll in the file. ${chance}.`,
@@ -801,6 +823,14 @@ export const en: Messages = {
     fewSecond: "Too few polls asked the 2nd round.",
     pollsPair: (n: number, pair: string) => `${n} polls · pair ${pair} in the 1st`,
     leadsFirst: (pct: string) => `Lula leads the 1st round in ${pct} of simulations`,
+  },
+  notFound: {
+    title: "Page not found · Radar 2026",
+    description: "This page does not exist. Go back to Radar 2026 and see each candidate's chance.",
+    kicker: "404 error",
+    heading: "This page does not exist",
+    body: "The address may have changed or never existed. Go back home and see each candidate's chance.",
+    cta: "Back to Radar 2026",
   },
 };
 
