@@ -8,7 +8,7 @@ import { DEFAULT_HALF_LIFE } from "@/lib/half-life";
 import { parseAsOfParam } from "@/lib/as-of";
 import { messages, type Locale } from "@/lib/i18n";
 import { parseLocale } from "@/lib/i18n/locale";
-import { canonicalUrl, parseUfCode } from "@/lib/site";
+import { SITE, canonicalUrl, parseUfCode } from "@/lib/site";
 import type { RaceCargo } from "@/features/races/race-types";
 
 export type PageHead = {
@@ -73,6 +73,67 @@ export function homeHead(search: Record<string, unknown>): PageHead {
     description,
     url: canonicalUrl("/", { lang: locale === "en" ? "en" : undefined }),
     locale,
+  };
+}
+
+/** WebSite + Dataset JSON-LD for the home page: current chance numbers, dateModified = asOf. */
+export function homeJsonLd(search: Record<string, unknown>) {
+  const locale = localeOf(search);
+  const asOf = parseAsOfParam(search.asOf) ?? todayAsOf();
+  const hl = DEFAULT_HALF_LIFE;
+  const extraVarPp = extraVarCached(publicEngineConfig(asOf, hl));
+  const forecast = runForecast(polls, publicEngineConfig(asOf, hl, extraVarPp));
+  const pLula = Math.round(forecast.probs.lulaWinsElection * 1000) / 10;
+  const pFlavio = Math.round(forecast.probs.flavioWinsElection * 1000) / 10;
+  const url = canonicalUrl("/", { lang: locale === "en" ? "en" : undefined });
+  const inLanguage = locale === "en" ? "en-US" : "pt-BR";
+  const websiteId = `${SITE}/#website`;
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": websiteId,
+        name: "Radar 2026",
+        url: SITE,
+        inLanguage,
+        description:
+          locale === "en"
+            ? "Not a poll. Independent aggregator of the Brazilian presidential, governor and senator races."
+            : "Não é pesquisa. Agregador independente da eleição presidencial, de governador e de senador.",
+      },
+      {
+        "@type": "Dataset",
+        "@id": `${url}#dataset`,
+        name:
+          locale === "en"
+            ? "Radar 2026, presidential chance aggregate"
+            : "Radar 2026, chance de ser presidente",
+        description:
+          locale === "en"
+            ? "Model output aggregating public polls: chance of winning the presidential race."
+            : "Saída do modelo que agrega pesquisas públicas: chance de ser presidente.",
+        url,
+        dateModified: asOf,
+        inLanguage,
+        isPartOf: { "@id": websiteId },
+        creator: { "@id": websiteId },
+        variableMeasured: [
+          {
+            "@type": "PropertyValue",
+            name: "Lula",
+            value: pLula,
+            unitText: "percent",
+          },
+          {
+            "@type": "PropertyValue",
+            name: "Flávio",
+            value: pFlavio,
+            unitText: "percent",
+          },
+        ],
+      },
+    ],
   };
 }
 

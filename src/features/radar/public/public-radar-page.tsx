@@ -427,6 +427,7 @@ export function PublicRadarPage() {
           <span className="hero-method-sub">{m.hero.sub}</span>
         </h1>
         <HeroScoreColumns board={heroBoard} othersLabel={m.hero.others} formatProb={fmt.prob} />
+        <p className="hero-updated">{m.home.updated(fmt.date(config.asOf))}</p>
         <p className="hero-fresh">{fileStamp(latestDayPolls, locale)}</p>
         <VisitHook
           pLula={pLula}

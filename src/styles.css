@@ -246,11 +246,18 @@
     }
   }
 
+  /* inline-flex + min-height: 44px tap target without growing the visible
+     underline box. The underline rides the text baseline (text-decoration),
+     not the box edge, so it stays snug even though the box is taller. */
   .hook-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
     color: var(--color-primary);
-    text-decoration: none;
-    border-bottom: 1px solid color-mix(in oklab, var(--color-primary) 45%, transparent);
-    padding-bottom: 0.05rem;
+    text-decoration-line: underline;
+    text-decoration-color: color-mix(in oklab, var(--color-primary) 45%, transparent);
+    text-underline-offset: 0.2em;
+    text-decoration-thickness: 1px;
     background: none;
     font: inherit;
     cursor: pointer;
@@ -258,7 +265,7 @@
 
   .hook-link:hover {
     color: var(--color-cream);
-    border-bottom-color: var(--color-cream);
+    text-decoration-color: var(--color-cream);
   }
 
   /* Capa: no telefone é placar numa faixa, não dois heróis empilhados. */
@@ -390,6 +397,9 @@
     left: 0.75rem;
     top: -3.5rem;
     z-index: 80;
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
     padding: 0.45rem 0.7rem;
     background: var(--color-cream);
     color: var(--color-bg);
@@ -436,7 +446,8 @@
   }
 
   .hero-fresh,
-  .hero-pulse {
+  .hero-pulse,
+  .hero-updated {
     margin: 0;
     padding: 0.15rem 1rem 0.2rem;
     font-family: var(--font-mono);
@@ -451,6 +462,12 @@
     color: var(--color-primary);
     padding-bottom: 0.35rem;
     animation: pulse-in 0.45s ease both;
+  }
+
+  /* Site freshness (model recompute date), distinct from hero-fresh's poll field-date. */
+  .hero-updated {
+    color: var(--color-gold);
+    font-weight: 600;
   }
 
   @keyframes pulse-in {
@@ -763,7 +780,8 @@
     }
 
     .hero-fresh,
-    .hero-pulse {
+    .hero-pulse,
+    .hero-updated {
       padding: 0.1rem 1rem 0.12rem;
       font-size: 0.625rem;
     }
@@ -894,7 +912,7 @@
 
     .hero-col {
       min-height: 0;
-      padding: 5.25rem 1.75rem 8.35rem;
+      padding: 5.25rem 1.75rem 9.65rem;
     }
 
     .hero-col-l {
@@ -923,6 +941,16 @@
       font-size: clamp(1.4rem, 2.1vw, 1.95rem);
       background: none;
       pointer-events: none;
+    }
+
+    .hero-updated {
+      position: absolute;
+      right: 0;
+      bottom: 8.75rem;
+      left: 0;
+      z-index: 10;
+      padding-inline: 1.75rem;
+      font-size: 0.75rem;
     }
 
     .hero-fresh {
@@ -1718,7 +1746,7 @@
 .radar-home .page-body-home { display:flex; flex-direction:column; gap:16px; }
 .radar-home .page-body-home > .mast-hl { order:1; width:100%; margin:0; }
 .radar-home .page-body-home > #curva { order:2; margin:0; }
-.radar-home .page-body-home > .hero-share { order:3; }
+.radar-home .page-body-home > .hero-share { order:-1; }
 .radar-home .page-body-home > #novo { order:4; }
 .radar-home .page-body-home > #mapa { order:5; }
 .radar-home .page-body-home > #media { order:6; }

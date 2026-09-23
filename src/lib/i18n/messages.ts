@@ -407,6 +407,14 @@ export const pt = {
     pollsPair: (n: number, pair: string) => `${n} pesquisas · par ${pair} no 1º`,
     leadsFirst: (pct: string) => `Lula lidera o 1º em ${pct} das simulações`,
   },
+  notFound: {
+    title: "Página não encontrada · Radar 2026",
+    description: "Essa página não existe. Volte para o Radar 2026 e veja a chance de cada candidato.",
+    kicker: "Erro 404",
+    heading: "Essa página não existe",
+    body: "O endereço pode ter mudado ou nunca existiu. Volte para a home e veja a chance de cada candidato.",
+    cta: "Voltar para o Radar 2026",
+  },
 };
 
 export type Messages = typeof pt;
@@ -815,6 +823,14 @@ export const en: Messages = {
     fewSecond: "Too few polls asked the 2nd round.",
     pollsPair: (n: number, pair: string) => `${n} polls · pair ${pair} in the 1st`,
     leadsFirst: (pct: string) => `Lula leads the 1st round in ${pct} of simulations`,
+  },
+  notFound: {
+    title: "Page not found · Radar 2026",
+    description: "This page does not exist. Go back to Radar 2026 and see each candidate's chance.",
+    kicker: "404 error",
+    heading: "This page does not exist",
+    body: "The address may have changed or never existed. Go back home and see each candidate's chance.",
+    cta: "Back to Radar 2026",
   },
 };
 
