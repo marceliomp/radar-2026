@@ -429,7 +429,7 @@ test("protocol search prefers G1, Exame and Gazeta before CNN", () => {
   assert.match(urls[3], /cnnbrasil\.com\.br/);
 });
 
-test("unknown sample below 1800 is not national", () => {
+test("unknown coverage stays in the inbox, never auto-promoted", () => {
   const out = processPending({
     pending: [{ tse: "BR-09140/2026" }],
     polls: [{ id: "keep", notes: "" }],
@@ -446,8 +446,8 @@ test("unknown sample below 1800 is not national", () => {
     }],
     resultsByTse: { "BR-09140/2026": { firstRound: { lula: 40, flavio: 39 } } },
   });
-  assert.equal(out.report.notNational, 1);
   assert.equal(out.ready.length, 0);
+  assert.match(out.remaining[0].reason, /abrangência não confirmada/);
 });
 
 test("2T da Quaest nao copia Atlas 1T de teaser na mesma pagina", () => {
@@ -499,3 +499,20 @@ test("CNN CE Atlas URL is statewide, not national", async () => {
   );
 });
 
+
+test("AtlasIntel state cut registered as BR with n=1800 is not national (RJ BR-01622)", async () => {
+  const { coverageFromRow } = await import("./process-pending.mjs");
+  const rj = coverageFromRow({
+    DS_PLANO_AMOSTRAL: "Recrutamento digital aleatório. 1800 entrevistas.",
+    QT_ENTREVISTADO: "1800",
+    NM_EMPRESA: "ATLAS INTEL",
+  });
+  assert.notEqual(rj, "national");
+});
+
+test("national file has no BR-01622 (AtlasIntel Rio de Janeiro)", async () => {
+  const { readFileSync } = await import("node:fs");
+  const raw = JSON.parse(readFileSync(new URL("../src/data/polls.json", import.meta.url), "utf8"));
+  const polls = Array.isArray(raw) ? raw : raw.polls;
+  assert.equal(polls.some((p) => p.source?.tseProtocol === "BR-01622/2026"), false);
+});
