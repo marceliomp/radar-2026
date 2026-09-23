@@ -620,14 +620,26 @@ export function processPending({
     }
 
     const coverage = coverageFromRow(row);
-    const n = parseSample(row.QT_ENTREVISTADO) ?? 0;
-    if (!isNationalRow(row) || coverage === "state" || (coverage === "unknown" && n < 1800)) {
+    if (!isNationalRow(row) || coverage === "state") {
       report.notNational += 1;
       skipped.push({
         at: item.at ?? new Date().toISOString(),
         tse: proto,
         reason: "pesquisa estadual, fora do agregador nacional",
         n: parseSample(row.QT_ENTREVISTADO),
+      });
+      continue;
+    }
+    // Protocolo BR com amostra < 2000 e plano sem "eleitorado brasileiro" pode ser
+    // recorte estadual de Presidente (AtlasIntel RJ BR-01622, n=1800). Nunca auto.
+    if (coverage === "unknown") {
+      remaining.push({
+        at: item.at ?? new Date().toISOString(),
+        tse: proto,
+        institute: matchHouse(row)?.institute ?? row.NM_EMPRESA,
+        n: parseSample(row.QT_ENTREVISTADO),
+        fieldEnd: parseBrDate(row.DT_FIM_PESQUISA),
+        reason: "abrangência não confirmada (pode ser recorte estadual): promover à mão se for nacional",
       });
       continue;
     }
@@ -1003,9 +1015,7 @@ async function main() {
       const row = tseIndex.get(proto);
       if (!row || known.has(proto) || overlay[proto]) continue;
       if (!isPresidente(row.DS_CARGO) || !isNationalRow(row)) continue;
-      const coverage = coverageFromRow(row);
-      const n = parseSample(row.QT_ENTREVISTADO) ?? 0;
-      if (coverage === "state" || (coverage === "unknown" && n < 1800)) continue;
+      if (coverageFromRow(row) !== "national") continue;
       const fieldEnd = parseBrDate(row.DT_FIM_PESQUISA);
       const divulga = parseBrDate(row.DT_DIVULGACAO) || fieldEnd;
       if (!fieldEnd || fieldEnd > todayIso() || (divulga && divulga > todayIso())) continue;
