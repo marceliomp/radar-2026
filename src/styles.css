@@ -1751,6 +1751,7 @@
 .radar-home .page-body-home > #mapa { order:5; }
 .radar-home .page-body-home > #media { order:6; }
 .radar-home .page-body-home > .partner-card { order:6; }
+.partner-card .share-btn { width:auto; flex:none; padding:0.375rem 1rem; }
 .radar-home .page-body-home > .tight-block { order:7; }
 .radar-home .page-body-home > #metodo { order:8; }
 .radar-home .page-body-home > footer { order:9; }
