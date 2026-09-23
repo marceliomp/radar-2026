@@ -1,0 +1,13 @@
+[Unit]
+Description=Radar 2026 Telegram alert when polls.json is stale (48h)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=root
+WorkingDirectory=/root/radar-2026-ingest
+Environment=HOME=/root
+Environment=GIT_TERMINAL_PROMPT=0
+EnvironmentFile=/root/.secrets/radar-alert.env
+ExecStart=/usr/bin/node /root/radar-2026-ingest/scripts/radar-alert.mjs stall
