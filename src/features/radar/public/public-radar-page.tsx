@@ -5,6 +5,7 @@ import { BrazilMap as BrazilMapView, MapLayerToggle, type MapLayer } from "@/fea
 import { HalfLifeControl } from "@/components/half-life-control";
 import { ShareBar } from "@/components/share-bar";
 import { MastBar } from "@/components/site-nav";
+import { PartnerCard } from "@/components/partner-card";
 import { TightRaces } from "@/components/tight-races";
 import { GrowthCurve as GrowthCurveView } from "@/features/radar/public/growth-curve";
 import { VisitHook } from "@/components/visit-hook";
@@ -490,6 +491,8 @@ export function PublicRadarPage() {
             </div>
           </div>
         </section>
+
+        <PartnerCard />
 
         {latestDayPolls.length > 0 ? (
           <section id="novo" className="mb-6 space-y-3">

@@ -256,6 +256,13 @@ export const pt = {
     ufHas: (uf: string, n: number) =>
       `${uf} tem ${n === 1 ? "1 casa" : `${n} casas`}`,
   },
+  partner: {
+    label: "Parceiro",
+    title: "Seu patrimônio não precisa torcer",
+    body: "Qualquer que seja o resultado, dá para proteger o que você construiu. A Alvo BR mostra como investidores usam imóvel na planta no litoral de SC para isso.",
+    cta: "Conversar no WhatsApp",
+    waText: "Olá! Vim pelo Radar 2026 e quero entender como proteger meu patrimônio, independente do resultado da eleição.",
+  },
   visit: {
     first: "Estimativa do modelo. Não é intenção de voto.",
     newMoved: (chance: string) => `Pesquisa nova no arquivo. ${chance}.`,
@@ -659,6 +666,13 @@ export const en: Messages = {
   houses: {
     ufHas: (uf: string, n: number) =>
       `${uf} has ${n === 1 ? "1 house" : `${n} houses`}`,
+  },
+  partner: {
+    label: "Partner",
+    title: "Your wealth does not need to pick a side",
+    body: "Whatever the result, you can protect what you built. Alvo BR shows how investors use pre-construction property on the Santa Catarina coast for that.",
+    cta: "Chat on WhatsApp",
+    waText: "Hi! I came from Radar 2026 and want to understand how to protect my wealth, whatever the election result.",
   },
   visit: {
     first: "Period changes the chance.",
