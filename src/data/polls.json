@@ -5063,5 +5063,30 @@
       "lula": 43,
       "flavio": 43
     }
+  },
+  {
+    "id": "futura-apex-09-24-05268",
+    "institute": "Futura/Apex",
+    "date": "2026-09-24",
+    "fieldEnd": "2026-09-24",
+    "sample": 2000,
+    "moe": 2.2,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 38.4,
+      "flavio": 40.4,
+      "cury": 5.6,
+      "caiado": 12.4
+    },
+    "source": {
+      "tseProtocol": "BR-05268/2026",
+      "url": "https://exame.com/brasil/futura-flavio-bolsonaro-cresce-chega-a-404-e-ultrapassa-lula-no-1o-turno/",
+      "publisher": "exame.com",
+      "publishedAt": "2026-09-24",
+      "capturedAt": "2026-09-24T14:00:26.838Z"
+    },
+    "notes": "2000 entrevistas. TSE futura.",
+    "fieldStart": "2026-09-18"
   }
 ]
