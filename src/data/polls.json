@@ -4977,5 +4977,62 @@
       "lula": 47.7,
       "flavio": 47.4
     }
+  },
+  {
+    "id": "poderdata-aya-09-24-01739",
+    "institute": "PoderData/Aya",
+    "date": "2026-09-24",
+    "fieldEnd": "2026-09-23",
+    "sample": 3000,
+    "moe": 1.8,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 41,
+      "flavio": 39,
+      "cury": 6
+    },
+    "source": {
+      "tseProtocol": "BR-01739/2026",
+      "url": "https://www.cnnbrasil.com.br/eleicoes/poderdata-lula-tem-41-das-intencoes-de-voto-no-1o-turno-flavio-39/",
+      "publisher": "cnnbrasil.com.br",
+      "publishedAt": "2026-09-24",
+      "capturedAt": "2026-09-24T11:00:30.011Z"
+    },
+    "notes": "3000 entrevistas. TSE poderdata.",
+    "fieldStart": "2026-09-20",
+    "secondRound": {
+      "lula": 45,
+      "flavio": 46
+    }
+  },
+  {
+    "id": "real-time-big-data-09-24-04202",
+    "institute": "Real Time Big Data",
+    "date": "2026-09-24",
+    "fieldEnd": "2026-09-23",
+    "sample": 2000,
+    "moe": 2,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 41,
+      "flavio": 37,
+      "cury": 6,
+      "renan": 6
+    },
+    "source": {
+      "tseProtocol": "BR-04202/2026",
+      "url": "https://www.cnnbrasil.com.br/eleicoes/real-time-big-data-lula-tem-41-no-1o-turno-flavio-37/",
+      "publisher": "cnnbrasil.com.br",
+      "publishedAt": "2026-09-24",
+      "capturedAt": "2026-09-24T11:00:31.685Z"
+    },
+    "notes": "2000 entrevistas. TSE realtime.",
+    "fieldStart": "2026-09-19",
+    "secondRound": {
+      "lula": 41,
+      "flavio": 37
+    }
   }
 ]
