@@ -5088,5 +5088,32 @@
     },
     "notes": "2000 entrevistas. TSE futura.",
     "fieldStart": "2026-09-18"
+  },
+  {
+    "id": "datafolha-09-24-00304",
+    "institute": "Datafolha",
+    "date": "2026-09-24",
+    "fieldEnd": "2026-09-24",
+    "sample": 2002,
+    "moe": 2.2,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 40,
+      "flavio": 36
+    },
+    "source": {
+      "tseProtocol": "BR-00304/2026",
+      "url": "https://www1.folha.uol.com.br/poder/2026/09/datafolha-lula-tem-40-e-flavio-bolsonaro-36-em-1o-turno-rivais-empatam-em-2o-turno.shtml",
+      "publisher": "www1.folha.uol.com.br",
+      "publishedAt": "2026-09-24",
+      "capturedAt": "2026-09-24T22:00:22.467Z"
+    },
+    "notes": "2002 entrevistas. TSE datafolha.",
+    "fieldStart": "2026-09-22",
+    "secondRound": {
+      "lula": 47,
+      "flavio": 45
+    }
   }
 ]
