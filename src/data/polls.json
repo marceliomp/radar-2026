@@ -5155,20 +5155,24 @@
     "mode": "presencial",
     "national": true,
     "firstRound": {
-      "lula": 37,
-      "flavio": 33
+      "lula": 39,
+      "flavio": 34,
+      "cury": 4,
+      "caiado": 4,
+      "renan": 3,
+      "zema": 1
     },
     "source": {
       "tseProtocol": "BR-06520/2026",
-      "url": "https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/noticia/2026/09/28/nova-pesquisa-quaest-da-eleicao-presidencial-sai-nesta-segunda-28.ghtml",
-      "publisher": "g1.globo.com",
+      "url": "https://m.imirante.com/noticias/brasil/2026/09/28/ipolitica-quaest-lula-tem-39-e-flavio-bolsonaro-34",
+      "publisher": "imirante.com",
       "publishedAt": "2026-09-28",
-      "capturedAt": "2026-09-28T11:00:42.821Z"
+      "capturedAt": "2026-09-28T22:01:12.991Z"
     },
-    "notes": "2004 entrevistas. TSE quaest.",
+    "notes": "Quaest/Globo 28/09 · TSE BR-06520/2026 · presencial n=2004 campo 24-27/09 moe ±2. 1T Lula 39, Flavio 34, Cury 4, Caiado 4, Renan 3, Zema 1; indecisos 5, branco/nulo 10 (Imirante). 2T Lula 42 x Flavio 42 (JOTA). Auto-promote tinha gravado 37x33 e 2T 37x42 a partir da materia de anuncio (numeros da onda anterior); corrigido.",
     "fieldStart": "2026-09-24",
     "secondRound": {
-      "lula": 37,
+      "lula": 42,
       "flavio": 42
     }
   }
