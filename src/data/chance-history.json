@@ -365,10 +365,10 @@
     },
     {
       "date": "2026-09-28",
-      "lula": 49.5,
-      "flavio": 50.5,
+      "lula": 49.6,
+      "flavio": 50.4,
       "source": "promote",
-      "commit": "999328d"
+      "commit": "46299b9"
     }
   ]
 }
