@@ -143,6 +143,7 @@ export const pt = {
       "Não é pesquisa. Recálculo retroativo diário da chance de vitória no período 5.",
     chanceTip: "Chance do modelo · replay período 5",
     lineChance: "linha: chance do modelo (replay)",
+    chanceRefs: "Pesquisas de referência",
   },
   tight: {
     aria: "Corridas apertadas",
@@ -562,6 +563,7 @@ export const en: Messages = {
       "Not a poll. Daily retrospective replay of win chance at period 5.",
     chanceTip: "Model chance · replay period 5",
     lineChance: "line: model chance (replay)",
+    chanceRefs: "Reference polls",
   },
   tight: {
     aria: "Tight races",

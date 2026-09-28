@@ -557,7 +557,7 @@ function CurvePlot({
   chanceMarks?: ChanceMark[];
   showEndLabels?: boolean;
 }) {
-  const { locale } = useI18n();
+  const { locale, m } = useI18n();
 
   const reduced = usePrefersReducedMotion();
   const animateAvg = !reduced;
@@ -625,6 +625,18 @@ function CurvePlot({
             offset={12}
             wrapperStyle={{ pointerEvents: "none", zIndex: 40 }}
           />
+          {step
+            ? chanceMarks.map((mark) => (
+                <ReferenceLine
+                  key={`mark-${mark.date}`}
+                  x={mark.t}
+                  stroke={CHART.axis}
+                  strokeOpacity={mark.label ? 0.45 : 0.22}
+                  strokeDasharray={mark.label ? "3 3" : "2 4"}
+                  strokeWidth={mark.label ? 1.25 : 1}
+                />
+              ))
+            : null}
           {step ? <ReferenceLine y={50} stroke={CHART.axis} strokeOpacity={0.22} strokeDasharray="4 6" /> : null}
           {showPollDots ? (
               <Line
@@ -761,7 +773,16 @@ function CurvePlot({
             : null}
         </ComposedChart>
       </ResponsiveContainer>
-      {step ? <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-[10px] text-cream/60">{chanceMarks.filter(mark => mark.label).slice(-2).map(mark => <span key={mark.date}>{mark.label}</span>)}</div> : null}
+      {step && chanceMarks.some((mark) => mark.label) ? (
+        <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-[10px] text-cream/60">
+          <span className="text-cream/40">{m.curve.chanceRefs}</span>
+          {chanceMarks
+            .filter((mark) => mark.label)
+            .map((mark) => (
+              <span key={mark.date}>{mark.label}</span>
+            ))}
+        </div>
+      ) : null}
     </div>
   );
 }
