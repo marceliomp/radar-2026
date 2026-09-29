@@ -5175,5 +5175,87 @@
       "lula": 42,
       "flavio": 42
     }
+  },
+  {
+    "id": "atlasintel-09-29-04391",
+    "institute": "AtlasIntel",
+    "date": "2026-09-29",
+    "fieldEnd": "2026-09-28",
+    "sample": 5000,
+    "moe": 1,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 45.3,
+      "flavio": 42.2
+    },
+    "source": {
+      "tseProtocol": "BR-04391/2026",
+      "url": "https://www.cnnbrasil.com.br/eleicoes/atlas-lula-tem-453-das-intencoes-de-voto-no-1o-turno-flavio-422/",
+      "publisher": "cnnbrasil.com.br",
+      "publishedAt": "2026-09-29",
+      "capturedAt": "2026-09-29T11:00:28.878Z"
+    },
+    "notes": "5000 entrevistas. TSE atlasintel.",
+    "fieldStart": "2026-09-23",
+    "secondRound": {
+      "lula": 47.6,
+      "flavio": 47.7
+    }
+  },
+  {
+    "id": "vox-brasil-09-29-00895",
+    "institute": "Vox Brasil",
+    "date": "2026-09-29",
+    "fieldEnd": "2026-09-28",
+    "sample": 2100,
+    "moe": 2.1,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 41.1,
+      "flavio": 37.8
+    },
+    "source": {
+      "tseProtocol": "BR-00895/2026",
+      "url": "https://exame.com/brasil/pesquisa-vox-brasil-lula-tem-411-e-flavio-bolsonaro-378-no-1o-turno/",
+      "publisher": "exame.com",
+      "publishedAt": "2026-09-29",
+      "capturedAt": "2026-09-29T11:00:27.111Z"
+    },
+    "notes": "2100 entrevistas. TSE vox.",
+    "fieldStart": "2026-09-26",
+    "secondRound": {
+      "lula": 41.1,
+      "flavio": 37.8
+    }
+  },
+  {
+    "id": "palver-09-29-02990",
+    "institute": "Palver",
+    "date": "2026-09-29",
+    "fieldEnd": "2026-09-28",
+    "sample": 5000,
+    "moe": 2.4,
+    "mode": "online",
+    "national": true,
+    "firstRound": {
+      "lula": 44,
+      "flavio": 44,
+      "renan": 8
+    },
+    "source": {
+      "tseProtocol": "BR-02990/2026",
+      "url": "https://www.cnnbrasil.com.br/eleicoes/palver-lula-e-flavio-empatam-com-44-das-intencoes-de-voto-no-1o-turno/",
+      "publisher": "cnnbrasil.com.br",
+      "publishedAt": "2026-09-29",
+      "capturedAt": "2026-09-29T11:00:31.473Z"
+    },
+    "notes": "5000 entrevistas. TSE palver.",
+    "fieldStart": "2026-09-24",
+    "secondRound": {
+      "lula": 45,
+      "flavio": 47
+    }
   }
 ]
