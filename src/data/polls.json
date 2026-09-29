@@ -5285,5 +5285,33 @@
       "lula": 50,
       "flavio": 42
     }
+  },
+  {
+    "id": "real-time-big-data-09-29-09891",
+    "institute": "Real Time Big Data",
+    "date": "2026-09-29",
+    "fieldEnd": "2026-09-28",
+    "sample": 2000,
+    "moe": 2,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 36,
+      "flavio": 46,
+      "renan": 6
+    },
+    "source": {
+      "tseProtocol": "BR-09891/2026",
+      "url": "https://exame.com/brasil/no-maior-colegio-eleitoral-do-pais-flavio-bolsonaro-lidera-com-7-pontos-sobre-lula-diz-real-time/",
+      "publisher": "exame.com",
+      "publishedAt": "2026-09-29",
+      "capturedAt": "2026-09-29T14:00:48.387Z"
+    },
+    "notes": "2000 entrevistas. TSE realtime.",
+    "fieldStart": "2026-09-24",
+    "secondRound": {
+      "lula": 43,
+      "flavio": 51
+    }
   }
 ]
