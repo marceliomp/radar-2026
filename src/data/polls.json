@@ -5313,5 +5313,33 @@
       "lula": 43,
       "flavio": 51
     }
+  },
+  {
+    "id": "boas-ideias-estrategia-e-inteligencia-digital-09-30-08706",
+    "institute": "BOAS IDEIAS, ESTRATEGIA E INTELIGENCIA DIGITAL.",
+    "date": "2026-09-30",
+    "fieldEnd": "2026-09-28",
+    "sample": 2000,
+    "moe": 2.2,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 39.4,
+      "flavio": 38.4,
+      "cury": 6.7
+    },
+    "source": {
+      "tseProtocol": "BR-08706/2026",
+      "url": "https://exame.com/brasil/pesquisa-meio-ideia-lula-tem-394-e-flavio-bolsonaro-384-no-1o-turno/",
+      "publisher": "exame.com",
+      "publishedAt": "2026-09-30",
+      "capturedAt": "2026-09-30T11:00:25.195Z"
+    },
+    "notes": "2000 entrevistas. TSE boas-ideias-estrategia-e-inteligencia-di.",
+    "fieldStart": "2026-09-25",
+    "secondRound": {
+      "lula": 48.5,
+      "flavio": 48
+    }
   }
 ]
