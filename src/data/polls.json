@@ -5341,5 +5341,32 @@
       "lula": 48.5,
       "flavio": 48
     }
+  },
+  {
+    "id": "indexa-broadcast-09-30-00698",
+    "institute": "Indexa/Broadcast",
+    "date": "2026-09-30",
+    "fieldEnd": "2026-09-29",
+    "sample": 2000,
+    "moe": 2.2,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 39,
+      "flavio": 34
+    },
+    "source": {
+      "tseProtocol": "BR-00698/2026",
+      "url": "https://www.cnnbrasil.com.br/eleicoes/indexa-broadcast-lula-tem-39-no-1o-turno-flavio-34/",
+      "publisher": "cnnbrasil.com.br",
+      "publishedAt": "2026-09-30",
+      "capturedAt": "2026-09-30T14:00:27.824Z"
+    },
+    "notes": "2000 entrevistas. TSE indexa.",
+    "fieldStart": "2026-09-27",
+    "secondRound": {
+      "lula": 43,
+      "flavio": 42
+    }
   }
 ]
