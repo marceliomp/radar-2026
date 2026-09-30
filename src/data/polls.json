@@ -5368,5 +5368,33 @@
       "lula": 43,
       "flavio": 42
     }
+  },
+  {
+    "id": "futura-apex-09-30-01122",
+    "institute": "Futura/Apex",
+    "date": "2026-09-30",
+    "fieldEnd": "2026-09-29",
+    "sample": 2000,
+    "moe": 2.2,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 39.4,
+      "flavio": 42.2,
+      "caiado": 12.1
+    },
+    "source": {
+      "tseProtocol": "BR-01122/2026",
+      "url": "https://exame.com/brasil/pesquisa-futura-flavio-bolsonaro-sobe-a-422-e-lula-aparece-com-394-no-1o-turno/",
+      "publisher": "exame.com",
+      "publishedAt": "2026-09-30",
+      "capturedAt": "2026-09-30T15:00:29.196Z"
+    },
+    "notes": "2000 entrevistas. TSE futura.",
+    "fieldStart": "2026-09-24",
+    "secondRound": {
+      "lula": 43,
+      "flavio": 42
+    }
   }
 ]

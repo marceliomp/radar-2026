@@ -367,10 +367,10 @@
     },
     {
       "date": "2026-09-30",
-      "lula": 52.6,
-      "flavio": 47.4,
+      "lula": 52.8,
+      "flavio": 47.3,
       "source": "promote",
-      "commit": "abd014c"
+      "commit": "8368cfa"
     }
   ]
 }
