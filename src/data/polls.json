@@ -5447,5 +5447,32 @@
       "lula": 43.5,
       "flavio": 49
     }
+  },
+  {
+    "id": "datafolha-10-01-08039",
+    "institute": "Datafolha",
+    "date": "2026-10-01",
+    "fieldEnd": "2026-10-01",
+    "sample": 2506,
+    "moe": 2,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 45,
+      "flavio": 40
+    },
+    "source": {
+      "tseProtocol": "BR-08039/2026",
+      "url": "https://www1.folha.uol.com.br/poder/2026/10/datafolha-lula-tem-45-e-flavio-bolsonaro-40-em-votos-validos-no-1o-turno.shtml",
+      "publisher": "www1.folha.uol.com.br",
+      "publishedAt": "2026-10-01",
+      "capturedAt": "2026-10-01T23:00:27.894Z"
+    },
+    "notes": "2506 entrevistas. TSE datafolha.",
+    "fieldStart": "2026-09-28",
+    "secondRound": {
+      "lula": 42,
+      "flavio": 29
+    }
   }
 ]
