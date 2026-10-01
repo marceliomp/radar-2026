@@ -5396,5 +5396,56 @@
       "lula": 43,
       "flavio": 42
     }
+  },
+  {
+    "id": "real-time-big-data-09-30-05193",
+    "institute": "Real Time Big Data",
+    "date": "2026-09-30",
+    "fieldEnd": "2026-09-29",
+    "sample": 2000,
+    "moe": 2,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 35,
+      "flavio": 44,
+      "renan": 5
+    },
+    "source": {
+      "tseProtocol": "BR-05193/2026",
+      "url": "https://exame.com/brasil/real-time-flavio-bolsonaro-lidera-com-44-no-3o-maior-colegio-eleitoral-do-brasil/",
+      "publisher": "exame.com",
+      "publishedAt": "2026-09-30",
+      "capturedAt": "2026-10-01T11:00:37.961Z"
+    },
+    "notes": "2000 entrevistas. TSE realtime.",
+    "fieldStart": "2026-09-25"
+  },
+  {
+    "id": "real-time-big-data-10-01-09503",
+    "institute": "Real Time Big Data",
+    "date": "2026-10-01",
+    "fieldEnd": "2026-09-30",
+    "sample": 2000,
+    "moe": 2.2,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 43,
+      "flavio": 39
+    },
+    "source": {
+      "tseProtocol": "BR-09503/2026",
+      "url": "https://www.cnnbrasil.com.br/eleicoes/real-time-big-data-lula-tem-43-no-1o-turno-flavio-39/",
+      "publisher": "cnnbrasil.com.br",
+      "publishedAt": "2026-10-01",
+      "capturedAt": "2026-10-01T11:00:27.363Z"
+    },
+    "notes": "2000 entrevistas. TSE realtime.",
+    "fieldStart": "2026-09-26",
+    "secondRound": {
+      "lula": 43.5,
+      "flavio": 49
+    }
   }
 ]

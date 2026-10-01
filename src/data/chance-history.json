@@ -3,12 +3,6 @@
   "windowDays": 60,
   "points": [
     {
-      "date": "2026-08-02",
-      "lula": 88.8,
-      "flavio": 11.2,
-      "source": "replay"
-    },
-    {
       "date": "2026-08-03",
       "lula": 85.4,
       "flavio": 14.7,
@@ -371,6 +365,13 @@
       "flavio": 47.3,
       "source": "promote",
       "commit": "8368cfa"
+    },
+    {
+      "date": "2026-10-01",
+      "lula": 50,
+      "flavio": 50,
+      "source": "promote",
+      "commit": "e4b032f"
     }
   ]
 }
