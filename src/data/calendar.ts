@@ -10,12 +10,30 @@ export type CalendarItem = {
 /** Agenda pública: campo e divulgação esperados. */
 export const CALENDAR: CalendarItem[] = [
   {
+    id: "datafolha-ufs-02",
+    kind: "saiu",
+    date: "2026-10-02",
+    title: "Datafolha/Globo: presidente em SP, MG, RJ, PE, DF",
+    detail:
+      "Divulgação 02/10 à tarde. SP 38×39 / 2T 45×48 ±2 n=1610 campo 28–30/09 SP-01367 e BR-02676. MG 42×36 / 2T 48×44 ±3 n=1204 BR-00950. RJ 38×45 / 2T 42×51 ±3 n=1204 RJ-02070 e BR-01272. PE 61×25 / 2T 65×29 ±3 n=1204 PE-06822 e BR-02676. DF 35×44 / 2T 39×51 ±3 n=910 DF-00905 e BR-09530. Sem nacional novo hoje.",
+    institute: "Datafolha",
+  },
+  {
+    id: "quaest-datafolha-sabado",
+    kind: "previsto",
+    date: "2026-10-03",
+    title: "Última nacional antes do 1º turno",
+    detail:
+      "Quaest campo 2–3/10, n=3.702 ±2, TSE BR-02197/2026, divulgação sábado. Datafolha ouve 4.006 no sábado, presencial ±2. Não é número.",
+    institute: "Quaest/Datafolha",
+  },
+  {
     id: "quaest-ufs-23",
     kind: "saiu",
     date: "2026-09-23",
     title: "Quaest/Globo: presidente em MG, RJ, PE, CE, DF",
     detail:
-      "Campo 19–22/09. MG 35×30 / 2T 40×40 ±3 n=1506 BR-07664. RJ 30×37 / 2T 36×44 ±3 n=1302 RJ-04982. PE 54×21 / 2T 58×25 ±3 n=1302. CE 55×23 ±3 n=900 BR-03184 (sem 2T). DF 32×33 / 2T 38×49 ±3 n=1104 DF-02596. SP e TO presidente ainda sem matéria G1 no ingest da noite.",
+      "Campo 19–22/09. Substituído em SP/MG/RJ/PE/DF pelo Datafolha 02/10. CE segue 55×23 ±3 n=900 BR-03184.",
     institute: "Quaest",
   },
   {
@@ -29,135 +47,12 @@ export const CALENDAR: CalendarItem[] = [
   },
   {
     id: "quaest-nacional-28",
-    kind: "previsto",
+    kind: "saiu",
     date: "2026-09-28",
     title: "Quaest nacional (Globo/O Globo)",
     detail:
-      "Campo 24–27/09, n=2.004 presencial. Divulgação prevista segunda 28. Lauro Jardim 23/09 15h02. Não é número, é agenda.",
+      "1º Lula 39 × Flávio 34. 2º 42×42. n=2.004 ±2 campo 24–27/09. Última nacional da casa até a de sábado.",
     institute: "Quaest",
-  },
-  {
-    id: "datafolha-ufs-12",
-    kind: "saiu",
-    date: "2026-09-12",
-    title: "Datafolha: presidente em SP, MG, RJ, PE",
-    detail:
-      "Recortes G1 sábado. SP 35×33 Flávio ±2 · MG 37×35 Lula ±3 · RJ 39×35 Flávio / 2T 49×41 ±3 · PE 55×24 / 2T 61×30 ±3. Campo 8–10/09. Nacional 11/09 já no polls.json.",
-    institute: "Datafolha",
-  },
-  {
-    id: "datafolha-nacional-11",
-    kind: "saiu",
-    date: "2026-09-11",
-    title: "Datafolha nacional (Globo/Folha)",
-    detail:
-      "1º 39×35 · 2º 46×44. n=2.002 ±2 presencial. TSE BR-01833/2026. Campo 8–10/09.",
-    institute: "Datafolha",
-  },
-  {
-    id: "quaest-ba-27",
-    kind: "saiu",
-    date: "2026-08-27",
-    title: "Quaest: Bahia presidente",
-    detail:
-      "1º Lula 50 × Flávio 17. n=900 · ±3 · 23–26/08. Governo aprovado 59%.",
-    institute: "Quaest/TV Bahia",
-  },
-  {
-    id: "gerp-26",
-    kind: "saiu",
-    date: "2026-08-26",
-    title: "Gerp nacional",
-    detail:
-      "1º 38×37 Flávio · 2º 47×42 (fora da margem). n=2.400 · telefone. vs 11/08: 2º era 45×43.",
-    institute: "Gerp",
-  },
-  {
-    id: "poderdata-27",
-    kind: "saiu",
-    date: "2026-08-27",
-    title: "PoderData/Aya nacional",
-    detail:
-      "1º 38×35 (empate técnico, menor gap desde maio) · 2º 45×44. n=2.400 · ±2. vs 13/08: Lula −3 no 1º.",
-    institute: "PoderData/Aya",
-  },
-  {
-    id: "quaest-sudeste-25",
-    kind: "saiu",
-    date: "2026-08-25",
-    title: "Quaest/Globo: SP, MG, RJ",
-    detail:
-      "Empate técnico nos 3 maiores colégios. SP 30×29 · MG 31×30 · RJ 31×29 (Flávio numérico). Indecisos altos (até 17% em MG).",
-    institute: "Quaest",
-  },
-  {
-    id: "rtbd-rs-25",
-    kind: "saiu",
-    date: "2026-08-25",
-    title: "Real Time: Rio Grande do Sul",
-    detail:
-      "1º Flávio 40 × Lula 39 (empate) · 2º 52×42. n=1.600 · ±2 · TSE BR-02823/2026. Marçal 5%.",
-    institute: "Real Time Big Data",
-  },
-  {
-    id: "quaest-estados-24",
-    kind: "saiu",
-    date: "2026-08-24",
-    title: "Quaest/Globo: 6 estados",
-    detail:
-      "Sul: SC 45×20 · PR 41×23 · RS 34×28 (Flávio). Nordeste: MA 58×20 · RN 54×20 · AL 44×29 (Lula). Campo 20–23/08. ±3.",
-    institute: "Quaest",
-  },
-  {
-    id: "nexus-prox",
-    kind: "saiu",
-    date: "2026-08-24",
-    title: "Nexus/BTG nacional",
-    detail:
-      "1º 41×37 · 2º 46×45. Empate técnico. Flávio +1 nos dois turnos vs 17/08. Telefone.",
-    institute: "Nexus/BTG",
-  },
-  {
-    id: "datafolha-21",
-    kind: "saiu",
-    date: "2026-08-21",
-    title: "Datafolha nacional (Globo)",
-    detail:
-      "1º 39×33 · 2º 47×43 (limite do empate técnico). vs jul: Flávio +1 no 1º, 2º estável. Marçal 2%. Peso alto no agregador.",
-    institute: "Datafolha",
-  },
-  {
-    id: "verita-21",
-    kind: "saiu",
-    date: "2026-08-21",
-    title: "Veritá nacional",
-    detail:
-      "1º 39,3×39,1 (Marçal 5,2%) · 2º Flávio 47,3 × Lula 42,0. n=3.840 · ±2. Casa historicamente mais alta em Flávio. Cruzar com Datafolha.",
-    institute: "Veritá",
-  },
-  {
-    id: "rtbd-pr-18",
-    kind: "saiu",
-    date: "2026-08-18",
-    title: "Real Time Big Data: Paraná",
-    detail: "1º 44×31 Flávio · 2º 52×35. Rejeição Lula 56% / Flávio 38%. Gov 35×62.",
-    institute: "Real Time Big Data",
-  },
-  {
-    id: "nexus-17",
-    kind: "saiu",
-    date: "2026-08-17",
-    title: "Nexus/BTG nacional",
-    detail: "1º 41×36 · 2º 47×44. Empate técnico no 2º.",
-    institute: "Nexus/BTG",
-  },
-  {
-    id: "quaest-nacional-prox",
-    kind: "previsto",
-    date: "2026-09-15",
-    title: "Próxima rodada nacional (casas semanais)",
-    detail: "PoderData / Nexus-BTG / Quaest costumam fechar a semana útil. Nada anunciado para domingo 13/09 nas fontes oficiais.",
-    institute: "PoderData/Nexus/Quaest",
   },
 ];
 
