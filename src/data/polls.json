@@ -5474,5 +5474,32 @@
       "lula": 42,
       "flavio": 29
     }
+  },
+  {
+    "id": "vox-brasil-10-02-00148",
+    "institute": "Vox Brasil",
+    "date": "2026-10-02",
+    "fieldEnd": "2026-10-01",
+    "sample": 2100,
+    "moe": 2.1,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 41.2,
+      "flavio": 41.2
+    },
+    "source": {
+      "tseProtocol": "BR-00148/2026",
+      "url": "https://exame.com/brasil/vox-brasil-flavio-bolsonaro-ultrapassa-lula-e-marca-412-contra-404-no-1o-turno/",
+      "publisher": "exame.com",
+      "publishedAt": "2026-10-02",
+      "capturedAt": "2026-10-02T11:00:33.934Z"
+    },
+    "notes": "2100 entrevistas. TSE vox.",
+    "fieldStart": "2026-09-29",
+    "secondRound": {
+      "lula": 46.3,
+      "flavio": 48.2
+    }
   }
 ]
