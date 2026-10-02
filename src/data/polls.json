@@ -5223,11 +5223,11 @@
       "publishedAt": "2026-09-29",
       "capturedAt": "2026-09-29T11:00:27.111Z"
     },
-    "notes": "2100 entrevistas. TSE vox.",
+    "notes": "2100 entrevistas. TSE vox. Exame: 2T Flávio 45,2 x Lula 44,7.",
     "fieldStart": "2026-09-26",
     "secondRound": {
-      "lula": 41.1,
-      "flavio": 37.8
+      "lula": 44.7,
+      "flavio": 45.2
     }
   },
   {
@@ -5279,39 +5279,11 @@
       "publishedAt": "2026-09-27",
       "capturedAt": "2026-09-29T12:00:37.028Z"
     },
-    "notes": "2400 entrevistas. TSE gerp.",
+    "notes": "2400 entrevistas. TSE gerp. Exame: 2T Flávio 50 x Lula 43.",
     "fieldStart": "2026-09-23",
     "secondRound": {
-      "lula": 50,
-      "flavio": 42
-    }
-  },
-  {
-    "id": "real-time-big-data-09-29-09891",
-    "institute": "Real Time Big Data",
-    "date": "2026-09-29",
-    "fieldEnd": "2026-09-28",
-    "sample": 2000,
-    "moe": 2,
-    "mode": "telefone",
-    "national": true,
-    "firstRound": {
-      "lula": 36,
-      "flavio": 46,
-      "renan": 6
-    },
-    "source": {
-      "tseProtocol": "BR-09891/2026",
-      "url": "https://exame.com/brasil/no-maior-colegio-eleitoral-do-pais-flavio-bolsonaro-lidera-com-7-pontos-sobre-lula-diz-real-time/",
-      "publisher": "exame.com",
-      "publishedAt": "2026-09-29",
-      "capturedAt": "2026-09-29T14:00:48.387Z"
-    },
-    "notes": "2000 entrevistas. TSE realtime.",
-    "fieldStart": "2026-09-24",
-    "secondRound": {
       "lula": 43,
-      "flavio": 51
+      "flavio": 50
     }
   },
   {
@@ -5380,8 +5352,7 @@
     "national": true,
     "firstRound": {
       "lula": 39.4,
-      "flavio": 42.2,
-      "caiado": 12.1
+      "flavio": 42.2
     },
     "source": {
       "tseProtocol": "BR-01122/2026",
@@ -5390,36 +5361,8 @@
       "publishedAt": "2026-09-30",
       "capturedAt": "2026-09-30T15:00:29.196Z"
     },
-    "notes": "2000 entrevistas. TSE futura.",
-    "fieldStart": "2026-09-24",
-    "secondRound": {
-      "lula": 43,
-      "flavio": 42
-    }
-  },
-  {
-    "id": "real-time-big-data-09-30-05193",
-    "institute": "Real Time Big Data",
-    "date": "2026-09-30",
-    "fieldEnd": "2026-09-29",
-    "sample": 2000,
-    "moe": 2,
-    "mode": "telefone",
-    "national": true,
-    "firstRound": {
-      "lula": 35,
-      "flavio": 44,
-      "renan": 5
-    },
-    "source": {
-      "tseProtocol": "BR-05193/2026",
-      "url": "https://exame.com/brasil/real-time-flavio-bolsonaro-lidera-com-44-no-3o-maior-colegio-eleitoral-do-brasil/",
-      "publisher": "exame.com",
-      "publishedAt": "2026-09-30",
-      "capturedAt": "2026-10-01T11:00:37.961Z"
-    },
-    "notes": "2000 entrevistas. TSE realtime.",
-    "fieldStart": "2026-09-25"
+    "notes": "2000 entrevistas. TSE futura. Caiado 12,1 era rejeição, não voto; 2T não publicado na fonte.",
+    "fieldStart": "2026-09-24"
   },
   {
     "id": "real-time-big-data-10-01-09503",
@@ -5458,8 +5401,8 @@
     "mode": "telefone",
     "national": true,
     "firstRound": {
-      "lula": 45,
-      "flavio": 40
+      "lula": 42,
+      "flavio": 38
     },
     "source": {
       "tseProtocol": "BR-08039/2026",
@@ -5468,11 +5411,11 @@
       "publishedAt": "2026-10-01",
       "capturedAt": "2026-10-01T23:00:27.894Z"
     },
-    "notes": "2506 entrevistas. TSE datafolha.",
+    "notes": "2506 entrevistas. TSE datafolha. Votos totais (Folha): 1T 42x38, 2T 48x45; não votos válidos (válidos 45x40).",
     "fieldStart": "2026-09-28",
     "secondRound": {
-      "lula": 42,
-      "flavio": 29
+      "lula": 48,
+      "flavio": 45
     }
   },
   {
@@ -5485,7 +5428,7 @@
     "mode": "telefone",
     "national": true,
     "firstRound": {
-      "lula": 41.2,
+      "lula": 40.4,
       "flavio": 41.2
     },
     "source": {
@@ -5495,10 +5438,10 @@
       "publishedAt": "2026-10-02",
       "capturedAt": "2026-10-02T11:00:33.934Z"
     },
-    "notes": "2100 entrevistas. TSE vox.",
+    "notes": "2100 entrevistas. TSE vox. Exame: 1T Flávio 41,2 x Lula 40,4; 2T Flávio 48,2 x Lula 45,2 (46,3 é o cenário Lula x Caiado).",
     "fieldStart": "2026-09-29",
     "secondRound": {
-      "lula": 46.3,
+      "lula": 45.2,
       "flavio": 48.2
     }
   }

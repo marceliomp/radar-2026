@@ -293,14 +293,14 @@
     {
       "date": "2026-09-21",
       "lula": 49.5,
-      "flavio": 50.6,
+      "flavio": 50.5,
       "source": "promote",
       "commit": "69629f7"
     },
     {
       "date": "2026-09-22",
       "lula": 49.5,
-      "flavio": 50.6,
+      "flavio": 50.5,
       "source": "replay",
       "commit": "d3153a3"
     },
@@ -334,45 +334,45 @@
     },
     {
       "date": "2026-09-27",
-      "lula": 53.1,
-      "flavio": 46.9,
+      "lula": 47,
+      "flavio": 53,
       "source": "replay",
       "commit": "999328d"
     },
     {
       "date": "2026-09-28",
-      "lula": 54,
-      "flavio": 46,
+      "lula": 48.8,
+      "flavio": 51.2,
       "source": "promote",
       "commit": "d937be8"
     },
     {
       "date": "2026-09-29",
-      "lula": 52.3,
-      "flavio": 47.7,
+      "lula": 47.6,
+      "flavio": 52.4,
       "source": "promote",
-      "commit": "a50322d"
+      "commit": "799eee0"
     },
     {
       "date": "2026-09-30",
-      "lula": 52.8,
-      "flavio": 47.3,
+      "lula": 48.8,
+      "flavio": 51.2,
       "source": "promote",
-      "commit": "8368cfa"
+      "commit": "799eee0"
     },
     {
       "date": "2026-10-01",
-      "lula": 56.9,
-      "flavio": 43.1,
+      "lula": 48.8,
+      "flavio": 51.2,
       "source": "promote",
-      "commit": "d2d33d8"
+      "commit": "799eee0"
     },
     {
       "date": "2026-10-02",
-      "lula": 55.9,
-      "flavio": 44.2,
+      "lula": 47.3,
+      "flavio": 52.7,
       "source": "promote",
-      "commit": "10f7d26"
+      "commit": "799eee0"
     }
   ]
 }
