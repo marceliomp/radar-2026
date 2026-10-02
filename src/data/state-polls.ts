@@ -13,14 +13,14 @@ export type StateSnapshot = {
 };
 
 export const STATE_SNAPSHOTS: StateSnapshot[] = [
-  { uf: "SP", institute: "Datafolha/Globo", date: "2026-09-12", moe: 2, lula1: 33, flavio1: 35, note: "G1 12/09. TSE BR-03904/2026. n=1610 ±2 campo 8–10/09. Sem 2T divulgado neste recorte." },
-  { uf: "MG", institute: "Quaest/Globo", date: "2026-09-23", moe: 3, lula1: 35, flavio1: 30, lula2: 40, flavio2: 40, t2Institute: "Quaest 23/09", note: "G1 23/09. TSE BR-07664/2026. n=1.506 ±3 campo 19–22/09. 2T 40×40." },
-  { uf: "RJ", institute: "Quaest/Globo", date: "2026-09-23", moe: 3, lula1: 30, flavio1: 37, lula2: 36, flavio2: 44, t2Institute: "Quaest 23/09", note: "G1 23/09. TSE RJ-04982/2026. n=1.302 ±3 campo 19–22/09." },
+  { uf: "SP", institute: "Datafolha/Globo", date: "2026-10-02", moe: 2, lula1: 38, flavio1: 39, lula2: 45, flavio2: 48, t2Institute: "Datafolha 02/10", note: "G1/Veja 02/10. n=1.610 ±2 campo 28–30/09. TSE SP-01367/2026 e BR-02676/2026 (mesma onda Folha). 1º 38×39 Flávio. 2º 45×48." },
+  { uf: "MG", institute: "Datafolha/Globo", date: "2026-10-02", moe: 3, lula1: 42, flavio1: 36, lula2: 48, flavio2: 44, t2Institute: "Datafolha 02/10", note: "G1 02/10. TSE BR-00950/2026. n=1.204 ±3 campo 28/09–01/10. 1º 42×36. 2º 48×44." },
+  { uf: "RJ", institute: "Datafolha/Globo", date: "2026-10-02", moe: 3, lula1: 38, flavio1: 45, lula2: 42, flavio2: 51, t2Institute: "Datafolha 02/10", note: "G1 02/10. TSE RJ-02070/2026 e BR-01272/2026. n=1.204 ±3 campo 28/09–01/10. 1º 38×45. 2º 42×51." },
   { uf: "BA", institute: "Quaest/TV Bahia", date: "2026-08-27", moe: 3, lula1: 50, flavio1: 17, note: "Poder360 27/08 · n=900 · 23–26/08. Sem Marçal." },
   { uf: "RS", institute: "Real Time", date: "2026-08-25", moe: 2, lula1: 39, flavio1: 40, lula2: 42, flavio2: 52, t2Institute: "Real Time 25/08" },
   { uf: "PR", institute: "Real Time", date: "2026-08-18", moe: 2, lula1: 31, flavio1: 44, lula2: 35, flavio2: 52, t2Institute: "Real Time 18/08" },
   { uf: "SC", institute: "Quaest/Globo", date: "2026-08-24", moe: 3, lula1: 20, flavio1: 45 },
-  { uf: "PE", institute: "Quaest/Globo", date: "2026-09-23", moe: 3, lula1: 54, flavio1: 21, lula2: 58, flavio2: 25, t2Institute: "Quaest 23/09", note: "G1 23/09. n=1.302 ±3 campo 19–22/09." },
+  { uf: "PE", institute: "Datafolha/Globo", date: "2026-10-02", moe: 3, lula1: 61, flavio1: 25, lula2: 65, flavio2: 29, t2Institute: "Datafolha 02/10", note: "G1 02/10. TSE PE-06822/2026 e BR-02676/2026. n=1.204 ±3 campo 28/09–01/10. 1º 61×25. 2º 65×29." },
   { uf: "CE", institute: "Quaest/TV Verdes Mares", date: "2026-09-23", moe: 3, lula1: 55, flavio1: 23, note: "G1 23/09. TSE BR-03184/2026. n=900 ±3 campo 19–22/09. Sem 2T neste recorte." },
   { uf: "PA", institute: "Real Time", date: "2026-08-04", moe: 2, lula1: 43, flavio1: 33, stale: true, note: "RTBD 4/08. Sem Quaest nesta rodada." },
   { uf: "MA", institute: "Quaest/Globo", date: "2026-08-24", moe: 3, lula1: 58, flavio1: 20 },
@@ -30,7 +30,7 @@ export const STATE_SNAPSHOTS: StateSnapshot[] = [
   { uf: "AL", institute: "Quaest/Globo", date: "2026-08-24", moe: 3, lula1: 44, flavio1: 29 },
   { uf: "PI", institute: "Datafolha", date: "2026-08-25", moe: 3, lula1: 60, flavio1: 19 },
   { uf: "SE", institute: "Quaest", date: "2026-08-26", moe: 3, lula1: 53, flavio1: 19 },
-  { uf: "DF", institute: "Quaest/Globo", date: "2026-09-23", moe: 3, lula1: 32, flavio1: 33, lula2: 38, flavio2: 49, t2Institute: "Quaest 23/09", note: "G1 23/09. TSE DF-02596/2026. n=1.104 ±3 campo 19–22/09. 2T 49×38 Flávio." },
+  { uf: "DF", institute: "Datafolha/Globo", date: "2026-10-02", moe: 3, lula1: 35, flavio1: 44, lula2: 39, flavio2: 51, t2Institute: "Datafolha 02/10", note: "G1 02/10. TSE DF-00905/2026 e BR-09530/2026. n=910 ±3 campo 28–30/09. 1º 35×44. 2º 39×51." },
   { uf: "ES", institute: "Quaest", date: "2026-08-26", moe: 3, lula1: 30, flavio1: 37 },
   { uf: "MT", institute: "Quaest/Globo", date: "2026-08-25", moe: 3, lula1: 26, flavio1: 43 },
   { uf: "MS", institute: "Quaest/Globo", date: "2026-08-25", moe: 3, lula1: 27, flavio1: 33 },
