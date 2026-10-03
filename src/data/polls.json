@@ -5467,5 +5467,33 @@
     },
     "notes": "4006 entrevistas. TSE datafolha.",
     "fieldStart": "2026-10-03"
+  },
+  {
+    "id": "poderdata-aya-10-03-03519",
+    "institute": "PoderData/Aya",
+    "date": "2026-10-03",
+    "fieldEnd": "2026-10-02",
+    "sample": 4000,
+    "moe": 1.5,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 45,
+      "flavio": 43,
+      "cury": 10
+    },
+    "source": {
+      "tseProtocol": "BR-03519/2026",
+      "url": "https://www.cnnbrasil.com.br/eleicoes/poderdata-aya-lula-tem-45-dos-votos-validos-no-1o-turno-flavio-43/",
+      "publisher": "cnnbrasil.com.br",
+      "publishedAt": "2026-10-03",
+      "capturedAt": "2026-10-03T11:00:31.192Z"
+    },
+    "notes": "4000 entrevistas. TSE poderdata.",
+    "fieldStart": "2026-09-30",
+    "secondRound": {
+      "lula": 46,
+      "flavio": 44
+    }
   }
 ]
