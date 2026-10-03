@@ -5549,5 +5549,32 @@
       "lula": 50,
       "flavio": 50
     }
+  },
+  {
+    "id": "cnt-mda-10-03-04756",
+    "institute": "CNT/MDA",
+    "date": "2026-10-03",
+    "fieldEnd": "2026-10-02",
+    "sample": 2002,
+    "moe": 2.2,
+    "mode": "presencial",
+    "national": true,
+    "firstRound": {
+      "lula": 47.8,
+      "flavio": 42.1
+    },
+    "source": {
+      "tseProtocol": "BR-04756/2026",
+      "url": "https://exame.com/brasil/pesquisa-cnt-mda-para-presidente-lula-tem-478-e-flavio-421-dos-votos-validos-no-1o-turno/",
+      "publisher": "exame.com",
+      "publishedAt": "2026-10-03",
+      "capturedAt": "2026-10-03T15:00:27.264Z"
+    },
+    "notes": "2002 entrevistas. TSE mda.",
+    "fieldStart": "2026-09-29",
+    "secondRound": {
+      "lula": 47.3,
+      "flavio": 43.1
+    }
   }
 ]
