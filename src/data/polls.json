@@ -5495,5 +5495,32 @@
       "lula": 46,
       "flavio": 44
     }
+  },
+  {
+    "id": "gerp-09-29-00509",
+    "institute": "Gerp",
+    "date": "2026-09-29",
+    "fieldEnd": "2026-10-02",
+    "sample": 2400,
+    "moe": 2,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 44,
+      "flavio": 46
+    },
+    "source": {
+      "tseProtocol": "BR-00509/2026",
+      "url": "https://exame.com/brasil/pesquisa-gerp-flavio-bolsonaro-tem-46-e-lula-44-dos-votos-validos-no-1o-turno/",
+      "publisher": "exame.com",
+      "publishedAt": "2026-09-29",
+      "capturedAt": "2026-10-03T12:00:33.640Z"
+    },
+    "notes": "2400 entrevistas. TSE gerp.",
+    "fieldStart": "2026-09-30",
+    "secondRound": {
+      "lula": 44,
+      "flavio": 49
+    }
   }
 ]
