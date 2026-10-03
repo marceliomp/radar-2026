@@ -370,10 +370,10 @@
     },
     {
       "date": "2026-10-03",
-      "lula": 52.5,
-      "flavio": 47.5,
+      "lula": 52.8,
+      "flavio": 47.2,
       "source": "promote",
-      "commit": "c0734ab"
+      "commit": "90cc908"
     }
   ]
 }

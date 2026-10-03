@@ -5603,5 +5603,32 @@
       "lula": 46,
       "flavio": 46
     }
+  },
+  {
+    "id": "palver-10-03-00198",
+    "institute": "Palver",
+    "date": "2026-10-03",
+    "fieldEnd": "2026-10-03",
+    "sample": 5000,
+    "moe": 2.4,
+    "mode": "online",
+    "national": true,
+    "firstRound": {
+      "lula": 43,
+      "flavio": 47
+    },
+    "source": {
+      "tseProtocol": "BR-00198/2026",
+      "url": "https://exame.com/brasil/pesquisa-palver-para-presidente-flavio-bolsonaro-tem-47-e-lula-43-no-1o-turno/",
+      "publisher": "exame.com",
+      "publishedAt": "2026-10-03",
+      "capturedAt": "2026-10-03T20:00:30.461Z"
+    },
+    "notes": "5000 entrevistas. TSE palver.",
+    "fieldStart": "2026-09-30",
+    "secondRound": {
+      "lula": 41,
+      "flavio": 40
+    }
   }
 ]
