@@ -5576,5 +5576,32 @@
       "lula": 47.3,
       "flavio": 43.1
     }
+  },
+  {
+    "id": "atlasintel-10-03-01177",
+    "institute": "AtlasIntel",
+    "date": "2026-10-03",
+    "fieldEnd": "2026-10-02",
+    "sample": 2200,
+    "moe": 2,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 60.5,
+      "flavio": 29.8
+    },
+    "source": {
+      "tseProtocol": "BR-01177/2026",
+      "url": "https://www.cnnbrasil.com.br/eleicoes/atlas-na-ba-lula-tem-605-dos-votos-validos-no-1o-turno-flavio-298/",
+      "publisher": "cnnbrasil.com.br",
+      "publishedAt": "2026-10-03",
+      "capturedAt": "2026-10-03T19:00:28.774Z"
+    },
+    "notes": "2200 entrevistas. TSE atlasintel.",
+    "fieldStart": "2026-09-27",
+    "secondRound": {
+      "lula": 46,
+      "flavio": 46
+    }
   }
 ]
