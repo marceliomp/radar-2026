@@ -5630,5 +5630,55 @@
       "lula": 41,
       "flavio": 40
     }
+  },
+  {
+    "id": "quaest-10-03-02197",
+    "institute": "Quaest",
+    "date": "2026-10-03",
+    "fieldEnd": "2026-10-03",
+    "sample": 3702,
+    "moe": 2,
+    "mode": "presencial",
+    "national": true,
+    "firstRound": {
+      "lula": 46,
+      "flavio": 45
+    },
+    "source": {
+      "tseProtocol": "BR-02197/2026",
+      "url": "https://exame.com/brasil/pesquisa-quaest-para-presidente-lula-tem-46-e-flavio-45-dos-votos-validos-no-1o-turno/",
+      "publisher": "exame.com",
+      "publishedAt": "2026-10-03",
+      "capturedAt": "2026-10-03T23:00:28.619Z"
+    },
+    "notes": "3702 entrevistas. TSE quaest.",
+    "fieldStart": "2026-10-02"
+  },
+  {
+    "id": "futura-apex-10-03-02431",
+    "institute": "Futura/Apex",
+    "date": "2026-10-03",
+    "fieldEnd": "2026-10-03",
+    "sample": 2000,
+    "moe": 2.2,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 42.6,
+      "flavio": 44.8
+    },
+    "source": {
+      "tseProtocol": "BR-02431/2026",
+      "url": "https://exame.com/brasil/pesquisa-para-presidente-futura-flavio-tem-448-e-lula-426-dos-votos-validos-no-1o-turno/",
+      "publisher": "exame.com",
+      "publishedAt": "2026-10-03",
+      "capturedAt": "2026-10-03T23:00:30.698Z"
+    },
+    "notes": "2000 entrevistas. TSE futura.",
+    "fieldStart": "2026-09-29",
+    "secondRound": {
+      "lula": 46,
+      "flavio": 45
+    }
   }
 ]

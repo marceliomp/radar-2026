@@ -1,6 +1,6 @@
 {
   "source": "RTBD 09/09 DF+BA (Gazeta) + ES (CNN/Poder360). Removidos auto-scrapes incompletos AL/DF 09/09. Atlas ES 03/09. Quaest/Globo 08/09 (SP MG PE RJ DF gov/sen) G1+Gazeta. AtlasIntel MG 08/09 CNN + RTBD MG 08/09 CNN. RTBD PE 03/09, Atlas DF 03/09, RTBD SE 04/09. G1 mapa Quaest 05/09 (25 UFs+DF, sem PI) + Quaest CE gov/sen 04/09. CartaCapital/AtlasIntel 03/09 (RS GO PI RJ CE PB) + TMC/VEJA PB 03/09 + Gazeta/RTBD RJ 02/09. G1, Folha, Poder360, CNN, O Globo, Ipsos, Gazeta do Povo. Rodada Quaest/Globo 24-27/08 + ondas anteriores: Genial/Quaest jul (10 UFs, PA ja estava), Datafolha SP 01-03/07, Genial/Quaest SP abr, Parana Pesquisas PR jul/ago. Quaest PA 29/08 ainda sem tabela.",
-  "asOf": "2026-09-11",
+  "asOf": "2026-10-03",
   "polls": [
     {
       "id": "rtbd-df-gov-09-09",
@@ -2712,6 +2712,111 @@
         "arruda": 18
       },
       "notes": "Auto datafolha. TSE DF-06055/2026. https://g1.globo.com/df/distrito-federal/eleicoes/2026/noticia/2026/09/09/quaest-no-df-governador-raca-sexo-idade-escolaridade-religiao-renda.ghtml"
+    },
+    {
+      "id": "quaest-am-gov-10-03",
+      "office": "governor",
+      "uf": "AM",
+      "institute": "Quaest",
+      "date": "2026-10-03",
+      "fieldEnd": "2026-10-03",
+      "fieldStart": "2026-10-02",
+      "sample": 1800,
+      "moe": 2.3,
+      "mode": "presencial",
+      "firstRound": {
+        "professoramariadocarmo": 25,
+        "robertocidade": 24,
+        "omaraziz": 40
+      },
+      "notes": "Auto quaest. TSE AM-04805/2026. https://g1.globo.com/ba/bahia/eleicoes/2026/noticia/2026/10/03/quem-sao-os-candidatos-a-deputado-estadual-na-bahia-em-2026-veja-por-nome-numero-e-partido.ghtml"
+    },
+    {
+      "id": "quaest-am-sen-10-03",
+      "office": "senator",
+      "uf": "AM",
+      "institute": "Quaest",
+      "date": "2026-10-03",
+      "fieldEnd": "2026-10-03",
+      "fieldStart": "2026-10-02",
+      "sample": 1800,
+      "moe": 2.3,
+      "mode": "presencial",
+      "firstRound": {
+        "capitaoalbertoneto": 48,
+        "wilsonlima": 12
+      },
+      "notes": "Auto quaest. TSE AM-04805/2026. https://g1.globo.com/ba/bahia/eleicoes/2026/noticia/2026/10/03/quem-sao-os-candidatos-a-deputado-estadual-na-bahia-em-2026-veja-por-nome-numero-e-partido.ghtml"
+    },
+    {
+      "id": "direto-ao-ponto-pesquisas-am-gov-10-03",
+      "office": "governor",
+      "uf": "AM",
+      "institute": "DIRETO AO PONTO PESQUISAS",
+      "date": "2026-10-03",
+      "fieldEnd": "2026-10-03",
+      "fieldStart": "2026-09-29",
+      "sample": 1200,
+      "moe": 2.8,
+      "mode": "telefone",
+      "firstRound": {
+        "professoramariadocarmo": 25,
+        "robertocidade": 24,
+        "omaraziz": 40
+      },
+      "notes": "Auto direto-ao-ponto-pesquisas. TSE AM-09543/2026. https://g1.globo.com/ba/bahia/eleicoes/2026/noticia/2026/10/03/quem-sao-os-candidatos-a-deputado-estadual-na-bahia-em-2026-veja-por-nome-numero-e-partido.ghtml"
+    },
+    {
+      "id": "direto-ao-ponto-pesquisas-am-sen-10-03",
+      "office": "senator",
+      "uf": "AM",
+      "institute": "DIRETO AO PONTO PESQUISAS",
+      "date": "2026-10-03",
+      "fieldEnd": "2026-10-03",
+      "fieldStart": "2026-09-29",
+      "sample": 1200,
+      "moe": 2.8,
+      "mode": "telefone",
+      "firstRound": {
+        "capitaoalbertoneto": 48,
+        "wilsonlima": 12
+      },
+      "notes": "Auto direto-ao-ponto-pesquisas. TSE AM-09543/2026. https://g1.globo.com/ba/bahia/eleicoes/2026/noticia/2026/10/03/quem-sao-os-candidatos-a-deputado-estadual-na-bahia-em-2026-veja-por-nome-numero-e-partido.ghtml"
+    },
+    {
+      "id": "pontual-pesquisas-am-gov-10-02",
+      "office": "governor",
+      "uf": "AM",
+      "institute": "PONTUAL PESQUISAS",
+      "date": "2026-10-02",
+      "fieldEnd": "2026-10-03",
+      "fieldStart": "2026-09-28",
+      "sample": 3000,
+      "moe": 1.8,
+      "mode": "presencial",
+      "firstRound": {
+        "professoramariadocarmo": 25,
+        "robertocidade": 24,
+        "omaraziz": 40
+      },
+      "notes": "Auto pontual-pesquisas. TSE AM-09552/2026. https://g1.globo.com/ba/bahia/eleicoes/2026/noticia/2026/10/03/quem-sao-os-candidatos-a-deputado-estadual-na-bahia-em-2026-veja-por-nome-numero-e-partido.ghtml"
+    },
+    {
+      "id": "pontual-pesquisas-am-sen-10-02",
+      "office": "senator",
+      "uf": "AM",
+      "institute": "PONTUAL PESQUISAS",
+      "date": "2026-10-02",
+      "fieldEnd": "2026-10-03",
+      "fieldStart": "2026-09-28",
+      "sample": 3000,
+      "moe": 1.8,
+      "mode": "presencial",
+      "firstRound": {
+        "capitaoalbertoneto": 48,
+        "wilsonlima": 12
+      },
+      "notes": "Auto pontual-pesquisas. TSE AM-09552/2026. https://g1.globo.com/ba/bahia/eleicoes/2026/noticia/2026/10/03/quem-sao-os-candidatos-a-deputado-estadual-na-bahia-em-2026-veja-por-nome-numero-e-partido.ghtml"
     }
   ]
 }
