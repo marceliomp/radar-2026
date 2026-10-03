@@ -5522,5 +5522,32 @@
       "lula": 44,
       "flavio": 49
     }
+  },
+  {
+    "id": "real-time-big-data-10-03-01068",
+    "institute": "Real Time Big Data",
+    "date": "2026-10-03",
+    "fieldEnd": "2026-10-02",
+    "sample": 2000,
+    "moe": 2,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 44,
+      "flavio": 42
+    },
+    "source": {
+      "tseProtocol": "BR-01068/2026",
+      "url": "https://www.cnnbrasil.com.br/eleicoes/real-time-lula-tem-44-de-votos-validos-no-1o-turno-em-mg-flavio-42/",
+      "publisher": "cnnbrasil.com.br",
+      "publishedAt": "2026-10-03",
+      "capturedAt": "2026-10-03T13:00:32.405Z"
+    },
+    "notes": "2000 entrevistas. TSE realtime.",
+    "fieldStart": "2026-09-28",
+    "secondRound": {
+      "lula": 50,
+      "flavio": 50
+    }
   }
 ]
