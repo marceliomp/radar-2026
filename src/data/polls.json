@@ -5444,5 +5444,28 @@
       "lula": 45.2,
       "flavio": 48.2
     }
+  },
+  {
+    "id": "datafolha-10-03-01708",
+    "institute": "Datafolha",
+    "date": "2026-10-03",
+    "fieldEnd": "2026-10-03",
+    "sample": 4006,
+    "moe": 2,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 45,
+      "flavio": 42
+    },
+    "source": {
+      "tseProtocol": "BR-01708/2026",
+      "url": "https://www1.folha.uol.com.br/poder/2026/10/datafolha-divulga-nova-pesquisa-presidencial-neste-sabado-3-live-comenta-resultados.shtml",
+      "publisher": "www1.folha.uol.com.br",
+      "publishedAt": "2026-10-03",
+      "capturedAt": "2026-10-03T00:00:50.374Z"
+    },
+    "notes": "4006 entrevistas. TSE datafolha.",
+    "fieldStart": "2026-10-03"
   }
 ]
