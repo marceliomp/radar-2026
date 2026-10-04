@@ -12,6 +12,7 @@ import {
   displayName,
   fetchCount,
   parseCount,
+  rollupPresident,
 } from "./tse.ts";
 
 const file = {
@@ -193,10 +194,111 @@ test("state races do not request the national candidate file", () => {
   assert.equal(pres.length, UF_ORDER.length + 1);
 });
 
+test("national rollup sums official UF votes when the BR file is behind", () => {
+  const behind = parseCount({
+    ...file,
+    s: { ...file.s, pst: "64,81", pstn: "64,810000000", st: "100", ts: "200" },
+    carg: [
+      {
+        agr: [
+          {
+            par: [
+              {
+                sg: "AA",
+                cand: [{ n: "22", nmu: "ALFA TESTE", vap: "60", pvap: "60,00", dvt: "Válido" }],
+              },
+              {
+                sg: "BB",
+                cand: [{ n: "13", nmu: "BETA TESTE", vap: "40", pvap: "40,00", dvt: "Válido" }],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  });
+  const sp = parseCount({
+    dt: "04/10/2026",
+    ht: "19:25:40",
+    s: { pst: "87,11", st: "80", ts: "100" },
+    carg: [
+      {
+        agr: [
+          {
+            par: [
+              {
+                sg: "AA",
+                cand: [{ n: "22", nmu: "ALFA TESTE", vap: "30", pvap: "30,00", dvt: "Válido" }],
+              },
+              {
+                sg: "BB",
+                cand: [{ n: "13", nmu: "BETA TESTE", vap: "70", pvap: "70,00", dvt: "Válido" }],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  });
+  const ba = parseCount({
+    dt: "04/10/2026",
+    ht: "19:32:00",
+    s: { pst: "67,10", st: "50", ts: "100" },
+    carg: [
+      {
+        agr: [
+          {
+            par: [
+              {
+                sg: "AA",
+                cand: [{ n: "22", nmu: "ALFA TESTE", vap: "20", pvap: "40,00", dvt: "Válido" }],
+              },
+              {
+                sg: "BB",
+                cand: [{ n: "13", nmu: "BETA TESTE", vap: "30", pvap: "60,00", dvt: "Válido" }],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  });
+  const rolled = rollupPresident({ BR: behind, SP: sp, BA: ba, RJ: { status: "aguardando" } });
+  assert.equal(rolled.status, "ok");
+  if (rolled.status !== "ok") return;
+  assert.equal(rolled.sectionsCounted, 130);
+  assert.equal(rolled.pctApurado, "65,00");
+  assert.equal(rolled.candidates.find((c) => c.number === "13")?.votes, 100);
+  assert.equal(rolled.candidates.find((c) => c.number === "22")?.votes, 50);
+  assert.equal(rolled.candidates.find((c) => c.number === "13")?.pct, "66,67");
+  assert.notEqual(rolled.candidates.find((c) => c.number === "13")?.pct, "65,00");
+  assert.equal(rolled.updatedAt, "04/10/2026 19:32:00");
+  assert.equal(rolled.leader?.name, "BETA TESTE");
+});
+
+test("national file wins once it has caught the UF section count", () => {
+  const ahead = parseCount({
+    ...file,
+    s: { ...file.s, st: "200", ts: "200", pst: "100,00" },
+  });
+  const uf = parseCount({
+    ...file,
+    s: { ...file.s, st: "50", ts: "100", pst: "50,00" },
+  });
+  const rolled = rollupPresident({ BR: ahead, SP: uf });
+  assert.equal(rolled.status, "ok");
+  if (rolled.status !== "ok" || ahead.status !== "ok") return;
+  assert.equal(rolled.pctApurado, ahead.pctApurado);
+  assert.equal(rolled.leader?.pct, "60,00");
+});
+
 test("fetch turns HTTP errors into aguardando and does not invent a body", async () => {
-  const missing = await fetchCount("https://resultados.tse.jus.br/missing", async () => {
+  let cacheMode: RequestCache | undefined;
+  const missing = await fetchCount("https://resultados.tse.jus.br/missing", async (_url, init) => {
+    cacheMode = init?.cache;
     return new Response("nope", { status: 404 });
   });
+  assert.equal(cacheMode, "no-store");
   assert.deepEqual(missing, { status: "aguardando" });
 
   const thrown = await fetchCount("https://resultados.tse.jus.br/down", async () => {

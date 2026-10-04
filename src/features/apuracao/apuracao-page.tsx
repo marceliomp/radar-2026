@@ -10,6 +10,7 @@ import {
   countTargets,
   displayName,
   fetchCount,
+  rollupPresident,
   type Cargo,
   type CountResult,
   type TseCandidate,
@@ -144,9 +145,14 @@ export function ApuracaoPage() {
 
     void pull();
     const id = window.setInterval(() => void pull(), APURACAO_REFRESH_MS);
+    function onVisible() {
+      if (document.visibilityState === "visible") void pull();
+    }
+    document.addEventListener("visibilitychange", onVisible);
     return () => {
       alive = false;
       window.clearInterval(id);
+      document.removeEventListener("visibilitychange", onVisible);
     };
   }, [cargo]);
 
@@ -166,7 +172,7 @@ export function ApuracaoPage() {
   }
 
   const ufCount = counts?.[sel];
-  const national = cargo === "presidente" ? counts?.BR : undefined;
+  const national = cargo === "presidente" && counts ? rollupPresident(counts) : undefined;
   const office =
     cargo === "deputado-estadual" && sel === "DF"
       ? m.apuracao.distrital

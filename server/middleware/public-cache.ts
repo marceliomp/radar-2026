@@ -3,7 +3,8 @@
  * hold the SSR for a few minutes so a tweet spike does not stampede isolates.
  * Search-param variants (`asOf`, `hl`, `uf`) are separate cache keys.
  */
-const PUBLIC_PATHS = new Set(["/", "/lab", "/candidatos", "/apuracao"]);
+const PUBLIC_PATHS = new Set(["/", "/lab", "/candidatos"]);
+const LIVE_PATHS = new Set(["/apuracao"]);
 const CACHE = "public, s-maxage=180, stale-while-revalidate=86400";
 
 interface CacheEvent {
@@ -18,12 +19,13 @@ export default async function publicCacheMiddleware(
   const result = await next();
   const method = (event.req.method ?? "GET").toUpperCase();
   if (method !== "GET" && method !== "HEAD") return result;
-  if (!PUBLIC_PATHS.has(event.url.pathname)) return result;
+  const live = LIVE_PATHS.has(event.url.pathname);
+  if (!live && !PUBLIC_PATHS.has(event.url.pathname)) return result;
   if (!(result instanceof Response)) return result;
   if (result.status !== 200 && result.status !== 307) return result;
 
   const headers = new Headers(result.headers);
-  headers.set("cache-control", CACHE);
+  headers.set("cache-control", live ? "no-store" : CACHE);
   return new Response(result.body, {
     status: result.status,
     statusText: result.statusText,
