@@ -2817,6 +2817,130 @@
         "wilsonlima": 12
       },
       "notes": "Auto pontual-pesquisas. TSE AM-09552/2026. https://g1.globo.com/ba/bahia/eleicoes/2026/noticia/2026/10/03/quem-sao-os-candidatos-a-deputado-estadual-na-bahia-em-2026-veja-por-nome-numero-e-partido.ghtml"
+    },
+    {
+      "id": "inst-do-norte-de-opiniao-publica-e-estatistica-inope-rr-sen-10-01",
+      "office": "senator",
+      "uf": "RR",
+      "institute": "INST. DO NORTE DE OPINIAO PUBLICA E ESTATISTICA - INOPE",
+      "date": "2026-10-01",
+      "fieldEnd": "2026-10-04",
+      "fieldStart": "2026-10-04",
+      "sample": 2000,
+      "moe": 2.2,
+      "mode": "telefone",
+      "firstRound": {
+        "heliofernandobarbosalopes": 26,
+        "chicorodrigues3": 21
+      },
+      "notes": "Auto inst-do-norte-de-opiniao-publica-e-estat. TSE RR-02431/2026. https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/"
+    },
+    {
+      "id": "quaest-al-gov-10-03",
+      "office": "governor",
+      "uf": "AL",
+      "institute": "Quaest",
+      "date": "2026-10-03",
+      "fieldEnd": "2026-10-03",
+      "fieldStart": "2026-10-02",
+      "sample": 1800,
+      "moe": 2.3,
+      "mode": "presencial",
+      "firstRound": {
+        "renanfilho": 50,
+        "jhc": 49
+      },
+      "notes": "Auto quaest. TSE AL-07379/2026. https://g1.globo.com/ba/bahia/eleicoes/2026/noticia/2026/10/03/quaest-ba-governador-3-outubro.ghtml"
+    },
+    {
+      "id": "quaest-al-sen-10-03",
+      "office": "senator",
+      "uf": "AL",
+      "institute": "Quaest",
+      "date": "2026-10-03",
+      "fieldEnd": "2026-10-03",
+      "fieldStart": "2026-10-02",
+      "sample": 1800,
+      "moe": 2.3,
+      "mode": "presencial",
+      "firstRound": {
+        "davidavinofilho": 27,
+        "arthurlira": 27,
+        "marinajhc": 22,
+        "renan24": 4
+      },
+      "notes": "Auto quaest. TSE AL-07379/2026. https://g1.globo.com/ba/bahia/eleicoes/2026/noticia/2026/10/03/quaest-ba-governador-3-outubro.ghtml"
+    },
+    {
+      "id": "instituto-parana-de-pesquisas-e-analise-de-consumidor-ltda-al-gov-10-03",
+      "office": "governor",
+      "uf": "AL",
+      "institute": "INSTITUTO PARANA DE PESQUISAS E ANALISE DE CONSUMIDOR LTDA",
+      "date": "2026-10-03",
+      "fieldEnd": "2026-10-03",
+      "fieldStart": "2026-09-30",
+      "sample": 1400,
+      "moe": 2.6,
+      "mode": "presencial",
+      "firstRound": {
+        "renanfilho": 50,
+        "jhc": 49
+      },
+      "notes": "Auto instituto-parana-de-pesquisas-e-analise-. TSE AL-08661/2026. https://g1.globo.com/ba/bahia/eleicoes/2026/noticia/2026/10/03/quaest-ba-governador-3-outubro.ghtml"
+    },
+    {
+      "id": "instituto-parana-de-pesquisas-e-analise-de-consumidor-ltda-al-sen-10-03",
+      "office": "senator",
+      "uf": "AL",
+      "institute": "INSTITUTO PARANA DE PESQUISAS E ANALISE DE CONSUMIDOR LTDA",
+      "date": "2026-10-03",
+      "fieldEnd": "2026-10-03",
+      "fieldStart": "2026-09-30",
+      "sample": 1400,
+      "moe": 2.6,
+      "mode": "presencial",
+      "firstRound": {
+        "davidavinofilho": 27,
+        "arthurlira": 27,
+        "marinajhc": 22,
+        "renan24": 4
+      },
+      "notes": "Auto instituto-parana-de-pesquisas-e-analise-. TSE AL-08661/2026. https://g1.globo.com/ba/bahia/eleicoes/2026/noticia/2026/10/03/quaest-ba-governador-3-outubro.ghtml"
+    },
+    {
+      "id": "quaest-ap-sen-10-03",
+      "office": "senator",
+      "uf": "AP",
+      "institute": "Quaest",
+      "date": "2026-10-03",
+      "fieldEnd": "2026-10-03",
+      "fieldStart": "2026-10-02",
+      "sample": 1800,
+      "moe": 2.3,
+      "mode": "presencial",
+      "firstRound": {
+        "rayssafurlan": 30,
+        "lucasbarreto4": 21,
+        "randolfe": 21
+      },
+      "notes": "Auto quaest. TSE AP-08084/2026. https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/"
+    },
+    {
+      "id": "quaest-ap-gov-10-03",
+      "office": "governor",
+      "uf": "AP",
+      "institute": "Quaest",
+      "date": "2026-10-03",
+      "fieldEnd": "2026-10-03",
+      "fieldStart": "2026-10-02",
+      "sample": 1800,
+      "moe": 2.3,
+      "mode": "presencial",
+      "firstRound": {
+        "drfurlan": 53,
+        "clecio": 47
+      },
+      "notes": "Auto quaest. TSE AP-08084/2026. https://g1.globo.com/ap/amapa/eleicoes/2026/noticia/2026/10/03/quaest-ap-governador-3-outubro.ghtml"
     }
   ]
 }
