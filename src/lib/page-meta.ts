@@ -137,6 +137,17 @@ export function homeJsonLd(search: Record<string, unknown>) {
   };
 }
 
+export function apuracaoHead(search: Record<string, unknown>): PageHead {
+  const locale = localeOf(search);
+  const copy = messages(locale);
+  return {
+    title: copy.apuracao.title,
+    description: copy.apuracao.description,
+    url: canonicalUrl("/apuracao", { lang: locale === "en" ? "en" : undefined }),
+    locale,
+  };
+}
+
 export function labHead(search: Record<string, unknown>): PageHead {
   const locale = localeOf(search);
   const copy = messages(locale);

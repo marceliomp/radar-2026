@@ -8,97 +8,115 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as CandidatosRouteImport } from './routes/candidatos'
-import { Route as LabRouteImport } from './routes/lab'
+import { Route as rootRouteImport } from "./routes/__root";
+import { Route as IndexRouteImport } from "./routes/index";
+import { Route as ApuracaoRouteImport } from "./routes/apuracao";
+import { Route as CandidatosRouteImport } from "./routes/candidatos";
+import { Route as LabRouteImport } from "./routes/lab";
 
 const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+  id: "/",
+  path: "/",
   getParentRoute: () => rootRouteImport,
-} as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
+} as any).lazy(() => import("./routes/index.lazy").then((d) => d.Route));
+const ApuracaoRoute = ApuracaoRouteImport.update({
+  id: "/apuracao",
+  path: "/apuracao",
+  getParentRoute: () => rootRouteImport,
+} as any);
 const CandidatosRoute = CandidatosRouteImport.update({
-  id: '/candidatos',
-  path: '/candidatos',
+  id: "/candidatos",
+  path: "/candidatos",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const LabRoute = LabRouteImport.update({
-  id: '/lab',
-  path: '/lab',
+  id: "/lab",
+  path: "/lab",
   getParentRoute: () => rootRouteImport,
-} as any).lazy(() => import('./routes/lab.lazy').then((d) => d.Route))
+} as any).lazy(() => import("./routes/lab.lazy").then((d) => d.Route));
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/candidatos': typeof CandidatosRoute
-  '/lab': typeof LabRoute
+  "/": typeof IndexRoute;
+  "/apuracao": typeof ApuracaoRoute;
+  "/candidatos": typeof CandidatosRoute;
+  "/lab": typeof LabRoute;
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/candidatos': typeof CandidatosRoute
-  '/lab': typeof LabRoute
+  "/": typeof IndexRoute;
+  "/apuracao": typeof ApuracaoRoute;
+  "/candidatos": typeof CandidatosRoute;
+  "/lab": typeof LabRoute;
 }
 export interface FileRoutesById {
-  __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/candidatos': typeof CandidatosRoute
-  '/lab': typeof LabRoute
+  __root__: typeof rootRouteImport;
+  "/": typeof IndexRoute;
+  "/apuracao": typeof ApuracaoRoute;
+  "/candidatos": typeof CandidatosRoute;
+  "/lab": typeof LabRoute;
 }
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/candidatos' | '/lab'
-  fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/candidatos' | '/lab'
-  id: '__root__' | '/' | '/candidatos' | '/lab'
-  fileRoutesById: FileRoutesById
+  fileRoutesByFullPath: FileRoutesByFullPath;
+  fullPaths: "/" | "/apuracao" | "/candidatos" | "/lab";
+  fileRoutesByTo: FileRoutesByTo;
+  to: "/" | "/apuracao" | "/candidatos" | "/lab";
+  id: "__root__" | "/" | "/apuracao" | "/candidatos" | "/lab";
+  fileRoutesById: FileRoutesById;
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  CandidatosRoute: typeof CandidatosRoute
-  LabRoute: typeof LabRoute
+  IndexRoute: typeof IndexRoute;
+  ApuracaoRoute: typeof ApuracaoRoute;
+  CandidatosRoute: typeof CandidatosRoute;
+  LabRoute: typeof LabRoute;
 }
 
-declare module '@tanstack/react-router' {
+declare module "@tanstack/react-router" {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/candidatos': {
-      id: '/candidatos'
-      path: '/candidatos'
-      fullPath: '/candidatos'
-      preLoaderRoute: typeof CandidatosRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/lab': {
-      id: '/lab'
-      path: '/lab'
-      fullPath: '/lab'
-      preLoaderRoute: typeof LabRouteImport
-      parentRoute: typeof rootRouteImport
-    }
+    "/": {
+      id: "/";
+      path: "/";
+      fullPath: "/";
+      preLoaderRoute: typeof IndexRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/apuracao": {
+      id: "/apuracao";
+      path: "/apuracao";
+      fullPath: "/apuracao";
+      preLoaderRoute: typeof ApuracaoRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/candidatos": {
+      id: "/candidatos";
+      path: "/candidatos";
+      fullPath: "/candidatos";
+      preLoaderRoute: typeof CandidatosRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/lab": {
+      id: "/lab";
+      path: "/lab";
+      fullPath: "/lab";
+      preLoaderRoute: typeof LabRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ApuracaoRoute: ApuracaoRoute,
   CandidatosRoute: CandidatosRoute,
   LabRoute: LabRoute,
-}
+};
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>()
+  ._addFileTypes<FileRouteTypes>();
 
-import type { getRouter } from './router.tsx'
-import type { createStart } from '@tanstack/react-start'
-declare module '@tanstack/react-start' {
+import type { getRouter } from "./router.tsx";
+import type { createStart } from "@tanstack/react-start";
+declare module "@tanstack/react-start" {
   interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
+    ssr: true;
+    router: Awaited<ReturnType<typeof getRouter>>;
   }
 }

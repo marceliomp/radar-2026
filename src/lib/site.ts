@@ -80,6 +80,7 @@ export type SitemapEntry = { loc: string; changefreq: string; priority: string }
 export function sitemapEntries(): SitemapEntry[] {
   const rows: SitemapEntry[] = [
     { loc: `${SITE}/`, changefreq: "hourly", priority: "1.0" },
+    { loc: `${SITE}/apuracao`, changefreq: "hourly", priority: "0.9" },
     { loc: `${SITE}/lab`, changefreq: "daily", priority: "0.6" },
   ];
   for (const uf of UF_ORDER) {
