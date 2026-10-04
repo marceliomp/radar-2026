@@ -5680,5 +5680,33 @@
       "lula": 46,
       "flavio": 45
     }
+  },
+  {
+    "id": "atlasintel-10-03-00999",
+    "institute": "AtlasIntel",
+    "date": "2026-10-03",
+    "fieldEnd": "2026-10-02",
+    "sample": 5000,
+    "moe": 1.4,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 47,
+      "flavio": 44.1,
+      "cury": 8
+    },
+    "source": {
+      "tseProtocol": "BR-00999/2026",
+      "url": "https://www.cnnbrasil.com.br/eleicoes/atlas-lula-tem-47-dos-votos-validos-no-1o-turno-flavio-441/",
+      "publisher": "cnnbrasil.com.br",
+      "publishedAt": "2026-10-03",
+      "capturedAt": "2026-10-04T11:00:26.612Z"
+    },
+    "notes": "5000 entrevistas. TSE atlasintel.",
+    "fieldStart": "2026-09-27",
+    "secondRound": {
+      "lula": 50.1,
+      "flavio": 49.9
+    }
   }
 ]
