@@ -2941,6 +2941,150 @@
         "clecio": 47
       },
       "notes": "Auto quaest. TSE AP-08084/2026. https://g1.globo.com/ap/amapa/eleicoes/2026/noticia/2026/10/03/quaest-ap-governador-3-outubro.ghtml"
+    },
+    {
+      "id": "quaest-ba-sen-10-03",
+      "office": "senator",
+      "uf": "BA",
+      "institute": "Quaest",
+      "date": "2026-10-03",
+      "fieldEnd": "2026-10-03",
+      "fieldStart": "2026-10-02",
+      "sample": 2004,
+      "moe": 2.2,
+      "mode": "presencial",
+      "firstRound": {
+        "angelocoronel": 18,
+        "jaqueswagner": 30,
+        "joaoroma": 17,
+        "ruicosta2": 33
+      },
+      "notes": "Auto quaest. TSE BA-02224/2026. https://g1.globo.com/ba/bahia/eleicoes/2026/"
+    },
+    {
+      "id": "quaest-ba-gov-10-03",
+      "office": "governor",
+      "uf": "BA",
+      "institute": "Quaest",
+      "date": "2026-10-03",
+      "fieldEnd": "2026-10-03",
+      "fieldStart": "2026-10-02",
+      "sample": 2004,
+      "moe": 2.2,
+      "mode": "presencial",
+      "firstRound": {
+        "jeronimo": 52,
+        "ronaldomansur": 1,
+        "acmneto": 48
+      },
+      "notes": "Auto quaest. TSE BA-02224/2026. https://g1.globo.com/ba/bahia/eleicoes/2026/noticia/2026/10/03/quaest-ba-governador-3-outubro.ghtml"
+    },
+    {
+      "id": "quaest-go-sen-10-03",
+      "office": "senator",
+      "uf": "GO",
+      "institute": "Quaest",
+      "date": "2026-10-03",
+      "fieldEnd": "2026-10-03",
+      "fieldStart": "2026-10-02",
+      "sample": 2004,
+      "moe": 2.2,
+      "mode": "presencial",
+      "firstRound": {
+        "gracinhacaiado": 5,
+        "cintiadias": 29,
+        "iurecastro": 28
+      },
+      "notes": "Auto quaest. TSE GO-00674/2026. https://g1.globo.com/ba/bahia/eleicoes/2026/noticia/2026/10/03/quem-sao-os-candidatos-a-deputado-federal-na-bahia-em-2026-veja-por-nome-numero-e-partido.ghtml"
+    },
+    {
+      "id": "quaest-es-gov-10-03",
+      "office": "governor",
+      "uf": "ES",
+      "institute": "Quaest",
+      "date": "2026-10-03",
+      "fieldEnd": "2026-10-03",
+      "fieldStart": "2026-10-02",
+      "sample": 1800,
+      "moe": 2.3,
+      "mode": "presencial",
+      "firstRound": {
+        "lorenzopazolini": 45,
+        "heldersalomao": 12
+      },
+      "notes": "Auto quaest. TSE ES-09011/2026. https://g1.globo.com/ba/bahia/eleicoes/2026/noticia/2026/10/03/quaest-ba-governador-3-outubro.ghtml"
+    },
+    {
+      "id": "quaest-es-sen-10-03",
+      "office": "senator",
+      "uf": "ES",
+      "institute": "Quaest",
+      "date": "2026-10-03",
+      "fieldEnd": "2026-10-03",
+      "fieldStart": "2026-10-02",
+      "sample": 1800,
+      "moe": 2.3,
+      "mode": "presencial",
+      "firstRound": {
+        "fabianocontarato": 10,
+        "renatocasagrande": 31
+      },
+      "notes": "Auto quaest. TSE ES-09011/2026. https://g1.globo.com/ba/bahia/eleicoes/2026/noticia/2026/10/03/quaest-ba-governador-3-outubro.ghtml"
+    },
+    {
+      "id": "quaest-ma-gov-10-03",
+      "office": "governor",
+      "uf": "MA",
+      "institute": "Quaest",
+      "date": "2026-10-03",
+      "fieldEnd": "2026-10-03",
+      "fieldStart": "2026-10-02",
+      "sample": 2004,
+      "moe": 2.2,
+      "mode": "presencial",
+      "firstRound": {
+        "orleansbrandao": 35,
+        "eduardobraide": 52,
+        "reginaldolima3": 12
+      },
+      "notes": "Auto quaest. TSE MA-00831/2026. https://g1.globo.com/ba/bahia/eleicoes/2026/noticia/2026/10/03/quaest-ba-governador-3-outubro.ghtml"
+    },
+    {
+      "id": "quaest-ma-sen-10-03",
+      "office": "senator",
+      "uf": "MA",
+      "institute": "Quaest",
+      "date": "2026-10-03",
+      "fieldEnd": "2026-10-03",
+      "fieldStart": "2026-10-02",
+      "sample": 2004,
+      "moe": 2.2,
+      "mode": "presencial",
+      "firstRound": {
+        "eniltonrodrigues": 52,
+        "roseanasarney": 25,
+        "lahesiobonfim": 18,
+        "elizianegama": 16,
+        "andrefufuca": 23
+      },
+      "notes": "Auto quaest. TSE MA-00831/2026. https://g1.globo.com/ba/bahia/eleicoes/2026/noticia/2026/10/03/quaest-ba-governador-3-outubro.ghtml"
+    },
+    {
+      "id": "instituto-parana-de-pesquisas-e-analise-de-consumidor-ltda-ce-gov-10-03",
+      "office": "governor",
+      "uf": "CE",
+      "institute": "INSTITUTO PARANA DE PESQUISAS E ANALISE DE CONSUMIDOR LTDA",
+      "date": "2026-10-03",
+      "fieldEnd": "2026-10-03",
+      "fieldStart": "2026-09-30",
+      "sample": 1352,
+      "moe": 2.7,
+      "mode": "presencial",
+      "firstRound": {
+        "elmanodefreitas": 60,
+        "cirogomes": 49
+      },
+      "notes": "Auto instituto-parana-de-pesquisas-e-analise-. TSE CE-01871/2026. https://g1.globo.com/sp/sao-paulo/eleicoes/2026/noticia/2026/10/03/datafolha-sp-governador-3-outubro.ghtml"
     }
   ]
 }
