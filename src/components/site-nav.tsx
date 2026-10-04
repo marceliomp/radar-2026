@@ -1,6 +1,20 @@
 import { Link, useRouterState, useSearch } from "@tanstack/react-router";
 import { LangSwitch, keepRadarSearch, useI18n } from "@/lib/i18n";
 import { parseUfCode, readStoredUf } from "@/lib/site";
+
+const APURACAO_CARGOS = [
+  "presidente",
+  "governador",
+  "senador",
+  "deputado-federal",
+  "deputado-estadual",
+] as const;
+
+function apuracaoCargo(raw: unknown) {
+  return typeof raw === "string" && (APURACAO_CARGOS as readonly string[]).includes(raw)
+    ? (raw as (typeof APURACAO_CARGOS)[number])
+    : "presidente";
+}
 import { cn } from "@/lib/utils";
 
 const linkClass = "mast-link";
@@ -23,6 +37,7 @@ export function SiteNav({ className }: { className?: string }) {
   const isGov = onCandidatos && search.cargo !== "senador";
   const isSen = onCandidatos && search.cargo === "senador";
   const isLab = pathname === "/lab";
+  const isApuracao = pathname === "/apuracao";
 
   return (
     <nav className={cn("mast", className)} aria-label={m.nav.aria}>
@@ -68,6 +83,21 @@ export function SiteNav({ className }: { className?: string }) {
           {m.nav.senators}
         </Link>
         <Link
+          to="/apuracao"
+          search={(prev) => {
+            const p = prev as Record<string, unknown>;
+            const uf = parseUfCode(p.uf);
+            return {
+              cargo: apuracaoCargo(p.cargo),
+              ...(uf ? { uf } : {}),
+              ...keepRadarSearch(p),
+            };
+          }}
+          className={cn(linkClass, isApuracao ? "mast-link-active" : "mast-link-idle")}
+        >
+          {m.nav.apuracao}
+        </Link>
+        <Link
           to="/lab"
           search={(prev) => keepRadarSearch(prev as Record<string, unknown>)}
           className={cn(linkClass, isLab ? "mast-link-active" : "mast-link-idle")}
@@ -79,13 +109,7 @@ export function SiteNav({ className }: { className?: string }) {
   );
 }
 
-export function MastBar({
-  badge = false,
-  className,
-}: {
-  badge?: boolean;
-  className?: string;
-}) {
+export function MastBar({ badge = false, className }: { badge?: boolean; className?: string }) {
   const { m } = useI18n();
   return (
     <div className={cn("mast-chrome", className)}>

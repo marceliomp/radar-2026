@@ -3,7 +3,7 @@
  * hold the SSR for a few minutes so a tweet spike does not stampede isolates.
  * Search-param variants (`asOf`, `hl`, `uf`) are separate cache keys.
  */
-const PUBLIC_PATHS = new Set(["/", "/lab", "/candidatos"]);
+const PUBLIC_PATHS = new Set(["/", "/lab", "/candidatos", "/apuracao"]);
 const CACHE = "public, s-maxage=180, stale-while-revalidate=86400";
 
 interface CacheEvent {

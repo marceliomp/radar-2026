@@ -28,7 +28,8 @@ test("sitemap lists home, lab and every UF cargo pair", () => {
     assert.match(xml, new RegExp(`uf=${uf}&amp;cargo=governador|uf=${uf}&cargo=governador`));
     assert.match(xml, new RegExp(`uf=${uf}&amp;cargo=senador|uf=${uf}&cargo=senador`));
   }
-  assert.equal(sitemapEntries().length, 2 + UF_ORDER.length * 2);
+  assert.equal(sitemapEntries().length, 3 + UF_ORDER.length * 2);
+  assert.match(xml, /https:\/\/brasilradar.com.br\/apuracao/);
 });
 
 test("canonical omits hl and asOf", () => {
