@@ -37,6 +37,11 @@ export type TseCandidate = {
   pct: string;
   /** Official `pvapn`, as published. */
   pctExact: string;
+  /**
+   * TSE mark. `e` is "s", or `st` names the candidate eleito.
+   * "n", an empty `st`, and any other situation are not a mark.
+   */
+  tseElected: boolean;
 };
 
 export type TseCount = {
@@ -53,6 +58,17 @@ export type TseCount = {
   leader: TseCandidate | null;
   tie: boolean;
   candidates: TseCandidate[];
+  /** `carg.nv`. Zero when the file omitted the seat count. */
+  seats: number;
+  /** Proportional race: `carg.qe` is present and there is more than one seat. */
+  proportional: boolean;
+  /**
+   * Max votes still out: `e.esnt`. Zero once `s.st` has reached `s.ts`.
+   * Null when the file omitted both, so the math lock stays off.
+   */
+  remainingVotes: number | null;
+  /** Official `v.vv`, or the sum of valid `vap` when TSE omitted it. */
+  validVotes: number;
 };
 
 export type Aguardando = { status: "aguardando" };
@@ -114,6 +130,16 @@ function isValidVote(dvt: unknown): boolean {
   return VALID_VOTE.has(dvt.trim().toLocaleLowerCase("pt-BR"));
 }
 
+/** `e === "s"`, or a situation text that says eleito and does not say não. */
+function markedElected(row: Record<string, unknown>): boolean {
+  const flag = typeof row.e === "string" ? row.e.trim().toLowerCase() : "";
+  if (flag === "s") return true;
+  const situation = typeof row.st === "string" ? row.st.trim().toLocaleLowerCase("pt-BR") : "";
+  if (!situation) return false;
+  if (situation.includes("não") || situation.includes("nao")) return false;
+  return situation.includes("eleito");
+}
+
 function readCandidates(root: Record<string, unknown>): TseCandidate[] {
   const carg = root.carg;
   if (!Array.isArray(carg)) return [];
@@ -146,6 +172,7 @@ function readCandidates(root: Record<string, unknown>): TseCandidate[] {
             votes,
             pct: publishedPct(row.pvap),
             pctExact: publishedPct(row.pvapn),
+            tseElected: markedElected(row),
           });
         }
       }
@@ -163,14 +190,43 @@ export function parseCount(raw: unknown): CountResult {
   if (!root || pctApurado == null) return { status: "aguardando" };
 
   const ranked = readCandidates(root);
+  const race = readRace(root);
   const finished = finishCount(ranked, {
     pctApurado,
     pctApuradoExact: publishedPct(sections?.pstn),
     sectionsCounted: intString(sections?.st) ?? 0,
     sectionsTotal: intString(sections?.ts) ?? 0,
     updatedAt: stampLabel(root.dt, root.ht),
+    seats: race.seats,
+    proportional: race.proportional,
+    remainingVotes: race.remainingVotes,
+    validVotes: race.validVotes ?? ranked.reduce((sum, cand) => sum + cand.votes, 0),
   });
   return finished;
+}
+
+function readRace(root: Record<string, unknown>): {
+  seats: number;
+  proportional: boolean;
+  remainingVotes: number | null;
+  validVotes: number | null;
+} {
+  const carg = Array.isArray(root.carg) ? asRecord(root.carg[0]) : null;
+  const seats = carg ? (intString(carg.nv) ?? 0) : 0;
+  const quotient = carg ? intString(carg.qe) : null;
+  const sections = asRecord(root.s);
+  const counted = intString(sections?.st) ?? 0;
+  const total = intString(sections?.ts) ?? 0;
+  const ele = asRecord(root.e);
+  let remainingVotes = ele ? intString(ele.esnt) : null;
+  if (remainingVotes == null && total > 0 && counted >= total) remainingVotes = 0;
+  const votes = asRecord(root.v);
+  return {
+    seats,
+    proportional: quotient != null && seats > 1,
+    remainingVotes,
+    validVotes: votes ? intString(votes.vv) : null,
+  };
 }
 
 function stampLabel(dt: unknown, ht: unknown): string | null {
@@ -200,6 +256,10 @@ function finishCount(
     sectionsCounted: number;
     sectionsTotal: number;
     updatedAt: string | null;
+    seats: number;
+    proportional: boolean;
+    remainingVotes: number | null;
+    validVotes: number;
   },
 ): TseCount {
   const top = ranked[0];
@@ -207,6 +267,138 @@ function finishCount(
   const tie = Boolean(top && second && top.votes > 0 && top.votes === second.votes);
   const leader = top && top.votes > 0 && !tie ? top : null;
   return { status: "ok", ...meta, leader, tie, candidates: ranked };
+}
+
+export type CountCall = {
+  kind: "eleito" | "segundo-turno" | "na-frente" | "empate" | "aberto";
+  elected: TseCandidate[];
+  runoff: TseCandidate[];
+  leading: TseCandidate | null;
+  rest: TseCandidate[];
+};
+
+/**
+ * Eleito is not "na frente".
+ * Majority (presidente, governador): TSE mark, or votes still above half
+ * of valid votes after every remaining vote (`2 * L > V + R`). Exactly
+ * half is not eleito. 2º turno only when the leader cannot reach half and
+ * the second is safe from the third. A tie is not a single eleito.
+ * Senate (`nv` seats, no quotient): a seat is locked when the candidate
+ * beats the first person outside those seats by more than the remaining
+ * votes. Ties at the cutoff stay open.
+ * Deputies (`qe` present): certain quotient seats use the highest the
+ * quotient can still reach, `floor((V + R) / seats)`. A name in that
+ * party slice is locked only when the next name in the party cannot catch
+ * them. Unknown remaining votes turn the math off.
+ */
+export function callCount(count: TseCount): CountCall {
+  const ranked = count.candidates.filter((cand) => cand.votes > 0 || cand.tseElected);
+  const elected = new Set<TseCandidate>();
+  for (const cand of ranked) {
+    if (cand.tseElected) elected.add(cand);
+  }
+
+  const remaining = count.remainingVotes;
+  const valid = count.validVotes;
+  const top = ranked[0];
+  const second = ranked[1];
+  const tied = Boolean(top && second && top.votes > 0 && top.votes === second.votes);
+  const majority = count.seats === 1 && !count.proportional;
+
+  if (majority && remaining != null && !tied) {
+    for (const cand of ranked) {
+      if (aboveHalf(cand.votes, valid, remaining)) elected.add(cand);
+    }
+  }
+
+  if (count.seats > 1 && !count.proportional && remaining != null) {
+    const barrier = ranked[count.seats]?.votes ?? 0;
+    for (let i = 0; i < count.seats && i < ranked.length; i++) {
+      const cand = ranked[i];
+      if (cand && cand.votes > barrier + remaining) elected.add(cand);
+    }
+  }
+
+  if (count.proportional && count.seats > 1 && remaining != null) {
+    for (const cand of proportionalLocked(ranked, count.seats, valid, remaining)) {
+      elected.add(cand);
+    }
+  }
+
+  const electedList = ranked.filter((cand) => elected.has(cand));
+  if (majority && tied && electedList.length === 0) {
+    return { kind: "empate", elected: [], runoff: [], leading: null, rest: ranked };
+  }
+  if (electedList.length > 0) {
+    return {
+      kind: "eleito",
+      elected: electedList,
+      runoff: [],
+      leading: null,
+      rest: ranked.filter((cand) => !elected.has(cand)),
+    };
+  }
+
+  if (majority && remaining != null && top && second && !tied) {
+    const third = ranked[2];
+    const leaderCannot = cannotReachHalf(top.votes, valid, remaining);
+    const secondSafe = second.votes > (third?.votes ?? 0) + remaining;
+    if (leaderCannot && secondSafe) {
+      return {
+        kind: "segundo-turno",
+        elected: [],
+        runoff: [top, second],
+        leading: null,
+        rest: ranked.slice(2),
+      };
+    }
+  }
+
+  if (majority && top && !tied) {
+    return { kind: "na-frente", elected: [], runoff: [], leading: top, rest: ranked.slice(1) };
+  }
+
+  return { kind: "aberto", elected: [], runoff: [], leading: null, rest: ranked };
+}
+
+function aboveHalf(votes: number, valid: number, remaining: number): boolean {
+  return votes * 2 > valid + remaining;
+}
+
+function cannotReachHalf(votes: number, valid: number, remaining: number): boolean {
+  return (votes + remaining) * 2 <= valid + remaining;
+}
+
+function proportionalLocked(
+  ranked: TseCandidate[],
+  seats: number,
+  valid: number,
+  remaining: number,
+): TseCandidate[] {
+  const quotientMax = Math.floor((valid + remaining) / seats);
+  if (quotientMax <= 0) return [];
+  const byParty = new Map<string, TseCandidate[]>();
+  for (const cand of ranked) {
+    const key = cand.party || `solo:${cand.number}`;
+    const list = byParty.get(key) ?? [];
+    list.push(cand);
+    byParty.set(key, list);
+  }
+  const locked: TseCandidate[] = [];
+  for (const list of byParty.values()) {
+    const partyVotes = list.reduce((sum, cand) => sum + cand.votes, 0);
+    const certain = Math.floor(partyVotes / quotientMax);
+    if (certain <= 0) continue;
+    const ordered = [...list].sort(
+      (a, b) => b.votes - a.votes || a.number.localeCompare(b.number),
+    );
+    const outside = ordered[certain]?.votes ?? 0;
+    for (let i = 0; i < certain && i < ordered.length; i++) {
+      const cand = ordered[i];
+      if (cand && cand.votes > outside + remaining) locked.push(cand);
+    }
+  }
+  return locked;
 }
 
 /**
@@ -222,29 +414,54 @@ export function rollupPresident(byUf: Record<string, CountResult>): CountResult 
   );
   if (parts.length === 0) return br ?? { status: "aguardando" };
 
-  const merged = new Map<string, TseCandidate>();
+  const merged = new Map<string, TseCandidate & { electedUfs: number }>();
   let sectionsCounted = 0;
   let sectionsTotal = 0;
+  let validVotes = 0;
+  let remainingVotes: number | null = 0;
+  let seats = 0;
   const stamps: number[] = [];
   for (const row of parts) {
     sectionsCounted += row.sectionsCounted;
     sectionsTotal += row.sectionsTotal;
+    validVotes += row.validVotes;
+    seats = Math.max(seats, row.seats);
+    if (row.remainingVotes == null) remainingVotes = null;
+    else if (remainingVotes != null) remainingVotes += row.remainingVotes;
     const ms = stampMs(row.updatedAt);
     if (ms != null) stamps.push(ms);
     for (const cand of row.candidates) {
       const key = cand.number || cand.name;
       const prev = merged.get(key);
       if (!prev) {
-        merged.set(key, { ...cand, pct: "", pctExact: "" });
+        merged.set(key, {
+          ...cand,
+          pct: "",
+          pctExact: "",
+          tseElected: false,
+          electedUfs: cand.tseElected ? 1 : 0,
+        });
         continue;
       }
       prev.votes += cand.votes;
+      if (cand.tseElected) prev.electedUfs += 1;
     }
   }
 
-  const ranked = [...merged.values()].sort(
-    (a, b) => b.votes - a.votes || a.number.localeCompare(b.number),
-  );
+  const ranked = [...merged.values()]
+    .sort((a, b) => b.votes - a.votes || a.number.localeCompare(b.number))
+    .map(({ electedUfs, ...cand }) => ({
+      ...cand,
+      tseElected: parts.length > 0 && electedUfs === parts.length,
+    }));
+  if (br?.status === "ok") {
+    const flagged = new Set(
+      br.candidates.filter((cand) => cand.tseElected).map((cand) => cand.number || cand.name),
+    );
+    for (const cand of ranked) {
+      if (flagged.has(cand.number || cand.name)) cand.tseElected = true;
+    }
+  }
   const voteTotal = ranked.reduce((sum, cand) => sum + cand.votes, 0);
   for (const cand of ranked) {
     if (voteTotal <= 0) continue;
@@ -259,6 +476,10 @@ export function rollupPresident(byUf: Record<string, CountResult>): CountResult 
     sectionsCounted,
     sectionsTotal,
     updatedAt: latestStamp(stamps),
+    seats: seats || 1,
+    proportional: false,
+    remainingVotes,
+    validVotes,
   });
 
   if (

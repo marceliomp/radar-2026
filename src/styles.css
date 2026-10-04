@@ -1772,3 +1772,141 @@
  .radar-home .page-body-home > #metodo { grid-column:1/-1; grid-row:7; }
  .radar-home .page-body-home > footer { grid-column:1/-1; grid-row:8; }
 }
+
+.apuracao-page { display:flex; flex-direction:column; gap:1.25rem; min-width:0; }
+.apuracao-head { display:flex; flex-direction:column; gap:0.35rem; min-width:0; }
+.apuracao-title {
+  margin:0;
+  font-size:1.5rem;
+  font-weight:700;
+  line-height:1.15;
+}
+.apuracao-source, .apuracao-refresh {
+  margin:0;
+  max-width:40rem;
+  color:var(--color-muted);
+  font-size:0.875rem;
+  line-height:1.4;
+}
+.apuracao-refresh { font-size:0.75rem; }
+.apuracao-cargos {
+  display:flex;
+  flex-wrap:wrap;
+  gap:0.5rem;
+}
+.apuracao-cargos button {
+  min-height:2.75rem;
+  padding:0.45rem 0.8rem;
+  border:1px solid var(--color-border);
+  border-radius:var(--radius-md);
+  background:var(--color-surface);
+  color:var(--color-cream);
+  font:inherit;
+  font-size:0.8125rem;
+  font-weight:600;
+  line-height:1.2;
+}
+.apuracao-cargos button[aria-pressed="true"] {
+  background:var(--color-primary);
+  border-color:var(--color-primary);
+  color:var(--color-primary-fg);
+}
+.apuracao-board {
+  display:flex;
+  flex-direction:column;
+  gap:1rem;
+  min-width:0;
+}
+.apuracao-uf { order:-1; min-width:0; }
+.apuracao-card {
+  min-width:0;
+  padding:1rem;
+  border:1px solid var(--color-border);
+  background:color-mix(in oklab, var(--color-surface) 60%, transparent);
+}
+.apuracao-card-title {
+  margin:0.25rem 0 0;
+  font-size:1.25rem;
+  font-weight:700;
+  line-height:1.2;
+  overflow-wrap:anywhere;
+}
+.apuracao-pct {
+  display:flex;
+  align-items:baseline;
+  gap:0.15rem;
+  margin:0.75rem 0 0;
+  font-variant-numeric:tabular-nums;
+  line-height:0.9;
+}
+.apuracao-pct-num {
+  font-size:clamp(2.75rem, 12vw, 4.5rem);
+  font-weight:700;
+}
+.apuracao-pct-unit { font-size:1.5rem; font-weight:700; }
+.apuracao-meta, .apuracao-wait, .apuracao-status, .apuracao-tie-names {
+  margin:0.4rem 0 0;
+  color:var(--color-muted);
+  font-size:0.875rem;
+  line-height:1.35;
+}
+.apuracao-status { color:var(--color-cream); font-weight:700; }
+.apuracao-wait { margin-top:0.8rem; color:var(--color-cream); font-size:1.125rem; font-weight:600; }
+.apuracao-elected { margin-top:1rem; }
+.apuracao-elected ul { list-style:none; margin:0.5rem 0 0; padding:0; display:flex; flex-direction:column; gap:0.85rem; }
+.apuracao-person, .apuracao-row {
+  display:flex;
+  flex-wrap:wrap;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:0.35rem 0.75rem;
+  min-width:0;
+}
+.apuracao-who, .apuracao-figures { min-width:0; }
+.apuracao-who { display:flex; flex-direction:column; align-items:flex-start; gap:0.2rem; }
+.apuracao-elected-name, .apuracao-name { overflow-wrap:anywhere; }
+.apuracao-elected-name {
+  font-size:clamp(1.7rem, 7vw, 2.4rem);
+  font-weight:700;
+  line-height:1.05;
+}
+.apuracao-name { font-size:1rem; font-weight:600; line-height:1.25; }
+.apuracao-party, .apuracao-votes { color:var(--color-muted); font-size:0.8125rem; }
+.apuracao-figures {
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  font-variant-numeric:tabular-nums;
+}
+.apuracao-share { font-size:1.125rem; font-weight:700; }
+.apuracao-badge {
+  display:inline-flex;
+  align-items:center;
+  min-height:1.75rem;
+  padding:0.1rem 0.5rem;
+  background:var(--color-cream);
+  color:var(--color-ink);
+  font-size:0.75rem;
+  font-weight:700;
+  letter-spacing:0.04em;
+  text-transform:uppercase;
+}
+.apuracao-badge-open {
+  background:transparent;
+  color:var(--color-cream);
+  border:1px solid var(--color-border);
+}
+.apuracao-rank { list-style:none; margin:1rem 0 0; padding:0; }
+.apuracao-rank .apuracao-row { padding:0.55rem 0; border-bottom:1px solid var(--color-border); }
+@media (min-width:1024px) {
+  .apuracao-board {
+    display:grid;
+    grid-template-columns:minmax(0, 1.15fr) minmax(24rem, 0.85fr);
+    align-items:start;
+  }
+  .apuracao-uf { order:0; }
+}
+@media (max-width:380px) {
+  .apuracao-figures { align-items:flex-start; }
+  .apuracao-pct-num { font-size:2.6rem; }
+}
