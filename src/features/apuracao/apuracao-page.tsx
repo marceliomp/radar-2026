@@ -3,17 +3,19 @@ import { getRouteApi } from "@tanstack/react-router";
 import { MastBar } from "@/components/site-nav";
 import { UF_META } from "@/data/calendar";
 import { ApuracaoMap } from "@/features/apuracao/apuracao-map";
-import { SegGroup } from "@/features/radar/map/map-layer-toggle";
 import {
   APURACAO_REFRESH_MS,
   CARGOS,
+  callCount,
   countTargets,
   displayName,
   fetchCount,
   rollupPresident,
   type Cargo,
+  type CountCall,
   type CountResult,
   type TseCandidate,
+  type TseCount,
 } from "@/lib/apuracao/tse";
 import { useI18n } from "@/lib/i18n";
 import { parseUfCode, readStoredUf, writeStoredUf } from "@/lib/site";
@@ -32,6 +34,11 @@ function fmtVotes(votes: number, locale: "pt" | "en"): string {
   return votes.toLocaleString(locale === "en" ? "en-US" : "pt-BR");
 }
 
+function restLimit(count: TseCount): number {
+  if (count.seats > 1) return Math.min(24, Math.max(count.seats, 12));
+  return 8;
+}
+
 function CountCard({
   title,
   count,
@@ -43,65 +50,159 @@ function CountCard({
 }) {
   const { locale, m } = useI18n();
   const waiting = !loaded || !count || count.status !== "ok";
-  const ahead =
-    count?.status === "ok" && count.tie
-      ? m.apuracao.tie
-      : count?.status === "ok" && count.leader
-        ? m.apuracao.ahead(displayName(count.leader.name))
-        : m.apuracao.waiting;
+  const call = count?.status === "ok" ? callCount(count) : null;
 
   return (
-    <section className="border border-border bg-surface/60 p-4" aria-live="polite">
+    <section className="apuracao-card" aria-live="polite">
       <p className="kicker">{m.apuracao.label}</p>
-      <h2 className="story-title mt-1 text-2xl">{title}</h2>
-      {waiting ? (
-        <p className="mt-3 text-lg font-semibold">
-          {loaded ? m.apuracao.waiting : m.apuracao.source}
-        </p>
+      <h2 className="apuracao-card-title">{title}</h2>
+      {waiting || !count || count.status !== "ok" || !call ? (
+        <p className="apuracao-wait">{loaded ? m.apuracao.waiting : m.apuracao.source}</p>
       ) : (
         <>
-          <p className="mt-3 text-lg font-semibold">{ahead}</p>
-          <p className="mt-1 text-sm text-muted">
-            {m.apuracao.counted(count.pctApurado)}
+          <p className="apuracao-pct" aria-label={m.apuracao.counted(count.pctApurado)}>
+            <span className="apuracao-pct-num">{count.pctApurado}</span>
+            <span className="apuracao-pct-unit">%</span>
+          </p>
+          <p className="apuracao-meta">
+            {m.apuracao.countedWord}
+            {count.seats > 1 ? ` · ${m.apuracao.seats(count.seats)}` : ""}
             {count.updatedAt ? ` · ${m.apuracao.updated(count.updatedAt)}` : ""}
           </p>
-          {count.tie ? <TiedNames candidates={count.candidates} /> : null}
-          <ol className="mt-4">
-            {(count.tie ? [] : count.candidates).slice(0, 6).map((cand) => (
-              <CandidateRow key={`${cand.number}-${cand.name}`} cand={cand} locale={locale} />
-            ))}
-          </ol>
+          <CallBlock call={call} count={count} locale={locale} />
         </>
       )}
     </section>
   );
 }
 
+function CallBlock({
+  call,
+  count,
+  locale,
+}: {
+  call: CountCall;
+  count: TseCount;
+  locale: "pt" | "en";
+}) {
+  const { m } = useI18n();
+  const rest = call.rest.slice(0, restLimit(count));
+
+  return (
+    <>
+      {call.kind === "empate" ? (
+        <>
+          <p className="apuracao-status">{m.apuracao.tie}</p>
+          <TiedNames candidates={count.candidates} />
+        </>
+      ) : null}
+
+      {call.elected.length > 0 ? (
+        <div className="apuracao-elected">
+          <p className="apuracao-status">
+            {call.elected.length > 1 ? m.apuracao.electedMany : m.apuracao.elected}
+          </p>
+          <ul>
+            {call.elected.map((cand) => (
+              <Person
+                key={`${cand.number}-${cand.name}`}
+                cand={cand}
+                locale={locale}
+                badge={m.apuracao.elected}
+                prominent
+              />
+            ))}
+          </ul>
+        </div>
+      ) : null}
+
+      {call.kind === "segundo-turno" ? (
+        <div className="apuracao-elected">
+          <p className="apuracao-status">{m.apuracao.runoff}</p>
+          <ul>
+            {call.runoff.map((cand) => (
+              <Person
+                key={`${cand.number}-${cand.name}`}
+                cand={cand}
+                locale={locale}
+                badge={m.apuracao.runoff}
+                prominent
+                open
+              />
+            ))}
+          </ul>
+        </div>
+      ) : null}
+
+      {call.kind === "na-frente" && call.leading ? (
+        <div className="apuracao-elected">
+          <ul>
+            <Person cand={call.leading} locale={locale} badge={m.apuracao.leading} prominent open />
+          </ul>
+        </div>
+      ) : null}
+
+      {rest.length > 0 && call.kind !== "empate" ? (
+        <ol className="apuracao-rank">
+          {rest.map((cand) => (
+            <Person key={`${cand.number}-${cand.name}`} cand={cand} locale={locale} />
+          ))}
+        </ol>
+      ) : null}
+
+      {call.kind === "empate" ? (
+        <ol className="apuracao-rank">
+          {count.candidates.slice(0, restLimit(count)).map((cand) => (
+            <Person key={`${cand.number}-${cand.name}`} cand={cand} locale={locale} />
+          ))}
+        </ol>
+      ) : null}
+    </>
+  );
+}
+
 function TiedNames({ candidates }: { candidates: TseCandidate[] }) {
   const top = candidates[0]?.votes;
-  const tied = candidates.filter((c) => c.votes === top);
+  const tied = candidates.filter((cand) => cand.votes === top);
   return (
-    <p className="mt-2 text-sm text-muted">
-      {tied.map((c) => `${displayName(c.name)}${c.pct ? ` ${c.pct}%` : ""}`).join(" · ")}
+    <p className="apuracao-tie-names">
+      {tied.map((cand) => `${displayName(cand.name)}${cand.pct ? ` ${cand.pct}%` : ""}`).join(" · ")}
     </p>
   );
 }
 
-function CandidateRow({ cand, locale }: { cand: TseCandidate; locale: "pt" | "en" }) {
+function Person({
+  cand,
+  locale,
+  badge,
+  prominent = false,
+  open = false,
+}: {
+  cand: TseCandidate;
+  locale: "pt" | "en";
+  badge?: string;
+  prominent?: boolean;
+  open?: boolean;
+}) {
   const { m } = useI18n();
   return (
-    <li className="flex items-baseline justify-between gap-3 border-b border-border py-2 text-sm">
-      <span>
-        {displayName(cand.name)}{" "}
-        <span className="text-muted">
+    <li className={prominent ? "apuracao-person" : "apuracao-row"}>
+      <span className="apuracao-who">
+        {badge ? (
+          <span className={open ? "apuracao-badge apuracao-badge-open" : "apuracao-badge"}>
+            {badge}
+          </span>
+        ) : null}
+        <span className={prominent ? "apuracao-elected-name" : "apuracao-name"}>
+          {displayName(cand.name)}
+        </span>
+        <span className="apuracao-party">
           {cand.party} {cand.number}
         </span>
       </span>
-      <span className="shrink-0 text-right tabular-nums">
-        {cand.pct ? <span className="font-semibold">{cand.pct}%</span> : null}
-        <span className="mt-0.5 block text-xs text-muted">
-          {m.apuracao.votes(fmtVotes(cand.votes, locale))}
-        </span>
+      <span className="apuracao-figures">
+        {cand.pct ? <span className="apuracao-share">{cand.pct}%</span> : null}
+        <span className="apuracao-votes">{m.apuracao.votes(fmtVotes(cand.votes, locale))}</span>
       </span>
     </li>
   );
@@ -183,37 +284,36 @@ export function ApuracaoPage() {
     <div className="pb-[max(4rem,env(safe-area-inset-bottom))]">
       <div className="page-body mx-auto min-w-0 max-w-6xl overflow-x-clip px-4 pt-5 sm:px-6 sm:pt-8">
         <MastBar className="mb-5" />
-        <main id="conteudo">
-          <p className="kicker">{m.apuracao.label}</p>
-          <h1 className="story-title mt-1 text-3xl sm:text-4xl">{m.apuracao.label}</h1>
-          <p className="mt-2 max-w-xl text-sm text-muted">{m.apuracao.source}</p>
-          <p className="mt-1 text-xs text-muted">{m.apuracao.refresh}</p>
+        <main id="conteudo" className="apuracao-page">
+          <header className="apuracao-head">
+            <p className="kicker">{m.apuracao.label}</p>
+            <h1 className="apuracao-title">{m.apuracao.label}</h1>
+            <p className="apuracao-source">{m.apuracao.source}</p>
+            <p className="apuracao-refresh">{m.apuracao.refresh}</p>
+          </header>
 
-          <div className="mt-5">
-            <SegGroup ariaLabel={m.apuracao.switchAria}>
-              {CARGOS.map((id) => (
-                <button
-                  key={id}
-                  type="button"
-                  className="seg-btn"
-                  aria-pressed={cargo === id}
-                  onClick={() => setCargo(id)}
-                >
-                  <span className="seg-label">{m.apuracao.offices[OFFICE_KEY[id]]}</span>
-                </button>
-              ))}
-            </SegGroup>
+          <div className="apuracao-cargos" role="group" aria-label={m.apuracao.switchAria}>
+            {CARGOS.map((id) => (
+              <button
+                key={id}
+                type="button"
+                aria-pressed={cargo === id}
+                onClick={() => setCargo(id)}
+              >
+                {m.apuracao.offices[OFFICE_KEY[id]]}
+              </button>
+            ))}
           </div>
 
           {cargo === "presidente" ? (
-            <div className="mt-5">
-              <CountCard title={m.apuracao.national} count={national} loaded={Boolean(counts)} />
-            </div>
+            <CountCard title={m.apuracao.national} count={national} loaded={Boolean(counts)} />
           ) : null}
 
-          <div className="mt-5 grid gap-4 lg:grid-cols-[1fr_17.5rem]">
+          <div className="apuracao-board">
             <ApuracaoMap counts={counts} sel={sel} onSelectUf={selectUf} />
-            <CountCard title={ufTitle} count={ufCount} loaded={Boolean(counts)} />
+            <div className="apuracao-uf">
+              <CountCard title={ufTitle} count={ufCount} loaded={Boolean(counts)} />
+            </div>
           </div>
         </main>
       </div>
