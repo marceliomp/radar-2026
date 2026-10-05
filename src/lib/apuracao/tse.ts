@@ -130,11 +130,30 @@ function isValidVote(dvt: unknown): boolean {
   return VALID_VOTE.has(dvt.trim().toLocaleLowerCase("pt-BR"));
 }
 
-/** `e === "s"`, or a situation text that says eleito and does not say não. */
+function situationText(row: Record<string, unknown>): string {
+  return typeof row.st === "string" ? row.st.trim().toLocaleLowerCase("pt-BR") : "";
+}
+
+/** TSE `st` "2º turno" is a runoff finalist, not someone who won the seat. */
+function isRunoffSituation(situation: string): boolean {
+  if (!situation) return false;
+  return (
+    situation.includes("2º") ||
+    situation.includes("2°") ||
+    situation.includes("segundo turno") ||
+    /2\s*o?\s*turno/.test(situation)
+  );
+}
+
+/**
+ * `e === "s"` or a situation that says eleito and does not say não.
+ * "2º turno" wins over `e: "s"`: that pair is who advances, not who won.
+ */
 function markedElected(row: Record<string, unknown>): boolean {
+  const situation = situationText(row);
+  if (isRunoffSituation(situation)) return false;
   const flag = typeof row.e === "string" ? row.e.trim().toLowerCase() : "";
   if (flag === "s") return true;
-  const situation = typeof row.st === "string" ? row.st.trim().toLocaleLowerCase("pt-BR") : "";
   if (!situation) return false;
   if (situation.includes("não") || situation.includes("nao")) return false;
   return situation.includes("eleito");
@@ -212,7 +231,10 @@ function readRace(root: Record<string, unknown>): {
   validVotes: number | null;
 } {
   const carg = Array.isArray(root.carg) ? asRecord(root.carg[0]) : null;
-  const seats = carg ? (intString(carg.nv) ?? 0) : 0;
+  const cargoCode = carg ? intString(carg.cd) : null;
+  // Presidente (1) and governador (3) are one seat. A stray `nv` of 2 is not a second chair.
+  const majorityCargo = cargoCode === 1 || cargoCode === 3;
+  const seats = majorityCargo ? 1 : carg ? (intString(carg.nv) ?? 0) : 0;
   const quotient = carg ? intString(carg.qe) : null;
   const sections = asRecord(root.s);
   const counted = intString(sections?.st) ?? 0;
@@ -223,7 +245,7 @@ function readRace(root: Record<string, unknown>): {
   const votes = asRecord(root.v);
   return {
     seats,
-    proportional: quotient != null && seats > 1,
+    proportional: !majorityCargo && quotient != null && seats > 1,
     remainingVotes,
     validVotes: votes ? intString(votes.vv) : null,
   };
@@ -279,10 +301,12 @@ export type CountCall = {
 
 /**
  * Eleito is not "na frente".
- * Majority (presidente, governador): TSE mark, or votes still above half
- * of valid votes after every remaining vote (`2 * L > V + R`). Exactly
- * half is not eleito. 2º turno only when the leader cannot reach half and
- * the second is safe from the third. A tie is not a single eleito.
+ * Majority (presidente, governador, one seat): at most one Eleito, and only
+ * when that person is still strictly above half of valid votes after every
+ * remaining vote (`2 * L > V + R`). Exactly half is not eleito. TSE `e: "s"`
+ * does not elect a second name and does not elect someone at or under half.
+ * If the count is finished, or the leader can no longer reach half and the
+ * second is safe, the top two are 2º turno. A tie is not a single eleito.
  * Senate (`nv` seats, no quotient): a seat is locked when the candidate
  * beats the first person outside those seats by more than the remaining
  * votes. Ties at the cutoff stay open.
@@ -294,10 +318,6 @@ export type CountCall = {
 export function callCount(count: TseCount): CountCall {
   const ranked = count.candidates.filter((cand) => cand.votes > 0 || cand.tseElected);
   const elected = new Set<TseCandidate>();
-  for (const cand of ranked) {
-    if (cand.tseElected) elected.add(cand);
-  }
-
   const remaining = count.remainingVotes;
   const valid = count.validVotes;
   const top = ranked[0];
@@ -305,10 +325,15 @@ export function callCount(count: TseCount): CountCall {
   const tied = Boolean(top && second && top.votes > 0 && top.votes === second.votes);
   const majority = count.seats === 1 && !count.proportional;
 
-  if (majority && remaining != null && !tied) {
+  if (!majority) {
     for (const cand of ranked) {
-      if (aboveHalf(cand.votes, valid, remaining)) elected.add(cand);
+      if (cand.tseElected) elected.add(cand);
     }
+  }
+
+  const pool = majorityPool(top, valid);
+  if (majority && remaining != null && !tied && top && aboveHalf(top.votes, pool, remaining)) {
+    elected.add(top);
   }
 
   if (count.seats > 1 && !count.proportional && remaining != null) {
@@ -341,9 +366,11 @@ export function callCount(count: TseCount): CountCall {
 
   if (majority && remaining != null && top && second && !tied) {
     const third = ranked[2];
-    const leaderCannot = cannotReachHalf(top.votes, valid, remaining);
+    const leaderOver = aboveHalf(top.votes, pool, remaining);
+    const leaderCannot = cannotReachHalf(top.votes, pool, remaining);
     const secondSafe = second.votes > (third?.votes ?? 0) + remaining;
-    if (leaderCannot && secondSafe) {
+    const finished = remaining === 0;
+    if (!leaderOver && (finished || (leaderCannot && secondSafe))) {
       return {
         kind: "segundo-turno",
         elected: [],
@@ -359,6 +386,22 @@ export function callCount(count: TseCount): CountCall {
   }
 
   return { kind: "aberto", elected: [], runoff: [], leading: null, rest: ranked };
+}
+
+/**
+ * Denominator of the published candidate percent (`pvapn`).
+ * `v.vv` drops anulado sub judice, so a name can be over half of `v.vv`
+ * while TSE still prints 49%. The printed percent is the one on screen.
+ */
+function majorityPool(cand: TseCandidate | undefined, validVotes: number): number {
+  if (!cand || cand.votes <= 0) return validVotes;
+  const raw = cand.pctExact || cand.pct;
+  if (!raw) return validVotes;
+  const pct = Number(raw.replace(/\./g, "").replace(",", "."));
+  if (!Number.isFinite(pct) || pct <= 0) return validVotes;
+  const base = Math.round((cand.votes * 100) / pct);
+  if (!Number.isSafeInteger(base) || base < cand.votes) return validVotes;
+  return base;
 }
 
 function aboveHalf(votes: number, valid: number, remaining: number): boolean {

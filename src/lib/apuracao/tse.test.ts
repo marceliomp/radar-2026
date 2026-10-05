@@ -332,6 +332,7 @@ test("labels and the 10s refresh are the product contract", () => {
 });
 
 function race(opts: {
+  cd?: string;
   nv?: string;
   qe?: string;
   esnt?: string | null;
@@ -340,7 +341,15 @@ function race(opts: {
   ts?: string;
   parties: {
     sg: string;
-    cand: { n: string; nmu: string; vap: string; e?: string; st?: string; pvap?: string }[];
+    cand: {
+      n: string;
+      nmu: string;
+      vap: string;
+      e?: string;
+      st?: string;
+      pvap?: string;
+      pvapn?: string;
+    }[];
   }[];
 }) {
   return parseCount({
@@ -351,6 +360,7 @@ function race(opts: {
     v: opts.vv == null ? {} : { vv: opts.vv },
     carg: [
       {
+        ...(opts.cd ? { cd: opts.cd } : {}),
         ...(opts.nv ? { nv: opts.nv } : {}),
         ...(opts.qe ? { qe: opts.qe } : {}),
         agr: [{ par: opts.parties.map((party) => ({ sg: party.sg, cand: party.cand.map((cand) => ({ ...cand, dvt: "Válido" })) })) }],
@@ -391,10 +401,11 @@ test("TSE e and st are the eleito mark, unknown st is not", () => {
   assert.equal(parsed.remainingVotes, 0);
   assert.equal(parsed.validVotes, 100);
   const call = callCount(parsed);
-  assert.equal(call.kind, "eleito");
+  assert.equal(call.kind, "segundo-turno");
+  assert.equal(call.elected.length, 0);
   assert.deepEqual(
-    call.elected.map((cand) => cand.number).sort(),
-    ["15", "22"],
+    call.runoff.map((cand) => cand.number),
+    ["22", "13"],
   );
 });
 
@@ -716,7 +727,8 @@ test("president rollup does not inherit one UF eleito mark", () => {
   assert.equal(overlaid.status, "ok");
   if (overlaid.status !== "ok") return;
   assert.equal(overlaid.candidates.find((cand) => cand.number === "22")?.tseElected, true);
-  assert.equal(callCount(overlaid).elected[0]?.number, "22");
+  assert.equal(callCount(overlaid).elected.length, 0);
+  assert.equal(callCount(overlaid).kind, "na-frente");
 
   const missing = race({
     nv: "1",
@@ -741,4 +753,101 @@ test("president rollup does not inherit one UF eleito mark", () => {
   if (noMath.status !== "ok") return;
   assert.equal(noMath.remainingVotes, null);
   assert.equal(callCount(noMath).elected.length, 0);
+});
+
+test("finished governador under half is 2º turno, even when TSE sets e to s", () => {
+  const parsed = race({
+    cd: "3",
+    nv: "2",
+    esnt: "0",
+    vv: "1651394",
+    st: "6969",
+    ts: "6969",
+    parties: [
+      {
+        sg: "PP",
+        cand: [{ n: "11", nmu: "CELINA LEÃO", vap: "825530", e: "s", st: "2º turno", pvap: "49,93" }],
+      },
+      {
+        sg: "PT",
+        cand: [{ n: "13", nmu: "LEANDRO GRASS", vap: "569930", e: "s", st: "2º turno", pvap: "34,47" }],
+      },
+      {
+        sg: "PSDB",
+        cand: [{ n: "45", nmu: "PAULA BELMONTE", vap: "140765", e: "n", st: "Não eleito", pvap: "8,51" }],
+      },
+    ],
+  });
+  assert.equal(parsed.status, "ok");
+  if (parsed.status !== "ok") return;
+  assert.equal(parsed.seats, 1);
+  assert.equal(parsed.proportional, false);
+  assert.equal(parsed.candidates.every((cand) => cand.tseElected === false), true);
+  const call = callCount(parsed);
+  assert.equal(call.kind, "segundo-turno");
+  assert.equal(call.elected.length, 0);
+  assert.deepEqual(
+    call.runoff.map((cand) => cand.name),
+    ["CELINA LEÃO", "LEANDRO GRASS"],
+  );
+
+  const overHalf = race({
+    cd: "3",
+    nv: "2",
+    esnt: "0",
+    vv: "100",
+    st: "100",
+    ts: "100",
+    parties: [
+      { sg: "AA", cand: [{ n: "10", nmu: "ALFA", vap: "60", e: "s", st: "Eleito" }] },
+      { sg: "BB", cand: [{ n: "13", nmu: "BETA", vap: "40", e: "s", st: "2º turno" }] },
+    ],
+  });
+  assert.equal(overHalf.status, "ok");
+  if (overHalf.status !== "ok") return;
+  assert.equal(overHalf.seats, 1);
+  const won = callCount(overHalf);
+  assert.equal(won.kind, "eleito");
+  assert.deepEqual(
+    won.elected.map((cand) => cand.number),
+    ["10"],
+  );
+});
+
+test("pvap at or under 50 is not eleito even when v.vv looks like a majority", () => {
+  const parsed = race({
+    cd: "3",
+    nv: "1",
+    esnt: "10",
+    vv: "9600",
+    st: "90",
+    ts: "100",
+    parties: [
+      {
+        sg: "PL",
+        cand: [
+          {
+            n: "22",
+            nmu: "ALFA",
+            vap: "4927",
+            e: "n",
+            pvap: "49,27",
+            pvapn: "49,270000000",
+          },
+        ],
+      },
+      { sg: "PSD", cand: [{ n: "55", nmu: "BETA", vap: "4000", e: "n", pvap: "40,00" }] },
+      { sg: "PSOL", cand: [{ n: "50", nmu: "GAMA", vap: "500", e: "n", pvap: "5,00" }] },
+    ],
+  });
+  assert.equal(parsed.status, "ok");
+  if (parsed.status !== "ok") return;
+  assert.equal(parsed.leader && parsed.leader.votes * 2 > parsed.validVotes, true);
+  const call = callCount(parsed);
+  assert.equal(call.kind, "segundo-turno");
+  assert.equal(call.elected.length, 0);
+  assert.deepEqual(
+    call.runoff.map((cand) => cand.number),
+    ["22", "55"],
+  );
 });
