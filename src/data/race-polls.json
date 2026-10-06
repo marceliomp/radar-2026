@@ -3507,6 +3507,77 @@
         "cadudelula": 46
       },
       "notes": "Auto ts2-solucoes. TSE RN-05673/2026. https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/"
+    },
+    {
+      "id": "quaest-rr-gov-10-03",
+      "office": "governor",
+      "uf": "RR",
+      "institute": "Quaest",
+      "date": "2026-10-03",
+      "fieldEnd": "2026-10-03",
+      "fieldStart": "2026-10-02",
+      "sample": 1800,
+      "moe": 2.3,
+      "mode": "presencial",
+      "firstRound": {
+        "arthurhenrique": 64,
+        "soldadosampaio": 34
+      },
+      "notes": "Auto quaest. TSE RR-08283/2026. https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/noticia/2026/10/03/eleicoes-para-governador-o-que-apontam-as-pesquisas-na-vespera-do-1o-turno.ghtml"
+    },
+    {
+      "id": "gerp-sp-gov-10-01",
+      "office": "governor",
+      "uf": "SP",
+      "institute": "Gerp",
+      "date": "2026-10-01",
+      "fieldEnd": "2026-10-03",
+      "fieldStart": "2026-10-01",
+      "sample": 1500,
+      "moe": 2.5,
+      "mode": "telefone",
+      "firstRound": {
+        "fernandohaddad": 36,
+        "izadoradias": 29,
+        "tarcisio": 60
+      },
+      "notes": "Auto gerp. TSE SP-05408/2026. https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/noticia/2026/10/03/eleicoes-para-governador-o-que-apontam-as-pesquisas-na-vespera-do-1o-turno.ghtml"
+    },
+    {
+      "id": "quaest-sp-gov-10-03",
+      "office": "governor",
+      "uf": "SP",
+      "institute": "Quaest",
+      "date": "2026-10-03",
+      "fieldEnd": "2026-10-03",
+      "fieldStart": "2026-10-02",
+      "sample": 3702,
+      "moe": 1.6,
+      "mode": "presencial",
+      "firstRound": {
+        "fernandohaddad": 36,
+        "izadoradias": 29,
+        "tarcisio": 60
+      },
+      "notes": "Auto quaest. TSE SP-04726/2026. https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/noticia/2026/10/03/eleicoes-para-governador-o-que-apontam-as-pesquisas-na-vespera-do-1o-turno.ghtml"
+    },
+    {
+      "id": "datafolha-sp-gov-10-03",
+      "office": "governor",
+      "uf": "SP",
+      "institute": "Datafolha",
+      "date": "2026-10-03",
+      "fieldEnd": "2026-10-03",
+      "fieldStart": "2026-10-02",
+      "sample": 2520,
+      "moe": 2,
+      "mode": "telefone",
+      "firstRound": {
+        "fernandohaddad": 36,
+        "izadoradias": 29,
+        "tarcisio": 60
+      },
+      "notes": "Auto datafolha. TSE SP-09337/2026. https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/noticia/2026/10/03/eleicoes-para-governador-o-que-apontam-as-pesquisas-na-vespera-do-1o-turno.ghtml"
     }
   ]
 }
