@@ -3278,6 +3278,60 @@
         "fabiotrad": 23
       },
       "notes": "Auto quaest. TSE MS-04157/2026. https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/noticia/2026/10/03/eleicoes-para-governador-o-que-apontam-as-pesquisas-na-vespera-do-1o-turno.ghtml"
+    },
+    {
+      "id": "ranking-brasil-inteligencia-ms-gov-10-03",
+      "office": "governor",
+      "uf": "MS",
+      "institute": "RANKING BRASIL INTELIGENCIA",
+      "date": "2026-10-03",
+      "fieldEnd": "2026-10-03",
+      "fieldStart": "2026-10-01",
+      "sample": 2000,
+      "moe": 2.2,
+      "mode": "telefone",
+      "firstRound": {
+        "economistarenatogomes": 49,
+        "delcidioamaral": 4,
+        "eduardoriedel": 67,
+        "fabiotrad": 23
+      },
+      "notes": "Auto ranking-brasil-inteligencia. TSE MS-04017/2026. https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/noticia/2026/10/03/eleicoes-para-governador-o-que-apontam-as-pesquisas-na-vespera-do-1o-turno.ghtml"
+    },
+    {
+      "id": "quaest-pa-gov-10-03",
+      "office": "governor",
+      "uf": "PA",
+      "institute": "Quaest",
+      "date": "2026-10-03",
+      "fieldEnd": "2026-10-03",
+      "fieldStart": "2026-10-02",
+      "sample": 1800,
+      "moe": 2.3,
+      "mode": "presencial",
+      "firstRound": {
+        "hana": 40,
+        "drdaniel": 57
+      },
+      "notes": "Auto quaest. TSE PA-04580/2026. https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/noticia/2026/10/03/eleicoes-para-governador-o-que-apontam-as-pesquisas-na-vespera-do-1o-turno.ghtml"
+    },
+    {
+      "id": "quaest-pa-sen-10-03",
+      "office": "senator",
+      "uf": "PA",
+      "institute": "Quaest",
+      "date": "2026-10-03",
+      "fieldEnd": "2026-10-03",
+      "fieldStart": "2026-10-02",
+      "sample": 1800,
+      "moe": 2.3,
+      "mode": "presencial",
+      "firstRound": {
+        "edlainerodrigues": 52,
+        "gizellebancadaamazonidas": 50,
+        "helder": 12
+      },
+      "notes": "Auto quaest. TSE PA-04580/2026. https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/noticia/2026/10/03/eleicoes-para-governador-o-que-apontam-as-pesquisas-na-vespera-do-1o-turno.ghtml"
     }
   ]
 }
