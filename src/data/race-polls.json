@@ -3386,6 +3386,59 @@
         "mendonafilho": 50
       },
       "notes": "Auto quaest. TSE PE-09665/2026. https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/noticia/2026/10/03/eleicoes-para-governador-o-que-apontam-as-pesquisas-na-vespera-do-1o-turno.ghtml"
+    },
+    {
+      "id": "datafolha-pe-gov-10-03",
+      "office": "governor",
+      "uf": "PE",
+      "institute": "Datafolha",
+      "date": "2026-10-03",
+      "fieldEnd": "2026-10-03",
+      "fieldStart": "2026-10-02",
+      "sample": 1650,
+      "moe": 2.4,
+      "mode": "telefone",
+      "firstRound": {
+        "raquellyra": 52,
+        "joaocampos": 47,
+        "renan45": 50
+      },
+      "notes": "Auto datafolha. TSE PE-02404/2026. https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/noticia/2026/10/03/eleicoes-para-governador-o-que-apontam-as-pesquisas-na-vespera-do-1o-turno.ghtml"
+    },
+    {
+      "id": "datafolha-pe-sen-10-03",
+      "office": "senator",
+      "uf": "PE",
+      "institute": "Datafolha",
+      "date": "2026-10-03",
+      "fieldEnd": "2026-10-03",
+      "fieldStart": "2026-10-02",
+      "sample": 1650,
+      "moe": 2.4,
+      "mode": "telefone",
+      "firstRound": {
+        "mailsondasilvaneto": 48,
+        "eduardodafonte": 67,
+        "mendonafilho": 50
+      },
+      "notes": "Auto datafolha. TSE PE-02404/2026. https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/noticia/2026/10/03/eleicoes-para-governador-o-que-apontam-as-pesquisas-na-vespera-do-1o-turno.ghtml"
+    },
+    {
+      "id": "quaest-mg-gov-10-03",
+      "office": "governor",
+      "uf": "MG",
+      "institute": "Quaest",
+      "date": "2026-10-03",
+      "fieldEnd": "2026-10-03",
+      "fieldStart": "2026-10-02",
+      "sample": 3204,
+      "moe": 1.7,
+      "mode": "presencial",
+      "firstRound": {
+        "cleitinho": 54,
+        "kalil": 10
+      },
+      "notes": "Auto quaest. TSE MG-06889/2026. https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/noticia/2026/10/03/eleicoes-para-governador-o-que-apontam-as-pesquisas-na-vespera-do-1o-turno.ghtml"
     }
   ]
 }
