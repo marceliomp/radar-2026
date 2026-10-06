@@ -1,6 +1,6 @@
 {
   "source": "RTBD 09/09 DF+BA (Gazeta) + ES (CNN/Poder360). Removidos auto-scrapes incompletos AL/DF 09/09. Atlas ES 03/09. Quaest/Globo 08/09 (SP MG PE RJ DF gov/sen) G1+Gazeta. AtlasIntel MG 08/09 CNN + RTBD MG 08/09 CNN. RTBD PE 03/09, Atlas DF 03/09, RTBD SE 04/09. G1 mapa Quaest 05/09 (25 UFs+DF, sem PI) + Quaest CE gov/sen 04/09. CartaCapital/AtlasIntel 03/09 (RS GO PI RJ CE PB) + TMC/VEJA PB 03/09 + Gazeta/RTBD RJ 02/09. G1, Folha, Poder360, CNN, O Globo, Ipsos, Gazeta do Povo. Rodada Quaest/Globo 24-27/08 + ondas anteriores: Genial/Quaest jul (10 UFs, PA ja estava), Datafolha SP 01-03/07, Genial/Quaest SP abr, Parana Pesquisas PR jul/ago. Quaest PA 29/08 ainda sem tabela.",
-  "asOf": "2026-10-03",
+  "asOf": "2026-10-06",
   "polls": [
     {
       "id": "rtbd-df-gov-09-09",
@@ -3085,6 +3085,76 @@
         "cirogomes": 49
       },
       "notes": "Auto instituto-parana-de-pesquisas-e-analise-. TSE CE-01871/2026. https://g1.globo.com/sp/sao-paulo/eleicoes/2026/noticia/2026/10/03/datafolha-sp-governador-3-outubro.ghtml"
+    },
+    {
+      "id": "perspectiva-mercado-e-opiniao-am-gov-10-04",
+      "office": "governor",
+      "uf": "AM",
+      "institute": "PERSPECTIVA MERCADO E OPINIAO",
+      "date": "2026-10-04",
+      "fieldEnd": "2026-10-04",
+      "fieldStart": "2026-10-04",
+      "sample": 1067,
+      "moe": 3,
+      "mode": "telefone",
+      "firstRound": {
+        "professoramariadocarmo": 25,
+        "robertocidade": 24,
+        "omaraziz": 40
+      },
+      "notes": "Auto perspectiva-mercado-e-opiniao. TSE AM-02854/2026. https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/noticia/2026/10/03/eleicoes-para-governador-o-que-apontam-as-pesquisas-na-vespera-do-1o-turno.ghtml"
+    },
+    {
+      "id": "pontual-pesquisas-am-gov-10-03",
+      "office": "governor",
+      "uf": "AM",
+      "institute": "PONTUAL PESQUISAS",
+      "date": "2026-10-03",
+      "fieldEnd": "2026-10-04",
+      "fieldStart": "2026-10-04",
+      "sample": 3000,
+      "moe": 1.8,
+      "mode": "telefone",
+      "firstRound": {
+        "professoramariadocarmo": 25,
+        "robertocidade": 24,
+        "omaraziz": 40
+      },
+      "notes": "Auto pontual-pesquisas. TSE AM-03956/2026. https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/noticia/2026/10/03/eleicoes-para-governador-o-que-apontam-as-pesquisas-na-vespera-do-1o-turno.ghtml"
+    },
+    {
+      "id": "pontual-pesquisas-am-sen-10-03",
+      "office": "senator",
+      "uf": "AM",
+      "institute": "PONTUAL PESQUISAS",
+      "date": "2026-10-03",
+      "fieldEnd": "2026-10-04",
+      "fieldStart": "2026-10-04",
+      "sample": 3000,
+      "moe": 1.8,
+      "mode": "telefone",
+      "firstRound": {
+        "capitaoalbertoneto": 48,
+        "miltonxuxa": 40
+      },
+      "notes": "Auto pontual-pesquisas. TSE AM-03956/2026. https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/noticia/2026/10/03/eleicoes-para-governador-o-que-apontam-as-pesquisas-na-vespera-do-1o-turno.ghtml"
+    },
+    {
+      "id": "instituto-opnus-ce-gov-10-06",
+      "office": "governor",
+      "uf": "CE",
+      "institute": "INSTITUTO OPNUS",
+      "date": "2026-10-06",
+      "fieldEnd": "2026-10-04",
+      "fieldStart": "2026-10-04",
+      "sample": 4800,
+      "moe": 1.4,
+      "mode": "telefone",
+      "firstRound": {
+        "elmanodefreitas": 50,
+        "cirogomes": 49
+      },
+      "notes": "Auto instituto-opnus. TSE CE-07447/2026. https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/noticia/2026/10/03/eleicoes-para-governador-o-que-apontam-as-pesquisas-na-vespera-do-1o-turno.ghtml"
     }
   ]
 }
