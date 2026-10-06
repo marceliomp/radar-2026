@@ -3207,6 +3207,40 @@
         "doutoranatasha": 13
       },
       "notes": "Auto quaest. TSE MT-02649/2026. https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/noticia/2026/10/03/eleicoes-para-governador-o-que-apontam-as-pesquisas-na-vespera-do-1o-turno.ghtml"
+    },
+    {
+      "id": "vetor-tecnologia-e-pesquisas-pi-gov-10-03",
+      "office": "governor",
+      "uf": "PI",
+      "institute": "VETOR TECNOLOGIA E PESQUISAS",
+      "date": "2026-10-03",
+      "fieldEnd": "2026-10-03",
+      "fieldStart": "2026-09-26",
+      "sample": 1602,
+      "moe": 2.4,
+      "mode": "presencial",
+      "firstRound": {
+        "rafaelfonteles": 67,
+        "joelrodrigues": 28
+      },
+      "notes": "Auto vetor-tecnologia-e-pesquisas. TSE PI-04133/2026. https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/noticia/2026/10/03/eleicoes-para-governador-o-que-apontam-as-pesquisas-na-vespera-do-1o-turno.ghtml"
+    },
+    {
+      "id": "datafolha-pi-gov-10-03",
+      "office": "governor",
+      "uf": "PI",
+      "institute": "Datafolha",
+      "date": "2026-10-03",
+      "fieldEnd": "2026-10-03",
+      "fieldStart": "2026-10-01",
+      "sample": 1564,
+      "moe": 2.5,
+      "mode": "telefone",
+      "firstRound": {
+        "rafaelfonteles": 67,
+        "joelrodrigues": 28
+      },
+      "notes": "Auto datafolha. TSE PI-05565/2026. https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/noticia/2026/10/03/eleicoes-para-governador-o-que-apontam-as-pesquisas-na-vespera-do-1o-turno.ghtml"
     }
   ]
 }
