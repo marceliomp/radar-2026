@@ -3155,6 +3155,58 @@
         "cirogomes": 49
       },
       "notes": "Auto instituto-opnus. TSE CE-07447/2026. https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/noticia/2026/10/03/eleicoes-para-governador-o-que-apontam-as-pesquisas-na-vespera-do-1o-turno.ghtml"
+    },
+    {
+      "id": "datafolha-ce-gov-10-03",
+      "office": "governor",
+      "uf": "CE",
+      "institute": "Datafolha",
+      "date": "2026-10-03",
+      "fieldEnd": "2026-10-03",
+      "fieldStart": "2026-10-02",
+      "sample": 1560,
+      "moe": 2.5,
+      "mode": "telefone",
+      "firstRound": {
+        "elmanodefreitas": 50,
+        "cirogomes": 49
+      },
+      "notes": "Auto datafolha. TSE CE-09234/2026. https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/noticia/2026/10/03/eleicoes-para-governador-o-que-apontam-as-pesquisas-na-vespera-do-1o-turno.ghtml"
+    },
+    {
+      "id": "quaest-ce-gov-10-03",
+      "office": "governor",
+      "uf": "CE",
+      "institute": "Quaest",
+      "date": "2026-10-03",
+      "fieldEnd": "2026-10-03",
+      "fieldStart": "2026-10-02",
+      "sample": 2004,
+      "moe": 2.2,
+      "mode": "presencial",
+      "firstRound": {
+        "elmanodefreitas": 50,
+        "cirogomes": 49
+      },
+      "notes": "Auto quaest. TSE CE-04790/2026. https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/noticia/2026/10/03/eleicoes-para-governador-o-que-apontam-as-pesquisas-na-vespera-do-1o-turno.ghtml"
+    },
+    {
+      "id": "quaest-mt-gov-10-03",
+      "office": "governor",
+      "uf": "MT",
+      "institute": "Quaest",
+      "date": "2026-10-03",
+      "fieldEnd": "2026-10-03",
+      "fieldStart": "2026-10-02",
+      "sample": 1800,
+      "moe": 2.3,
+      "mode": "presencial",
+      "firstRound": {
+        "wellingtonfagundes": 28,
+        "otavianopivetta": 54,
+        "doutoranatasha": 13
+      },
+      "notes": "Auto quaest. TSE MT-02649/2026. https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/noticia/2026/10/03/eleicoes-para-governador-o-que-apontam-as-pesquisas-na-vespera-do-1o-turno.ghtml"
     }
   ]
 }
