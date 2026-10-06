@@ -3473,6 +3473,40 @@
         "tenentecoronelzucco": 52
       },
       "notes": "Auto quaest. TSE RS-08922/2026. https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/noticia/2026/10/03/eleicoes-para-governador-o-que-apontam-as-pesquisas-na-vespera-do-1o-turno.ghtml"
+    },
+    {
+      "id": "quaest-rn-gov-10-03",
+      "office": "governor",
+      "uf": "RN",
+      "institute": "Quaest",
+      "date": "2026-10-03",
+      "fieldEnd": "2026-10-03",
+      "fieldStart": "2026-10-02",
+      "sample": 1800,
+      "moe": 2.3,
+      "mode": "presencial",
+      "firstRound": {
+        "rodrigovieira": 45,
+        "cadudelula": 46
+      },
+      "notes": "Auto quaest. TSE RN-09644/2026. https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/"
+    },
+    {
+      "id": "ts2-solucoes-rn-gov-10-03",
+      "office": "governor",
+      "uf": "RN",
+      "institute": "TS2 SOLUCOES",
+      "date": "2026-10-03",
+      "fieldEnd": "2026-10-03",
+      "fieldStart": "2026-10-01",
+      "sample": 1800,
+      "moe": 2.3,
+      "mode": "presencial",
+      "firstRound": {
+        "rodrigovieira": 45,
+        "cadudelula": 46
+      },
+      "notes": "Auto ts2-solucoes. TSE RN-05673/2026. https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/"
     }
   ]
 }
