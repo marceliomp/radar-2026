@@ -3439,6 +3439,40 @@
         "kalil": 10
       },
       "notes": "Auto quaest. TSE MG-06889/2026. https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/noticia/2026/10/03/eleicoes-para-governador-o-que-apontam-as-pesquisas-na-vespera-do-1o-turno.ghtml"
+    },
+    {
+      "id": "datafolha-mg-gov-10-03",
+      "office": "governor",
+      "uf": "MG",
+      "institute": "Datafolha",
+      "date": "2026-10-03",
+      "fieldEnd": "2026-10-03",
+      "fieldStart": "2026-10-02",
+      "sample": 2010,
+      "moe": 2.2,
+      "mode": "telefone",
+      "firstRound": {
+        "cleitinho": 54,
+        "kalil": 10
+      },
+      "notes": "Auto datafolha. TSE MG-06705/2026. https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/noticia/2026/10/03/eleicoes-para-governador-o-que-apontam-as-pesquisas-na-vespera-do-1o-turno.ghtml"
+    },
+    {
+      "id": "quaest-rs-gov-10-03",
+      "office": "governor",
+      "uf": "RS",
+      "institute": "Quaest",
+      "date": "2026-10-03",
+      "fieldEnd": "2026-10-03",
+      "fieldStart": "2026-10-02",
+      "sample": 2004,
+      "moe": 2.2,
+      "mode": "presencial",
+      "firstRound": {
+        "julianabrizola": 35,
+        "tenentecoronelzucco": 52
+      },
+      "notes": "Auto quaest. TSE RS-08922/2026. https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/noticia/2026/10/03/eleicoes-para-governador-o-que-apontam-as-pesquisas-na-vespera-do-1o-turno.ghtml"
     }
   ]
 }
