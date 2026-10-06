@@ -3332,6 +3332,60 @@
         "helder": 12
       },
       "notes": "Auto quaest. TSE PA-04580/2026. https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/noticia/2026/10/03/eleicoes-para-governador-o-que-apontam-as-pesquisas-na-vespera-do-1o-turno.ghtml"
+    },
+    {
+      "id": "quaest-pr-gov-10-03",
+      "office": "governor",
+      "uf": "PR",
+      "institute": "Quaest",
+      "date": "2026-10-03",
+      "fieldEnd": "2026-10-03",
+      "fieldStart": "2026-10-02",
+      "sample": 2004,
+      "moe": 2.2,
+      "mode": "presencial",
+      "firstRound": {
+        "requiaofilho": 27,
+        "sergiomoro": 43,
+        "sandroalex": 29
+      },
+      "notes": "Auto quaest. TSE PR-05119/2026. https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/noticia/2026/10/03/eleicoes-para-governador-o-que-apontam-as-pesquisas-na-vespera-do-1o-turno.ghtml"
+    },
+    {
+      "id": "quaest-pe-gov-10-03",
+      "office": "governor",
+      "uf": "PE",
+      "institute": "Quaest",
+      "date": "2026-10-03",
+      "fieldEnd": "2026-10-03",
+      "fieldStart": "2026-10-02",
+      "sample": 2652,
+      "moe": 1.9,
+      "mode": "presencial",
+      "firstRound": {
+        "raquellyra": 52,
+        "joaocampos": 47,
+        "renan45": 50
+      },
+      "notes": "Auto quaest. TSE PE-09665/2026. https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/noticia/2026/10/03/eleicoes-para-governador-o-que-apontam-as-pesquisas-na-vespera-do-1o-turno.ghtml"
+    },
+    {
+      "id": "quaest-pe-sen-10-03",
+      "office": "senator",
+      "uf": "PE",
+      "institute": "Quaest",
+      "date": "2026-10-03",
+      "fieldEnd": "2026-10-03",
+      "fieldStart": "2026-10-02",
+      "sample": 2652,
+      "moe": 1.9,
+      "mode": "presencial",
+      "firstRound": {
+        "mailsondasilvaneto": 48,
+        "eduardodafonte": 67,
+        "mendonafilho": 50
+      },
+      "notes": "Auto quaest. TSE PE-09665/2026. https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/noticia/2026/10/03/eleicoes-para-governador-o-que-apontam-as-pesquisas-na-vespera-do-1o-turno.ghtml"
     }
   ]
 }
