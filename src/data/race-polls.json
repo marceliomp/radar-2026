@@ -1,6 +1,6 @@
 {
   "source": "RTBD 09/09 DF+BA (Gazeta) + ES (CNN/Poder360). Removidos auto-scrapes incompletos AL/DF 09/09. Atlas ES 03/09. Quaest/Globo 08/09 (SP MG PE RJ DF gov/sen) G1+Gazeta. AtlasIntel MG 08/09 CNN + RTBD MG 08/09 CNN. RTBD PE 03/09, Atlas DF 03/09, RTBD SE 04/09. G1 mapa Quaest 05/09 (25 UFs+DF, sem PI) + Quaest CE gov/sen 04/09. CartaCapital/AtlasIntel 03/09 (RS GO PI RJ CE PB) + TMC/VEJA PB 03/09 + Gazeta/RTBD RJ 02/09. G1, Folha, Poder360, CNN, O Globo, Ipsos, Gazeta do Povo. Rodada Quaest/Globo 24-27/08 + ondas anteriores: Genial/Quaest jul (10 UFs, PA ja estava), Datafolha SP 01-03/07, Genial/Quaest SP abr, Parana Pesquisas PR jul/ago. Quaest PA 29/08 ainda sem tabela.",
-  "asOf": "2026-10-06",
+  "asOf": "2026-10-07",
   "polls": [
     {
       "id": "rtbd-df-gov-09-09",
@@ -3578,6 +3578,161 @@
         "tarcisio": 60
       },
       "notes": "Auto datafolha. TSE SP-09337/2026. https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/noticia/2026/10/03/eleicoes-para-governador-o-que-apontam-as-pesquisas-na-vespera-do-1o-turno.ghtml"
+    },
+    {
+      "id": "badra-comunicacao-df-gov-10-07",
+      "office": "governor",
+      "uf": "DF",
+      "institute": "BADRA COMUNICACAO",
+      "date": "2026-10-07",
+      "fieldEnd": "2026-10-04",
+      "fieldStart": "2026-10-04",
+      "sample": 1500,
+      "moe": 2.5,
+      "mode": "presencial",
+      "firstRound": {
+        "paulabelmonte": 10,
+        "leandrograss": 32,
+        "celinaleao": 53
+      },
+      "notes": "Auto badra-comunicacao. TSE DF-00204/2026. https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/noticia/2026/10/03/eleicoes-para-governador-o-que-apontam-as-pesquisas-na-vespera-do-1o-turno.ghtml"
+    },
+    {
+      "id": "badra-comunicacao-df-sen-10-07",
+      "office": "senator",
+      "uf": "DF",
+      "institute": "BADRA COMUNICACAO",
+      "date": "2026-10-07",
+      "fieldEnd": "2026-10-04",
+      "fieldStart": "2026-10-04",
+      "sample": 1500,
+      "moe": 2.5,
+      "mode": "presencial",
+      "firstRound": {
+        "gutofeliciodossantos": 3,
+        "michellebolsonaro": 45
+      },
+      "notes": "Auto badra-comunicacao. TSE DF-00204/2026. https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/noticia/2026/10/03/quaest-e-datafolha-vespera-do-1o-turno.ghtml"
+    },
+    {
+      "id": "instituto-parana-de-pesquisas-e-analise-de-consumidor-ltda-sp-gov-10-03",
+      "office": "governor",
+      "uf": "SP",
+      "institute": "INSTITUTO PARANA DE PESQUISAS E ANALISE DE CONSUMIDOR LTDA",
+      "date": "2026-10-03",
+      "fieldEnd": "2026-10-03",
+      "fieldStart": "2026-09-30",
+      "sample": 1600,
+      "moe": 2.5,
+      "mode": "presencial",
+      "firstRound": {
+        "fernandohaddad": 36,
+        "izadoradias": 29,
+        "tarcisio": 60
+      },
+      "notes": "Auto instituto-parana-de-pesquisas-e-analise-. TSE SP-09308/2026. https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/noticia/2026/10/03/eleicoes-para-governador-o-que-apontam-as-pesquisas-na-vespera-do-1o-turno.ghtml"
+    },
+    {
+      "id": "quaest-rj-gov-10-03",
+      "office": "governor",
+      "uf": "RJ",
+      "institute": "Quaest",
+      "date": "2026-10-03",
+      "fieldEnd": "2026-10-03",
+      "fieldStart": "2026-10-02",
+      "sample": 3204,
+      "moe": 1.7,
+      "mode": "presencial",
+      "firstRound": {
+        "douglasruas": 40,
+        "eduardopaes": 49
+      },
+      "notes": "Auto quaest. TSE RJ-03032/2026. https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/noticia/2026/10/03/eleicoes-para-governador-o-que-apontam-as-pesquisas-na-vespera-do-1o-turno.ghtml"
+    },
+    {
+      "id": "quaest-rj-sen-10-03",
+      "office": "senator",
+      "uf": "RJ",
+      "institute": "Quaest",
+      "date": "2026-10-03",
+      "fieldEnd": "2026-10-03",
+      "fieldStart": "2026-10-02",
+      "sample": 3204,
+      "moe": 1.7,
+      "mode": "presencial",
+      "firstRound": {
+        "pedropaulo": 60,
+        "marcosdias": 29
+      },
+      "notes": "Auto quaest. TSE RJ-03032/2026. https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/noticia/2026/10/03/eleicoes-para-governador-o-que-apontam-as-pesquisas-na-vespera-do-1o-turno.ghtml"
+    },
+    {
+      "id": "gerp-rj-gov-10-02",
+      "office": "governor",
+      "uf": "RJ",
+      "institute": "Gerp",
+      "date": "2026-10-02",
+      "fieldEnd": "2026-10-03",
+      "fieldStart": "2026-10-01",
+      "sample": 1200,
+      "moe": 2.8,
+      "mode": "telefone",
+      "firstRound": {
+        "douglasruas": 40,
+        "eduardopaes": 49
+      },
+      "notes": "Auto gerp. TSE RJ-07580/2026. https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/noticia/2026/10/03/eleicoes-para-governador-o-que-apontam-as-pesquisas-na-vespera-do-1o-turno.ghtml"
+    },
+    {
+      "id": "gerp-rj-sen-10-02",
+      "office": "senator",
+      "uf": "RJ",
+      "institute": "Gerp",
+      "date": "2026-10-02",
+      "fieldEnd": "2026-10-03",
+      "fieldStart": "2026-10-01",
+      "sample": 1200,
+      "moe": 2.8,
+      "mode": "telefone",
+      "firstRound": {
+        "pedropaulo": 60,
+        "marcosdias": 29
+      },
+      "notes": "Auto gerp. TSE RJ-07580/2026. https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/noticia/2026/10/03/eleicoes-para-governador-o-que-apontam-as-pesquisas-na-vespera-do-1o-turno.ghtml"
+    },
+    {
+      "id": "datafolha-rj-gov-10-03",
+      "office": "governor",
+      "uf": "RJ",
+      "institute": "Datafolha",
+      "date": "2026-10-03",
+      "fieldEnd": "2026-10-03",
+      "fieldStart": "2026-10-02",
+      "sample": 2010,
+      "moe": 2.2,
+      "mode": "telefone",
+      "firstRound": {
+        "douglasruas": 40,
+        "eduardopaes": 49
+      },
+      "notes": "Auto datafolha. TSE RJ-01334/2026. https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/noticia/2026/10/03/eleicoes-para-governador-o-que-apontam-as-pesquisas-na-vespera-do-1o-turno.ghtml"
+    },
+    {
+      "id": "datafolha-rj-sen-10-03",
+      "office": "senator",
+      "uf": "RJ",
+      "institute": "Datafolha",
+      "date": "2026-10-03",
+      "fieldEnd": "2026-10-03",
+      "fieldStart": "2026-10-02",
+      "sample": 2010,
+      "moe": 2.2,
+      "mode": "telefone",
+      "firstRound": {
+        "pedropaulo": 60,
+        "marcosdias": 29
+      },
+      "notes": "Auto datafolha. TSE RJ-01334/2026. https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/noticia/2026/10/03/eleicoes-para-governador-o-que-apontam-as-pesquisas-na-vespera-do-1o-turno.ghtml"
     }
   ]
 }
