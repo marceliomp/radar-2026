@@ -5708,5 +5708,32 @@
       "lula": 50.1,
       "flavio": 49.9
     }
+  },
+  {
+    "id": "poderdata-aya-10-08-08134",
+    "institute": "PoderData/Aya",
+    "date": "2026-10-08",
+    "fieldEnd": "2026-10-07",
+    "sample": 3000,
+    "moe": 1.8,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 47,
+      "flavio": 53
+    },
+    "source": {
+      "tseProtocol": "BR-08134/2026",
+      "url": "https://exame.com/brasil/pesquisa-poder-aya-2o-turno-flavio-bolsonaro-tem-53-e-lula-47-dos-votos-validos/",
+      "publisher": "exame.com",
+      "publishedAt": "2026-10-08",
+      "capturedAt": "2026-10-08T11:00:51.506Z"
+    },
+    "notes": "3000 entrevistas. TSE poderdata.",
+    "fieldStart": "2026-10-05",
+    "secondRound": {
+      "lula": 52,
+      "flavio": 50
+    }
   }
 ]
