@@ -5735,5 +5735,32 @@
       "lula": 52,
       "flavio": 50
     }
+  },
+  {
+    "id": "datafolha-10-08-02949",
+    "institute": "Datafolha",
+    "date": "2026-10-08",
+    "fieldEnd": "2026-10-08",
+    "sample": 2520,
+    "moe": 2,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 40,
+      "flavio": 49
+    },
+    "source": {
+      "tseProtocol": "BR-02949/2026",
+      "url": "https://www1.folha.uol.com.br/poder/2026/10/datafolha-governo-lula-tem-avaliacao-negativa-de-40-e-positiva-de-35.shtml",
+      "publisher": "www1.folha.uol.com.br",
+      "publishedAt": "2026-10-08",
+      "capturedAt": "2026-10-08T22:01:02.504Z"
+    },
+    "notes": "2520 entrevistas. TSE datafolha.",
+    "fieldStart": "2026-10-06",
+    "secondRound": {
+      "lula": 48,
+      "flavio": 52
+    }
   }
 ]
