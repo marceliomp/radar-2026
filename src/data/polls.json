@@ -5762,5 +5762,59 @@
       "lula": 48,
       "flavio": 52
     }
+  },
+  {
+    "id": "vox-brasil-10-09-09623",
+    "institute": "Vox Brasil",
+    "date": "2026-10-09",
+    "fieldEnd": "2026-10-07",
+    "sample": 2100,
+    "moe": 2.1,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 44.2,
+      "flavio": 42.7
+    },
+    "source": {
+      "tseProtocol": "BR-09623/2026",
+      "url": "https://exame.com/brasil/pesquisa-vox-brasil-lula-tem-442-e-flavio-bolsonaro-427-no-2o-turno/",
+      "publisher": "exame.com",
+      "publishedAt": "2026-10-09",
+      "capturedAt": "2026-10-09T11:00:53.890Z"
+    },
+    "notes": "2100 entrevistas. TSE vox.",
+    "fieldStart": "2026-10-05",
+    "secondRound": {
+      "lula": 44.2,
+      "flavio": 42.7
+    }
+  },
+  {
+    "id": "atlasintel-10-09-03663",
+    "institute": "AtlasIntel",
+    "date": "2026-10-09",
+    "fieldEnd": "2026-10-08",
+    "sample": 5000,
+    "moe": 1,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 45.7,
+      "flavio": 51.1
+    },
+    "source": {
+      "tseProtocol": "BR-03663/2026",
+      "url": "https://exame.com/brasil/pesquisa-atlasintel-2o-turno-flavio-bolsonaro-abre-54-pontos-de-vantagem-sobre-lula/",
+      "publisher": "exame.com",
+      "publishedAt": "2026-10-09",
+      "capturedAt": "2026-10-09T11:01:11.581Z"
+    },
+    "notes": "5000 entrevistas. TSE atlasintel.",
+    "fieldStart": "2026-10-03",
+    "secondRound": {
+      "lula": 45.7,
+      "flavio": 51.1
+    }
   }
 ]
