@@ -5816,5 +5816,32 @@
       "lula": 45.7,
       "flavio": 51.1
     }
+  },
+  {
+    "id": "nexus-btg-10-13-07997",
+    "institute": "Nexus/BTG",
+    "date": "2026-10-13",
+    "fieldEnd": "2026-10-12",
+    "sample": 2000,
+    "moe": 2,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 48,
+      "flavio": 52
+    },
+    "source": {
+      "tseProtocol": "BR-07997/2026",
+      "url": "https://exame.com/brasil/pesquisa-para-presidente-flavio-bolsonaro-tem-52-e-lula-48-diz-btg-nexus/",
+      "publisher": "exame.com",
+      "publishedAt": "2026-10-13",
+      "capturedAt": "2026-10-13T11:00:42.896Z"
+    },
+    "notes": "2000 entrevistas. TSE nexus.",
+    "fieldStart": "2026-10-10",
+    "secondRound": {
+      "lula": 51,
+      "flavio": 47
+    }
   }
 ]
