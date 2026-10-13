@@ -3,24 +3,6 @@
   "windowDays": 60,
   "points": [
     {
-      "date": "2026-08-11",
-      "lula": 76.6,
-      "flavio": 23.4,
-      "source": "replay"
-    },
-    {
-      "date": "2026-08-12",
-      "lula": 76.6,
-      "flavio": 23.4,
-      "source": "replay"
-    },
-    {
-      "date": "2026-08-13",
-      "lula": 74.8,
-      "flavio": 25.2,
-      "source": "replay"
-    },
-    {
       "date": "2026-08-14",
       "lula": 73.5,
       "flavio": 26.5,
@@ -380,6 +362,27 @@
       "flavio": 53.1,
       "source": "promote",
       "commit": "73a3c7a"
+    },
+    {
+      "date": "2026-10-10",
+      "lula": 46.9,
+      "flavio": 53.1,
+      "source": "replay",
+      "commit": "60af36f"
+    },
+    {
+      "date": "2026-10-11",
+      "lula": 46.9,
+      "flavio": 53.1,
+      "source": "replay",
+      "commit": "60af36f"
+    },
+    {
+      "date": "2026-10-12",
+      "lula": 46.9,
+      "flavio": 53.1,
+      "source": "promote",
+      "commit": "60af36f"
     }
   ]
 }
