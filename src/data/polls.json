@@ -5870,5 +5870,32 @@
       "lula": 49,
       "flavio": 51
     }
+  },
+  {
+    "id": "futura-apex-10-13-00650",
+    "institute": "Futura/Apex",
+    "date": "2026-10-13",
+    "fieldEnd": "2026-10-10",
+    "sample": 2000,
+    "moe": 2.2,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 48.2,
+      "flavio": 51.8
+    },
+    "source": {
+      "tseProtocol": "BR-00650/2026",
+      "url": "https://exame.com/brasil/pesquisa-para-presidente-futura-flavio-bolsonaro-tem-518-e-lula-482-no-2o-turno/",
+      "publisher": "exame.com",
+      "publishedAt": "2026-10-13",
+      "capturedAt": "2026-10-13T14:00:29.300Z"
+    },
+    "notes": "2000 entrevistas. TSE futura.",
+    "fieldStart": "2026-10-07",
+    "secondRound": {
+      "lula": 48.6,
+      "flavio": 45.4
+    }
   }
 ]
