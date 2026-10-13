@@ -5843,5 +5843,32 @@
       "lula": 51,
       "flavio": 47
     }
+  },
+  {
+    "id": "poderdata-aya-10-13-01209",
+    "institute": "PoderData/Aya",
+    "date": "2026-10-13",
+    "fieldEnd": "2026-10-12",
+    "sample": 3000,
+    "moe": 1.8,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 49,
+      "flavio": 51
+    },
+    "source": {
+      "tseProtocol": "BR-01209/2026",
+      "url": "https://exame.com/brasil/pesquisa-poderdata-aya-lula-sobe-a-49-e-empata-tecnicamente-com-flavio-bolsonaro-que-tem-51/",
+      "publisher": "exame.com",
+      "publishedAt": "2026-10-13",
+      "capturedAt": "2026-10-13T12:00:35.829Z"
+    },
+    "notes": "3000 entrevistas. TSE poderdata.",
+    "fieldStart": "2026-10-10",
+    "secondRound": {
+      "lula": 49,
+      "flavio": 51
+    }
   }
 ]
