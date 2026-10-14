@@ -5719,8 +5719,8 @@
     "mode": "telefone",
     "national": true,
     "firstRound": {
-      "lula": 47,
-      "flavio": 53
+      "lula": 44,
+      "flavio": 49
     },
     "source": {
       "tseProtocol": "BR-08134/2026",
@@ -5729,11 +5729,11 @@
       "publishedAt": "2026-10-08",
       "capturedAt": "2026-10-08T11:00:51.506Z"
     },
-    "notes": "3000 entrevistas. TSE poderdata.",
+    "notes": "3000 entrevistas. TSE poderdata. 2T Totais: Flávio 49 x Lula 44 (B/N 5%, NS 2%); Válidos: Flávio 53 x Lula 47.",
     "fieldStart": "2026-10-05",
     "secondRound": {
-      "lula": 52,
-      "flavio": 50
+      "lula": 44,
+      "flavio": 49
     }
   },
   {
@@ -5746,21 +5746,21 @@
     "mode": "telefone",
     "national": true,
     "firstRound": {
-      "lula": 40,
+      "lula": 45,
       "flavio": 49
     },
     "source": {
       "tseProtocol": "BR-02949/2026",
-      "url": "https://www1.folha.uol.com.br/poder/2026/10/datafolha-governo-lula-tem-avaliacao-negativa-de-40-e-positiva-de-35.shtml",
+      "url": "https://www1.folha.uol.com.br/poder/2026/10/datafolha-flavio-bolsonaro-tem-52-dos-votos-validos-contra-48-de-lula-no-2o-turno.shtml",
       "publisher": "www1.folha.uol.com.br",
       "publishedAt": "2026-10-08",
       "capturedAt": "2026-10-08T22:01:02.504Z"
     },
-    "notes": "2520 entrevistas. TSE datafolha.",
+    "notes": "2520 entrevistas. TSE datafolha. 2T Totais: Flávio 49 x Lula 45 (B/N 5%, Ind 1%); Válidos: Flávio 52 x Lula 48.",
     "fieldStart": "2026-10-06",
     "secondRound": {
-      "lula": 48,
-      "flavio": 52
+      "lula": 45,
+      "flavio": 49
     }
   },
   {
@@ -5783,7 +5783,7 @@
       "publishedAt": "2026-10-09",
       "capturedAt": "2026-10-09T11:00:53.890Z"
     },
-    "notes": "2100 entrevistas. TSE vox.",
+    "notes": "2100 entrevistas. TSE vox. 2T Totais: Lula 44,2 x Flávio 42,7 (B/N 3,4%, NS 9,7%); Válidos: Lula 50,9 x Flávio 49,1.",
     "fieldStart": "2026-10-05",
     "secondRound": {
       "lula": 44.2,
@@ -5810,7 +5810,7 @@
       "publishedAt": "2026-10-09",
       "capturedAt": "2026-10-09T11:01:11.581Z"
     },
-    "notes": "5000 entrevistas. TSE atlasintel.",
+    "notes": "5026 entrevistas. TSE atlasintel. 2T Totais: Flávio 51,1 x Lula 45,7 (B/N/Ind 3,2%); Válidos: Flávio 52,8 x Lula 47,2.",
     "fieldStart": "2026-10-03",
     "secondRound": {
       "lula": 45.7,
@@ -5827,8 +5827,8 @@
     "mode": "telefone",
     "national": true,
     "firstRound": {
-      "lula": 48,
-      "flavio": 52
+      "lula": 45,
+      "flavio": 48
     },
     "source": {
       "tseProtocol": "BR-07997/2026",
@@ -5837,11 +5837,11 @@
       "publishedAt": "2026-10-13",
       "capturedAt": "2026-10-13T11:00:42.896Z"
     },
-    "notes": "2000 entrevistas. TSE nexus.",
+    "notes": "2002 entrevistas. TSE nexus. 2T Totais: Flávio 48 x Lula 45 (B/N 5%, NS 2%); Válidos: Flávio 52 x Lula 48.",
     "fieldStart": "2026-10-10",
     "secondRound": {
-      "lula": 51,
-      "flavio": 47
+      "lula": 45,
+      "flavio": 48
     }
   },
   {
@@ -5854,8 +5854,8 @@
     "mode": "telefone",
     "national": true,
     "firstRound": {
-      "lula": 49,
-      "flavio": 51
+      "lula": 46,
+      "flavio": 48
     },
     "source": {
       "tseProtocol": "BR-01209/2026",
@@ -5864,11 +5864,11 @@
       "publishedAt": "2026-10-13",
       "capturedAt": "2026-10-13T12:00:35.829Z"
     },
-    "notes": "3000 entrevistas. TSE poderdata.",
+    "notes": "3000 entrevistas. TSE poderdata. 2T Totais: Flávio 48 x Lula 46 (B/N 5%, NS 2%); Válidos: Flávio 51 x Lula 49.",
     "fieldStart": "2026-10-10",
     "secondRound": {
-      "lula": 49,
-      "flavio": 51
+      "lula": 46,
+      "flavio": 48
     }
   },
   {
@@ -5881,8 +5881,8 @@
     "mode": "telefone",
     "national": true,
     "firstRound": {
-      "lula": 48.2,
-      "flavio": 51.8
+      "lula": 46.6,
+      "flavio": 50
     },
     "source": {
       "tseProtocol": "BR-00650/2026",
@@ -5891,11 +5891,92 @@
       "publishedAt": "2026-10-13",
       "capturedAt": "2026-10-13T14:00:29.300Z"
     },
-    "notes": "2000 entrevistas. TSE futura.",
+    "notes": "2000 entrevistas. TSE futura. 2T Totais: Flávio 50,0 x Lula 46,6 (B/N 1,7%, NS 1,7%); Válidos: Flávio 51,8 x Lula 48,2.",
     "fieldStart": "2026-10-07",
     "secondRound": {
-      "lula": 48.6,
-      "flavio": 45.4
+      "lula": 46.6,
+      "flavio": 50
     }
+  },
+  {
+    "id": "ipespe-10-10-00933",
+    "institute": "Ipespe/Abrapel",
+    "date": "2026-10-10",
+    "fieldStart": "2026-10-06",
+    "fieldEnd": "2026-10-08",
+    "sample": 1500,
+    "moe": 2.6,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 44,
+      "flavio": 49
+    },
+    "secondRound": {
+      "lula": 44,
+      "flavio": 49
+    },
+    "source": {
+      "tseProtocol": "BR-00933/2026",
+      "url": "https://exame.com/brasil/pesquisa-presidente-2o-turno-flavio-bolsonaro-tem-49-e-lula-44-diz-ipespe/",
+      "publisher": "exame.com",
+      "publishedAt": "2026-10-10",
+      "capturedAt": "2026-10-14T06:15:00.000Z"
+    },
+    "notes": "1500 entrevistas. TSE ipespe. 2T Totais: Flávio 49 x Lula 44 (B/N 5%, NS 3%); Válidos: Flávio 52,7 x Lula 47,3."
+  },
+  {
+    "id": "datatrends-10-11-03576",
+    "institute": "DataTrends",
+    "date": "2026-10-11",
+    "fieldStart": "2026-10-07",
+    "fieldEnd": "2026-10-09",
+    "sample": 2000,
+    "moe": 2.19,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 44,
+      "flavio": 50
+    },
+    "secondRound": {
+      "lula": 44,
+      "flavio": 50
+    },
+    "source": {
+      "tseProtocol": "BR-03576/2026",
+      "url": "https://www.gp1.com.br/brasil/noticia/2026/10/11/flavio-bolsonaro-tem-531-dos-votos-validos-no-segundo-turno-e-lula-469-diz-datatrends-633734.html",
+      "publisher": "gp1.com.br",
+      "publishedAt": "2026-10-11",
+      "capturedAt": "2026-10-14T06:15:00.000Z"
+    },
+    "notes": "2000 entrevistas. TSE datatrends. 2T Totais: Flávio 50 x Lula 44 (B/N 5%, NS 1%); Válidos: Flávio 53,1 x Lula 46,9."
+  },
+  {
+    "id": "gerp-10-13-07877",
+    "institute": "Gerp",
+    "date": "2026-10-13",
+    "fieldStart": "2026-10-08",
+    "fieldEnd": "2026-10-12",
+    "sample": 2400,
+    "moe": 2,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 44,
+      "flavio": 53
+    },
+    "secondRound": {
+      "lula": 44,
+      "flavio": 53
+    },
+    "source": {
+      "tseProtocol": "BR-07877/2026",
+      "url": "https://exame.com/brasil/pesquisa-que-acertou-o-1o-turno-mostra-flavio-com-55-contra-45-de-lula/",
+      "publisher": "exame.com",
+      "publishedAt": "2026-10-13",
+      "capturedAt": "2026-10-14T06:15:00.000Z"
+    },
+    "notes": "2400 entrevistas. TSE gerp. 2T Totais: Flávio 53 x Lula 44 (Nenhum 1%, NS 3%); Válidos: Flávio 55 x Lula 45."
   }
 ]

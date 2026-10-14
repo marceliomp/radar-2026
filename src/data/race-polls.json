@@ -3822,23 +3822,6 @@
       "notes": "Auto quaest. TSE TO-01946/2026. https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/noticia/2026/10/03/eleicoes-para-governador-o-que-apontam-as-pesquisas-na-vespera-do-1o-turno.ghtml"
     },
     {
-      "id": "datafolha-rj-gov-10-08",
-      "office": "governor",
-      "uf": "RJ",
-      "institute": "Datafolha",
-      "date": "2026-10-08",
-      "fieldEnd": "2026-10-08",
-      "fieldStart": "2026-10-06",
-      "sample": 1204,
-      "moe": 2.8,
-      "mode": "telefone",
-      "firstRound": {
-        "douglasruas": 51,
-        "garotinho": 51
-      },
-      "notes": "Auto datafolha. TSE RJ-02766/2026. https://g1.globo.com/rj/rio-de-janeiro/eleicoes/2026/noticia/2026/10/08/tse-deve-julgar-nesta-quinta-desistencia-de-recurso-de-garotinho-e-definir-eleicao-para-o-governo-do-rj.ghtml"
-    },
-    {
       "id": "quaest-rn-gov-10-13",
       "office": "governor",
       "uf": "RN",
@@ -3850,10 +3833,14 @@
       "moe": 3,
       "mode": "presencial",
       "firstRound": {
-        "rodrigovieira": 50,
-        "cadudelula": 40
+        "allyson": 45,
+        "cadudelula": 42
       },
-      "notes": "Auto quaest. TSE RN-03210/2026. https://g1.globo.com/politica/eleicoes/2026/"
+      "notes": "Quaest/Inter TV Cabugi 13/10. Presencial 09-12/10 n=1098 moe 3. TSE RN-03210/2026. 2T Totais: Allyson Bezerra 45 x Cadu de Lula 42 (B/N 7%, Ind 6%). https://g1.globo.com/rn/rio-grande-do-norte/eleicoes/2026/",
+      "secondRound": {
+        "allyson": 45,
+        "cadudelula": 42
+      }
     },
     {
       "id": "data-control-instituto-de-pesquisa-ac-gov-10-13",
@@ -3861,16 +3848,146 @@
       "uf": "AC",
       "institute": "DATA CONTROL INSTITUTO DE PESQUISA",
       "date": "2026-10-13",
-      "fieldEnd": "2026-10-13",
+      "fieldEnd": "2026-10-12",
       "fieldStart": "2026-10-07",
       "sample": 1344,
       "moe": 2.7,
       "mode": "telefone",
       "firstRound": {
+        "mailza": 62.05,
+        "alanrick": 30.73
+      },
+      "notes": "Data Control/A Tribuna 13/10. Campo 07-12/10 n=1344 moe 2,7. TSE AC-04381/2026 e BR-03483/2026. 2T Totais: Mailza 62,05 x Alan Rick 30,73 (B/N 2,83%, NS 4,39%); Válidos: Mailza 66,88 x Alan Rick 33,12. https://g1.globo.com/ac/acre/eleicoes/2026/",
+      "secondRound": {
+        "mailza": 62.05,
+        "alanrick": 30.73
+      }
+    },
+    {
+      "id": "quaest-ac-gov-10-13",
+      "office": "governor",
+      "uf": "AC",
+      "institute": "Quaest",
+      "date": "2026-10-13",
+      "fieldStart": "2026-10-09",
+      "fieldEnd": "2026-10-12",
+      "sample": 1098,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
         "mailza": 49,
         "alanrick": 32
       },
-      "notes": "Auto data-control-instituto-de-pesquisa. TSE AC-04381/2026. https://g1.globo.com/ba/bahia/eleicoes/2026/noticia/2026/10/06/resultado-das-eleicoes-2026-na-bahia-como-foi-a-votacao-no-seu-local-de-votacao-consulte-por-cidade.ghtml"
+      "secondRound": {
+        "mailza": 49,
+        "alanrick": 32
+      },
+      "notes": "Quaest/Rede Amazônica 13/10. Presencial 09-12/10 n=1098 moe 3. TSE AC-05379/2026 e BR-05379/2026. 2T Totais: Mailza Assis 49 x Alan Rick 32 (B/N 9%, NS 10%). https://g1.globo.com/ac/acre/eleicoes/2026/"
+    },
+    {
+      "id": "poderdata-am-gov-10-12",
+      "office": "governor",
+      "uf": "AM",
+      "institute": "PoderData/Aya",
+      "date": "2026-10-12",
+      "fieldStart": "2026-10-08",
+      "fieldEnd": "2026-10-11",
+      "sample": 1200,
+      "moe": 2.8,
+      "mode": "telefone",
+      "firstRound": {
+        "omaraziz": 52,
+        "professoramariadocarmo": 42
+      },
+      "secondRound": {
+        "omaraziz": 52,
+        "professoramariadocarmo": 42
+      },
+      "notes": "PoderData 12/10. Telefone 08-11/10 n=1200 moe 2,8. TSE AM-08245/2026 e BR-07193/2026. 2T Totais: Omar Aziz 52 x Maria do Carmo 42 (B/N 4%, NS 2%); Válidos: Omar 56 x Maria do Carmo 44. https://g1.globo.com/am/amazonas/eleicoes/2026/"
+    },
+    {
+      "id": "quaest-am-gov-10-13",
+      "office": "governor",
+      "uf": "AM",
+      "institute": "Quaest",
+      "date": "2026-10-13",
+      "fieldStart": "2026-10-09",
+      "fieldEnd": "2026-10-12",
+      "sample": 1098,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "omaraziz": 51,
+        "professoramariadocarmo": 37
+      },
+      "secondRound": {
+        "omaraziz": 51,
+        "professoramariadocarmo": 37
+      },
+      "notes": "Quaest/Rede Amazônica 13/10. Presencial 09-12/10 n=1098 moe 3. TSE AM-09760/2026. 2T Totais: Omar Aziz 51 x Maria do Carmo 37 (B/N 6%, NS 6%). https://g1.globo.com/am/amazonas/eleicoes/2026/"
+    },
+    {
+      "id": "datafolha-df-gov-10-08",
+      "office": "governor",
+      "uf": "DF",
+      "institute": "Datafolha",
+      "date": "2026-10-08",
+      "fieldStart": "2026-10-06",
+      "fieldEnd": "2026-10-07",
+      "sample": 910,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "celinaleao": 55,
+        "leandrograss": 37
+      },
+      "secondRound": {
+        "celinaleao": 55,
+        "leandrograss": 37
+      },
+      "notes": "Datafolha/Globo/Folha 08/10. Presencial 06-07/10 n=910 moe 3. TSE DF-03365/2026 e BR-09856/2026. 2T Totais: Celina Leão 55 x Leandro Grass 37 (B/N 5%, Ind 3%); Válidos: Celina 60 x Grass 40. https://g1.globo.com/df/distrito-federal/eleicoes/2026/"
+    },
+    {
+      "id": "quaest-df-gov-10-12",
+      "office": "governor",
+      "uf": "DF",
+      "institute": "Quaest/Globo",
+      "date": "2026-10-12",
+      "fieldStart": "2026-10-08",
+      "fieldEnd": "2026-10-11",
+      "sample": 1104,
+      "moe": 3,
+      "mode": "presencial",
+      "firstRound": {
+        "celinaleao": 53,
+        "leandrograss": 33
+      },
+      "secondRound": {
+        "celinaleao": 53,
+        "leandrograss": 33
+      },
+      "notes": "Quaest/Globo 12/10. Presencial 08-11/10 n=1104 moe 3. TSE DF-08737/2026 e BR-06799/2026. 2T Totais: Celina Leão 53 x Leandro Grass 33 (B/N 8%, NS 6%). https://g1.globo.com/df/distrito-federal/eleicoes/2026/"
+    },
+    {
+      "id": "directa-to-gov-10-10",
+      "office": "governor",
+      "uf": "TO",
+      "institute": "Directa Pesquisas",
+      "date": "2026-10-10",
+      "fieldStart": "2026-10-06",
+      "fieldEnd": "2026-10-09",
+      "sample": 1200,
+      "moe": 2.83,
+      "mode": "presencial",
+      "firstRound": {
+        "professoradorinha": 44.8,
+        "vicentinhojunior": 40.1
+      },
+      "secondRound": {
+        "professoradorinha": 44.8,
+        "vicentinhojunior": 40.1
+      },
+      "notes": "Directa Pesquisas 10/10. Presencial 06-09/10 n=1200 moe 2,83. TSE TO-03128/2026 e BR-05793/2026. 2T Totais: Profª Dorinha 44,8 x Vicentinho Jr 40,1; Válidos: Dorinha 52,8 x Vicentinho Jr 47,2. https://g1.globo.com/to/tocantins/eleicoes/2026/"
     }
   ]
 }
