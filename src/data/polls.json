@@ -1,1 +1,25 @@
-PLACEHOLDER
+[
+  {
+    "id": "quaest-10-14-08729",
+    "institute": "Genial/Quaest",
+    "date": "2026-10-14",
+    "fieldStart": "2026-10-10",
+    "fieldEnd": "2026-10-13",
+    "sample": 2154,
+    "moe": 2,
+    "mode": "presencial",
+    "national": true,
+    "secondRound": {
+      "flavio": 46,
+      "lula": 44
+    },
+    "source": {
+      "tseProtocol": "BR-08729/2026",
+      "url": "https://valor.globo.com/politica/eleicoes-2026/noticia/2026/10/14/quaest-flavio-tem-46percent-e-lula-44percent-das-intencoes-de-voto.ghtml",
+      "publisher": "valor.globo.com",
+      "publishedAt": "2026-10-14",
+      "capturedAt": "2026-10-14T21:15:00.000Z"
+    },
+    "notes": "Valor 14/10 18h07. Primeira nacional 2T da casa. TSE BR-08729/2026. Presencial n=2154 campo 10–13/10 moe ±2. 2T totais: Flávio 46 × Lula 44 (indecisos 1%, branco/nulo/não vai votar 9%). Empate técnico. Encomendada Globo/O Globo."
+  }
+]
