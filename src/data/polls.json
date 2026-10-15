@@ -6005,5 +6005,59 @@
       "capturedAt": "2026-10-14T21:15:00.000Z"
     },
     "notes": "Valor 14/10 18h07. Primeira nacional 2T da casa. TSE BR-08729/2026. Presencial n=2154 campo 10–13/10 moe ±2. 2T totais: Flávio 46 × Lula 44 (indecisos 1%, branco/nulo/não vai votar 9%). Empate técnico. Encomendada Globo/O Globo."
+  },
+  {
+    "id": "datafolha-10-15-00466",
+    "institute": "Datafolha",
+    "date": "2026-10-15",
+    "fieldEnd": "2026-10-15",
+    "sample": 2520,
+    "moe": 2,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 48,
+      "flavio": 52
+    },
+    "source": {
+      "tseProtocol": "BR-00466/2026",
+      "url": "https://www1.folha.uol.com.br/poder/2026/10/datafolha-divulga-nova-pesquisa-de-2o-turno-para-presidente-nesta-quinta-15-live-comenta-resultados.shtml",
+      "publisher": "www1.folha.uol.com.br",
+      "publishedAt": "2026-10-15",
+      "capturedAt": "2026-10-15T00:01:22.303Z"
+    },
+    "notes": "2520 entrevistas. TSE datafolha.",
+    "fieldStart": "2026-10-13",
+    "secondRound": {
+      "lula": 48,
+      "flavio": 52
+    }
+  },
+  {
+    "id": "nexus-btg-08-24-09028",
+    "institute": "Nexus/BTG",
+    "date": "2026-08-24",
+    "fieldEnd": "2026-08-23",
+    "sample": 2000,
+    "moe": 7,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 49,
+      "flavio": 50
+    },
+    "source": {
+      "tseProtocol": "BR-09028/2026",
+      "url": "https://exame.com/brasil/pesquisa-que-acertou-tendencia-do-1o-turno-mostra-flavio-bolsonaro-com-50-e-lula-com-49-no-2o/",
+      "publisher": "exame.com",
+      "publishedAt": "2026-08-24",
+      "capturedAt": "2026-10-15T11:00:30.947Z"
+    },
+    "notes": "2000 entrevistas. TSE nexus.",
+    "fieldStart": "2026-08-21",
+    "secondRound": {
+      "lula": 58,
+      "flavio": 60
+    }
   }
 ]

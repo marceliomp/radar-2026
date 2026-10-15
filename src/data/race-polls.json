@@ -4090,6 +4090,23 @@
         "cadudelula": 45
       },
       "notes": "Auto instituto-seta-de-pesquisa. TSE RN-09503/2026. https://g1.globo.com/politica/eleicoes/2026/noticia/2026/10/15/familias-de-politicos-parentes-eleicao-2026.ghtml"
+    },
+    {
+      "id": "data-capital-pesquisas-e-consultoria-rn-gov-10-13",
+      "office": "governor",
+      "uf": "RN",
+      "institute": "DATA CAPITAL PESQUISAS E CONSULTORIA",
+      "date": "2026-10-13",
+      "fieldEnd": "2026-10-10",
+      "fieldStart": "2026-10-07",
+      "sample": 1500,
+      "moe": 2.5,
+      "mode": "presencial",
+      "firstRound": {
+        "rodrigovieira": 49,
+        "cadudelula": 45
+      },
+      "notes": "Auto data-capital-pesquisas-e-consultoria. TSE RN-04617/2026. https://g1.globo.com/politica/eleicoes/2026/noticia/2026/10/15/familias-de-politicos-parentes-eleicao-2026.ghtml"
     }
   ]
 }
