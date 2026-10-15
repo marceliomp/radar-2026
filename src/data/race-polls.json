@@ -4056,6 +4056,40 @@
         "vicentinhojunior": 49
       },
       "notes": "Auto correio-do-povo-tocantinense. TSE TO-08943/2026. https://g1.globo.com/ba/bahia/eleicoes/2026/noticia/2026/10/06/resultado-das-eleicoes-2026-na-bahia-como-foi-a-votacao-no-seu-local-de-votacao-consulte-por-cidade.ghtml"
+    },
+    {
+      "id": "affare-institute-rn-gov-10-14",
+      "office": "governor",
+      "uf": "RN",
+      "institute": "AFFARE INSTITUTE",
+      "date": "2026-10-14",
+      "fieldEnd": "2026-10-12",
+      "fieldStart": "2026-10-09",
+      "sample": 1350,
+      "moe": 2.7,
+      "mode": "telefone",
+      "firstRound": {
+        "rodrigovieira": 49,
+        "cadudelula": 45
+      },
+      "notes": "Auto affare-institute. TSE RN-08411/2026. https://g1.globo.com/politica/eleicoes/2026/noticia/2026/10/15/familias-de-politicos-parentes-eleicao-2026.ghtml"
+    },
+    {
+      "id": "instituto-seta-de-pesquisa-rn-gov-10-11",
+      "office": "governor",
+      "uf": "RN",
+      "institute": "INSTITUTO SETA DE PESQUISA",
+      "date": "2026-10-11",
+      "fieldEnd": "2026-10-10",
+      "fieldStart": "2026-10-07",
+      "sample": 1500,
+      "moe": 2.5,
+      "mode": "presencial",
+      "firstRound": {
+        "rodrigovieira": 49,
+        "cadudelula": 45
+      },
+      "notes": "Auto instituto-seta-de-pesquisa. TSE RN-09503/2026. https://g1.globo.com/politica/eleicoes/2026/noticia/2026/10/15/familias-de-politicos-parentes-eleicao-2026.ghtml"
     }
   ]
 }
