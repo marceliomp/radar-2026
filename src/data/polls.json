@@ -6059,5 +6059,55 @@
       "lula": 58,
       "flavio": 60
     }
+  },
+  {
+    "id": "palver-10-15-08028",
+    "institute": "Palver",
+    "date": "2026-10-15",
+    "fieldEnd": "2026-10-14",
+    "sample": 5000,
+    "moe": 2.3,
+    "mode": "online",
+    "national": true,
+    "firstRound": {
+      "lula": 50,
+      "flavio": 50
+    },
+    "source": {
+      "tseProtocol": "BR-08028/2026",
+      "url": "https://exame.com/brasil/pesquisa-palver-maioria-dos-eleitores-que-nao-votaram-no-1o-turno-diz-que-votaria-em-lula/",
+      "publisher": "exame.com",
+      "publishedAt": "2026-10-15",
+      "capturedAt": "2026-10-16T11:00:29.898Z"
+    },
+    "notes": "5000 entrevistas. TSE palver.",
+    "fieldStart": "2026-10-10"
+  },
+  {
+    "id": "poderdata-aya-10-16-04258",
+    "institute": "PoderData/Aya",
+    "date": "2026-10-16",
+    "fieldEnd": "2026-10-15",
+    "sample": 3000,
+    "moe": 1.8,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 50,
+      "flavio": 50
+    },
+    "source": {
+      "tseProtocol": "BR-04258/2026",
+      "url": "https://www.cnnbrasil.com.br/eleicoes/poderdata-aya-flavio-e-lula-empatam-com-50-dos-votos-validos-no-2o-turno/",
+      "publisher": "cnnbrasil.com.br",
+      "publishedAt": "2026-10-16",
+      "capturedAt": "2026-10-16T11:00:32.830Z"
+    },
+    "notes": "3000 entrevistas. TSE poderdata.",
+    "fieldStart": "2026-10-13",
+    "secondRound": {
+      "lula": 49,
+      "flavio": 51
+    }
   }
 ]
