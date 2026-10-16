@@ -6163,5 +6163,32 @@
       "lula": 49.5,
       "flavio": 50.5
     }
+  },
+  {
+    "id": "gerp-10-13-05187",
+    "institute": "Gerp",
+    "date": "2026-10-13",
+    "fieldEnd": "2026-10-16",
+    "sample": 2400,
+    "moe": 2,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 48,
+      "flavio": 52
+    },
+    "source": {
+      "tseProtocol": "BR-05187/2026",
+      "url": "https://exame.com/brasil/pesquisa-que-mais-acertou-no-1o-turno-mostra-flavio-bolsonaro-com-52-e-lula-48-dos-votos-validos/",
+      "publisher": "exame.com",
+      "publishedAt": "2026-10-13",
+      "capturedAt": "2026-10-16T22:00:30.495Z"
+    },
+    "notes": "2400 entrevistas. TSE gerp.",
+    "fieldStart": "2026-10-14",
+    "secondRound": {
+      "lula": 49,
+      "flavio": 46
+    }
   }
 ]
