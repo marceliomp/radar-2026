@@ -6109,5 +6109,59 @@
       "lula": 49,
       "flavio": 51
     }
+  },
+  {
+    "id": "futura-apex-10-16-03764",
+    "institute": "Futura/Apex",
+    "date": "2026-10-16",
+    "fieldEnd": "2026-10-15",
+    "sample": 2000,
+    "moe": 2.2,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 49.2,
+      "flavio": 50.8
+    },
+    "source": {
+      "tseProtocol": "BR-03764/2026",
+      "url": "https://exame.com/brasil/pesquisa-que-acertou-no-1o-turno-mostra-flavio-com-508-e-lula-492-dos-votos-validos/",
+      "publisher": "exame.com",
+      "publishedAt": "2026-10-16",
+      "capturedAt": "2026-10-16T15:00:29.689Z"
+    },
+    "notes": "2000 entrevistas. TSE futura.",
+    "fieldStart": "2026-10-13",
+    "secondRound": {
+      "lula": 49.2,
+      "flavio": 50.8
+    }
+  },
+  {
+    "id": "cnt-mda-10-16-00652",
+    "institute": "CNT/MDA",
+    "date": "2026-10-16",
+    "fieldEnd": "2026-10-15",
+    "sample": 2002,
+    "moe": 2.2,
+    "mode": "presencial",
+    "national": true,
+    "firstRound": {
+      "lula": 49.5,
+      "flavio": 50.5
+    },
+    "source": {
+      "tseProtocol": "BR-00652/2026",
+      "url": "https://exame.com/brasil/cnt-mda-flavio-bolsonaro-tem-505-e-lula-495-dos-votos-validos-no-2o-turno/",
+      "publisher": "exame.com",
+      "publishedAt": "2026-10-16",
+      "capturedAt": "2026-10-16T15:00:42.235Z"
+    },
+    "notes": "2002 entrevistas. TSE mda.",
+    "fieldStart": "2026-10-13",
+    "secondRound": {
+      "lula": 49.5,
+      "flavio": 50.5
+    }
   }
 ]
