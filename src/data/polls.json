@@ -6190,5 +6190,28 @@
       "lula": 49,
       "flavio": 46
     }
+  },
+  {
+    "id": "verita-10-17-01107",
+    "institute": "Veritá",
+    "date": "2026-10-17",
+    "fieldEnd": "2026-10-16",
+    "sample": 15554,
+    "moe": 1,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 48.9,
+      "flavio": 51.1
+    },
+    "source": {
+      "tseProtocol": "BR-01107/2026",
+      "url": "https://exame.com/brasil/pesquisa-que-mais-acertou-no-1o-turno-mostra-flavio-bolsonaro-com-511-e-lula-489-no-2o/",
+      "publisher": "exame.com",
+      "publishedAt": "2026-10-17",
+      "capturedAt": "2026-10-17T15:00:37.642Z"
+    },
+    "notes": "15554 entrevistas. TSE verita.",
+    "fieldStart": "2026-10-12"
   }
 ]
