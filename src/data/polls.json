@@ -6294,5 +6294,59 @@
       "lula": 45,
       "flavio": 48
     }
+  },
+  {
+    "id": "atlasintel-10-19-02418",
+    "institute": "AtlasIntel",
+    "date": "2026-10-19",
+    "fieldStart": "2026-10-13",
+    "fieldEnd": "2026-10-18",
+    "sample": 4998,
+    "moe": 1,
+    "mode": "online",
+    "national": true,
+    "firstRound": {
+      "lula": 47.6,
+      "flavio": 49.8
+    },
+    "secondRound": {
+      "lula": 47.6,
+      "flavio": 49.8
+    },
+    "source": {
+      "tseProtocol": "BR-02418/2026",
+      "url": "https://www.cnnbrasil.com.br/eleicoes/atlas-flavio-tem-511-dos-votos-validos-no-2o-turno-lula-489/",
+      "publisher": "cnnbrasil.com.br",
+      "publishedAt": "2026-10-19",
+      "capturedAt": "2026-10-20T21:40:00.000Z"
+    },
+    "notes": "CNN/UOL/Poder360 19/10. TSE BR-02418/2026. RDR online n=4998 campo 13-18/10 moe 1. Base=totais: 2T F49,8 L47,6 bn/NS 2,6. Validos 51,1x48,9 nao usados."
+  },
+  {
+    "id": "nexus-btg-10-19-04499",
+    "institute": "Nexus/BTG",
+    "date": "2026-10-19",
+    "fieldStart": "2026-10-16",
+    "fieldEnd": "2026-10-18",
+    "sample": 2002,
+    "moe": 2,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {
+      "lula": 45.9,
+      "flavio": 46.5
+    },
+    "secondRound": {
+      "lula": 45.9,
+      "flavio": 46.5
+    },
+    "source": {
+      "tseProtocol": "BR-04499/2026",
+      "url": "https://www1.folha.uol.com.br/poder/2026/10/btgnexus-flavio-bolsonaro-tem-503-e-lula-497-dos-votos-validos.shtml",
+      "publisher": "folha.uol.com.br",
+      "publishedAt": "2026-10-19",
+      "capturedAt": "2026-10-20T21:40:00.000Z"
+    },
+    "notes": "Folha/UOL 19/10 + PDF 18a rodada. TSE BR-04499/2026. CATI n=2002 campo 16-18/10 moe 2. Base=totais: 2T F46,5 L45,9 bn 4,7 NS 2,9. Validos 50,3x49,7 nao usados."
   }
 ]
