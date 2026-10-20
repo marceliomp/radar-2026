@@ -29,9 +29,27 @@ function checkRound(errors, poll, round, label) {
   }
 }
 
-export function validatePolls(polls) {
+/** Prior catalog length, or null when the base file is not a non-empty array. */
+export function baselineMinCount(raw) {
+  try {
+    const parsed = JSON.parse(raw);
+    if (!Array.isArray(parsed) || parsed.length === 0) return null;
+    return parsed.length;
+  } catch {
+    return null;
+  }
+}
+
+export function validatePolls(polls, options = {}) {
   const errors = [];
   if (!Array.isArray(polls)) return ["polls.json precisa ser um array"];
+  if (polls.length === 0) {
+    errors.push("polls.json vazio: o catálogo precisa ter ao menos uma pesquisa");
+  }
+  const minCount = options.minCount;
+  if (Number.isFinite(minCount) && polls.length < minCount) {
+    errors.push(`catálogo encolheu de ${minCount} para ${polls.length}`);
+  }
   const ids = new Set();
   const protocols = new Set();
 
@@ -102,14 +120,49 @@ export function validatePolls(polls) {
   return errors;
 }
 
-export function readAndValidate(path = DEFAULT_PATH) {
+export function readAndValidate(path = DEFAULT_PATH, options = {}) {
   const polls = JSON.parse(readFileSync(path, "utf8"));
-  return { polls, errors: validatePolls(polls) };
+  return { polls, errors: validatePolls(polls, options) };
+}
+
+function parseArgs(argv) {
+  let file = DEFAULT_PATH;
+  let baselinePath = null;
+  for (let i = 0; i < argv.length; i++) {
+    const arg = argv[i];
+    if (arg === "--baseline") {
+      baselinePath = argv[++i];
+      if (!baselinePath) throw new Error("--baseline precisa de um arquivo");
+      continue;
+    }
+    if (arg.startsWith("-")) throw new Error(`argumento desconhecido: ${arg}`);
+    file = arg;
+  }
+  return { file, baselinePath };
 }
 
 const isMain = process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1];
 if (isMain) {
-  const { polls, errors } = readAndValidate(process.argv[2] ?? DEFAULT_PATH);
+  let file = DEFAULT_PATH;
+  let baselinePath = null;
+  try {
+    ({ file, baselinePath } = parseArgs(process.argv.slice(2)));
+  } catch (error) {
+    process.stderr.write(`[data] ${error instanceof Error ? error.message : error}\n`);
+    process.exit(1);
+  }
+  const options = {};
+  if (baselinePath) {
+    const minCount = baselineMinCount(readFileSync(baselinePath, "utf8"));
+    if (minCount == null) {
+      process.stderr.write(
+        "[data] baseline sem catálogo válido; cardinalidade não comparada\n",
+      );
+    } else {
+      options.minCount = minCount;
+    }
+  }
+  const { polls, errors } = readAndValidate(file, options);
   if (errors.length) {
     for (const error of errors) process.stderr.write(`[data] ${error}\n`);
     process.exit(1);

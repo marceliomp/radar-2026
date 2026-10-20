@@ -10,7 +10,29 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - run: npm run data:validate
+      - name: Validate polls.json against the base catalog
+        env:
+          BASE_REF: ${{ github.base_ref }}
+          BEFORE: ${{ github.event.before }}
+        run: |
+          set -euo pipefail
+          baseline=""
+          if [ -n "${BASE_REF}" ]; then
+            git fetch --depth=1 origin "${BASE_REF}"
+            git show "origin/${BASE_REF}:src/data/polls.json" > /tmp/polls-base.json
+            baseline=/tmp/polls-base.json
+          elif [ -n "${BEFORE}" ] && [ "${BEFORE}" != "0000000000000000000000000000000000000000" ]; then
+            git fetch --depth=1 origin "${BEFORE}"
+            git show "${BEFORE}:src/data/polls.json" > /tmp/polls-base.json
+            baseline=/tmp/polls-base.json
+          fi
+          if [ -n "${baseline}" ]; then
+            npm run data:validate -- --baseline "${baseline}"
+          else
+            npm run data:validate
+          fi
