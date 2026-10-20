@@ -88,7 +88,7 @@ export const DEFAULT_CONFIG: EngineConfig = {
   includeOnline: true,
   includeRemoto: true,
   includeModelo: false,
-  asOf: todayAsOf(),
+  asOf: "2026-10-20", // ingest noite 20/10: RealTime BR-02952, PoderData BR-02586, Ipespe BR-00223
   simulations: 8000,
   houseEffects: DEFAULT_HOUSE_EFFECTS,
   useTrackRecord: true,
