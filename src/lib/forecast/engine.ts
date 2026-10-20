@@ -7,6 +7,7 @@
 import { resolveInstitute, trackQuality } from "./track-record.ts";
 import { isShownTie, round } from "../format.ts";
 import { mixElectionProbs } from "./runoff-scenarios.ts";
+import { ELECTION_2026 } from "../election-calendar.ts";
 
 export type PollMode =
   | "presencial"
@@ -113,7 +114,8 @@ function daysBetween(a: string, b: string): number {
 
 export function pollDedupeKey(poll: ForecastPoll): string {
   const inst = resolveInstitute(poll.institute);
-  const fr = poll.firstRound;
+  // Pós-1º turno a ficha só tem 2º: o par de 2º identifica a pesquisa.
+  const fr = Object.keys(poll.firstRound).length ? poll.firstRound : (poll.secondRound ?? {});
   return [
     inst,
     poll.fieldEnd,
@@ -499,18 +501,20 @@ export function runForecast(
     };
   }
 
-  const w = rows.map((r) => r.weight);
-  const moe = rows.map((r) => r.poll.moe);
-  const lula1 = weightedMeanVar(
-    rows.map((r) => r.adjLula1),
-    w,
-    moe,
+  // Pesquisa de campo pós-1º turno não pergunta 1º: não entra na média de 1º.
+  const rows1 = rows.filter(
+    (r) => r.poll.firstRound.lula != null && r.poll.firstRound.flavio != null,
   );
-  const flavio1 = weightedMeanVar(
-    rows.map((r) => r.adjFlavio1),
-    w,
-    moe,
-  );
+  const w = rows1.map((r) => r.weight);
+  const moe = rows1.map((r) => r.poll.moe);
+  const lula1 = rows1.length
+    ? weightedMeanVar(rows1.map((r) => r.adjLula1), w, moe)
+    : emptyAgg();
+  const flavio1 = rows1.length
+    ? weightedMeanVar(rows1.map((r) => r.adjFlavio1), w, moe)
+    : emptyAgg();
+  // Depois de 04/10 o 1º turno já foi: ninguém vence no 1º, a eleição é o 2º.
+  const firstRoundOver = cfg.asOf > ELECTION_2026.firstRound;
   const renan = fieldMean(rows, "renan", "first");
   const caiado = fieldMean(rows, "caiado", "first");
   const zema = fieldMean(rows, "zema", "first");
@@ -595,8 +599,8 @@ export function runForecast(
     if (L1 > F1) l1lead++;
     else f1lead++;
 
-    const majorityL = L1 >= 50;
-    const majorityF = F1 >= 50;
+    const majorityL = !firstRoundOver && L1 >= 50;
+    const majorityF = !firstRoundOver && F1 >= 50;
     if (majorityL) {
       l1win++;
       lPres++;
@@ -647,6 +651,7 @@ export function runForecast(
         flavioLeadsFirst: round(f1lead / n, 4),
         goesToSecond: round(toSecond / n, 4),
       };
+      if (firstRoundOver) return twoHorse;
       const mix = mixElectionProbs({
         first: {
           lula: lula1,

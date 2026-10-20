@@ -17,6 +17,7 @@ import {
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { inflateRawSync } from "node:zlib";
+import { ELECTION_2026 } from "../src/lib/election-calendar.ts";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const POLLS_JSON = join(ROOT, "src/data/polls.json");
@@ -512,10 +513,17 @@ export function rowToPoll(row, result, house) {
   const fieldStart = parseBrDate(row.DT_INICIO_PESQUISA);
   const date =
     parseBrDate(row.DT_DIVULGACAO) || fieldEnd || fieldStart;
-  const firstRound = result?.firstRound;
   if (!proto || !sample || !fieldEnd || !date || !house) return null;
   if (date > todayIso() || fieldEnd > todayIso()) return null;
-  if (firstRound?.lula == null || firstRound?.flavio == null) return null;
+  // Campo depois do 1º turno: só existe 2º. O único par Lula x Flávio é 2º, venha de onde vier no parser.
+  const runoffOnly = fieldEnd > ELECTION_2026.firstRound;
+  const pair = runoffOnly ? (result?.secondRound ?? result?.firstRound) : result?.secondRound;
+  const firstRound = runoffOnly ? {} : result?.firstRound;
+  if (!runoffOnly && (firstRound?.lula == null || firstRound?.flavio == null)) return null;
+  if (runoffOnly && (pair?.lula == null || pair?.flavio == null)) return null;
+  // Soma >= 99,5 = votos válidos. A série é em totais; válidos não entram.
+  // shortcut: casa sem branco/NS (Palver soma 99) passa; válidos arredondado para 99 também passaria.
+  if (runoffOnly && pair.lula + pair.flavio >= 99.5) return null;
   const moe =
     Number.isFinite(result?.moe) && result.moe > 0
       ? result.moe
@@ -540,11 +548,8 @@ export function rowToPoll(row, result, house) {
     notes: `${sample} entrevistas. TSE ${house.id}.`,
   };
   if (fieldStart && fieldStart <= fieldEnd) poll.fieldStart = fieldStart;
-  if (result.secondRound?.lula != null && result.secondRound?.flavio != null) {
-    poll.secondRound = {
-      lula: result.secondRound.lula,
-      flavio: result.secondRound.flavio,
-    };
+  if (pair?.lula != null && pair?.flavio != null) {
+    poll.secondRound = { lula: pair.lula, flavio: pair.flavio };
   }
   return poll;
 }
@@ -677,7 +682,8 @@ export function processPending({
       });
       continue;
     }
-    const sane = sanitizeFirstRound(poll.firstRound);
+    const runoffOnly = !Object.keys(poll.firstRound).length;
+    const sane = runoffOnly ? poll.firstRound : sanitizeFirstRound(poll.firstRound);
     if (!sane) {
       report.noVotes += 1;
       remaining.push({

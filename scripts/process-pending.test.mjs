@@ -474,6 +474,20 @@ test("rowToPoll keeps TSE field start and end", () => {
   assert.equal(poll.fieldStart, "2026-08-24");
 });
 
+test("rowToPoll after 1st round stores the pair as 2T only and refuses válidos", () => {
+  const house = matchAllowlist(poderRow);
+  const runoffRow = {
+    ...poderRow,
+    DT_INICIO_PESQUISA: "2026-10-16 00:00:00",
+    DT_FIM_PESQUISA: "2026-10-18 00:00:00",
+    DT_DIVULGACAO: "2026-10-19 00:00:00",
+  };
+  const poll = rowToPoll(runoffRow, { firstRound: { lula: 46, flavio: 49 } }, house);
+  assert.deepEqual(poll.firstRound, {});
+  assert.deepEqual(poll.secondRound, { lula: 46, flavio: 49 });
+  assert.equal(rowToPoll(runoffRow, { secondRound: { lula: 48, flavio: 52 } }, house), null);
+});
+
 test("2T article with Flavio first still reads Lula 44 Flavio 45", () => {
   const html = `<p>TSE BR-07561/2026. Pesquisa PoderData segundo turno.
   Flávio marcando 45%, enquanto o petista registra 44% das intenções de voto.
