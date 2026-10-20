@@ -278,3 +278,17 @@ test("chips da media nao listam casa ausente", async () => {
   assert.deepEqual(names, ["Datafolha"]);
   assert.ok(!names.includes("Paraná Pesquisas"));
 });
+
+test("after the 1st round nobody wins in the 1st and 2T-only polls stay out of the 1T mean", async () => {
+  const { runForecast, DEFAULT_CONFIG } = await importEngine();
+  const base = { national: true, sample: 2000, moe: 2, mode: "telefone" };
+  const polls = [
+    { ...base, id: "pre", institute: "Datafolha", date: "2026-10-03", fieldEnd: "2026-10-03", firstRound: { lula: 44, flavio: 40 }, secondRound: { lula: 47, flavio: 45 } },
+    { ...base, id: "post", institute: "Datafolha", date: "2026-10-19", fieldEnd: "2026-10-18", firstRound: {}, secondRound: { lula: 45, flavio: 49 } },
+  ];
+  const snap = runForecast(polls, { ...DEFAULT_CONFIG, asOf: "2026-10-20", simulations: 2000 });
+  assert.equal(snap.probs.goesToSecond, 1);
+  assert.equal(snap.probs.lulaWinsFirstRound + snap.probs.flavioWinsFirstRound, 0);
+  assert.equal(snap.first.lula.mean > 40, true, "1T mean ignores the 2T-only poll");
+  assert.equal(snap.probs.flavioWinsElection > 0.5, true);
+});

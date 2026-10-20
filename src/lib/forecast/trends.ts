@@ -10,9 +10,9 @@ export type TrendPoint = {
   label: string;
   institute: string;
   mode: string;
-  lula1: number;
-  flavio1: number;
-  gap1: number;
+  lula1: number | null;
+  flavio1: number | null;
+  gap1: number | null;
   lula2: number | null;
   flavio2: number | null;
   gap2: number | null;
@@ -68,8 +68,9 @@ export function buildNationalTrend(polls: ForecastPoll[]): TrendPoint[] {
   }
 
   return sorted.map((p) => {
-    const lula1 = p.firstRound.lula ?? 0;
-    const flavio1 = p.firstRound.flavio ?? 0;
+    // Pesquisa pós-1º turno não tem 1º: null, não 0.
+    const lula1 = p.firstRound.lula ?? null;
+    const flavio1 = p.firstRound.flavio ?? null;
     const lula2 = p.secondRound?.lula ?? null;
     const flavio2 = p.secondRound?.flavio ?? null;
     const pub = shortDate(p.date);
@@ -86,9 +87,9 @@ export function buildNationalTrend(polls: ForecastPoll[]): TrendPoint[] {
       label,
       institute: p.institute,
       mode: p.mode,
-      lula1: round(lula1, 1),
-      flavio1: round(flavio1, 1),
-      gap1: shownGap(lula1, flavio1),
+      lula1: lula1 != null ? round(lula1, 1) : null,
+      flavio1: flavio1 != null ? round(flavio1, 1) : null,
+      gap1: lula1 != null && flavio1 != null ? shownGap(lula1, flavio1) : null,
       lula2: lula2 != null ? round(lula2, 1) : null,
       flavio2: flavio2 != null ? round(flavio2, 1) : null,
       cury1: p.firstRound.cury != null ? round(p.firstRound.cury, 1) : null,
@@ -101,17 +102,21 @@ export function buildNationalTrend(polls: ForecastPoll[]): TrendPoint[] {
   });
 }
 
+const roundOrNull = (v: number | null) => (v == null ? null : round(v, 2));
+
 export function rollingAverage(points: TrendPoint[], k = 3) {
   return points.map((_, i) => {
     const slice = points.slice(Math.max(0, i - k + 1), i + 1);
-    const avg = (fn: (p: TrendPoint) => number) =>
-      slice.reduce((s, p) => s + fn(p), 0) / slice.length;
+    const avg = (fn: (p: TrendPoint) => number | null) => {
+      const vals = slice.map(fn).filter((v): v is number => v != null);
+      return vals.length ? vals.reduce((s, v) => s + v, 0) / vals.length : null;
+    };
     const with2 = slice.filter((p) => p.gap2 != null);
     return {
       ...points[i]!,
-      lula1Avg: round(avg((p) => p.lula1), 2),
-      flavio1Avg: round(avg((p) => p.flavio1), 2),
-      gap1Avg: round(avg((p) => p.gap1), 2),
+      lula1Avg: roundOrNull(avg((p) => p.lula1)),
+      flavio1Avg: roundOrNull(avg((p) => p.flavio1)),
+      gap1Avg: roundOrNull(avg((p) => p.gap1)),
       lula2Avg:
         with2.length > 0
           ? round(

@@ -5718,10 +5718,7 @@
     "moe": 1.8,
     "mode": "telefone",
     "national": true,
-    "firstRound": {
-      "lula": 44,
-      "flavio": 49
-    },
+    "firstRound": {},
     "source": {
       "tseProtocol": "BR-08134/2026",
       "url": "https://exame.com/brasil/pesquisa-poder-aya-2o-turno-flavio-bolsonaro-tem-53-e-lula-47-dos-votos-validos/",
@@ -5745,10 +5742,7 @@
     "moe": 2,
     "mode": "telefone",
     "national": true,
-    "firstRound": {
-      "lula": 45,
-      "flavio": 49
-    },
+    "firstRound": {},
     "source": {
       "tseProtocol": "BR-02949/2026",
       "url": "https://www1.folha.uol.com.br/poder/2026/10/datafolha-flavio-bolsonaro-tem-52-dos-votos-validos-contra-48-de-lula-no-2o-turno.shtml",
@@ -5772,10 +5766,7 @@
     "moe": 2.1,
     "mode": "telefone",
     "national": true,
-    "firstRound": {
-      "lula": 44.2,
-      "flavio": 42.7
-    },
+    "firstRound": {},
     "source": {
       "tseProtocol": "BR-09623/2026",
       "url": "https://exame.com/brasil/pesquisa-vox-brasil-lula-tem-442-e-flavio-bolsonaro-427-no-2o-turno/",
@@ -5799,10 +5790,7 @@
     "moe": 1,
     "mode": "telefone",
     "national": true,
-    "firstRound": {
-      "lula": 45.7,
-      "flavio": 51.1
-    },
+    "firstRound": {},
     "source": {
       "tseProtocol": "BR-03663/2026",
       "url": "https://exame.com/brasil/pesquisa-atlasintel-2o-turno-flavio-bolsonaro-abre-54-pontos-de-vantagem-sobre-lula/",
@@ -5826,10 +5814,7 @@
     "moe": 2,
     "mode": "telefone",
     "national": true,
-    "firstRound": {
-      "lula": 45,
-      "flavio": 48
-    },
+    "firstRound": {},
     "source": {
       "tseProtocol": "BR-07997/2026",
       "url": "https://exame.com/brasil/pesquisa-para-presidente-flavio-bolsonaro-tem-52-e-lula-48-diz-btg-nexus/",
@@ -5853,10 +5838,7 @@
     "moe": 1.8,
     "mode": "telefone",
     "national": true,
-    "firstRound": {
-      "lula": 46,
-      "flavio": 48
-    },
+    "firstRound": {},
     "source": {
       "tseProtocol": "BR-01209/2026",
       "url": "https://exame.com/brasil/pesquisa-poderdata-aya-lula-sobe-a-49-e-empata-tecnicamente-com-flavio-bolsonaro-que-tem-51/",
@@ -5880,10 +5862,7 @@
     "moe": 2.2,
     "mode": "telefone",
     "national": true,
-    "firstRound": {
-      "lula": 46.6,
-      "flavio": 50
-    },
+    "firstRound": {},
     "source": {
       "tseProtocol": "BR-00650/2026",
       "url": "https://exame.com/brasil/pesquisa-para-presidente-futura-flavio-bolsonaro-tem-518-e-lula-482-no-2o-turno/",
@@ -5908,10 +5887,7 @@
     "moe": 2.6,
     "mode": "telefone",
     "national": true,
-    "firstRound": {
-      "lula": 44,
-      "flavio": 49
-    },
+    "firstRound": {},
     "secondRound": {
       "lula": 44,
       "flavio": 49
@@ -5935,10 +5911,7 @@
     "moe": 2.19,
     "mode": "telefone",
     "national": true,
-    "firstRound": {
-      "lula": 44,
-      "flavio": 50
-    },
+    "firstRound": {},
     "secondRound": {
       "lula": 44,
       "flavio": 50
@@ -5962,10 +5935,7 @@
     "moe": 2,
     "mode": "telefone",
     "national": true,
-    "firstRound": {
-      "lula": 44,
-      "flavio": 53
-    },
+    "firstRound": {},
     "secondRound": {
       "lula": 44,
       "flavio": 53
@@ -5989,10 +5959,7 @@
     "moe": 2,
     "mode": "presencial",
     "national": true,
-    "firstRound": {
-      "lula": 44,
-      "flavio": 46
-    },
+    "firstRound": {},
     "secondRound": {
       "lula": 44,
       "flavio": 46
@@ -6005,33 +5972,6 @@
       "capturedAt": "2026-10-14T21:15:00.000Z"
     },
     "notes": "Valor 14/10 18h07. Primeira nacional 2T da casa. TSE BR-08729/2026. Presencial n=2154 campo 10–13/10 moe ±2. 2T totais: Flávio 46 × Lula 44 (indecisos 1%, branco/nulo/não vai votar 9%). Empate técnico. Encomendada Globo/O Globo."
-  },
-  {
-    "id": "datafolha-10-15-00466",
-    "institute": "Datafolha",
-    "date": "2026-10-15",
-    "fieldEnd": "2026-10-15",
-    "sample": 2520,
-    "moe": 2,
-    "mode": "telefone",
-    "national": true,
-    "firstRound": {
-      "lula": 48,
-      "flavio": 52
-    },
-    "source": {
-      "tseProtocol": "BR-00466/2026",
-      "url": "https://www1.folha.uol.com.br/poder/2026/10/datafolha-divulga-nova-pesquisa-de-2o-turno-para-presidente-nesta-quinta-15-live-comenta-resultados.shtml",
-      "publisher": "www1.folha.uol.com.br",
-      "publishedAt": "2026-10-15",
-      "capturedAt": "2026-10-15T00:01:22.303Z"
-    },
-    "notes": "2520 entrevistas. TSE datafolha.",
-    "fieldStart": "2026-10-13",
-    "secondRound": {
-      "lula": 48,
-      "flavio": 52
-    }
   },
   {
     "id": "nexus-btg-08-24-09028",
@@ -6064,15 +6004,12 @@
     "id": "palver-10-15-08028",
     "institute": "Palver",
     "date": "2026-10-15",
-    "fieldEnd": "2026-10-14",
+    "fieldEnd": "2026-10-13",
     "sample": 5000,
     "moe": 2.3,
     "mode": "online",
     "national": true,
-    "firstRound": {
-      "lula": 50,
-      "flavio": 50
-    },
+    "firstRound": {},
     "source": {
       "tseProtocol": "BR-08028/2026",
       "url": "https://exame.com/brasil/pesquisa-palver-maioria-dos-eleitores-que-nao-votaram-no-1o-turno-diz-que-votaria-em-lula/",
@@ -6080,8 +6017,12 @@
       "publishedAt": "2026-10-15",
       "capturedAt": "2026-10-16T11:00:29.898Z"
     },
-    "notes": "5000 entrevistas. TSE palver.",
-    "fieldStart": "2026-10-10"
+    "notes": "Exame + Congresso em Foco. TSE BR-08028/2026. Online n=5000 campo 10-13/10. Base=totais: 2T F50 L49 bn 1 NS 0 (Palver nao publica validos).",
+    "fieldStart": "2026-10-10",
+    "secondRound": {
+      "lula": 49,
+      "flavio": 50
+    }
   },
   {
     "id": "poderdata-aya-10-16-04258",
@@ -6092,10 +6033,7 @@
     "moe": 1.8,
     "mode": "telefone",
     "national": true,
-    "firstRound": {
-      "lula": 50,
-      "flavio": 50
-    },
+    "firstRound": {},
     "source": {
       "tseProtocol": "BR-04258/2026",
       "url": "https://www.cnnbrasil.com.br/eleicoes/poderdata-aya-flavio-e-lula-empatam-com-50-dos-votos-validos-no-2o-turno/",
@@ -6103,11 +6041,11 @@
       "publishedAt": "2026-10-16",
       "capturedAt": "2026-10-16T11:00:32.830Z"
     },
-    "notes": "3000 entrevistas. TSE poderdata.",
+    "notes": "PDF Relatorio-PoderData-Eleitoral-15out26. TSE BR-04258/2026. URA n=3000 campo 13-15/10. Base=totais: 2T F47 L47 bn 4 NS 2. Validos 50x50 nao usados.",
     "fieldStart": "2026-10-13",
     "secondRound": {
-      "lula": 49,
-      "flavio": 51
+      "lula": 47,
+      "flavio": 47
     }
   },
   {
@@ -6119,10 +6057,7 @@
     "moe": 2.2,
     "mode": "telefone",
     "national": true,
-    "firstRound": {
-      "lula": 49.2,
-      "flavio": 50.8
-    },
+    "firstRound": {},
     "source": {
       "tseProtocol": "BR-03764/2026",
       "url": "https://exame.com/brasil/pesquisa-que-acertou-no-1o-turno-mostra-flavio-com-508-e-lula-492-dos-votos-validos/",
@@ -6130,11 +6065,11 @@
       "publishedAt": "2026-10-16",
       "capturedAt": "2026-10-16T15:00:29.689Z"
     },
-    "notes": "2000 entrevistas. TSE futura.",
-    "fieldStart": "2026-10-13",
+    "notes": "Exame 16/10. TSE BR-03764/2026. n=2000 campo 14-15/10. Base=totais: 2T F49 L47,5 bn 1,5 NS 2,1. Validos 50,8x49,2 nao usados.",
+    "fieldStart": "2026-10-14",
     "secondRound": {
-      "lula": 49.2,
-      "flavio": 50.8
+      "lula": 47.5,
+      "flavio": 49
     }
   },
   {
@@ -6146,10 +6081,7 @@
     "moe": 2.2,
     "mode": "presencial",
     "national": true,
-    "firstRound": {
-      "lula": 49.5,
-      "flavio": 50.5
-    },
+    "firstRound": {},
     "source": {
       "tseProtocol": "BR-00652/2026",
       "url": "https://exame.com/brasil/cnt-mda-flavio-bolsonaro-tem-505-e-lula-495-dos-votos-validos-no-2o-turno/",
@@ -6157,11 +6089,11 @@
       "publishedAt": "2026-10-16",
       "capturedAt": "2026-10-16T15:00:42.235Z"
     },
-    "notes": "2002 entrevistas. TSE mda.",
+    "notes": "Exame 16/10. TSE BR-00652/2026. n=2002 campo 13-15/10. Base=totais: 2T F46,8 L45,9 bn 4,9 NS 2,4. Validos 50,5x49,5 nao usados.",
     "fieldStart": "2026-10-13",
     "secondRound": {
-      "lula": 49.5,
-      "flavio": 50.5
+      "lula": 45.9,
+      "flavio": 46.8
     }
   },
   {
@@ -6173,10 +6105,7 @@
     "moe": 2,
     "mode": "telefone",
     "national": true,
-    "firstRound": {
-      "lula": 48,
-      "flavio": 52
-    },
+    "firstRound": {},
     "source": {
       "tseProtocol": "BR-05187/2026",
       "url": "https://exame.com/brasil/pesquisa-que-mais-acertou-no-1o-turno-mostra-flavio-bolsonaro-com-52-e-lula-48-dos-votos-validos/",
@@ -6184,35 +6113,12 @@
       "publishedAt": "2026-10-13",
       "capturedAt": "2026-10-16T22:00:30.495Z"
     },
-    "notes": "2400 entrevistas. TSE gerp.",
+    "notes": "Exame. TSE BR-05187/2026. n=2400 campo 14-16/10. Base=totais: 2T F50 L45 nenhum 2 NS 3. Validos 52x48 nao usados.",
     "fieldStart": "2026-10-14",
     "secondRound": {
-      "lula": 49,
-      "flavio": 46
+      "lula": 45,
+      "flavio": 50
     }
-  },
-  {
-    "id": "verita-10-17-01107",
-    "institute": "Veritá",
-    "date": "2026-10-17",
-    "fieldEnd": "2026-10-16",
-    "sample": 15554,
-    "moe": 1,
-    "mode": "telefone",
-    "national": true,
-    "firstRound": {
-      "lula": 48.9,
-      "flavio": 51.1
-    },
-    "source": {
-      "tseProtocol": "BR-01107/2026",
-      "url": "https://exame.com/brasil/pesquisa-que-mais-acertou-no-1o-turno-mostra-flavio-bolsonaro-com-511-e-lula-489-no-2o/",
-      "publisher": "exame.com",
-      "publishedAt": "2026-10-17",
-      "capturedAt": "2026-10-17T15:00:37.642Z"
-    },
-    "notes": "15554 entrevistas. TSE verita.",
-    "fieldStart": "2026-10-12"
   },
   {
     "id": "ipespe-10-17-00223",
@@ -6236,10 +6142,7 @@
       "capturedAt": "2026-10-20T21:30:00.000Z"
     },
     "notes": "CNN 17/10 + PDF ipespe.org.br. TSE BR-00223/2026. n=1500 campo 13-15/10 moe 2,6. Base=totais: 2T F48 L46 bn 3 NS 3. Validos 51,2x48,8 nao usados.",
-    "firstRound": {
-      "lula": 46,
-      "flavio": 48
-    }
+    "firstRound": {}
   },
   {
     "id": "poderdata-aya-10-19-02586",
@@ -6263,10 +6166,7 @@
       "capturedAt": "2026-10-20T21:30:00.000Z"
     },
     "notes": "CNN/UOL 19/10. TSE BR-02586/2026. URA n=3000 campo 16-18/10 moe 1,8. Base=totais: 2T F49 L46 bn 4 NS 2. Validos 52x48 nao usados.",
-    "firstRound": {
-      "lula": 46,
-      "flavio": 49
-    }
+    "firstRound": {}
   },
   {
     "id": "realtime-10-20-02952",
@@ -6290,10 +6190,7 @@
       "capturedAt": "2026-10-20T21:30:00.000Z"
     },
     "notes": "CNN/UOL 20/10. TSE BR-02952/2026. Telefone n=2000 campo 15-19/10 moe 2. Base=totais: 2T F48 L45 bn 5 NS 2. Validos 52x48 nao usados.",
-    "firstRound": {
-      "lula": 45,
-      "flavio": 48
-    }
+    "firstRound": {}
   },
   {
     "id": "atlasintel-10-19-02418",
@@ -6305,10 +6202,7 @@
     "moe": 1,
     "mode": "online",
     "national": true,
-    "firstRound": {
-      "lula": 47.6,
-      "flavio": 49.8
-    },
+    "firstRound": {},
     "secondRound": {
       "lula": 47.6,
       "flavio": 49.8
@@ -6332,10 +6226,7 @@
     "moe": 2,
     "mode": "telefone",
     "national": true,
-    "firstRound": {
-      "lula": 45.9,
-      "flavio": 46.5
-    },
+    "firstRound": {},
     "secondRound": {
       "lula": 45.9,
       "flavio": 46.5

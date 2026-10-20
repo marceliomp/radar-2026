@@ -287,6 +287,9 @@ function latestPairRows(poll: ForecastPoll) {
 
 function LatestHouseCard({ poll }: { poll: ForecastPoll }) {
   const { locale, m, fmt } = useI18n();
+  const firstKeys = FIELD_KEYS
+    .filter((key) => poll.firstRound[key] != null)
+    .sort((a, b) => (poll.firstRound[b] ?? 0) - (poll.firstRound[a] ?? 0));
   return (
     <div className="board-card">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
@@ -321,21 +324,20 @@ function LatestHouseCard({ poll }: { poll: ForecastPoll }) {
             </p>
           ) : null}
         </div>
-        <div className="grid gap-6 sm:grid-cols-[minmax(0,16rem)_minmax(0,1fr)]">
-          <div>
-            <p className="text-xs font-medium text-gold">{m.home.firstRound}</p>
-            <ul className="mt-1 space-y-0.5 text-sm font-semibold tabular-nums">
-              {FIELD_KEYS
-                .filter((key) => poll.firstRound[key] != null)
-                .sort((a, b) => (poll.firstRound[b] ?? 0) - (poll.firstRound[a] ?? 0))
-                .map((key) => (
+        <div className={firstKeys.length ? "grid gap-6 sm:grid-cols-[minmax(0,16rem)_minmax(0,1fr)]" : ""}>
+          {firstKeys.length ? (
+            <div>
+              <p className="text-xs font-medium text-gold">{m.home.firstRound}</p>
+              <ul className="mt-1 space-y-0.5 text-sm font-semibold tabular-nums">
+                {firstKeys.map((key) => (
                   <li key={key} className="flex justify-between gap-3">
                     <span style={{ color: CANDIDATE_META[key].color }}>{CANDIDATE_META[key].name}</span>
                     <span style={{ color: CANDIDATE_META[key].color }}>{fmt.pct(poll.firstRound[key] ?? 0)}</span>
                   </li>
                 ))}
-            </ul>
-          </div>
+              </ul>
+            </div>
+          ) : null}
           <div>
             <p className="text-xs font-medium text-gold">{m.home.secondRound}</p>
             {latestPairRows(poll).length === 0 ? <p className="mt-1 text-sm text-cream/70">{locale === "en" ? "No second-round result in the archive." : "Sem resultado de segundo turno no arquivo."}</p> : null}
