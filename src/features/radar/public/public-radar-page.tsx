@@ -292,7 +292,7 @@ function LatestHouseCard({ poll }: { poll: ForecastPoll }) {
     .sort((a, b) => (poll.firstRound[b] ?? 0) - (poll.firstRound[a] ?? 0));
   return (
     <div className="board-card">
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+      <div className="flex flex-col gap-4">
         <div className="space-y-1.5">
           <p className="font-display text-xl font-semibold">{poll.institute}</p>
           <p className="text-sm font-medium text-gold">
@@ -324,7 +324,7 @@ function LatestHouseCard({ poll }: { poll: ForecastPoll }) {
             </p>
           ) : null}
         </div>
-        <div className={firstKeys.length ? "grid gap-6 sm:grid-cols-[minmax(0,16rem)_minmax(0,1fr)]" : ""}>
+        <div className="grid gap-6">
           {firstKeys.length ? (
             <div>
               <p className="text-xs font-medium text-gold">{m.home.firstRound}</p>
