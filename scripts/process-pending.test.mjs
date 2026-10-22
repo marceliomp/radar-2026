@@ -565,3 +565,21 @@ test("national file has no BR-01622 (AtlasIntel Rio de Janeiro)", async () => {
   const polls = Array.isArray(raw) ? raw : raw.polls;
   assert.equal(polls.some((p) => p.source?.tseProtocol === "BR-01622/2026"), false);
 });
+
+test("headline reader takes every Exame/Folha/Valor slug shape seen after the 1T", async () => {
+  const { headlinePair } = await import("./process-pending.mjs");
+  const cases = [
+    ["https://www1.folha.uol.com.br/poder/2026/10/datafolha-flavio-bolsonaro-tem-52-dos-votos-validos-contra-48-de-lula-no-2o-turno.shtml", { flavio: 52, lula: 48 }],
+    ["https://exame.com/brasil/pesquisa-que-acertou-o-1o-turno-mostra-flavio-com-55-contra-45-de-lula/", { flavio: 55, lula: 45 }],
+    ["https://exame.com/brasil/pesquisa-poderdata-aya-lula-sobe-a-49-e-empata-tecnicamente-com-flavio-bolsonaro-que-tem-51/", { lula: 49, flavio: 51 }],
+    ["https://www.cnnbrasil.com.br/eleicoes/poderdata-aya-flavio-e-lula-empatam-com-50-dos-votos-validos-no-2o-turno/", { flavio: 50, lula: 50 }],
+    ["https://valor.globo.com/politica/eleicoes-2026/noticia/2026/10/14/quaest-flavio-tem-46percent-e-lula-44percent-das-intencoes-de-voto.ghtml", { flavio: 46, lula: 44 }],
+    ["https://www.chicosabetudo.com.br/politica/pesquisa-aponta-flavio-com-50-e-lula-com-48-no-2-turno-nacional-1026", { flavio: 50, lula: 48 }],
+  ];
+  for (const [url, want] of cases) assert.deepEqual(headlinePair({ url }), want, url);
+  // Vantagem em pontos não é voto.
+  assert.equal(
+    headlinePair({ url: "https://exame.com/brasil/pesquisa-atlasintel-2o-turno-flavio-bolsonaro-abre-54-pontos-de-vantagem-sobre-lula/" }),
+    null,
+  );
+});

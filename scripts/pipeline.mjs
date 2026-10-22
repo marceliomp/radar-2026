@@ -32,6 +32,7 @@ try {
   await run("promote-poll.mjs", ["--all"]);
   await run("publish-polls.mjs");
   await run("ingest-health.mjs", ["--git"]);
+  await run("radar-alert.mjs", ["held"]);
   process.stdout.write("[pipeline] ok\n");
 } catch (err) {
   process.stderr.write(`[pipeline] FATAL: ${err instanceof Error ? err.message : err}\n`);

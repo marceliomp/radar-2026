@@ -3,12 +3,14 @@
  * Alerta Telegram do pipeline Radar 2026.
  *   node scripts/radar-alert.mjs failure  -> pipeline falhou (OnFailure do radar-ingest.service)
  *   node scripts/radar-alert.mjs stall    -> polls.json sem commit há mais de STALL_HOURS
+ *   node scripts/radar-alert.mjs held     -> pesquisa presa pela trava da manchete (só as novas)
  * Credenciais: RADAR_TG_TOKEN + RADAR_TG_CHAT (EnvironmentFile da unit). Sem elas, só imprime.
  */
 import { execFileSync } from "node:child_process";
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { HELD_REASON } from "./process-pending.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 export const STALL_HOURS = 48;
@@ -41,6 +43,23 @@ export function stallMessage({ lastCommitIso, pendingRows = [], now = new Date()
     lines.push("Se alguma já saiu na imprensa: npm run polls:promote.");
   }
   return lines.join("\n");
+}
+
+const fmtPair = (p) => (p ? `F ${p.flavio} x L ${p.lula}` : "sem número");
+
+/** Pesquisas presas pela trava da manchete que ainda não foram avisadas. */
+export function heldMessage(pendingRows, alerted = []) {
+  const seen = new Set(alerted);
+  const fresh = pendingRows.filter((row) => row.reason === HELD_REASON && !seen.has(row.tse));
+  if (!fresh.length) return { text: null, tse: [] };
+  const lines = [`Radar 2026: ${fresh.length} pesquisa(s) presa(s), conferir antes de entrar no site:`];
+  for (const row of fresh) {
+    lines.push(
+      `· ${row.institute} ${row.tse} campo até ${row.fieldEnd}: lido ${fmtPair(row.parsed)}, manchete ${fmtPair(row.headline)}`,
+    );
+    if (row.url) lines.push(`  ${row.url}`);
+  }
+  return { text: lines.join("\n"), tse: fresh.map((row) => row.tse) };
 }
 
 function sh(cmd, args) {
@@ -102,11 +121,33 @@ async function main(mode) {
     else process.stdout.write("[radar-alert] ok, polls.json recente\n");
     return;
   }
+  if (mode === "held") {
+    const stateFile = join(ROOT, "data/inbox/held-alerted.json");
+    let alerted = [];
+    try {
+      alerted = JSON.parse(readFileSync(stateFile, "utf8"));
+    } catch {
+      /* primeiro aviso */
+    }
+    const { text, tse } = heldMessage(readPending(), alerted);
+    if (!text) {
+      process.stdout.write("[radar-alert] nenhuma pesquisa presa nova\n");
+      return;
+    }
+    // Aviso não derruba o pipeline: falha do Telegram só fica no log e tenta de novo na próxima hora.
+    try {
+      await send(text);
+      writeFileSync(stateFile, JSON.stringify([...alerted, ...tse]));
+    } catch (err) {
+      process.stderr.write(`[radar-alert] held não enviado: ${err instanceof Error ? err.message : err}\n`);
+    }
+    return;
+  }
   if (mode === "test") {
     await send("Radar 2026: teste do canal de alerta. Se chegou, está ligado.");
     return;
   }
-  throw new Error(`modo desconhecido: ${mode} (failure|stall|test)`);
+  throw new Error(`modo desconhecido: ${mode} (failure|stall|held|test)`);
 }
 
 if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {

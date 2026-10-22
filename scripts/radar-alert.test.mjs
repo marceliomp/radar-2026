@@ -35,3 +35,25 @@ test("stuckNational keeps BR rows whose field ended 2+ days ago, newest first", 
   );
   assert.deepEqual(rows.map((r) => r.tse), ["BR-2", "BR-1"]);
 });
+
+test("held: só avisa pesquisa presa nova, com lido x manchete e link", async () => {
+  const { heldMessage } = await import("./radar-alert.mjs");
+  const { HELD_REASON } = await import("./process-pending.mjs");
+  const rows = [
+    {
+      tse: "BR-03835/2026",
+      institute: "Gerp",
+      fieldEnd: "2026-10-21",
+      reason: HELD_REASON,
+      parsed: { lula: 49, flavio: 46 },
+      headline: { flavio: 53, lula: 47 },
+      url: "https://exame.com/brasil/pesquisa-gerp-flavio-bolsonaro-tem-53-e-lula-47-no-2o-turno/",
+    },
+    { tse: "BR-09540/2026", institute: "Datafolha", fieldEnd: "2026-10-24", reason: "número ainda não extraído (TSE)" },
+  ];
+  const first = heldMessage(rows, []);
+  assert.deepEqual(first.tse, ["BR-03835/2026"]);
+  assert.match(first.text, /lido F 46 x L 49, manchete F 53 x L 47/);
+  assert.match(first.text, /exame\.com/);
+  assert.equal(heldMessage(rows, first.tse).text, null);
+});
