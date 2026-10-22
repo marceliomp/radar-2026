@@ -6377,5 +6377,29 @@
       "lula": 46.8,
       "flavio": 48.9
     }
+  },
+  {
+    "id": "vox-brasil-10-18-04332",
+    "institute": "Vox Brasil",
+    "date": "2026-10-18",
+    "fieldStart": "2026-10-15",
+    "fieldEnd": "2026-10-17",
+    "sample": 2100,
+    "moe": 2.15,
+    "mode": "presencial",
+    "national": true,
+    "firstRound": {},
+    "secondRound": {
+      "lula": 46.4,
+      "flavio": 44.6
+    },
+    "source": {
+      "tseProtocol": "BR-04332/2026",
+      "url": "https://exame.com/brasil/pesquisa-vox-brasil-lula-tem-51-e-flavio-bolsonaro-49-em-empate-tecnico/",
+      "publisher": "exame.com",
+      "publishedAt": "2026-10-18",
+      "capturedAt": "2026-10-22T05:30:00.000Z"
+    },
+    "notes": "Exame 18/10. TSE BR-04332/2026. Presencial domiciliar n=2100 campo 15-17/10 moe 2,15. Base=totais: 2T L46,4 F44,6 (nenhum/B/N 5%, NS 3,9%); válidos L51 F49."
   }
 ]
