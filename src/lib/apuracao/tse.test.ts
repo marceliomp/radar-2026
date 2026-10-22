@@ -7,7 +7,9 @@ import {
   AGUARDANDO,
   APURACAO_LABEL,
   APURACAO_REFRESH_MS,
+  apuracaoRound,
   countTargets,
+  scopeRound,
   countUrl,
   displayName,
   fetchCount,
@@ -146,40 +148,40 @@ test("a candidate without pvap does not get a computed percent", () => {
 
 test("count URLs are the live EA20 files", () => {
   assert.equal(
-    countUrl("presidente", "BR"),
+    countUrl("presidente", "BR", 1),
     "https://resultados.tse.jus.br/oficial/ele2026/6257/dados/br/br-c0001-e006257-u.json",
   );
   assert.equal(
-    countUrl("presidente", "sp"),
+    countUrl("presidente", "sp", 1),
     "https://resultados.tse.jus.br/oficial/ele2026/6257/dados/sp/sp-c0001-e006257-u.json",
   );
   assert.equal(
-    countUrl("governador", "SP"),
+    countUrl("governador", "SP", 1),
     "https://resultados.tse.jus.br/oficial/ele2026/6259/dados/sp/sp-c0003-e006259-u.json",
   );
   assert.equal(
-    countUrl("senador", "rj"),
+    countUrl("senador", "rj", 1),
     "https://resultados.tse.jus.br/oficial/ele2026/6259/dados/rj/rj-c0005-e006259-u.json",
   );
   assert.equal(
-    countUrl("deputado-federal", "mg"),
+    countUrl("deputado-federal", "mg", 1),
     "https://resultados.tse.jus.br/oficial/ele2026/6259/dados/mg/mg-c0006-e006259-u.json",
   );
   assert.equal(
-    countUrl("deputado-estadual", "ba"),
+    countUrl("deputado-estadual", "ba", 1),
     "https://resultados.tse.jus.br/oficial/ele2026/6259/dados/ba/ba-c0007-e006259-u.json",
   );
   assert.equal(
-    countUrl("deputado-estadual", "DF"),
+    countUrl("deputado-estadual", "DF", 1),
     "https://resultados.tse.jus.br/oficial/ele2026/6259/dados/df/df-c0008-e006259-u.json",
   );
-  assert.equal(countUrl("presidente", "BR").includes("dados-simplificados"), false);
-  assert.equal(countUrl("presidente", "BR").endsWith("-r.json"), false);
+  assert.equal(countUrl("presidente", "BR", 1).includes("dados-simplificados"), false);
+  assert.equal(countUrl("presidente", "BR", 1).endsWith("-r.json"), false);
 });
 
 test("state races do not request the national candidate file", () => {
   for (const cargo of ["governador", "senador", "deputado-federal", "deputado-estadual"] as const) {
-    const targets = countTargets(cargo);
+    const targets = countTargets(cargo, 1);
     assert.equal(
       targets.some((t) => t.scope === "BR"),
       false,
@@ -193,6 +195,28 @@ test("state races do not request the national candidate file", () => {
   const pres = countTargets("presidente");
   assert.equal(pres[0]?.scope, "BR");
   assert.equal(pres.length, UF_ORDER.length + 1);
+});
+
+test("2º turno (25/10, Brasília) reads 6258 and 6260 only where governador has a runoff", () => {
+  assert.equal(apuracaoRound(new Date("2026-10-25T02:59:00Z")), 1); // 24/10 23:59 BRT
+  assert.equal(apuracaoRound(new Date("2026-10-25T03:00:00Z")), 2);
+  assert.equal(
+    countUrl("presidente", "BR", 2),
+    "https://resultados.tse.jus.br/oficial/ele2026/6258/dados/br/br-c0001-e006258-u.json",
+  );
+  assert.equal(
+    countUrl("governador", "AM", 2),
+    "https://resultados.tse.jus.br/oficial/ele2026/6260/dados/am/am-c0003-e006260-u.json",
+  );
+  // Governador decidido no 1º turno e demais cargos seguem no arquivo de 04/10.
+  assert.equal(countUrl("governador", "SP", 2), countUrl("governador", "SP", 1));
+  assert.equal(countUrl("senador", "AM", 2), countUrl("senador", "AM", 1));
+  const gov = countTargets("governador", 2).filter((t) => t.url.includes("6260"));
+  assert.deepEqual(gov.map((t) => t.scope).sort(), ["AC", "AM", "DF", "ES", "RN", "TO"]);
+  assert.equal(scopeRound("governador", "es", 2), 2);
+  assert.equal(scopeRound("presidente", "BR", 1), 1);
+  const pres = countTargets("presidente", 2);
+  assert.equal(pres.every((t) => t.url.includes("e006258")), true);
 });
 
 test("national rollup sums official UF votes when the BR file is behind", () => {
