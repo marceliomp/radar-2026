@@ -511,6 +511,13 @@ test("CNN CE Atlas URL is statewide, not national", async () => {
     }),
     false,
   );
+  // BR-01177 (BA) and BR-01068 (MG) entered as national on 03/10.
+  for (const url of [
+    "https://www.cnnbrasil.com.br/eleicoes/atlas-na-ba-lula-tem-605-dos-votos-validos-no-1o-turno-flavio-298/",
+    "https://www.cnnbrasil.com.br/eleicoes/real-time-lula-tem-44-de-votos-validos-no-1o-turno-em-mg-flavio-42/",
+  ]) {
+    assert.equal(articleLooksState({ url }), true, url);
+  }
 });
 
 

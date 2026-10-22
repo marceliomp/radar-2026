@@ -244,14 +244,14 @@
     },
     {
       "date": "2026-10-03",
-      "lula": 53.3,
-      "flavio": 46.7,
+      "lula": 51.3,
+      "flavio": 48.7,
       "source": "replay"
     },
     {
       "date": "2026-10-04",
-      "lula": 53.3,
-      "flavio": 46.7,
+      "lula": 51.3,
+      "flavio": 48.7,
       "source": "replay"
     },
     {
@@ -274,92 +274,92 @@
     },
     {
       "date": "2026-10-08",
-      "lula": 42.8,
-      "flavio": 57.2,
+      "lula": 42.4,
+      "flavio": 57.6,
       "source": "replay"
     },
     {
       "date": "2026-10-09",
-      "lula": 40.3,
-      "flavio": 59.8,
+      "lula": 39.7,
+      "flavio": 60.4,
       "source": "replay"
     },
     {
       "date": "2026-10-10",
-      "lula": 38.8,
-      "flavio": 61.3,
+      "lula": 38,
+      "flavio": 62,
       "source": "replay"
     },
     {
       "date": "2026-10-11",
-      "lula": 36.4,
-      "flavio": 63.7,
+      "lula": 35.8,
+      "flavio": 64.2,
       "source": "replay"
     },
     {
       "date": "2026-10-12",
-      "lula": 36.4,
-      "flavio": 63.7,
+      "lula": 35.8,
+      "flavio": 64.2,
       "source": "replay"
     },
     {
       "date": "2026-10-13",
-      "lula": 30.6,
-      "flavio": 69.4,
+      "lula": 29.8,
+      "flavio": 70.2,
       "source": "replay"
     },
     {
       "date": "2026-10-14",
-      "lula": 30.4,
-      "flavio": 69.6,
-      "source": "replay"
-    },
-    {
-      "date": "2026-10-15",
-      "lula": 31.5,
-      "flavio": 68.5,
-      "source": "replay"
-    },
-    {
-      "date": "2026-10-16",
-      "lula": 30.9,
-      "flavio": 69.2,
-      "source": "replay"
-    },
-    {
-      "date": "2026-10-17",
-      "lula": 30.6,
-      "flavio": 69.4,
-      "source": "replay"
-    },
-    {
-      "date": "2026-10-18",
-      "lula": 30.6,
-      "flavio": 69.4,
-      "source": "replay"
-    },
-    {
-      "date": "2026-10-19",
       "lula": 29.7,
       "flavio": 70.3,
       "source": "replay"
     },
     {
+      "date": "2026-10-15",
+      "lula": 31,
+      "flavio": 69.1,
+      "source": "replay"
+    },
+    {
+      "date": "2026-10-16",
+      "lula": 30.3,
+      "flavio": 69.7,
+      "source": "replay"
+    },
+    {
+      "date": "2026-10-17",
+      "lula": 30.1,
+      "flavio": 69.9,
+      "source": "replay"
+    },
+    {
+      "date": "2026-10-18",
+      "lula": 30.1,
+      "flavio": 69.9,
+      "source": "replay"
+    },
+    {
+      "date": "2026-10-19",
+      "lula": 29.2,
+      "flavio": 70.8,
+      "source": "replay"
+    },
+    {
       "date": "2026-10-20",
-      "lula": 28.6,
-      "flavio": 71.5,
+      "lula": 28.2,
+      "flavio": 71.8,
       "source": "replay"
     },
     {
       "date": "2026-10-21",
-      "lula": 30,
-      "flavio": 70,
+      "lula": 29.8,
+      "flavio": 70.2,
       "source": "replay"
     },
     {
       "date": "2026-10-22",
-      "lula": 30,
-      "flavio": 70,
+      "lula": 29.8,
+      "flavio": 70.2,
       "source": "replay"
     }
   ]

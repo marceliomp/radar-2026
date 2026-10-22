@@ -5531,7 +5531,7 @@
     "sample": 2000,
     "moe": 2,
     "mode": "telefone",
-    "national": true,
+    "national": false,
     "firstRound": {
       "lula": 44,
       "flavio": 42
@@ -5543,12 +5543,9 @@
       "publishedAt": "2026-10-03",
       "capturedAt": "2026-10-03T13:00:32.405Z"
     },
-    "notes": "2000 entrevistas. TSE realtime.",
+    "notes": "2000 entrevistas. TSE realtime. Recorte MG (URL da matéria), não nacional: auto-promote 03/10 errou; 2T removido (não conferido).",
     "fieldStart": "2026-09-28",
-    "secondRound": {
-      "lula": 50,
-      "flavio": 50
-    }
+    "uf": "MG"
   },
   {
     "id": "cnt-mda-10-03-04756",
@@ -5585,7 +5582,7 @@
     "sample": 2200,
     "moe": 2,
     "mode": "telefone",
-    "national": true,
+    "national": false,
     "firstRound": {
       "lula": 60.5,
       "flavio": 29.8
@@ -5597,12 +5594,9 @@
       "publishedAt": "2026-10-03",
       "capturedAt": "2026-10-03T19:00:28.774Z"
     },
-    "notes": "2200 entrevistas. TSE atlasintel.",
+    "notes": "2200 entrevistas. TSE atlasintel. Recorte BA (URL da matéria), não nacional: auto-promote 03/10 errou; 2T removido (não conferido).",
     "fieldStart": "2026-09-27",
-    "secondRound": {
-      "lula": 46,
-      "flavio": 46
-    }
+    "uf": "BA"
   },
   {
     "id": "palver-10-03-00198",
