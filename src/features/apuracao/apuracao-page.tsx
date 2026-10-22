@@ -51,7 +51,8 @@ function CountCard({
   loaded: boolean;
 }) {
   const { locale, m } = useI18n();
-  const waiting = !loaded || !count || count.status !== "ok";
+  // Arquivo do TSE zerado (antes das 17h do dia) é aguardando, não "0,00% apurado".
+  const waiting = !loaded || !count || count.status !== "ok" || count.sectionsCounted === 0;
   const call = count?.status === "ok" ? callCount(count) : null;
 
   return (
