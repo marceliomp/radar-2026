@@ -506,6 +506,33 @@ export function pollId(institute, date, proto) {
   return `${slug}-${mm}-${dd}-${num.slice(0, 5)}`;
 }
 
+/** Par Lula x Flávio da manchete (slug da URL ou título): "flavio-bolsonaro-tem-507-e-lula-493". */
+export function headlinePair(result) {
+  const blob = `${result?.url ?? ""} ${result?.title ?? ""}`.toLowerCase();
+  const n = (d) => (d.length === 3 ? Number(d) / 10 : Number(d));
+  const f = blob.match(
+    /fl[aá]vio(?:-bolsonaro)?-(?:tem-)?(\d{2,3})(?!\d)[\s\S]*?lula(?:-tem)?-(\d{2,3})(?!\d)/,
+  );
+  if (f) return { flavio: n(f[1]), lula: n(f[2]) };
+  const l = blob.match(
+    /lula(?:-tem)?-(\d{2,3})(?!\d)[\s\S]*?fl[aá]vio(?:-bolsonaro)?-(?:tem-)?(\d{2,3})(?!\d)/,
+  );
+  if (l) return { lula: n(l[1]), flavio: n(l[2]) };
+  return null;
+}
+
+/** Par lido tem que bater com a manchete: mesmo líder e mesma fatia de Flávio.
+ * Manchete inteira (52 x 48) arredonda até 0,5 ponto; decimal (50,7) quase nada. */
+export function pairMatchesHeadline(pair, head) {
+  if (!pair || !head) return false;
+  const share = (p) => p.flavio / (p.flavio + p.lula);
+  const tol = Number.isInteger(head.flavio) && Number.isInteger(head.lula) ? 0.6 : 0.15;
+  return (
+    Math.sign(pair.flavio - pair.lula) === Math.sign(head.flavio - head.lula) &&
+    Math.abs(share(pair) - share(head)) * 100 <= tol
+  );
+}
+
 export function rowToPoll(row, result, house) {
   const proto = normalizeProtocol(row.NR_PROTOCOLO_REGISTRO ?? row._proto);
   const sample = parseSample(row.QT_ENTREVISTADO);
@@ -524,6 +551,9 @@ export function rowToPoll(row, result, house) {
   // Soma >= 99,5 = votos válidos. A série é em totais; válidos não entram.
   // shortcut: casa sem branco/NS (Palver soma 99) passa; válidos arredondado para 99 também passaria.
   if (runoffOnly && pair.lula + pair.flavio >= 99.5) return null;
+  // Regex pega o primeiro par Lula/Flávio que achar (válidos, rejeição): 22/10 Gerp, Futura e Veritá
+  // entraram trocados. Sem manchete que confirme o par, fica no inbox para ingest manual.
+  if (runoffOnly && !pairMatchesHeadline(pair, headlinePair(result))) return null;
   const moe =
     Number.isFinite(result?.moe) && result.moe > 0
       ? result.moe

@@ -482,10 +482,38 @@ test("rowToPoll after 1st round stores the pair as 2T only and refuses válidos"
     DT_FIM_PESQUISA: "2026-10-18 00:00:00",
     DT_DIVULGACAO: "2026-10-19 00:00:00",
   };
-  const poll = rowToPoll(runoffRow, { firstRound: { lula: 46, flavio: 49 } }, house);
+  const url = "https://exame.com/brasil/poderdata-flavio-bolsonaro-tem-52-e-lula-48-no-2o-turno/";
+  const poll = rowToPoll(runoffRow, { firstRound: { lula: 46, flavio: 49 }, url }, house);
   assert.deepEqual(poll.firstRound, {});
   assert.deepEqual(poll.secondRound, { lula: 46, flavio: 49 });
-  assert.equal(rowToPoll(runoffRow, { secondRound: { lula: 48, flavio: 52 } }, house), null);
+  assert.equal(rowToPoll(runoffRow, { secondRound: { lula: 48, flavio: 52 }, url }, house), null);
+  // Sem manchete com números, o par não é conferível: fica no inbox.
+  assert.equal(rowToPoll(runoffRow, { firstRound: { lula: 46, flavio: 49 } }, house), null);
+});
+
+test("post-1T pair must match the headline (22/10 Gerp, Futura, Veritá entered wrong)", async () => {
+  const { headlinePair, pairMatchesHeadline } = await import("./process-pending.mjs");
+  const ex = "https://exame.com/brasil/";
+  const bad = [
+    [`${ex}pesquisa-gerp-flavio-bolsonaro-tem-53-e-lula-47-no-2o-turno/`, { lula: 49, flavio: 46 }],
+    [`${ex}pesquisa-futura-flavio-bolsonaro-tem-511-e-lula-489-no-2o-turno/`, { lula: 47.3, flavio: 45.2 }],
+    [
+      `${ex}pesquisa-verita-flavio-bolsonaro-tem-507-e-lula-493-no-2o-turno-em-empate-tecnico/`,
+      { lula: 49.3, flavio: 49.7 },
+    ],
+  ];
+  for (const [url, pair] of bad) assert.equal(pairMatchesHeadline(pair, headlinePair({ url })), false, url);
+  const good = [
+    [`${ex}pesquisa-para-presidente-quaest-flavio-bolsonaro-tem-45-e-lula-44-a-4-dias-do-2o-turno/`, { lula: 44, flavio: 45 }],
+    [
+      "https://www.cnnbrasil.com.br/eleicoes/meio-ideia-flavio-tem-511-dos-votos-validos-no-2o-turno-lula-489/",
+      { lula: 46, flavio: 48 },
+    ],
+    [`${ex}pesquisa-gerp-flavio-bolsonaro-tem-53-e-lula-47-no-2o-turno/`, { lula: 45, flavio: 50 }],
+  ];
+  for (const [url, pair] of good) assert.equal(pairMatchesHeadline(pair, headlinePair({ url })), true, url);
+  assert.deepEqual(headlinePair({ url: `${ex}verita-flavio-bolsonaro-tem-507-e-lula-493/` }), { flavio: 50.7, lula: 49.3 });
+  assert.equal(headlinePair({ url: `${ex}pesquisa-sem-numero/` }), null);
 });
 
 test("2T article with Flavio first still reads Lula 44 Flavio 45", () => {

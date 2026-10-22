@@ -346,22 +346,21 @@
     },
     {
       "date": "2026-10-20",
-      "lula": 28.2,
-      "flavio": 71.8,
+      "lula": 29.1,
+      "flavio": 70.9,
       "source": "replay"
     },
     {
       "date": "2026-10-21",
-      "lula": 29.8,
-      "flavio": 70.2,
+      "lula": 28,
+      "flavio": 72,
       "source": "replay"
     },
     {
       "date": "2026-10-22",
-      "lula": 36,
-      "flavio": 64,
-      "source": "promote",
-      "commit": "a53335e"
+      "lula": 28,
+      "flavio": 72,
+      "source": "replay"
     }
   ]
 }
