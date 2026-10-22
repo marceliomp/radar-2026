@@ -6305,5 +6305,77 @@
       "capturedAt": "2026-10-22T04:00:00.000Z"
     },
     "notes": "CNN 21/10. TSE BR-08251/2026. Telefone n=1500 campo 15-19/10 moe 2,5. Base=totais: 2T F48 L46 (B/N 3,4%, NS 2,6%); válidos F51,1 L48,9."
+  },
+  {
+    "id": "verita-10-20-06396",
+    "institute": "Veritá",
+    "date": "2026-10-20",
+    "fieldEnd": "2026-10-19",
+    "sample": 15554,
+    "moe": 1,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {},
+    "source": {
+      "tseProtocol": "BR-06396/2026",
+      "url": "https://exame.com/brasil/pesquisa-verita-flavio-bolsonaro-tem-507-e-lula-493-no-2o-turno-em-empate-tecnico/",
+      "publisher": "exame.com",
+      "publishedAt": "2026-10-20",
+      "capturedAt": "2026-10-22T03:56:29.814Z"
+    },
+    "notes": "15554 entrevistas. TSE verita.",
+    "fieldStart": "2026-10-15",
+    "secondRound": {
+      "lula": 49.3,
+      "flavio": 49.7
+    }
+  },
+  {
+    "id": "gerp-10-21-03835",
+    "institute": "Gerp",
+    "date": "2026-10-21",
+    "fieldEnd": "2026-10-20",
+    "sample": 2400,
+    "moe": 2,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {},
+    "source": {
+      "tseProtocol": "BR-03835/2026",
+      "url": "https://exame.com/brasil/pesquisa-gerp-flavio-bolsonaro-tem-53-e-lula-47-no-2o-turno/",
+      "publisher": "exame.com",
+      "publishedAt": "2026-10-21",
+      "capturedAt": "2026-10-22T03:56:21.152Z"
+    },
+    "notes": "2400 entrevistas. TSE gerp.",
+    "fieldStart": "2026-10-17",
+    "secondRound": {
+      "lula": 49,
+      "flavio": 46
+    }
+  },
+  {
+    "id": "futura-apex-10-21-06614",
+    "institute": "Futura/Apex",
+    "date": "2026-10-21",
+    "fieldEnd": "2026-10-20",
+    "sample": 2000,
+    "moe": 2.2,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {},
+    "source": {
+      "tseProtocol": "BR-06614/2026",
+      "url": "https://exame.com/brasil/pesquisa-futura-flavio-bolsonaro-tem-511-e-lula-489-no-2o-turno/",
+      "publisher": "exame.com",
+      "publishedAt": "2026-10-21",
+      "capturedAt": "2026-10-22T03:56:21.167Z"
+    },
+    "notes": "2000 entrevistas. TSE futura.",
+    "fieldStart": "2026-10-19",
+    "secondRound": {
+      "lula": 47.3,
+      "flavio": 45.2
+    }
   }
 ]
