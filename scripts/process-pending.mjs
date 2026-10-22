@@ -506,27 +506,57 @@ export function pollId(institute, date, proto) {
   return `${slug}-${mm}-${dd}-${num.slice(0, 5)}`;
 }
 
-/** Par Lula x Flávio da manchete (slug da URL ou título): "flavio-bolsonaro-tem-507-e-lula-493". */
+export const HELD_REASON = "par lido não bate com a manchete: conferir à mão";
+
+const HEADLINE_NAME = { flavio: "flavio", bolsonaro: "flavio", lula: "lula", petista: "lula" };
+
+/** Par de uma frase: cada número de 2 ou 3 dígitos vai para o nome mais perto (empate: o nome antes). */
+function pairFromWords(text) {
+  const words = String(text ?? "")
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "")
+    .toLowerCase()
+    .replace(/(\d)(?:percent|porcento)/g, "$1 ")
+    .split(/[^a-z0-9]+/)
+    .filter(Boolean);
+  const names = [];
+  const nums = [];
+  words.forEach((w, i) => {
+    if (HEADLINE_NAME[w]) names.push({ i, who: HEADLINE_NAME[w] });
+    // "abre 54 pontos" é vantagem, não voto.
+    else if (/^\d{2,3}$/.test(w) && !/^(pontos?|pts|p)$/.test(words[i + 1] ?? "")) {
+      nums.push({ i, v: w.length === 3 ? Number(w) / 10 : Number(w) });
+    }
+  });
+  if (!names.length || !nums.length) return null;
+  const out = {};
+  for (const num of nums) {
+    let best = null;
+    for (const name of names) {
+      const d = Math.abs(name.i - num.i);
+      if (!best || d < best.d || (d === best.d && name.i < num.i)) best = { d, who: name.who };
+    }
+    if (out[best.who] != null) return null;
+    out[best.who] = num.v;
+  }
+  if (out.flavio != null && out.lula != null) return out;
+  const tie = nums.length === 1 && words.some((w) => w.startsWith("empat"));
+  return tie ? { flavio: nums[0].v, lula: nums[0].v } : null;
+}
+
+/** Par Lula x Flávio da manchete: slug da URL ("flavio-com-55-contra-45-de-lula") ou título. */
 export function headlinePair(result) {
-  const blob = `${result?.url ?? ""} ${result?.title ?? ""}`.toLowerCase();
-  const n = (d) => (d.length === 3 ? Number(d) / 10 : Number(d));
-  const f = blob.match(
-    /fl[aá]vio(?:-bolsonaro)?-(?:tem-)?(\d{2,3})(?!\d)[\s\S]*?lula(?:-tem)?-(\d{2,3})(?!\d)/,
-  );
-  if (f) return { flavio: n(f[1]), lula: n(f[2]) };
-  const l = blob.match(
-    /lula(?:-tem)?-(\d{2,3})(?!\d)[\s\S]*?fl[aá]vio(?:-bolsonaro)?-(?:tem-)?(\d{2,3})(?!\d)/,
-  );
-  if (l) return { lula: n(l[1]), flavio: n(l[2]) };
-  return null;
+  const slug = String(result?.url ?? "").split(/[?#]/)[0].replace(/\/+$/, "").split("/").pop();
+  return pairFromWords(slug) ?? pairFromWords(result?.title);
 }
 
 /** Par lido tem que bater com a manchete: mesmo líder e mesma fatia de Flávio.
- * Manchete inteira (52 x 48) arredonda até 0,5 ponto; decimal (50,7) quase nada. */
+ * Manchete inteira soma dois arredondamentos (Gerp 50x45 totais publicou 52x48 válidos: 0,63);
+ * decimal (50,7) quase nada. Válido de um misturado com total do outro passa de 1 ponto. */
 export function pairMatchesHeadline(pair, head) {
   if (!pair || !head) return false;
   const share = (p) => p.flavio / (p.flavio + p.lula);
-  const tol = Number.isInteger(head.flavio) && Number.isInteger(head.lula) ? 0.6 : 0.15;
+  const tol = Number.isInteger(head.flavio) && Number.isInteger(head.lula) ? 0.9 : 0.15;
   return (
     Math.sign(pair.flavio - pair.lula) === Math.sign(head.flavio - head.lula) &&
     Math.abs(share(pair) - share(head)) * 100 <= tol
@@ -702,13 +732,20 @@ export function processPending({
     const poll = rowToPoll(row, result, house);
     if (!poll) {
       report.noVotes += 1;
+      const fieldEnd = parseBrDate(row.DT_FIM_PESQUISA);
+      const parsed = result?.secondRound ?? result?.firstRound;
+      // Leitor achou par mas a manchete não confirma: aviso no Telegram (radar-alert held) com link.
+      const held = fieldEnd > ELECTION_2026.firstRound && parsed?.lula != null && parsed?.flavio != null;
       remaining.push({
         at: item.at ?? new Date().toISOString(),
         tse: proto,
         institute: house.institute,
         n: parseSample(row.QT_ENTREVISTADO),
-        fieldEnd: parseBrDate(row.DT_FIM_PESQUISA),
-        reason: "número ainda não extraído (TSE)",
+        fieldEnd,
+        reason: held ? HELD_REASON : "número ainda não extraído (TSE)",
+        ...(held
+          ? { parsed: { lula: parsed.lula, flavio: parsed.flavio }, headline: headlinePair(result), url: result?.url ?? null }
+          : {}),
       });
       continue;
     }
