@@ -6323,10 +6323,10 @@
       "publishedAt": "2026-10-20",
       "capturedAt": "2026-10-22T03:56:29.814Z"
     },
-    "notes": "15554 entrevistas. TSE verita.",
+    "notes": "Exame 20/10. TSE BR-06396/2026. n=15554 campo 15-19/10 moe 1. Base=totais: 2T F49,7 L48,2 (B/N 1,4%, NS 0,7%); válidos F50,7 L49,3. Auto-promote gravou L49,3 (válido) x F49,7 (total): corrigido 22/10.",
     "fieldStart": "2026-10-15",
     "secondRound": {
-      "lula": 49.3,
+      "lula": 48.2,
       "flavio": 49.7
     }
   },
@@ -6334,7 +6334,7 @@
     "id": "gerp-10-21-03835",
     "institute": "Gerp",
     "date": "2026-10-21",
-    "fieldEnd": "2026-10-20",
+    "fieldEnd": "2026-10-21",
     "sample": 2400,
     "moe": 2,
     "mode": "telefone",
@@ -6347,11 +6347,11 @@
       "publishedAt": "2026-10-21",
       "capturedAt": "2026-10-22T03:56:21.152Z"
     },
-    "notes": "2400 entrevistas. TSE gerp.",
-    "fieldStart": "2026-10-17",
+    "notes": "Exame 21/10. TSE BR-03835/2026. n=2400 campo 19-21/10 moe 2. Base=totais: 2T F50 L45 (B/N 2%, NS 2%); válidos F53 L47. Auto-promote gravou L49 x F46: corrigido 22/10.",
+    "fieldStart": "2026-10-19",
     "secondRound": {
-      "lula": 49,
-      "flavio": 46
+      "lula": 45,
+      "flavio": 50
     }
   },
   {
@@ -6371,11 +6371,11 @@
       "publishedAt": "2026-10-21",
       "capturedAt": "2026-10-22T03:56:21.167Z"
     },
-    "notes": "2000 entrevistas. TSE futura.",
+    "notes": "Exame 21/10. TSE BR-06614/2026. n=2000 campo 19-20/10 moe 2,2. Base=totais: 2T F48,9 L46,8 (B/N 2%, NS 2,3%); válidos F51,1 L48,9. Auto-promote gravou L47,3 x F45,2: corrigido 22/10.",
     "fieldStart": "2026-10-19",
     "secondRound": {
-      "lula": 47.3,
-      "flavio": 45.2
+      "lula": 46.8,
+      "flavio": 48.9
     }
   }
 ]
