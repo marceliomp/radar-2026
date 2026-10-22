@@ -6,11 +6,13 @@ import { ApuracaoMap } from "@/features/apuracao/apuracao-map";
 import {
   APURACAO_REFRESH_MS,
   CARGOS,
+  apuracaoRound,
   callCount,
   countTargets,
   displayName,
   fetchCount,
   rollupPresident,
+  scopeRound,
   type Cargo,
   type CountCall,
   type CountResult,
@@ -166,7 +168,9 @@ function TiedNames({ candidates }: { candidates: TseCandidate[] }) {
   const tied = candidates.filter((cand) => cand.votes === top);
   return (
     <p className="apuracao-tie-names">
-      {tied.map((cand) => `${displayName(cand.name)}${cand.pct ? ` ${cand.pct}%` : ""}`).join(" · ")}
+      {tied
+        .map((cand) => `${displayName(cand.name)}${cand.pct ? ` ${cand.pct}%` : ""}`)
+        .join(" · ")}
     </p>
   );
 }
@@ -278,7 +282,15 @@ export function ApuracaoPage() {
     cargo === "deputado-estadual" && sel === "DF"
       ? m.apuracao.distrital
       : m.apuracao.offices[OFFICE_KEY[cargo]];
-  const ufTitle = `${UF_META[sel]?.name ?? sel} · ${office}`;
+  const round = apuracaoRound();
+  // No dia do 2º turno, diz de qual turno é cada card: governador de SP continua o de 04/10.
+  const roundTag = (scope: string) =>
+    round === 1
+      ? ""
+      : scopeRound(cargo, scope, round) === 2
+        ? ` · ${m.apuracao.runoff}`
+        : ` · ${m.apuracao.firstRound}`;
+  const ufTitle = `${UF_META[sel]?.name ?? sel} · ${office}${roundTag(sel)}`;
 
   return (
     <div className="pb-[max(4rem,env(safe-area-inset-bottom))]">
@@ -306,7 +318,11 @@ export function ApuracaoPage() {
           </div>
 
           {cargo === "presidente" ? (
-            <CountCard title={m.apuracao.national} count={national} loaded={Boolean(counts)} />
+            <CountCard
+              title={`${m.apuracao.national}${roundTag("BR")}`}
+              count={national}
+              loaded={Boolean(counts)}
+            />
           ) : null}
 
           <div className="apuracao-board">

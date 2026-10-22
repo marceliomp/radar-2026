@@ -1,4 +1,5 @@
 import { UF_ORDER } from "../../data/candidates.ts";
+import { ELECTION_2026 } from "../election-calendar.ts";
 
 /**
  * Official TSE count for the 2026 first round (EA20 `-u.json`).
@@ -83,12 +84,31 @@ export function parseCargo(raw: unknown): Cargo | undefined {
   return (CARGOS as readonly string[]).includes(v) ? (v as Cargo) : undefined;
 }
 
+/** UFs com governador no 2º turno (TSE `ele-c.json`, eleição 6260). Os outros não têm arquivo: pedir dá 404. */
+export const RUNOFF_GOVERNADOR_UFS = new Set(["AC", "AM", "DF", "ES", "RN", "TO"]);
+
+/** Dia em Brasília. No dia do 2º turno a apuração passa a ler os arquivos 6258/6260. */
+export function apuracaoRound(now: Date = new Date()): 1 | 2 {
+  const day = new Intl.DateTimeFormat("en-CA", { timeZone: "America/Sao_Paulo" }).format(now);
+  return day >= ELECTION_2026.secondRound ? 2 : 1;
+}
+
+/** Turno do arquivo que `countUrl` lê para este cargo e UF. */
+export function scopeRound(cargo: Cargo, uf: string, round: 1 | 2 = apuracaoRound()): 1 | 2 {
+  if (round === 1) return 1;
+  if (cargo === "presidente") return 2;
+  return cargo === "governador" && RUNOFF_GOVERNADOR_UFS.has(uf.trim().toUpperCase()) ? 2 : 1;
+}
+
 /** Exact TSE file for one scope. `{uf}` is lowercased. `br` is only valid for presidente. */
-export function countUrl(cargo: Cargo, uf: string): string {
+export function countUrl(cargo: Cargo, uf: string, round: 1 | 2 = apuracaoRound()): string {
   const u = uf.trim().toLowerCase();
+  const second = scopeRound(cargo, uf, round) === 2;
   if (cargo === "presidente") {
-    return `${ORIGIN}/ele2026/6257/dados/${u}/${u}-c0001-e006257-u.json`;
+    const ele = second ? "6258" : "6257";
+    return `${ORIGIN}/ele2026/${ele}/dados/${u}/${u}-c0001-e00${ele}-u.json`;
   }
+  if (second) return `${ORIGIN}/ele2026/6260/dados/${u}/${u}-c0003-e006260-u.json`;
   const cargoCode =
     cargo === "governador"
       ? "0003"
@@ -102,11 +122,14 @@ export function countUrl(cargo: Cargo, uf: string): string {
   return `${ORIGIN}/ele2026/6259/dados/${u}/${u}-c${cargoCode}-e006259-u.json`;
 }
 
-export function countTargets(cargo: Cargo): { scope: string; url: string }[] {
+export function countTargets(
+  cargo: Cargo,
+  round: 1 | 2 = apuracaoRound(),
+): { scope: string; url: string }[] {
   const scopes = cargo === "presidente" ? ["br", ...UF_ORDER] : [...UF_ORDER];
   return scopes.map((scope) => ({
     scope: scope.toUpperCase(),
-    url: countUrl(cargo, scope),
+    url: countUrl(cargo, scope, round),
   }));
 }
 
