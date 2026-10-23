@@ -3,6 +3,7 @@ import { getRouteApi } from "@tanstack/react-router";
 import { MastBar } from "@/components/site-nav";
 import { UF_META } from "@/data/calendar";
 import { ApuracaoMap } from "@/features/apuracao/apuracao-map";
+import { ProjectionCard } from "@/features/apuracao/projection-card";
 import {
   APURACAO_REFRESH_MS,
   CARGOS,
@@ -317,6 +318,8 @@ export function ApuracaoPage() {
               </button>
             ))}
           </div>
+
+          {cargo === "presidente" && round === 2 ? <ProjectionCard counts={counts} /> : null}
 
           {cargo === "presidente" ? (
             <CountCard
