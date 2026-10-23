@@ -1,7 +1,6 @@
-import { useMemo } from "react";
+import { useEffect, useState } from "react";
 import firstRound2026 from "@/data/first-round-2026.json";
-import { projectRunoff, type FirstRoundUf } from "@/lib/apuracao/projection";
-import { runoffPrior } from "@/lib/apuracao/runoff-prior";
+import { projectRunoff, type FirstRoundUf, type RunoffPrior } from "@/lib/apuracao/projection";
 import type { CountResult } from "@/lib/apuracao/tse";
 import { fmtPct, fmtProb } from "@/lib/format";
 import { useI18n } from "@/lib/i18n";
@@ -11,7 +10,18 @@ const FIRST_ROUND = firstRound2026 as Record<string, FirstRoundUf>;
 /** Ponteiro do 2º turno: projeta o final a partir das UFs já apuradas. */
 export function ProjectionCard({ counts }: { counts: Record<string, CountResult> | null }) {
   const { locale, m } = useI18n();
-  const prior = useMemo(() => runoffPrior(), []);
+  const [prior, setPrior] = useState<RunoffPrior | null>(null);
+  // Motor e pesquisas fora do bundle da apuração: carrega depois do primeiro paint.
+  useEffect(() => {
+    let alive = true;
+    void import("@/lib/apuracao/runoff-prior").then((mod) => {
+      if (alive) setPrior(mod.runoffPrior());
+    });
+    return () => {
+      alive = false;
+    };
+  }, []);
+  if (!prior) return null;
   const proj = counts ? projectRunoff(counts, FIRST_ROUND, prior) : null;
   const p = m.apuracao.projection;
   const flavioShare = proj?.flavioShare ?? prior.flavioShare;

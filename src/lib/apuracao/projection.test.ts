@@ -99,6 +99,21 @@ test("chance cai junto com o voto que falta", () => {
   assert.ok(b.flavioChance < a.flavioChance || a.flavioChance < 0.5);
 });
 
+test("apuração desigual (Nordeste atrasado): faixa cobre a urna e não crava errado", () => {
+  const regions: Record<string, number> = {
+    SP: 0.95, RJ: 0.95, MG: 0.95, ES: 0.95, PR: 0.95, SC: 0.95, RS: 0.95,
+    GO: 0.85, MT: 0.85, MS: 0.85, DF: 0.85,
+    AC: 0.7, AM: 0.7, AP: 0.7, PA: 0.7, RO: 0.7, RR: 0.7, TO: 0.7,
+  };
+  for (const prior of [prior2022, { flavioShare: 0.52, flavioChance: 0.8 }]) {
+    const p = projectRunoff(snapshot2022((uf) => regions[uf] ?? 0.55), base2022, prior)!;
+    const lo = p.flavioShare - 1.28 * p.sd;
+    const hi = p.flavioShare + 1.28 * p.sd;
+    assert.ok(lo <= final2022 && final2022 <= hi, `faixa ${lo}-${hi}`);
+    assert.ok(p.flavioChance < 0.995, `chance ${p.flavioChance}`);
+  }
+});
+
 test("priorSd reproduz a chance publicada", () => {
   const sd = priorSd({ flavioShare: 0.51, flavioChance: 0.7 });
   assert.ok(Math.abs(sd - 0.01 / 0.5244) < 1e-3);
