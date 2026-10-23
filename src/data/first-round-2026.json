@@ -1,0 +1,137 @@
+{
+  "AC": {
+    "flavio": 302807,
+    "lula": 134770,
+    "validVotes": 469066
+  },
+  "AL": {
+    "flavio": 735718,
+    "lula": 995459,
+    "validVotes": 1818856
+  },
+  "AM": {
+    "flavio": 976764,
+    "lula": 1046996,
+    "validVotes": 2170763
+  },
+  "AP": {
+    "flavio": 212278,
+    "lula": 212503,
+    "validVotes": 464858
+  },
+  "BA": {
+    "flavio": 2442585,
+    "lula": 5664771,
+    "validVotes": 8560291
+  },
+  "CE": {
+    "flavio": 1756850,
+    "lula": 3555263,
+    "validVotes": 5617814
+  },
+  "DF": {
+    "flavio": 909616,
+    "lula": 675627,
+    "validVotes": 1772808
+  },
+  "ES": {
+    "flavio": 1233194,
+    "lula": 850028,
+    "validVotes": 2251078
+  },
+  "GO": {
+    "flavio": 2051888,
+    "lula": 1188880,
+    "validVotes": 3827823
+  },
+  "MA": {
+    "flavio": 1239040,
+    "lula": 2566301,
+    "validVotes": 4010439
+  },
+  "MG": {
+    "flavio": 5777548,
+    "lula": 5188936,
+    "validVotes": 11976235
+  },
+  "MS": {
+    "flavio": 873351,
+    "lula": 516855,
+    "validVotes": 1490278
+  },
+  "MT": {
+    "flavio": 1298581,
+    "lula": 581681,
+    "validVotes": 1993288
+  },
+  "PA": {
+    "flavio": 2163957,
+    "lula": 2427237,
+    "validVotes": 4863172
+  },
+  "PB": {
+    "flavio": 831377,
+    "lula": 1541127,
+    "validVotes": 2513747
+  },
+  "PE": {
+    "flavio": 1738043,
+    "lula": 3553971,
+    "validVotes": 5601017
+  },
+  "PI": {
+    "flavio": 517028,
+    "lula": 1523710,
+    "validVotes": 2146394
+  },
+  "PR": {
+    "flavio": 3945345,
+    "lula": 2054597,
+    "validVotes": 6585243
+  },
+  "RJ": {
+    "flavio": 4966844,
+    "lula": 3693021,
+    "validVotes": 9369700
+  },
+  "RN": {
+    "flavio": 720493,
+    "lula": 1237963,
+    "validVotes": 2071898
+  },
+  "RO": {
+    "flavio": 652988,
+    "lula": 250667,
+    "validVotes": 968059
+  },
+  "RR": {
+    "flavio": 231322,
+    "lula": 74420,
+    "validVotes": 325545
+  },
+  "RS": {
+    "flavio": 3573783,
+    "lula": 2294759,
+    "validVotes": 6423046
+  },
+  "SC": {
+    "flavio": 3000020,
+    "lula": 1127168,
+    "validVotes": 4500897
+  },
+  "SE": {
+    "flavio": 417839,
+    "lula": 856019,
+    "validVotes": 1364196
+  },
+  "SP": {
+    "flavio": 12922023,
+    "lula": 9505413,
+    "validVotes": 24882948
+  },
+  "TO": {
+    "flavio": 469321,
+    "lula": 404009,
+    "validVotes": 930447
+  }
+}

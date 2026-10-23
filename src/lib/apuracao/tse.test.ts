@@ -353,6 +353,11 @@ test("labels and the 10s refresh are the product contract", () => {
     /runForecast|polls\.json|chance|dados-simplificados|\.pest/,
   );
   assert.equal(displayName("TARCÍSIO"), "Tarcísio");
+  // A projeção do Radar mora fora da contagem oficial e se declara não oficial.
+  const card = readFileSync("src/features/apuracao/projection-card.tsx", "utf8");
+  assert.doesNotMatch(card, /callCount|fetchCount/);
+  assert.equal(pt.apuracao.projection.label, "Projeção do Radar");
+  assert.match(pt.apuracao.projection.how, /não é resultado oficial/);
 });
 
 function race(opts: {
