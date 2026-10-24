@@ -360,7 +360,8 @@
       "date": "2026-10-24",
       "lula": 30.2,
       "flavio": 69.8,
-      "source": "replay"
+      "source": "promote",
+      "commit": "4239040"
     }
   ]
 }
