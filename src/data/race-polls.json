@@ -4141,6 +4141,57 @@
         "celinaleao": 61
       },
       "notes": "Auto datafolha. TSE DF-03453/2026. https://g1.globo.com/ba/bahia/eleicoes/2026/noticia/2026/10/24/rede-de-supermercados-suspende-uso-de-camisetas-comemorativas-apos-decisao-da-justica-do-trabalho-por-suposto-assedio-eleitoral.ghtml"
+    },
+    {
+      "id": "instituto-seta-de-pesquisa-rn-gov-10-24",
+      "office": "governor",
+      "uf": "RN",
+      "institute": "INSTITUTO SETA DE PESQUISA",
+      "date": "2026-10-24",
+      "fieldEnd": "2026-10-24",
+      "fieldStart": "2026-10-23",
+      "sample": 1500,
+      "moe": 2.5,
+      "mode": "presencial",
+      "firstRound": {
+        "rodrigovieira": 56,
+        "cadudelula": 44
+      },
+      "notes": "Auto instituto-seta-de-pesquisa. TSE RN-03271/2026. https://g1.globo.com/politica/eleicoes/2026/noticia/2026/10/23/passagem-intermunicipal-gratuita-eleicoes-segundo-turno.ghtml"
+    },
+    {
+      "id": "datavero-instituto-de-pesquisas-rn-gov-10-24",
+      "office": "governor",
+      "uf": "RN",
+      "institute": "DATAVERO INSTITUTO DE PESQUISAS",
+      "date": "2026-10-24",
+      "fieldEnd": "2026-10-24",
+      "fieldStart": "2026-10-22",
+      "sample": 1500,
+      "moe": 2.5,
+      "mode": "presencial",
+      "firstRound": {
+        "rodrigovieira": 56,
+        "cadudelula": 44
+      },
+      "notes": "Auto datavero-instituto-de-pesquisas. TSE RN-00914/2026. https://g1.globo.com/politica/eleicoes/2026/noticia/2026/10/23/passagem-intermunicipal-gratuita-eleicoes-segundo-turno.ghtml"
+    },
+    {
+      "id": "quaest-rn-gov-10-24",
+      "office": "governor",
+      "uf": "RN",
+      "institute": "Quaest",
+      "date": "2026-10-24",
+      "fieldEnd": "2026-10-24",
+      "fieldStart": "2026-10-23",
+      "sample": 2154,
+      "moe": 2.1,
+      "mode": "presencial",
+      "firstRound": {
+        "rodrigovieira": 56,
+        "cadudelula": 44
+      },
+      "notes": "Auto quaest. TSE RN-01264/2026. https://g1.globo.com/politica/eleicoes/2026/noticia/2026/10/23/passagem-intermunicipal-gratuita-eleicoes-segundo-turno.ghtml"
     }
   ]
 }
