@@ -6401,5 +6401,53 @@
       "capturedAt": "2026-10-22T05:30:00.000Z"
     },
     "notes": "Exame 18/10. TSE BR-04332/2026. Presencial domiciliar n=2100 campo 15-17/10 moe 2,15. Base=totais: 2T L46,4 F44,6 (nenhum/B/N 5%, NS 3,9%); válidos L51 F49."
+  },
+  {
+    "id": "datafolha-10-22-09709",
+    "institute": "Datafolha",
+    "date": "2026-10-22",
+    "fieldStart": "2026-10-20",
+    "fieldEnd": "2026-10-22",
+    "sample": 2520,
+    "moe": 2,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {},
+    "secondRound": {
+      "lula": 46,
+      "flavio": 47
+    },
+    "source": {
+      "tseProtocol": "BR-09709/2026",
+      "url": "https://vtvnews.com.br/noticias/eleicoes/eleicoes-2026-datafolha-flavio-bolsonaro-lula-2-turno-bb/",
+      "publisher": "vtvnews.com.br",
+      "publishedAt": "2026-10-22",
+      "capturedAt": "2026-10-24T14:00:00.000Z"
+    },
+    "notes": "Folha/Globo 22/10 (CNN, Terra). TSE BR-09709/2026. n=2520 campo 20-22/10 moe 2. Base=totais: 2T F47 L46; válidos 50x50 não usados. Inbox tinha 49,7x50,3 (válidos), recusado pelo pairMatchesHeadline."
+  },
+  {
+    "id": "ipespe-10-23-04350",
+    "institute": "Ipespe/Abrapel",
+    "date": "2026-10-23",
+    "fieldStart": "2026-10-20",
+    "fieldEnd": "2026-10-22",
+    "sample": 1500,
+    "moe": 2.6,
+    "mode": "telefone",
+    "national": true,
+    "firstRound": {},
+    "secondRound": {
+      "lula": 47,
+      "flavio": 48
+    },
+    "source": {
+      "tseProtocol": "BR-04350/2026",
+      "url": "https://www.em.com.br/politica/2026/10/7526374-pesquisa-ipespe-mostra-flavio-bolsonaro-e-lula-empatados-no-2-turno.html",
+      "publisher": "em.com.br",
+      "publishedAt": "2026-10-23",
+      "capturedAt": "2026-10-24T14:00:00.000Z"
+    },
+    "notes": "EM 23/10. TSE BR-04350/2026 (inbox: abrangência não confirmada; matéria confirma nacional). n=1500 campo 20-22/10 moe 2,6. Base=totais: 2T F48 L47; válidos 50,5x49,5 não usados."
   }
 ]

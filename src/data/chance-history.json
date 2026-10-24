@@ -3,18 +3,6 @@
   "windowDays": 60,
   "points": [
     {
-      "date": "2026-08-24",
-      "lula": 55,
-      "flavio": 45,
-      "source": "replay"
-    },
-    {
-      "date": "2026-08-25",
-      "lula": 55,
-      "flavio": 45,
-      "source": "replay"
-    },
-    {
       "date": "2026-08-26",
       "lula": 52.3,
       "flavio": 47.7,
@@ -358,8 +346,20 @@
     },
     {
       "date": "2026-10-22",
-      "lula": 29.6,
-      "flavio": 70.4,
+      "lula": 30,
+      "flavio": 70,
+      "source": "replay"
+    },
+    {
+      "date": "2026-10-23",
+      "lula": 30.2,
+      "flavio": 69.8,
+      "source": "replay"
+    },
+    {
+      "date": "2026-10-24",
+      "lula": 30.2,
+      "flavio": 69.8,
       "source": "replay"
     }
   ]
